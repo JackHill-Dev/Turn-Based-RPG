@@ -5,6 +5,7 @@
 #include <string>
 #include <SDL_audio.h>
 #include <SDL_mixer.h>
+
 #include "SpriteSheet.h"
 
 class Database
