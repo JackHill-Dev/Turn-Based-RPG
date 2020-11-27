@@ -1,9 +1,13 @@
 #pragma once
 
-#include "Database.h"
 #include <filesystem>
 #include <iostream>
+#include <SDL_image.h>
 
+#include "Database.h"
+
+// Allows us to make use of c++17 library which handles processing filesystems. 
+// Namely iterating through directories and performing operations on files contained within.
 namespace fs = std::filesystem;
 
 class ImportManager
