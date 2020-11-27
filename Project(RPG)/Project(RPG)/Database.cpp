@@ -20,6 +20,12 @@ void Database::pushToMap(Mix_Chunk* sfx, std::string sfxName)
     mSfx.emplace(std::make_pair(sfx, sfxName));
 }
 
+void Database::pushToMap(SpriteSheet* sprite, std::string sprName)
+{
+    mSpriteSheets.emplace(std::make_pair(sprite, sprName));
+}
+
+// Not sure if required anymore. - EH
 SpriteSheet* Database::GetSpriteSheet(std::string sheet) const
 {
     return nullptr;
