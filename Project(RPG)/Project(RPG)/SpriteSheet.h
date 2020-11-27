@@ -8,6 +8,7 @@ private:
 	const float mCellSize;
 	const int mCellCount;
 public:
+	SpriteSheet(SDL_Surface* nTexture, float nCellSize, int nCellCount);
 	SDL_Surface* GetTexture();
 };
 
