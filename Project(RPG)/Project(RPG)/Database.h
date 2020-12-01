@@ -14,7 +14,7 @@ private:
 
 	std::map<std::string, Mix_Music*> mMusic;
 	std::map<std::string, Mix_Chunk*> mSfx;
-	std::map<std::string, SpriteSheet> mSpriteSheets;
+	std::map<std::string, SpriteSheet*> mSpriteSheets;
 	//std::vector<std::pair<std::string, Animation>> mAnims;
 
 

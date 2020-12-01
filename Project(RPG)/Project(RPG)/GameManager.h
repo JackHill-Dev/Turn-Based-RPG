@@ -1,12 +1,18 @@
 #pragma once
 #include <SDL.h>
 #include "SceneManager.h"
+#include "AudioManager.h"
+#include "ImportManager.h"
+#include "Database.h"
 class GameManager
 {
 private:
-	SDL_Window* wnd;
-	SDL_Renderer* rnd;
-	SceneManager scManager;
+	SDL_Window* mWnd;
+	SDL_Renderer* mRnd;
+	SceneManager* mScManager;
+	AudioManager* mAudioMgr;
+	ImportManager* mImportMgr;
+	Database* mDb;
 public:
 	bool Init();
 	bool Running();
@@ -14,6 +20,7 @@ public:
 
 private:
 	bool CreateWindow();
+	void SetupManagers();
 
 };
 

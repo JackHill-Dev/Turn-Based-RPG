@@ -24,8 +24,10 @@ AudioManager::AudioManager()
 AudioManager::~AudioManager()
 {
 	// null the import manager once i have it
-
 	Mix_Quit(); // Close the audio
+
+	Release();
+
 }
 
 void AudioManager::StopMusic(Mix_Music& mus)

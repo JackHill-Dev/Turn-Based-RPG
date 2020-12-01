@@ -7,7 +7,7 @@ bool SceneManager::Init()
 
 void SceneManager::Update(double dTime)
 {
-
+	mCurrentScene->Update(dTime);
 }
 
 void SceneManager::Draw(SDL_Surface* surf)

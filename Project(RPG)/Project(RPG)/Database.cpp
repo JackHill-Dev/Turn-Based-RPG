@@ -12,17 +12,17 @@ Mix_Chunk* Database::GetSfx(std::string filePath) const
 
 void Database::pushToMap(Mix_Music* music, std::string musName)
 {
-    mMusic.emplace(std::make_pair(music, musName));
+    mMusic.emplace(std::make_pair(musName, music));
 }
 
 void Database::pushToMap(Mix_Chunk* sfx, std::string sfxName)
 {
-    mSfx.emplace(std::make_pair(sfx, sfxName));
+    mSfx.emplace(std::make_pair(sfxName, sfx));
 }
 
 void Database::pushToMap(SpriteSheet* sprite, std::string sprName)
 {
-    mSpriteSheets.emplace(std::make_pair(sprite, sprName));
+    mSpriteSheets.emplace(std::make_pair(sprName,sprite));
 }
 
 // Not sure if required anymore. - EH
