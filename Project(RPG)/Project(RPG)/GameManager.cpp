@@ -40,6 +40,6 @@ bool GameManager::CreateWindow()
 void GameManager::SetupManagers()
 {
 	mAudioMgr = AudioManager::Instance();
-	mImportMgr = new ImportManager();
+	mImportMgr = new ImportManager(mDb);
 	mScManager = new SceneManager();
 }
