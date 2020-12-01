@@ -68,6 +68,11 @@ void ImportManager::LoadAnimations()
 
 }
 
+ImportManager::ImportManager(Database* db)
+{
+	pDB = db;
+}
+
 // Call the other load methods. Check when they're complete.
 // Stop calling.
 // #TODO Should Load be called before the while loop in GameManager::Run?

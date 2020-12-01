@@ -28,7 +28,7 @@ private:
 	void LoadAnimations();
 
 public:
-
+	ImportManager(Database* db);
 	void Load();
 
 };
