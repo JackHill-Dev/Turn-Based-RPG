@@ -11,7 +11,7 @@ void ImportManager::LoadTextures()
 {
 	SDL_Surface* sprite;
 	std::string sprName;
-
+	
 	for (const auto& file : fs::directory_iterator(mSpriteDir))
 	{
 		sprite = IMG_Load(file.path().string().c_str());
@@ -66,6 +66,12 @@ void ImportManager::LoadAnimations()
 
 ImportManager::ImportManager(Database* db)
 {
+	int imgFlags = IMG_INIT_PNG;
+	if (!(IMG_Init(imgFlags) & imgFlags))
+	{
+		printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+
+	}
 	pDB = db;
 	Load();
 }

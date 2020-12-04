@@ -17,9 +17,9 @@ private:
 
 	Database* pDB;
 
-	std::string mSpriteDir = "D://OneDrive - Sheffield Hallam University//University Level 6//GamesProject//Project 2//Art Assets//Sprites//PIPOYA FREE RPG Character Sprites 32x32//PIPOYA FREE RPG Character Sprites 32x32//Male";
-	std::string mMusicDir = "D://OneDrive - Sheffield Hallam University//University Level 6//GamesProject//Project 2//GameMusic//Music";
-	std::string mSfxDir = "D://OneDrive - Sheffield Hallam University//University Level 6//GamesProject//Project 2//GameMusic//SFX";
+	std::string mSpriteDir = "Assets/Sprites/Male";
+	std::string mMusicDir = "Assets/";
+	std::string mSfxDir = "Assets/";
 	std::string mAnimationDir;
 
 	void LoadTextures();
