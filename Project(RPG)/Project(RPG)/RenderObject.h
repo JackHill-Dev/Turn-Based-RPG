@@ -12,6 +12,8 @@ private:
 	bool mVisible;
 	SpriteSheet* mSheet;
 public:
+	RenderObject(SpriteSheet* sprSheet);
+
 	bool Update(double dTime, Act act);
 	bool Init();
 	std::pair<int, int> GetPos();

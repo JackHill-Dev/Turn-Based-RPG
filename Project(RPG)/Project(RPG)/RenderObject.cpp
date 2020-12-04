@@ -1,5 +1,10 @@
 #include "RenderObject.h"
 
+RenderObject::RenderObject(SpriteSheet* sprSheet)
+{
+	SetTexture(sprSheet);
+}
+
 bool RenderObject::Update(double dTime, Act act)
 {
 	return true;
@@ -48,7 +53,6 @@ void RenderObject::Select()
 
 bool RenderObject::InBounds(int x, int y)
 {
-
 	//return false if cant be selected
 	float bound = GetSheet()->GetCellSize();
 	

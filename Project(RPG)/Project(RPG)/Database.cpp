@@ -25,8 +25,7 @@ void Database::pushToMap(SpriteSheet* sprite, std::string sprName)
     mSpriteSheets.emplace(std::make_pair(sprName,sprite));
 }
 
-// Not sure if required anymore. - EH
 SpriteSheet* Database::GetSpriteSheet(std::string sheet) const
 {
-    return nullptr;
+    return mSpriteSheets.at(sheet);
 }
