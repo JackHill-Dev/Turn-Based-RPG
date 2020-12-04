@@ -10,5 +10,6 @@ private:
 public:
 	SpriteSheet(SDL_Surface* nTexture, float nCellSize, int nCellCount);
 	SDL_Surface* GetTexture();
+	float GetCellSize();
 };
 

@@ -1,29 +1,49 @@
 #include "GameManager.h"
 
-
 bool GameManager::Init()
 {
+	
 	mDb = new Database();
 	SetupManagers();
+	mScManager->AddScene(new MainMenuClass());
+	mScManager->SetScene(0);
+	mInputMgr->CreateKeyBind('a', Act::Jump);
 	CreateWindow();
-	Run();
+
 	return true;
 }
 
 bool GameManager::Running()
 {
-	return true;
+	return bRunning;
 }
 
 void GameManager::Run()
 {
 	SDL_Surface* screenSurface;
-	while (Running())
+	SDL_Event ev;
+	while(Running())
+	while (SDL_PollEvent(&ev))
 	{
-		screenSurface = SDL_GetWindowSurface(mWnd);
-		mScManager->Draw(screenSurface);
-		SDL_UpdateWindowSurface(mWnd);
-		SDL_FreeSurface(screenSurface);
+		switch (ev.type)
+		{
+		case SDL_KEYUP:
+			
+		
+			mScManager->Update(0, Poll(ev.key.keysym.sym));
+			break;
+		case SDL_MOUSEBUTTONDOWN:
+			//auto e = ev.button.button;
+			int x, y;
+			SDL_GetMouseState(&x, &y);
+			mScManager->Select(x,y);
+
+		}
+		
+		//screenSurface = SDL_GetWindowSurface(mWnd);
+		//mScManager->Draw(screenSurface);
+		//SDL_UpdateWindowSurface(mWnd);
+		//SDL_FreeSurface(screenSurface);
 	}
 
 	SDL_DestroyWindow(mWnd);
@@ -42,4 +62,23 @@ void GameManager::SetupManagers()
 	mAudioMgr = AudioManager::Instance();
 	mImportMgr = new ImportManager(mDb);
 	mScManager = new SceneManager();
+	mInputMgr =	 new InputManager();
+}
+
+Act GameManager::Poll(SDL_Keycode kCode)
+{
+	return mInputMgr->Call(kCode);
+
+	
+
+}
+
+InputManager* GameManager::GetInputMgr()
+{
+	return mInputMgr;
+}
+
+void GameManager::Quit()
+{
+	bRunning = false;
 }

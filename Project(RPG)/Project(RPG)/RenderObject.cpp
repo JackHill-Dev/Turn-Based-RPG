@@ -1,6 +1,6 @@
 #include "RenderObject.h"
 
-bool RenderObject::Update(double dTime)
+bool RenderObject::Update(double dTime, Act act)
 {
 	return true;
 }
@@ -39,4 +39,21 @@ SpriteSheet* RenderObject::GetSheet()
 bool RenderObject::IsVisible()
 {
 	return mVisible;
+}
+
+void RenderObject::Select()
+{
+
+}
+
+bool RenderObject::InBounds(int x, int y)
+{
+
+	//return false if cant be selected
+	float bound = GetSheet()->GetCellSize();
+	
+	if (x >= mPos.first - bound / 2 && x <= mPos.first + bound / 2)
+		return (y >= mPos.second - bound / 2 && y <= mPos.second + bound / 2);
+	else
+		return false;
 }

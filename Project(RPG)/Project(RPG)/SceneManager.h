@@ -6,11 +6,14 @@
 class SceneManager
 {
 private:
-	std::vector<Scene> mScenes;
+	std::vector<Scene*> mScenes;
 	Scene* mCurrentScene;
 public:
 	bool Init();
-	void Update(double dTime);
+	void Update(double dTime, Act act);
 	void Draw(SDL_Surface* surf);
+	void AddScene(Scene* scene);
+	void SetScene(int index);
+	void Select(int x, int y);
 };
 

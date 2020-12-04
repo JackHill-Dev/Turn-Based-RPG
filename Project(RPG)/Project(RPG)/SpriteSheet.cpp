@@ -8,3 +8,8 @@ SDL_Surface* SpriteSheet::GetTexture()
 {
 	return mTexture;
 }
+
+float SpriteSheet::GetCellSize()
+{
+	return mCellSize;
+}
