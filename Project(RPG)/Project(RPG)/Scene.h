@@ -14,9 +14,7 @@ private:
 
 public:
 	Scene();
-
 	virtual void Update(double dTime, Act act);
-
 	void Draw(SDL_Surface* surf);
 	void Select(int x, int y);
 	void AddObject(RenderObject* obj, Layer layerNum);
