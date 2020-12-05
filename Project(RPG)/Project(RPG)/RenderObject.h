@@ -3,10 +3,12 @@
 #include <string>
 #include "SpriteSheet.h"
 #include "Actions.h"
+#include "Animation.h"
 class RenderObject
 {
 
 private:
+	Animation* mCurrentAnim;
 	std::pair<int, int> mPos;
 	std::string mName;
 	bool mVisible;
@@ -24,5 +26,6 @@ public:
 	bool IsVisible();
 	bool InBounds(int x, int y);
 	virtual void Select();
+	Animation* GetAnim();
 };
 

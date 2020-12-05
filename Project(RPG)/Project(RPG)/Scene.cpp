@@ -30,8 +30,11 @@ void Scene::Draw(SDL_Surface* wnd)
 
 
 		{
+			crop->x = obj->GetAnim()->GetCurrentCell();
+			crop->y = obj->GetAnim()->GetCurrentCell();
 			crop->w = obj->GetSheet()->GetCellSize();
 			crop->h = obj->GetSheet()->GetCellSize();
+
 			rect->x = obj->GetPos().first;
 			rect->y = obj->GetPos().second;
 			if (obj->IsVisible())SDL_BlitSurface(obj->GetSheet()->GetTexture(), crop, wnd, rect);
