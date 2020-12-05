@@ -1,5 +1,11 @@
 #include "RenderObject.h"
 
+RenderObject::RenderObject(SpriteSheet* sprSheet)
+{
+	SetTexture(sprSheet);
+	mCurrentAnim = sprSheet->GetAnim("default");
+}
+
 bool RenderObject::Update(double dTime, Act act)
 {
 	return true;
@@ -48,7 +54,6 @@ void RenderObject::Select()
 
 bool RenderObject::InBounds(int x, int y)
 {
-
 	//return false if cant be selected
 	float bound = GetSheet()->GetCellSize();
 	
@@ -56,4 +61,9 @@ bool RenderObject::InBounds(int x, int y)
 		return (y >= mPos.second - bound / 2 && y <= mPos.second + bound / 2);
 	else
 		return false;
+}
+
+Animation* RenderObject::GetAnim()
+{
+	return mCurrentAnim;
 }

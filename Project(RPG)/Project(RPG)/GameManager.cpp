@@ -2,10 +2,15 @@
 
 bool GameManager::Init()
 {
-	
+	MainMenuClass* mMenu = new MainMenuClass();
 	mDb = new Database();
 	SetupManagers();
-	mScManager->AddScene(new MainMenuClass());
+
+	RenderObject* maleSprite = new RenderObject(mDb->GetSpriteSheet("Male 01-1.png"));
+	maleSprite->Init();
+	maleSprite->SetPos(std::make_pair(250, 250));
+	mMenu->AddObject(maleSprite, UI);
+	mScManager->AddScene(mMenu);
 	mScManager->SetScene(0);
 	mInputMgr->CreateKeyBind('a', Act::Jump);
 	CreateWindow();
@@ -40,10 +45,10 @@ void GameManager::Run()
 
 		}
 		
-		//screenSurface = SDL_GetWindowSurface(mWnd);
-		//mScManager->Draw(screenSurface);
-		//SDL_UpdateWindowSurface(mWnd);
-		//SDL_FreeSurface(screenSurface);
+		screenSurface = SDL_GetWindowSurface(mWnd);
+		mScManager->Draw(screenSurface);
+		SDL_UpdateWindowSurface(mWnd);
+		SDL_FreeSurface(screenSurface);
 	}
 
 	SDL_DestroyWindow(mWnd);

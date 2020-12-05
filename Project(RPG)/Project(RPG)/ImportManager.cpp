@@ -1,6 +1,5 @@
 #include "ImportManager.h"
 
-
 // How are we grabbing sprite metadata from sprite files? Will they all be same dimensions? - EH
 // Do I need to use IMG_INIT here to support the given file types and load the files? Tom could advise perhaps? - EH
 /// <summary>
@@ -12,13 +11,12 @@ void ImportManager::LoadTextures()
 {
 	SDL_Surface* sprite;
 	std::string sprName;
-
+	
 	for (const auto& file : fs::directory_iterator(mSpriteDir))
 	{
-		std::cout << "File path: " << file.path() << std::endl;
 		sprite = IMG_Load(file.path().string().c_str());
 		sprName = file.path().filename().string();
-		pDB->pushToMap(new SpriteSheet(sprite, 16, 16), sprName);
+		pDB->pushToMap(new SpriteSheet(sprite, 32, 32), sprName);
 	}
 }
 
@@ -34,7 +32,6 @@ void ImportManager::LoadMusic()
 
 	for (const auto& file : fs::directory_iterator(mMusicDir))
 	{
-		std::cout << "File path: " << file.path() << std::endl;
 		music = Mix_LoadMUS(file.path().string().c_str());
 		musicName = file.path().filename().string();
 		pDB->pushToMap(music, musicName);
@@ -53,7 +50,6 @@ void ImportManager::LoadSfx()
 
 	for (const auto& file : fs::directory_iterator(mSfxDir))
 	{
-		std::cout << "File path: " << file.path().c_str() << std::endl;
 		sfx = Mix_LoadWAV(file.path().string().c_str());
 		sfxName = file.path().filename().string();
 		pDB->pushToMap(sfx, sfxName);
@@ -70,7 +66,14 @@ void ImportManager::LoadAnimations()
 
 ImportManager::ImportManager(Database* db)
 {
+	int imgFlags = IMG_INIT_PNG;
+	if (!(IMG_Init(imgFlags) & imgFlags))
+	{
+		printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+
+	}
 	pDB = db;
+	Load();
 }
 
 // Call the other load methods. Check when they're complete.
