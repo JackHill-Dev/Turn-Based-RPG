@@ -19,4 +19,3 @@ public:
 	Animation* GetAnim(std::string name);
 	void AddAnim(std::string name, Animation* anim);
 };
-

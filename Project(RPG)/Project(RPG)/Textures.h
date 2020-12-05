@@ -1,6 +1,6 @@
 #pragma once
 #include "Globals.h"
-
+#include "Animation.h"
 struct TextureDefinition
 {
 	TextureDefinition(std::string name, int size, int x, int y, std::vector<Animation> anims)

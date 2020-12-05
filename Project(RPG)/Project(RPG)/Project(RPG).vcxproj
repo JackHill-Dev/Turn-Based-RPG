@@ -168,6 +168,7 @@
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Database.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="GameObjects.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Actions.h" />
     <ClInclude Include="ImportManager.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SpriteSheet.h" />
+    <ClInclude Include="Textures.h" />
     <ClInclude Include="UiObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
