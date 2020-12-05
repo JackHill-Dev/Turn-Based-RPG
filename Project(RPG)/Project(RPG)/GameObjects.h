@@ -2,6 +2,6 @@
 #include "Globals.h"
 #include "RenderObject.h"
 
-const std::vector<RenderObject> defineObjects
+const std::vector<RenderObject*> defineObjects
 {
 };
