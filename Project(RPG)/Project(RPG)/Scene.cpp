@@ -21,16 +21,20 @@ void Scene::Update(double dTime, Act act)
 
 void Scene::Draw(SDL_Surface* wnd)
 {
-	SDL_Rect* rect;
-	std::for_each(mLayers.begin(), mLayers.end(), [&wnd, &rect](std::vector<RenderObject*> layer) {
-		std::for_each(layer.begin(), layer.end(), [&wnd, &rect](RenderObject* obj) {if (obj->IsVisible())
+	SDL_Rect* rect = new SDL_Rect();
+	SDL_Rect* crop = new SDL_Rect();
+	
+	std::for_each(mLayers.begin(), mLayers.end(), [&wnd, &rect, &crop](std::vector<RenderObject*> layer) {
+		std::for_each(layer.begin(), layer.end(), [&wnd, &rect, &crop](RenderObject* obj) {if (obj->IsVisible())
 
 
 
 		{
+			crop->w = obj->GetSheet()->GetCellSize();
+			crop->h = obj->GetSheet()->GetCellSize();
 			rect->x = obj->GetPos().first;
 			rect->y = obj->GetPos().second;
-			if (obj->IsVisible())SDL_BlitSurface(obj->GetSheet()->GetTexture(), rect, wnd, nullptr);
+			if (obj->IsVisible())SDL_BlitSurface(obj->GetSheet()->GetTexture(), crop, wnd, rect);
 		}
 		});
 

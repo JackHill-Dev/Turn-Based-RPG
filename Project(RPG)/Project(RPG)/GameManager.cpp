@@ -5,7 +5,11 @@ bool GameManager::Init()
 	MainMenuClass* mMenu = new MainMenuClass();
 	mDb = new Database();
 	SetupManagers();
-	mMenu->AddObject(new RenderObject(mDb->GetSpriteSheet("Male 01-1.png")), UI);
+
+	RenderObject* maleSprite = new RenderObject(mDb->GetSpriteSheet("Male 01-1.png"));
+	maleSprite->Init();
+	maleSprite->SetPos(std::make_pair(250, 250));
+	mMenu->AddObject(maleSprite, UI);
 	mScManager->AddScene(mMenu);
 	mScManager->SetScene(0);
 	mInputMgr->CreateKeyBind('a', Act::Jump);
