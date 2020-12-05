@@ -9,14 +9,13 @@
 /// </summary>
 void ImportManager::LoadTextures()
 {
-	SDL_Surface* sprite;
-	std::string sprName;
-	
-	for (const auto& file : fs::directory_iterator(mSpriteDir))
+	std::string temp = mSpriteDir;
+	for (auto def : Textures)
 	{
-		sprite = IMG_Load(file.path().string().c_str());
-		sprName = file.path().filename().string();
-		pDB->pushToMap(new SpriteSheet(sprite, 32, 32), sprName);
+		SDL_Surface* sprite;
+		std::string sprName;
+		sprite = IMG_Load((temp + def.fileName).c_str());
+		pDB->pushToMap(new SpriteSheet(sprite, def.cellsize, def.cellcountx), def.fileName);
 	}
 }
 

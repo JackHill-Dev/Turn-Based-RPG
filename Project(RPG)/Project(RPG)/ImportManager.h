@@ -3,7 +3,7 @@
 #include <filesystem>
 #include <iostream>
 #include <SDL_image.h>
-
+#include "Textures.h"
 #include "Database.h"
 
 // Allows us to make use of c++17 library which handles processing filesystems. 
@@ -17,7 +17,7 @@ private:
 
 	Database* pDB;
 
-	std::string mSpriteDir = "Assets/Sprites/Male";
+	std::string mSpriteDir = "Assets/Sprites/Male/";
 	std::string mMusicDir = "Assets/";
 	std::string mSfxDir = "Assets/";
 	std::string mAnimationDir;
