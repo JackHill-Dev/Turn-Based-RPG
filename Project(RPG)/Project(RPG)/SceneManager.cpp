@@ -8,6 +8,7 @@ bool SceneManager::Init()
 void SceneManager::Update(double dTime, Act act)
 {
 	mCurrentScene->Update(dTime, act);
+	
 }
 
 void SceneManager::Draw(SDL_Surface* surf)

@@ -156,6 +156,7 @@
     <ClCompile Include="ImportManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="MainMenuClass.cpp" />
     <ClCompile Include="RenderObject.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -172,11 +173,13 @@
     <ClInclude Include="Actions.h" />
     <ClInclude Include="ImportManager.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="MainGame.h" />
     <ClInclude Include="MainMenuClass.h" />
     <ClInclude Include="RenderObject.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SpriteSheet.h" />
+    <ClInclude Include="Textures.h" />
     <ClInclude Include="UiObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

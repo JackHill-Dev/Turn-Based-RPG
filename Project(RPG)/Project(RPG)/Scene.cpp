@@ -1,7 +1,5 @@
 #include "Scene.h"
 
-
-
 Scene::Scene()
 {
 	std::vector<RenderObject*> rObjects;
@@ -28,7 +26,6 @@ void Scene::Draw(SDL_Surface* wnd)
 		std::for_each(layer.begin(), layer.end(), [&wnd, &rect, &crop](RenderObject* obj) {if (obj->IsVisible())
 
 
-
 		{
 			crop->x = obj->GetAnim()->GetCurrentCell();
 			crop->y = obj->GetAnim()->GetCurrentCell();
@@ -37,7 +34,7 @@ void Scene::Draw(SDL_Surface* wnd)
 
 			rect->x = obj->GetPos().first;
 			rect->y = obj->GetPos().second;
-			if (obj->IsVisible())SDL_BlitSurface(obj->GetSheet()->GetTexture(), crop, wnd, rect); // First rectangle references the cell and how to retrieve it from atlast, the second relates to its position - T
+			if (obj->IsVisible())SDL_BlitSurface(obj->GetSheet()->GetTexture(), crop, wnd, rect); // First rectangle references the cell and how to retrieve it from at last, the second relates to its position - T
 		}
 		});
 

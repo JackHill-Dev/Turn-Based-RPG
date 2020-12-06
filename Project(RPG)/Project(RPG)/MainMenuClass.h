@@ -7,6 +7,5 @@ class MainMenuClass :
     public Scene
 {
     void Update(double dTime, Act act) override;
-
 };
 
