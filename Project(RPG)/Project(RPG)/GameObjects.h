@@ -7,20 +7,20 @@
 const std::map<std::string,RenderObject*> definedObjects
 {
 	{
-		{"Object1",new RenderObject("Sheet1")} // a defined object
+		{"maleObj",new RenderObject("male")} // a defined object
 	}
 };
 
 const std::map<std::string, SpriteSheet*> definedSheets
 {
 	{
-		{"Sheet1", new SpriteSheet("Male.png", 32, 16)} // a defined sheet
+		{"male", new SpriteSheet("Assets/Sprites/Male/Male 01-1.png", 32, 12)} // a defined sheet
 	}
 };
 
 const std::map<std::string, std::vector<Animation>> definedAnimations
 {
 	{
-		{"Sheet1", {Animation("Jump", 0, 1, 0)}} // a defined vector of animations, make sure the name matches the sheet
+		//{"Sheet1", {Animation("Jump", 0, 1, 0)}} // a defined vector of animations, make sure the name matches the sheet
 	}
 };
