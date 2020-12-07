@@ -53,7 +53,7 @@ bool ObjectManager::SetUp()
 	//Create Object types
 	for (auto i : definedObjects)
 	{
-		objects[i.first] = i.second; 
+		objects[i.first] = i.second;
 		objects[i.first]->SetTexture(sheets[(objects[i.first]->path)]);
 	}
 	return true;

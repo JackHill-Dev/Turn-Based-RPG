@@ -23,7 +23,7 @@ std::pair<int, int> RenderObject::GetPos()
 
 void RenderObject::SetAnim(std::string id)
 {
-	mCurrentAnim = mSheet->GetAnim(id);
+
 }
 
 void RenderObject::SetPos(std::pair<int, int> nPos)
