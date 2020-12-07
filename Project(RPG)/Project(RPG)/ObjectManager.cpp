@@ -54,7 +54,7 @@ bool ObjectManager::SetUp()
 	for (auto i : definedObjects)
 	{
 		objects[i.first] = i.second;
-		objects[i.first]->SetTexture(db.GetSpriteSheet(objects[i.first]->path));
+		objects[i.first]->SetTexture(sheets[(objects[i.first]->path)]);
 	}
 	return true;
 }
