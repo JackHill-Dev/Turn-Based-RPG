@@ -4,6 +4,7 @@ bool GameManager::Init()
 {
 	MainMenuClass* mMenu = new MainMenuClass();
 	TestScene* mTest = new TestScene();
+
 	mDb = new Database();
 	SetupManagers();
 
@@ -62,10 +63,10 @@ bool GameManager::CreateWindow()
 
 void GameManager::SetupManagers()
 {
-
 	mScManager  = new SceneManager();
 	mInputMgr   = new InputManager();
 	mObjMgr = &ObjectManager::Instance();
+	mAudioMgr = AudioManager::Instance();
 }
 
 Act GameManager::Poll(SDL_Keycode kCode)

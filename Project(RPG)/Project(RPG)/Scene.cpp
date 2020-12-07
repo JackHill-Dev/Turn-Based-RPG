@@ -22,7 +22,7 @@ void Scene::Update(double dTime, Act act)
 
 void Scene::Draw(SDL_Surface* wnd)
 {
-	SDL_Rect* rect = new SDL_Rect();
+	SDL_Rect* rect = new SDL_Rect(); // TODO:Place these on the stack - JP, TH
 	SDL_Rect* crop = new SDL_Rect();
 	
 	std::for_each(mLayers.begin(), mLayers.end(), [&wnd, &rect, &crop](std::vector<RenderObject*> layer) {
@@ -45,7 +45,7 @@ void Scene::Draw(SDL_Surface* wnd)
 
 		});
 }
-
+// When mouse is inside bounds of a render object in current scene
 void Scene::Select(int x, int y)
 {
 	std::find_if(mLayers.rbegin(), mLayers.rend(), [x, y](std::vector<RenderObject*> layer) {
