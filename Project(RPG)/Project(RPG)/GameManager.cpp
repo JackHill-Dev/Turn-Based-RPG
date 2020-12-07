@@ -6,10 +6,10 @@ bool GameManager::Init()
 	mDb = new Database();
 	SetupManagers();
 
-	RenderObject* maleSprite = new RenderObject(mDb->GetSpriteSheet("Male 01-1.png"));
-	maleSprite->Init();
-	maleSprite->SetPos(std::make_pair(250, 250));
-	mMenu->AddObject(maleSprite, UI);
+	//RenderObject* maleSprite = new RenderObject(mDb->GetSpriteSheet("Male 01-1.png"));
+	//maleSprite->Init();
+	//maleSprite->SetPos(std::make_pair(250, 250));
+	//mMenu->AddObject(maleSprite, UI);
 	mScManager->AddScene(mMenu);
 	mScManager->SetScene(0);
 	mInputMgr->CreateKeyBind('a', Act::Jump);
@@ -64,10 +64,10 @@ bool GameManager::CreateWindow()
 
 void GameManager::SetupManagers()
 {
-	mAudioMgr = AudioManager::Instance();
-	mImportMgr = new ImportManager(mDb);
-	mScManager = new SceneManager();
-	mInputMgr =	 new InputManager();
+
+	mScManager  = new SceneManager();
+	mInputMgr   = new InputManager();
+	mObjMgr = &ObjectManager::Instance();
 }
 
 Act GameManager::Poll(SDL_Keycode kCode)

@@ -1,9 +1,8 @@
 #include "RenderObject.h"
-
-RenderObject::RenderObject(SpriteSheet* sprSheet)
+RenderObject::RenderObject(std::string sprSheet)
 {
-	SetTexture(sprSheet);
-	mCurrentAnim = sprSheet->GetAnim("default");
+	path = sprSheet;
+	mCurrentAnim = nullptr;
 }
 
 bool RenderObject::Update(double dTime, Act act)

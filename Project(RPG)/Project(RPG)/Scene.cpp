@@ -4,6 +4,7 @@
 
 Scene::Scene()
 {
+	
 	std::vector<RenderObject*> rObjects;
 
 	for (int i = 0; i < layerNum; ++i)
@@ -30,8 +31,8 @@ void Scene::Draw(SDL_Surface* wnd)
 
 
 		{
-			crop->x = obj->GetAnim()->GetCurrentCell();
-			crop->y = obj->GetAnim()->GetCurrentCell();
+			crop->x = obj->GetAnim()->GetCurrentFrame();
+			crop->y = obj->GetAnim()->GetCurrentFrame();
 			crop->w = obj->GetSheet()->GetCellSize();
 			crop->h = obj->GetSheet()->GetCellSize();
 
@@ -59,7 +60,7 @@ void Scene::Select(int x, int y)
 		});
 }
 
-void Scene::AddObject(RenderObject* obj, Layer layerNum)
+void Scene::AddObject(std::string obj, Layer layerNum)
 {
-	mLayers[layerNum].push_back(obj);
+	mLayers[layerNum].push_back(ObjectManager::Instance().RequestObject(obj));
 }

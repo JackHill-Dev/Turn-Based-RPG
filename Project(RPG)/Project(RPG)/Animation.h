@@ -1,13 +1,14 @@
 #pragma once
+#include "Globals.h"
 class Animation
 {
 private:
-	int mCurrentCell;
-	int mStartCell, mEndCell;
-
+	int start, end, current;
+	std::string name;
 public:
-	Animation(int start, int end);
-	int GetCurrentCell();
 	void Advance();
+	Animation(std::string name, int st, int en, int curr);
+	int GetCurrentFrame();
+	std::string GetName();
 };
 

@@ -51,7 +51,16 @@
     <ClCompile Include="MainMenuClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Animation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,13 +104,19 @@
     <ClInclude Include="MainMenuClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameObjects.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Textures.h">
+    <ClInclude Include="GameScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

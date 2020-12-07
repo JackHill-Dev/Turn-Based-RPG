@@ -3,7 +3,6 @@
 #include <filesystem>
 #include <iostream>
 #include <SDL_image.h>
-#include "Textures.h"
 #include "Database.h"
 
 // Allows us to make use of c++17 library which handles processing filesystems. 
@@ -21,7 +20,7 @@ private:
 	std::string mMusicDir = "Assets/";
 	std::string mSfxDir = "Assets/";
 	std::string mAnimationDir;
-
+	
 	void LoadTextures();
 	void LoadMusic();
 	void LoadSfx();
@@ -30,5 +29,5 @@ private:
 public:
 	ImportManager(Database* db);
 	void Load();
-
+	SDL_Surface* LoadTexture(std::string path);
 };
