@@ -8,6 +8,7 @@
 #include "Globals.h"
 #include "Actions.h"
 #include "MainMenuClass.h"
+#include "ObjectManager.h"
 class GameManager
 {
 private:
@@ -18,6 +19,7 @@ private:
 	AudioManager* mAudioMgr;
 	ImportManager* mImportMgr;
 	InputManager* mInputMgr;
+	ObjectManager* mObjMgr;
 	Database* mDb;
 	GameManager* sInstance;
 public:

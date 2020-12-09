@@ -1,16 +1,15 @@
 #include "GameManager.h"
-
+#include "TestScene.h"
 bool GameManager::Init()
 {
 	MainMenuClass* mMenu = new MainMenuClass();
+	TestScene* mTest = new TestScene();
+
 	mDb = new Database();
 	SetupManagers();
 
-	RenderObject* maleSprite = new RenderObject(mDb->GetSpriteSheet("Male 01-1.png"));
-	maleSprite->Init();
-	maleSprite->SetPos(std::make_pair(250, 250));
-	mMenu->AddObject(maleSprite, UI);
-	mScManager->AddScene(mMenu);
+
+	mScManager->AddScene(mTest);
 	mScManager->SetScene(0);
 	mInputMgr->CreateKeyBind('a', Act::Jump);
 	CreateWindow();
@@ -64,10 +63,10 @@ bool GameManager::CreateWindow()
 
 void GameManager::SetupManagers()
 {
+	mScManager  = new SceneManager();
+	mInputMgr   = new InputManager();
+	mObjMgr = &ObjectManager::Instance();
 	mAudioMgr = AudioManager::Instance();
-	mImportMgr = new ImportManager(mDb);
-	mScManager = new SceneManager();
-	mInputMgr =	 new InputManager();
 }
 
 Act GameManager::Poll(SDL_Keycode kCode)

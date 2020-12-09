@@ -13,8 +13,10 @@ private:
 	std::string mName;
 	bool mVisible;
 	SpriteSheet* mSheet;
+	
 public:
-	RenderObject(SpriteSheet* sprSheet);
+	std::string path;
+	RenderObject(std::string sprSheet);
 
 	bool Update(double dTime, Act act);
 	bool Init();

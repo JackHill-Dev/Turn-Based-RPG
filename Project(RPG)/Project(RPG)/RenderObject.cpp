@@ -1,9 +1,9 @@
 #include "RenderObject.h"
-
-RenderObject::RenderObject(SpriteSheet* sprSheet)
+RenderObject::RenderObject(std::string sprSheet)
 {
-	SetTexture(sprSheet);
-	mCurrentAnim = sprSheet->GetAnim("default");
+	path = sprSheet;
+	mCurrentAnim = nullptr;
+	mVisible = true;
 }
 
 bool RenderObject::Update(double dTime, Act act)
@@ -24,7 +24,7 @@ std::pair<int, int> RenderObject::GetPos()
 
 void RenderObject::SetAnim(std::string id)
 {
-
+	mCurrentAnim = mSheet->GetAnim(id);
 }
 
 void RenderObject::SetPos(std::pair<int, int> nPos)

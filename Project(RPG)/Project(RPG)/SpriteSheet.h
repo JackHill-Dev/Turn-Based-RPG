@@ -11,12 +11,12 @@ private:
 	const float mCellSize;
 	const int mCellCount;
 	std::map<std::string,Animation*> anims;
-
 public:
-	SpriteSheet(SDL_Surface* nTexture, float nCellSize, int nCellCount);
+	bool SetTexture(SDL_Surface* texture);
+	const std::string mFilePath;
+	SpriteSheet(std::string path, float nCellSize, int nCellCount);
 	SDL_Surface* GetTexture();
 	float GetCellSize();
 	Animation* GetAnim(std::string name);
-	void AddAnim(std::string name, Animation* anim);
+	void AddAnim(std::string name, Animation anim);
 };
-

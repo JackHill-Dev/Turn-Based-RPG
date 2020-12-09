@@ -1,19 +1,27 @@
 #include "Animation.h"
-Animation::Animation(int start, int end)
-{
-	mStartCell = start;
-	mEndCell = end;
-	mCurrentCell = start;
-}
-
-int Animation::GetCurrentCell()
-{
-	return mCurrentCell;
-}
-
 void Animation::Advance()
 {
-	mCurrentCell++;
-	if (mCurrentCell > mEndCell)
-		mCurrentCell = mStartCell;
+	current++;
+	if (current > end)
+	{
+		current = start;
+
+	}
+}
+Animation::Animation(std::string name, int st, int en, int curr)
+{
+	this->name = name; 
+	start = st;
+	end = en;
+	current = curr;
+}
+
+int Animation::GetCurrentFrame()
+{
+	return current;
+}
+
+std::string Animation::GetName()
+{
+	return name;
 }

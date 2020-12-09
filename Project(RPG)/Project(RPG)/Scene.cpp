@@ -2,6 +2,7 @@
 
 Scene::Scene()
 {
+	
 	std::vector<RenderObject*> rObjects;
 
 	for (int i = 0; i < layerNum; ++i)
@@ -19,7 +20,7 @@ void Scene::Update(double dTime, Act act)
 
 void Scene::Draw(SDL_Surface* wnd)
 {
-	SDL_Rect* rect = new SDL_Rect();
+	SDL_Rect* rect = new SDL_Rect(); // TODO:Place these on the stack - JP, TH
 	SDL_Rect* crop = new SDL_Rect();
 	
 	std::for_each(mLayers.begin(), mLayers.end(), [&wnd, &rect, &crop](std::vector<RenderObject*> layer) {
@@ -27,8 +28,8 @@ void Scene::Draw(SDL_Surface* wnd)
 
 
 		{
-			crop->x = obj->GetAnim()->GetCurrentCell();
-			crop->y = obj->GetAnim()->GetCurrentCell();
+			crop->x = obj->GetAnim()->GetCurrentFrame();
+			crop->y = obj->GetAnim()->GetCurrentFrame();
 			crop->w = obj->GetSheet()->GetCellSize();
 			crop->h = obj->GetSheet()->GetCellSize();
 
@@ -41,7 +42,7 @@ void Scene::Draw(SDL_Surface* wnd)
 
 		});
 }
-
+// When mouse is inside bounds of a render object in current scene
 void Scene::Select(int x, int y)
 {
 	std::find_if(mLayers.rbegin(), mLayers.rend(), [x, y](std::vector<RenderObject*> layer) {
@@ -56,7 +57,9 @@ void Scene::Select(int x, int y)
 		});
 }
 
-void Scene::AddObject(RenderObject* obj, Layer layerNum)
+void Scene::AddObject(std::string obj, Layer layerNum)
 {
-	mLayers[layerNum].push_back(obj);
+	mLayers[layerNum].push_back(ObjectManager::Instance().RequestObject(obj));
+	mLayers[layerNum].back()->SetAnim("default");
+
 }

@@ -9,16 +9,19 @@
 /// </summary>
 void ImportManager::LoadTextures()
 {
-	std::string temp = mSpriteDir;
-	for (auto def : Textures)
-	{
-		SDL_Surface* sprite;
-		std::string sprName;
-		sprite = IMG_Load((temp + def.fileName).c_str());
-		pDB->pushToMap(new SpriteSheet(sprite, def.cellsize, def.cellcountx), def.fileName);
-	}
+	//std::string temp = mSpriteDir;
+	//for (auto def : Textures)
+	//{
+	//	SDL_Surface* sprite;
+	//	std::string sprName;
+	//	sprite = IMG_Load((temp + def.fileName).c_str());
+	//	//pDB->pushToMap(new SpriteSheet(sprite, def.cellsize, def.cellcountx), def.fileName);
+	//}
 }
-
+SDL_Surface* ImportManager::LoadTexture(std::string path)
+{
+	return IMG_Load((path.c_str()));
+}
 /// <summary>
 /// Load music. We are using the .mp3 format. Iterate through and store every file within a given directory into a map.
 /// Need to convert to string then c_str as file.path() contains a string that requires extraction 
