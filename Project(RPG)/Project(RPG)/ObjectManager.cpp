@@ -22,7 +22,10 @@ ObjectManager::~ObjectManager()
 
 SDL_Surface* ObjectManager::LoadTexture(std::string path)
 {
-	return IMG_Load((path.c_str()));
+
+	SDL_Surface* img = IMG_Load((path.c_str()));
+	std::cout << IMG_GetError();
+	return img;
 }
 
 RenderObject* ObjectManager::RequestObject(std::string name)

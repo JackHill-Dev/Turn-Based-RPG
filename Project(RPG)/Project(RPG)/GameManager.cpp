@@ -4,7 +4,12 @@ bool GameManager::Init()
 {
 	MainMenuClass* mMenu = new MainMenuClass();
 	TestScene* mTest = new TestScene();
+	int imgFlags = IMG_INIT_PNG;
+	if (!(IMG_Init(imgFlags) & imgFlags))
+	{
+		printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
 
+	}
 	mDb = new Database();
 	SetupManagers();
 

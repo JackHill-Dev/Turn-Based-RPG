@@ -60,9 +60,12 @@ void Scene::Select(int x, int y)
 		});
 }
 
-void Scene::AddObject(std::string obj, Layer layerNum)
+void Scene::AddObject(std::string obj, int x, int y, Layer layerNum)
 {
-	mLayers[layerNum].push_back(ObjectManager::Instance().RequestObject(obj));
-	mLayers[layerNum].back()->SetAnim("default");
+	RenderObject* obje = ObjectManager::Instance().RequestObject(obj);
+
+	mLayers[layerNum].push_back(obje);
+	obje->SetAnim("default");
+	obje->SetPos(std::make_pair(x, y));
 
 }
