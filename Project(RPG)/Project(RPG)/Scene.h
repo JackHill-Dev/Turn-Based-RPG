@@ -2,11 +2,12 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include "RenderObject.h"
 #include <SDL.h>
+#include "RenderObject.h"
 #include "Globals.h"
 #include "GameObjects.h"
 #include "ObjectManager.h"
+#include "AudioManager.h"
 
 class Scene
 {

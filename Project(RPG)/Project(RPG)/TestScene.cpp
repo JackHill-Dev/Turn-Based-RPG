@@ -1,5 +1,5 @@
 #include "TestScene.h"
 TestScene::TestScene()
 {
-	AddObject("maleObj", 60, 60, UI);
+	AddObject("maleObj", 250, 250, UI);
 }

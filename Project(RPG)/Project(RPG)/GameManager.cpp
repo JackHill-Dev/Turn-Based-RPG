@@ -14,7 +14,7 @@ bool GameManager::Init()
 	SetupManagers();
 
 
-	mScManager->AddScene(mTest);
+	mScManager->AddScene(mMenu);
 	mScManager->SetScene(0);
 	mInputMgr->CreateKeyBind('a', Act::Jump);
 	CreateWindow();
