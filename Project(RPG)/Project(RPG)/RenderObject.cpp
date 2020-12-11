@@ -47,7 +47,7 @@ bool RenderObject::IsVisible()
 	return mVisible;
 }
 
-void RenderObject::Select()
+void RenderObject::Select(SceneManager* sceneMgr, GameManager* gameMgr)
 {
 	//std::cout << "Render object clicked";
 }

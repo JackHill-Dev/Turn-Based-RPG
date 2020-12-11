@@ -16,6 +16,7 @@ private:
 	SDL_Window* mWnd;
 	SDL_Renderer* mRnd;
 	SceneManager* mScManager;
+	SDL_Surface* mSurface;
 	AudioManager* mAudioMgr;
 	ImportManager* mImportMgr;
 	InputManager* mInputMgr;
@@ -28,7 +29,6 @@ public:
 	void Run();
 	Act Poll(SDL_Keycode kCode);
 	void Quit();
-	void Select(int x, int y);
 	InputManager* GetInputMgr();
 private:
 	bool CreateWindow();

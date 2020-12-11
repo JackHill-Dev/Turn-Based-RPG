@@ -20,7 +20,7 @@ void UiObject::Clear()
 	mCallBack = nullptr;
 }
 
-void UiObject::Select()
+void UiObject::Select(SceneManager* sceneMgr, GameManager* gameMgr)
 {
 	std::cout << "UI Object pressed";
 }

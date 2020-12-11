@@ -23,10 +23,11 @@ void SceneManager::AddScene(Scene* scene)
 
 void SceneManager::SetScene(int index)
 {
+	mCurrentScene->Clear();
 	mCurrentScene = mScenes[index];
 }
 
-void SceneManager::Select(int x, int y)
+void SceneManager::Select(int x, int y, SceneManager* sceneMgr, GameManager* gameMgr)
 {
-	mCurrentScene->Select(x, y);
+	mCurrentScene->Select(x, y, sceneMgr, gameMgr);
 }

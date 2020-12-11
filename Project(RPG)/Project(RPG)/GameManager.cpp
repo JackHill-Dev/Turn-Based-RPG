@@ -15,6 +15,7 @@ bool GameManager::Init()
 
 
 	mScManager->AddScene(mMenu);
+	mScManager->AddScene(mTest);
 	mScManager->SetScene(0);
 	mInputMgr->CreateKeyBind('a', Act::Jump);
 	CreateWindow();
@@ -45,7 +46,7 @@ void GameManager::Run()
 			//auto e = ev.button.button;
 			int x, y;
 			SDL_GetMouseState(&x, &y);
-			mScManager->Select(x,y);
+			mScManager->Select(x,y, mScManager, this); // With what aaron has said should we pass in a scenemanager pointer into select so i can access it - JP
 
 		}
 		
@@ -61,7 +62,7 @@ void GameManager::Run()
 
 bool GameManager::CreateWindow()
 {
-	SDL_CreateWindowAndRenderer(500, 500, 0, &mWnd, &mRnd);
+	SDL_CreateWindowAndRenderer(1280, 720, 0, &mWnd, &mRnd);
 	SDL_ShowWindow(mWnd);
 	return true;
 }
@@ -77,8 +78,6 @@ void GameManager::SetupManagers()
 Act GameManager::Poll(SDL_Keycode kCode)
 {
 	return mInputMgr->Call(kCode);
-
-	
 
 }
 

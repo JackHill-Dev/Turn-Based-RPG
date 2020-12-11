@@ -160,10 +160,12 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuClass.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="QuitButton.cpp" />
     <ClCompile Include="RenderObject.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SpriteSheet.cpp" />
+    <ClCompile Include="StartButton.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="UiObject.cpp" />
   </ItemGroup>
@@ -181,10 +183,12 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="MainMenuClass.h" />
     <ClInclude Include="ObjectManager.h" />
+    <ClInclude Include="QuitButton.h" />
     <ClInclude Include="RenderObject.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SpriteSheet.h" />
+    <ClInclude Include="StartButton.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="UiObject.h" />
   </ItemGroup>

@@ -1,8 +1,11 @@
 #pragma once
-#include "Scene.h"
 #include <vector>
 #include <string>
 #include <SDL.h>
+#include "Scene.h"
+
+class GameManager;
+
 class SceneManager
 {
 private:
@@ -14,6 +17,6 @@ public:
 	void Draw(SDL_Surface* surf);
 	void AddScene(Scene* scene);
 	void SetScene(int index);
-	void Select(int x, int y);
+	void Select(int x, int y, SceneManager* sceneMgr, GameManager* gameMgr);
 };
 

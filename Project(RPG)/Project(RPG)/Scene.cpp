@@ -2,7 +2,7 @@
 
 Scene::Scene()
 {
-	
+
 	std::vector<RenderObject*> rObjects;
 
 	for (int i = 0; i < layerNum; ++i)
@@ -41,20 +41,27 @@ void Scene::Draw(SDL_Surface* wnd)
 
 
 		});
+
+	
 }
 // When mouse is inside bounds of a render object in current scene
-void Scene::Select(int x, int y)
+void Scene::Select(int x, int y, SceneManager* sceneMgr, GameManager* gameMgr)
 {
-	std::find_if(mLayers.rbegin(), mLayers.rend(), [x, y](std::vector<RenderObject*> layer) {
+	std::find_if(mLayers.rbegin(), mLayers.rend(), [x, y, &sceneMgr, &gameMgr](std::vector<RenderObject*> layer) {
 
-		return std::find_if(layer.begin(), layer.end(), [x, y](RenderObject* obj) {
+		return std::find_if(layer.begin(), layer.end(), [x, y, &sceneMgr, &gameMgr](RenderObject* obj) {
 			if (obj->InBounds(x, y))
-				obj->Select();
+				obj->Select(sceneMgr, gameMgr);
 			return(obj->InBounds(x, y));
 			
 			} ) != layer.end();
 
 		});
+}
+
+void Scene::Clear()
+{
+	//SDL_FillRect(mSurface, nullptr, SDL_MapRGB(mSurface->format, 0, 0, 0));
 }
 
 RenderObject* Scene::AddObject(std::string obj, int x, int y, Layer layerNum)

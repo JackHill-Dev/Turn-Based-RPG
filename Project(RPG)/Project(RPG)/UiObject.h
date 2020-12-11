@@ -1,6 +1,10 @@
 #pragma once
 #include "SpriteSheet.h"
 #include "RenderObject.h"
+
+class SceneManager;
+class GameManager;
+
 class UiObject : public RenderObject
 {
 private:
@@ -11,6 +15,6 @@ public:
 	void SetCallBack(void (*nCallBack)());
 	void Call();
 	void Clear();
-	virtual void Select() override;
+	virtual void Select(SceneManager* sceneMgr, GameManager* gameMgr) override;
 };
 

@@ -4,6 +4,10 @@
 #include "SpriteSheet.h"
 #include "Actions.h"
 #include "Animation.h"
+
+class SceneManager;
+class GameManager;
+
 class RenderObject
 {
 
@@ -28,7 +32,7 @@ public:
 	SpriteSheet* GetSheet();
 	bool IsVisible();
 	bool InBounds(int x, int y);
-	virtual void Select();
+	virtual void Select(SceneManager* sceneMgr, GameManager* gameMgr);
 	Animation* GetAnim();
 };
 
