@@ -4,19 +4,20 @@
 #include <map>
 #include "SpriteSheet.h"
 #include "Animation.h"
+#include "Button.h"
 const std::map<std::string,RenderObject*> definedObjects
 {
 	{
 		{"maleObj",new RenderObject("male")}, // a defined object
-		{"StartBtnObj",new RenderObject("startBtn")}
+		{"StartBtnObj",new Button("startBtn")}
 	}
 };
 
 const std::map<std::string, SpriteSheet*> definedSheets
 {
 	{
-		{"male", new SpriteSheet("Assets/Sprites/Male/Male 01-1.png", 32, 12)}, // a defined sheet
-		{"startBtn", new SpriteSheet("Assets/Sprites/StartBtn.png", 128, 12)} // a defined sheet
+		{"male", new SpriteSheet("Assets/Sprites/Male/Male 01-1.png", 32, 32, 12)}, // a defined sheet
+		{"startBtn", new SpriteSheet("Assets/Sprites/StartBtn-02.png", 128, 64, 12)} // a defined sheet
 	}
 };
 

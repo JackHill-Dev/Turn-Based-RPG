@@ -9,5 +9,7 @@ class MainMenuClass :
 public:
     MainMenuClass();
     void Update(double dTime, Act act) override;
+private:
+    RenderObject* pMenuButton;
 };
 

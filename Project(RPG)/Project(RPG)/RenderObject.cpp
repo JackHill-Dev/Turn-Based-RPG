@@ -49,21 +49,21 @@ bool RenderObject::IsVisible()
 
 void RenderObject::Select()
 {
-
+	//std::cout << "Render object clicked";
 }
 
 bool RenderObject::InBounds(int x, int y)
 {
 	//return false if cant be selected
-	float bound = GetSheet()->GetCellSize();
-	
-	if (x >= mPos.first - bound / 2 && x <= mPos.first + bound / 2)
-		return (y >= mPos.second - bound / 2 && y <= mPos.second + bound / 2);
+	std::pair<float, float> bound = GetSheet()->GetCellSize();
+	//float bound = GetSheet()->GetCellSize().first;
+	if (x >= mPos.first - bound.first / 2 && x <= mPos.first + bound.first  / 2)
+		return (y >= mPos.second  - bound.second  && y <= mPos.second + bound.second );
 	else
 		return false;
 }
 
 Animation* RenderObject::GetAnim()
 {
-	return mCurrentAnim;
+	return mCurrentAnim;	
 }

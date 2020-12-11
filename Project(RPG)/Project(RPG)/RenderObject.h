@@ -16,6 +16,7 @@ private:
 	
 public:
 	std::string path;
+	RenderObject() {}
 	RenderObject(std::string sprSheet);
 
 	bool Update(double dTime, Act act);
