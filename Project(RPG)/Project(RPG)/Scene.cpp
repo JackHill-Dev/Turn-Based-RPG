@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "ManagerStruct.h"
 
 Scene::Scene()
 {
@@ -46,13 +47,13 @@ void Scene::Draw(SDL_Surface* wnd)
 	
 }
 // When mouse is inside bounds of a render object in current scene
-void Scene::Select(int x, int y, SceneManager* sceneMgr, GameManager* gameMgr)
+void Scene::Select(int x, int y, Managers* mgrs)
 {
-	std::find_if(mLayers.rbegin(), mLayers.rend(), [x, y, &sceneMgr, &gameMgr](std::vector<RenderObject*> layer) {
+	std::find_if(mLayers.rbegin(), mLayers.rend(), [x, y, &mgrs](std::vector<RenderObject*> layer) {
 
-		return std::find_if(layer.begin(), layer.end(), [x, y, &sceneMgr, &gameMgr](RenderObject* obj) {
+		return std::find_if(layer.begin(), layer.end(), [x, y, &mgrs](RenderObject* obj) {
 			if (obj->InBounds(x, y))
-				obj->Select(sceneMgr, gameMgr);
+				obj->Select(mgrs);
 			return(obj->InBounds(x, y));
 			
 			} ) != layer.end();

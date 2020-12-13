@@ -25,7 +25,7 @@ public:
 	Scene();
 	virtual void Update(double dTime, Act act);
 	void Draw(SDL_Surface* surf);
-	void Select(int x, int y, SceneManager* sceneMgr, GameManager* gameMgr);
+	void Select(int x, int y, Managers* mgrs);
 	void Clear();
 	RenderObject* AddObject(std::string obj, int x, int y, Layer layerNum);
 };

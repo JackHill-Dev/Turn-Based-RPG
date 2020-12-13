@@ -1,12 +1,12 @@
 #include "Button.h"
 #include "SceneManager.h"
-#include "GameManager.h"
+#include "ManagerStruct.h"
 Button::Button(std::string sprSheet) : UiObject(sprSheet)
 {
 	
 }
 
-void Button::Select(SceneManager* sceneManager, GameManager* gameMgr)
+void Button::Select(Managers* mgrs)
 {
 	std::cout << "Button Pressed";
 

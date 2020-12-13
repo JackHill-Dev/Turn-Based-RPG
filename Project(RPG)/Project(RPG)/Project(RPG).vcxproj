@@ -182,6 +182,7 @@
     <ClInclude Include="ImportManager.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="MainMenuClass.h" />
+    <ClInclude Include="ManagerStruct.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="QuitButton.h" />
     <ClInclude Include="RenderObject.h" />

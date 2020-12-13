@@ -1,4 +1,5 @@
 #include "UiObject.h"
+#include "ManagerStruct.h"
 
 
 
@@ -20,7 +21,7 @@ void UiObject::Clear()
 	mCallBack = nullptr;
 }
 
-void UiObject::Select(SceneManager* sceneMgr, GameManager* gameMgr)
+void UiObject::Select(Managers* mgrs)
 {
 	std::cout << "UI Object pressed";
 }

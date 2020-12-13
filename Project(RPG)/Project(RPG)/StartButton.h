@@ -11,7 +11,7 @@ class StartButton :
 public:
 	StartButton() {}
 	StartButton(std::string sprSheet);
-	void Select(SceneManager* sceneMgr, GameManager* gameMgr) override;
+	void Select(Managers* mgrs) override;
 
 	
 

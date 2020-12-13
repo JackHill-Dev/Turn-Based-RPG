@@ -1,4 +1,5 @@
 #include "RenderObject.h"
+#include "ManagerStruct.h"
 RenderObject::RenderObject(std::string sprSheet)
 {
 	path = sprSheet;
@@ -47,7 +48,7 @@ bool RenderObject::IsVisible()
 	return mVisible;
 }
 
-void RenderObject::Select(SceneManager* sceneMgr, GameManager* gameMgr)
+void RenderObject::Select(Managers* mgrs)
 {
 	//std::cout << "Render object clicked";
 }

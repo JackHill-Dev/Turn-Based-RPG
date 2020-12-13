@@ -3,6 +3,7 @@
 #include <string>
 #include <SDL.h>
 #include "Scene.h"
+#include "ManagerStruct.h"
 
 class GameManager;
 
@@ -18,6 +19,6 @@ public:
 	void AddScene(Scene* scene);
 	void SetScene(int index);
 	void NextScene(int index);
-	void Select(int x, int y, SceneManager* sceneMgr, GameManager* gameMgr);
+	void Select(int x, int y, Managers* mgrs);
 };
 

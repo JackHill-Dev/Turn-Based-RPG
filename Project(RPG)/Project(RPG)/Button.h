@@ -14,6 +14,6 @@ public:
     Button() {}
     Button(std::string);
     
-    virtual void Select(SceneManager* sceneMgr, GameManager* gameMgr) override;
+    virtual void Select(Managers* mgrs) override;
 };
 

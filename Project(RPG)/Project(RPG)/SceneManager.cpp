@@ -32,7 +32,7 @@ void SceneManager::NextScene(int index)
 	mCurrentScene = mScenes[index];
 }
 
-void SceneManager::Select(int x, int y, SceneManager* sceneMgr, GameManager* gameMgr)
+void SceneManager::Select(int x, int y, Managers* mgrs)
 {
-	mCurrentScene->Select(x, y, sceneMgr, gameMgr);
+	mCurrentScene->Select(x, y, mgrs);
 }

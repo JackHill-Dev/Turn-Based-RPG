@@ -1,10 +1,11 @@
 #include "StartButton.h"
+#include "ManagerStruct.h"
 #include "SceneManager.h"
 StartButton::StartButton(std::string sprSheet) : Button(sprSheet)
 {
 }
-void StartButton::Select(SceneManager* sceneMgr, GameManager* gameMgr)
+void StartButton::Select(Managers* mgrs)
 {
-	sceneMgr->NextScene(1);
+	mgrs->SceneMgr->NextScene(1);
 }
 

@@ -1,12 +1,13 @@
 #include "QuitButton.h"
+#include "ManagerStruct.h"
 #include "GameManager.h"
 QuitButton::QuitButton(std::string sprSheet) : Button(sprSheet)
 {
 }
 
-void QuitButton::Select(SceneManager* sceneMgr, GameManager* gameMgr)
+void QuitButton::Select(Managers* mgrs)
 {
-	gameMgr->Quit();
+	mgrs->GameMgr->Quit();
 }
 
 

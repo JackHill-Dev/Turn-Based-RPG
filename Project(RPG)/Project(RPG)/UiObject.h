@@ -15,6 +15,6 @@ public:
 	void SetCallBack(void (*nCallBack)());
 	void Call();
 	void Clear();
-	virtual void Select(SceneManager* sceneMgr, GameManager* gameMgr) override;
+	virtual void Select(Managers* mgrs) override;
 };
 
