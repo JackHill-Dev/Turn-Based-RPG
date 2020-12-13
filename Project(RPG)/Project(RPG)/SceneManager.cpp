@@ -23,6 +23,11 @@ void SceneManager::AddScene(Scene* scene)
 
 void SceneManager::SetScene(int index)
 {
+	mCurrentScene = mScenes[index];
+}
+
+void SceneManager::NextScene(int index)
+{
 	mCurrentScene->Clear();
 	mCurrentScene = mScenes[index];
 }

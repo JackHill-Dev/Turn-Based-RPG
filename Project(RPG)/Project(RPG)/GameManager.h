@@ -9,20 +9,36 @@
 #include "Actions.h"
 #include "MainMenuClass.h"
 #include "ObjectManager.h"
+
+struct Managers
+{
+	GameManager* mGameMgr;
+	ObjectManager* mObjectMgr;
+	AudioManager* mAudioMgr;
+	SceneManager* mSceneMgr;
+	InputManager* mInputMgr;
+	ImportManager* mImportMgr;
+
+};
+
+
 class GameManager
 {
 private:
 	bool bRunning;
 	SDL_Window* mWnd;
 	SDL_Renderer* mRnd;
-	SceneManager* mScManager;
+	//SceneManager* mScManager;
 	SDL_Surface* mSurface;
-	AudioManager* mAudioMgr;
-	ImportManager* mImportMgr;
-	InputManager* mInputMgr;
-	ObjectManager* mObjMgr;
+	//AudioManager* mAudioMgr;
+	//ImportManager* mImportMgr;
+	//InputManager* mInputMgr;
+	//ObjectManager* mObjMgr;
 	Database* mDb;
-	GameManager* sInstance;
+	//GameManager* sInstance;
+
+	Managers* mMgrs;
+
 public:
 	bool Init();
 	bool Running();
@@ -33,7 +49,8 @@ public:
 private:
 	bool CreateWindow();
 	void SetupManagers();
-
+	void InitManagers();
 
 };
+
 

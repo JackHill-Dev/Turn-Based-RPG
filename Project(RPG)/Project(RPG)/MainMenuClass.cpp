@@ -4,7 +4,7 @@ MainMenuClass::MainMenuClass()
 {
 	// Get all button objects
 	pMenuButton = AddObject("StartBtnObj", 5, 90, UI);
-	AddObject("QuitBtnObj", 5, 160, UI);
+	AddObject("QuitBtnObj", 5, 400, UI);
 	// Get Background object
 	AddObject("mainMenuBGObj", 0, 0, Background);
 	// Get all SFX objects
@@ -15,7 +15,6 @@ MainMenuClass::MainMenuClass()
 
 void MainMenuClass::Update(double dTime, Act act)
 {
-
 	/*if (act == Act::Jump)
 		std::cout << "AGHH";*/
 }

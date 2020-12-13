@@ -12,12 +12,14 @@ bool GameManager::Init()
 	}
 	mDb = new Database();
 	SetupManagers();
+	InitManagers();
 
+	mMgrs->mSceneMgr->AddScene(mMenu);
+	mMgrs->mSceneMgr->AddScene(mTest);
+	mMgrs->mSceneMgr->SetScene(0);
 
-	mScManager->AddScene(mMenu);
-	mScManager->AddScene(mTest);
-	mScManager->SetScene(0);
-	mInputMgr->CreateKeyBind('a', Act::Jump);
+	mMgrs->mInputMgr->CreateKeyBind('a', Act::Jump);
+
 	CreateWindow();
 
 	return true;
@@ -40,18 +42,19 @@ void GameManager::Run()
 		case SDL_KEYUP:
 			
 		
-			mScManager->Update(0, Poll(ev.key.keysym.sym));
+		 	mMgrs->mSceneMgr->Update(0, Poll(ev.key.keysym.sym));
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 			//auto e = ev.button.button;
 			int x, y;
 			SDL_GetMouseState(&x, &y);
-			mScManager->Select(x,y, mScManager, this); // With what aaron has said should we pass in a scenemanager pointer into select so i can access it - JP
+			// TODO: Pass in struct with all managers to reduce amount of arguments being passed
+			mMgrs->mSceneMgr->Select(x,y, mMgrs->mSceneMgr, mMgrs->mGameMgr); // With what aaron has said should we pass in a scenemanager pointer into select so i can access it - JP
 
 		}
 		
 		screenSurface = SDL_GetWindowSurface(mWnd);
-		mScManager->Draw(screenSurface);
+		mMgrs->mSceneMgr->Draw(screenSurface);
 		SDL_UpdateWindowSurface(mWnd);
 		SDL_FreeSurface(screenSurface);
 	}
@@ -59,6 +62,8 @@ void GameManager::Run()
 	SDL_DestroyWindow(mWnd);
 	SDL_Quit();
 }
+
+
 
 bool GameManager::CreateWindow()
 {
@@ -69,21 +74,36 @@ bool GameManager::CreateWindow()
 
 void GameManager::SetupManagers()
 {
-	mScManager  = new SceneManager();
-	mInputMgr   = new InputManager();
-	mObjMgr = &ObjectManager::Instance();
-	mAudioMgr = AudioManager::Instance();
+	mMgrs = new Managers(); // Instantiate new struct of managers
+	mMgrs->mGameMgr = this;
+	mMgrs->mObjectMgr = &ObjectManager::Instance();
+	mMgrs->mAudioMgr = new AudioManager();
+	mMgrs->mSceneMgr = new SceneManager();
+	mMgrs->mImportMgr = new ImportManager(mDb);
+	mMgrs->mInputMgr = new InputManager();
+
+
+	//mScManager  = new SceneManager();
+	//mInputMgr   = new InputManager();
+	//mObjMgr = &ObjectManager::Instance();
+	//mAudioMgr = AudioManager::Instance();
+}
+
+void GameManager::InitManagers()
+{
+	mMgrs->mAudioMgr->Init();
+	mMgrs->mSceneMgr->Init();
 }
 
 Act GameManager::Poll(SDL_Keycode kCode)
 {
-	return mInputMgr->Call(kCode);
+	return mMgrs->mInputMgr->Call(kCode);
 
 }
 
 InputManager* GameManager::GetInputMgr()
 {
-	return mInputMgr;
+	return mMgrs->mInputMgr;
 }
 
 void GameManager::Quit()

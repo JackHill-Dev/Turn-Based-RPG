@@ -20,6 +20,7 @@ void Scene::Update(double dTime, Act act)
 
 void Scene::Draw(SDL_Surface* wnd)
 {
+	mSurface = wnd; // Need to move this otherwise a variable is pointlessly getting set every frame TODO: Ask TH & EH where's best to set this
 	SDL_Rect* rect = new SDL_Rect(); // TODO:Place these on the stack - JP, TH
 	SDL_Rect* crop = new SDL_Rect();
 	
@@ -61,7 +62,7 @@ void Scene::Select(int x, int y, SceneManager* sceneMgr, GameManager* gameMgr)
 
 void Scene::Clear()
 {
-	//SDL_FillRect(mSurface, nullptr, SDL_MapRGB(mSurface->format, 0, 0, 0));
+	SDL_FillRect(mSurface, nullptr, SDL_MapRGB(mSurface->format, 0, 0, 0));
 }
 
 RenderObject* Scene::AddObject(std::string obj, int x, int y, Layer layerNum)

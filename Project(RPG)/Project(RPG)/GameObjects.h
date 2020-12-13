@@ -13,7 +13,7 @@ const std::map<std::string,RenderObject*> definedObjects
 	{
 		{"maleObj",new RenderObject("male")}, // a defined object
 		{"mainMenuBGObj",new RenderObject("mainMenuBG")}, // a defined object
-		{"StartBtnObj",new QuitButton("startBtn")},
+		{"StartBtnObj",new StartButton("startBtn")},
 		{"QuitBtnObj",new QuitButton("quitBtn")}
 	}
 };

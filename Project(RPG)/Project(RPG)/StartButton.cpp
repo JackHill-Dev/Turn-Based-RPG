@@ -5,6 +5,6 @@ StartButton::StartButton(std::string sprSheet) : Button(sprSheet)
 }
 void StartButton::Select(SceneManager* sceneMgr, GameManager* gameMgr)
 {
-	sceneMgr->SetScene(1);
+	sceneMgr->NextScene(1);
 }
 

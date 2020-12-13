@@ -17,6 +17,7 @@ public:
 	void Draw(SDL_Surface* surf);
 	void AddScene(Scene* scene);
 	void SetScene(int index);
+	void NextScene(int index);
 	void Select(int x, int y, SceneManager* sceneMgr, GameManager* gameMgr);
 };
 

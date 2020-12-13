@@ -54,11 +54,13 @@ void RenderObject::Select(SceneManager* sceneMgr, GameManager* gameMgr)
 
 bool RenderObject::InBounds(int x, int y)
 {
+	// currenlty this allows render objects to be pressed slightly outside of the sprites bounds - JP
+
 	//return false if cant be selected
 	std::pair<float, float> bound = GetSheet()->GetCellSize();
 	//float bound = GetSheet()->GetCellSize().first;
-	if (x >= mPos.first - bound.first / 2 && x <= mPos.first + bound.first  / 2)
-		return (y >= mPos.second  - bound.second  && y <= mPos.second + bound.second );
+	if (x > mPos.first - bound.first  && x < mPos.first + bound.first  )
+		return (y >= mPos.second  - bound.second   && y <= mPos.second + bound.second  );
 	else
 		return false;
 }
