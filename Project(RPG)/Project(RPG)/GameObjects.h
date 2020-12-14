@@ -7,14 +7,16 @@
 const std::map<std::string,RenderObject*> definedObjects
 {
 	{
-		{"maleObj",new RenderObject("male")} // a defined object
+		{"maleObj",new RenderObject("male")}, // a defined object
+		{"overworldObj", new RenderObject("overworld")},
 	}
 };
 
 const std::map<std::string, SpriteSheet*> definedSheets
 {
 	{
-		{"male", new SpriteSheet("Assets/Sprites/Male/Male 01-1.png", 32, 12)} // a defined sheet
+		{"male", new SpriteSheet("Assets/Sprites/Male/Male 01-1.png", 32, 32, 12)}, // a defined sheet
+		{"overworld", new SpriteSheet("Assets/Backgrounds/testOverworld.png", 2048, 1536, 1)},
 	}
 };
 

@@ -4,6 +4,8 @@ bool GameManager::Init()
 {
 	MainMenuClass* mMenu = new MainMenuClass();
 	TestScene* mTest = new TestScene();
+	OverworldMapScene* mOvMap = new OverworldMapScene();
+
 	int imgFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imgFlags) & imgFlags))
 	{
@@ -13,7 +15,7 @@ bool GameManager::Init()
 	mDb = new Database();
 	SetupManagers();
 
-
+	mScManager->AddScene(mOvMap);
 	mScManager->AddScene(mTest);
 	mScManager->SetScene(0);
 	mInputMgr->CreateKeyBind('a', Act::Jump);
@@ -61,7 +63,7 @@ void GameManager::Run()
 
 bool GameManager::CreateWindow()
 {
-	SDL_CreateWindowAndRenderer(500, 500, 0, &mWnd, &mRnd);
+	SDL_CreateWindowAndRenderer(2048, 1536, 0, &mWnd, &mRnd);
 	SDL_ShowWindow(mWnd);
 	return true;
 }

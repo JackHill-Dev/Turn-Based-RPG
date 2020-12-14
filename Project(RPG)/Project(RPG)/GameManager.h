@@ -9,6 +9,7 @@
 #include "Actions.h"
 #include "MainMenuClass.h"
 #include "ObjectManager.h"
+#include "OverworldMapScene.h"
 class GameManager
 {
 private:
