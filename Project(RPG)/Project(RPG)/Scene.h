@@ -20,9 +20,10 @@ protected:
 
 public:
 	Scene();
+
 	virtual void Update(double dTime, Act act);
 	void Draw(SDL_Surface* surf);
 	void Select(int x, int y);
-	void AddObject(std::string obj, int x, int y, Layer layerNum);
+	RenderObject* AddObject(std::string obj, int x, int y, Layer layerNum);
 };
 

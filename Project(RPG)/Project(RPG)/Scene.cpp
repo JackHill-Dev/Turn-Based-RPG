@@ -33,8 +33,8 @@ void Scene::Draw(SDL_Surface* wnd)
 		{
 			crop->x = obj->GetAnim()->GetCurrentFrame();
 			crop->y = obj->GetAnim()->GetCurrentFrame();
-			crop->w = obj->GetSheet()->GetCellSize();
-			crop->h = obj->GetSheet()->GetCellSize();
+			crop->w = obj->GetSheet()->GetCellSize().first;
+			crop->h = obj->GetSheet()->GetCellSize().second;
 
 			rect->x = obj->GetPos().first;
 			rect->y = obj->GetPos().second;
@@ -60,12 +60,13 @@ void Scene::Select(int x, int y)
 		});
 }
 
-void Scene::AddObject(std::string obj, int x, int y, Layer layerNum)
+RenderObject* Scene::AddObject(std::string obj, int x, int y, Layer layerNum)
 {
 	RenderObject* obje = ObjectManager::Instance().RequestObject(obj);
 
 	mLayers[layerNum].push_back(obje);
 	obje->SetAnim("default");
 	obje->SetPos(std::make_pair(x, y));
+	return obje;
 
 }

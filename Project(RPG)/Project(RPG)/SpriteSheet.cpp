@@ -1,6 +1,6 @@
 #include "SpriteSheet.h"
 
-SpriteSheet::SpriteSheet(std::string path, float nCellSize, int nCellCount) : mFilePath(path), mCellCount(nCellCount), mCellSize(nCellSize)
+SpriteSheet::SpriteSheet(std::string path, float nCellSizeX, float nCellSizeY, int nCellCount) : mFilePath(path), mCellCount(nCellCount), mCellSizeX(nCellSizeX), mCellSizeY(nCellSizeY)
 {
 	anims["default"] = new Animation("default", 0, 0, 0);
 }
@@ -21,9 +21,16 @@ bool SpriteSheet::SetTexture(SDL_Surface* texture)
 
 }
 
+/*
 float SpriteSheet::GetCellSize()
 {
-	return mCellSize;
+	return mCellSizeX;
+}
+*/
+
+std::pair<float, float> SpriteSheet::GetCellSize()
+{
+	return std::make_pair(mCellSizeX, mCellSizeY);
 }
 Animation* SpriteSheet::GetAnim(std::string name)
 {
