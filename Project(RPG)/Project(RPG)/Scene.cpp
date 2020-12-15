@@ -61,9 +61,12 @@ void Scene::Select(int x, int y, Managers* mgrs)
 		});
 }
 
-void Scene::Clear()
+void Scene::Clear(SDL_Renderer* rnd)
 {
-	SDL_FillRect(mSurface, nullptr, SDL_MapRGB(mSurface->format, 0, 0, 0));
+	SDL_RenderClear(rnd);
+	SDL_SetRenderDrawColor(rnd, 255, 0, 0, 255);
+	SDL_RenderPresent(rnd);
+	//SDL_FillRect(mSurface, nullptr, SDL_MapRGB(mSurface->format, 0, 0, 0));
 }
 
 RenderObject* Scene::AddObject(std::string obj, int x, int y, Layer layerNum)

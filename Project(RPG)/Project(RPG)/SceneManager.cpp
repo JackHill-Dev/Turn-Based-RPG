@@ -1,7 +1,16 @@
 #include "SceneManager.h"
 
-bool SceneManager::Init()
+bool SceneManager::Init(SDL_Renderer* renderer)
 {
+	if (this == nullptr)
+	{
+		return false;
+	}
+	else
+	{
+		mRenderer = renderer;
+	}
+
 	return true;
 }
 
@@ -28,7 +37,7 @@ void SceneManager::SetScene(int index)
 
 void SceneManager::NextScene(int index)
 {
-	mCurrentScene->Clear();
+	mCurrentScene->Clear(mRenderer);
 	mCurrentScene = mScenes[index];
 }
 

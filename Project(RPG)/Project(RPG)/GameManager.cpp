@@ -9,6 +9,8 @@ bool GameManager::Init()
 
 	}
 
+	CreateWindow();
+
 	mDb = new Database();
 	SetupManagers();
 	InitManagers();
@@ -22,8 +24,6 @@ bool GameManager::Init()
 	mScManager->SetScene(0);
 
 	mInputMgr->CreateKeyBind('a', Act::Jump);
-
-	CreateWindow();
 
 	return true;
 }
@@ -53,6 +53,8 @@ void GameManager::Run()
 			SDL_GetMouseState(&x, &y);
 			// TODO: Pass in struct with all managers to reduce amount of arguments being passed
 			mScManager->Select(x,y, &mMgrs); // With what aaron has said should we pass in a scenemanager pointer into select so i can access it - JP
+			break;
+		case SDL_WINDOWEVENT_SIZE_CHANGED: std::cout << "Size changed";
 
 		}
 		
@@ -97,7 +99,7 @@ void GameManager::SetupManagersStruct()
 void GameManager::InitManagers()
 {
 	mAudioMgr->Init();
-	mScManager->Init();
+	mScManager->Init(mRnd);
 }
 
 Act GameManager::Poll(SDL_Keycode kCode)
