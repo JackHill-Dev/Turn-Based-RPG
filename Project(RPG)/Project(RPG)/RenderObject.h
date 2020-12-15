@@ -17,6 +17,7 @@ private:
 	std::pair<int, int> mPos;
 	std::string mName;
 	bool mVisible;
+	bool bIsActive;
 	SpriteSheet* mSheet;
 	
 public:
@@ -31,7 +32,9 @@ public:
 	void SetPos(std::pair<int, int> nPos);
 	void SetTexture(SpriteSheet* nSheet);
 	void SetVisible(const bool& visble);
+	void SetActive(const bool& active);
 	SpriteSheet* GetSheet();
+	bool IsActive();
 	bool IsVisible();
 	bool InBounds(int x, int y);
 	virtual void Select(Managers* mgrs);

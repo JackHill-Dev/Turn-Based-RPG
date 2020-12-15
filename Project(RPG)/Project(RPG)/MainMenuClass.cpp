@@ -7,7 +7,8 @@ MainMenuClass::MainMenuClass()
 	AddObject("QuitBtnObj", 5, 400, UI);
 	// Get Background object
 	RenderObject* pBack = AddObject("mainMenuBGObj", 0, 0, Background);
-	//pBack->SetVisible(false);
+	pMenuButton->SetActive(false);
+	pMenuButton->SetVisible(false);
 	// Get all SFX objects
 	// Get Music object
 	// Play music on loop (set loops to -1)

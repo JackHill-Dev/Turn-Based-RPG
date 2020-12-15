@@ -43,9 +43,19 @@ void RenderObject::SetVisible(const bool& visble)
 	mVisible = visble;
 }
 
+void RenderObject::SetActive(const bool& active)
+{
+	bIsActive = active;
+}
+
 SpriteSheet* RenderObject::GetSheet()
 {
 	return mSheet;
+}
+
+bool RenderObject::IsActive()
+{
+	return bIsActive;
 }
 
 bool RenderObject::IsVisible()
@@ -55,7 +65,7 @@ bool RenderObject::IsVisible()
 
 void RenderObject::Select(Managers* mgrs)
 {
-	//std::cout << "Render object clicked";
+
 }
 
 bool RenderObject::InBounds(int x, int y)
