@@ -7,8 +7,11 @@ MainMenuClass::MainMenuClass()
 	AddObject("QuitBtnObj", 5, 400, UI);
 	// Get Background object
 	RenderObject* pBack = AddObject("mainMenuBGObj", 0, 0, Background);
-	pMenuButton->SetActive(false);
-	pMenuButton->SetVisible(false);
+
+
+	pSettings = AddObject("SettingsOverlayObj", 300, 100, UI);
+	pSettings->SetVisible(false);
+	pSettings->SetActive(false);
 	// Get all SFX objects
 	// Get Music object
 	// Play music on loop (set loops to -1)
@@ -25,5 +28,10 @@ void MainMenuClass::Update(double dTime, Act act)
 {
 	/*if (act == Act::Jump)
 		std::cout << "AGHH";*/
+}
+
+void MainMenuClass::ViewSettings()
+{
+	pSettings->SetVisible(false);
 }
 

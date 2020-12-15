@@ -10,7 +10,9 @@ public:
     MainMenuClass();
 	void Init(Managers* mgrs);
     void Update(double dTime, Act act) override;
+    void ViewSettings();
 private:
     RenderObject* pMenuButton;
+    RenderObject* pSettings;
 };
 

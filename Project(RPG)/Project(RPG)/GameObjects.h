@@ -14,7 +14,8 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"maleObj",new RenderObject("male")}, // a defined object
 		{"mainMenuBGObj",new RenderObject("mainMenuBG")}, // a defined object
 		{"StartBtnObj",new StartButton("startBtn")},
-		{"QuitBtnObj",new QuitButton("quitBtn")}
+		{"QuitBtnObj",new QuitButton("quitBtn")},
+		{"SettingsOverlayObj",new RenderObject("SettingsOverlay")}
 	}
 };
 
@@ -24,7 +25,8 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"male", new SpriteSheet("Assets/Sprites/Male/Male 01-1.png", 32, 32, 12)}, // a defined sheet
 		{"startBtn", new SpriteSheet("Assets/Sprites/StartBtn-02.png", 128, 64, 12)}, 
 		{"quitBtn", new SpriteSheet("Assets/Sprites/QuitBtn.png", 128, 64, 12)}, 
-		{"mainMenuBG", new SpriteSheet("Assets/Backgrounds/MainMenuBG_720.png", 1280, 720, 1)} 
+		{"mainMenuBG", new SpriteSheet("Assets/Backgrounds/MainMenuBG_720.png", 1280, 720, 1)} ,
+		{"SettingsOverlay", new SpriteSheet("Assets/Sprites/SettingsOverlay.png", 640, 480, 1)} 
 	}
 };
 
