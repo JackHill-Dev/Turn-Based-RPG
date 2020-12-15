@@ -15,16 +15,16 @@ class GameManager;
 class Scene
 {
 private:
-	
+
 	std::string name;
 	std::vector<std::vector<RenderObject*>> mLayers;
 	SDL_Surface* mSurface = nullptr;
 protected:
 	ObjectManager* mgr;
 public:
-	Scene();
+	Scene(ObjectManager* objmg);
 	virtual void Update(double dTime, Act act);
-	void Draw(SDL_Surface* surf);
+	void Draw(SDL_Renderer* rnd);
 	void Select(int x, int y, Managers* mgrs);
 	void Clear(SDL_Renderer* rnd);
 	RenderObject* AddObject(std::string obj, int x, int y, Layer layerNum);

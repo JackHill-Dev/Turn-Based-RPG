@@ -16,7 +16,7 @@ private:
 public:
 	bool Init(SDL_Renderer* renderer);
 	void Update(double dTime, Act act);
-	void Draw(SDL_Surface* surf);
+	void Draw(SDL_Renderer* rnd);
 	void AddScene(Scene* scene);
 	void SetScene(int index);
 	void NextScene(int index);

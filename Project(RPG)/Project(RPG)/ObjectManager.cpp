@@ -1,31 +1,23 @@
 #include "ObjectManager.h"
 
 
-ObjectManager* ObjectManager::sInstance = nullptr;
 
-ObjectManager& ObjectManager::Instance()
-{
-	if (sInstance == nullptr)
-	{
-		sInstance = new ObjectManager();
-		sInstance->SetUp();
-	}
 
-	return *sInstance;
-}
+
 
 ObjectManager::~ObjectManager()
 {
-	delete sInstance;
-	sInstance = nullptr;
+	
+
 }
 
-SDL_Surface* ObjectManager::LoadTexture(std::string path)
+SDL_Texture* ObjectManager::LoadTexture(std::string path)
 {
-
+	
 	SDL_Surface* img = IMG_Load((path.c_str()));
+	
 	std::cout << IMG_GetError();
-	return img;
+	return SDL_CreateTextureFromSurface(mRnd, img);
 }
 
 RenderObject* ObjectManager::RequestObject(std::string name)
@@ -62,7 +54,8 @@ bool ObjectManager::SetUp()
 	return true;
 }
 
-ObjectManager::ObjectManager()
+ObjectManager::ObjectManager(SDL_Renderer* rnd)
 {
-	
+	mRnd = rnd;
+	SetUp();
 }

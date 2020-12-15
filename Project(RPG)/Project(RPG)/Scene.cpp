@@ -1,9 +1,9 @@
 #include "Scene.h"
 #include "ManagerStruct.h"
 
-Scene::Scene()
+Scene::Scene(ObjectManager* objmg)
 {
-
+	mgr = objmg;
 	std::vector<RenderObject*> rObjects;
 
 	for (int i = 0; i < layerNum; ++i)
@@ -19,25 +19,29 @@ void Scene::Update(double dTime, Act act)
 		});
 };
 
-void Scene::Draw(SDL_Surface* wnd)
+void Scene::Draw(SDL_Renderer* rnd)
 {
-	mSurface = wnd; // Need to move this otherwise a variable is pointlessly getting set every frame TODO: Ask TH & EH where's best to set this
+	// Need to move this otherwise a variable is pointlessly getting set every frame TODO: Ask TH & EH where's best to set this
 	SDL_Rect* rect = new SDL_Rect(); // TODO:Place these on the stack - JP, TH
 	SDL_Rect* crop = new SDL_Rect();
 	
-	std::for_each(mLayers.begin(), mLayers.end(), [&wnd, &rect, &crop](std::vector<RenderObject*> layer) {
-		std::for_each(layer.begin(), layer.end(), [&wnd, &rect, &crop](RenderObject* obj) {if (obj->IsVisible())
+	std::for_each(mLayers.begin(), mLayers.end(), [rnd, &rect, &crop](std::vector<RenderObject*> layer) {
+		std::for_each(layer.begin(), layer.end(), [rnd, &rect, &crop](RenderObject* obj) {if (obj->IsVisible())
 
 
 		{
-			crop->x = obj->GetAnim()->GetCurrentFrame();
-			crop->y = obj->GetAnim()->GetCurrentFrame();
+			crop->x = obj->GetAnim()->GetCurrentFrame().first;
+			crop->y = obj->GetAnim()->GetCurrentFrame().second;
 			crop->w = obj->GetSheet()->GetCellSize().first;
 			crop->h = obj->GetSheet()->GetCellSize().second;
 
 			rect->x = obj->GetPos().first;
 			rect->y = obj->GetPos().second;
-			if (obj->IsVisible())SDL_BlitSurface(obj->GetSheet()->GetTexture(), crop, wnd, rect); // First rectangle references the cell and how to retrieve it from at last, the second relates to its position - T
+			rect->w = obj->GetSheet()->GetTextureSize().first;
+			rect->h = obj->GetSheet()->GetTextureSize().second;
+			if (obj->IsVisible())
+				SDL_RenderCopy(rnd, obj->GetSheet()->GetTexture(), crop, rect);
+				
 		}
 		});
 
@@ -71,7 +75,7 @@ void Scene::Clear(SDL_Renderer* rnd)
 
 RenderObject* Scene::AddObject(std::string obj, int x, int y, Layer layerNum)
 {
-	RenderObject* obje = ObjectManager::Instance().RequestObject(obj);
+	RenderObject* obje = mgr->RequestObject(obj);
 
 	mLayers[layerNum].push_back(obje);
 	obje->SetAnim("default");

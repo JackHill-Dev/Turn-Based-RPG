@@ -20,9 +20,9 @@ void SceneManager::Update(double dTime, Act act)
 	
 }
 
-void SceneManager::Draw(SDL_Surface* surf)
+void SceneManager::Draw(SDL_Renderer* rnd)
 {
-	mCurrentScene->Draw(surf);
+	mCurrentScene->Draw(rnd);
 }
 
 void SceneManager::AddScene(Scene* scene)

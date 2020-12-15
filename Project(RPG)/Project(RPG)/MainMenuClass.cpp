@@ -1,6 +1,6 @@
 #include "MainMenuClass.h"
 
-MainMenuClass::MainMenuClass()
+MainMenuClass::MainMenuClass(ObjectManager* rng) : Scene(rng)
 {
 	// Get all button objects
 	pMenuButton = AddObject("StartBtnObj", 5, 90, UI);
