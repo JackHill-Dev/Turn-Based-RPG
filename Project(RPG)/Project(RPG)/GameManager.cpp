@@ -19,6 +19,8 @@ bool GameManager::Init()
 	MainMenuClass* mMenu = new MainMenuClass();
 	TestScene* mTest = new TestScene();
 
+	mMenu->Init(&mMgrs);
+
 	mScManager->AddScene(mMenu);
 	mScManager->AddScene(mTest);
 	mScManager->SetScene(0);

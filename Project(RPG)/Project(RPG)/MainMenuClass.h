@@ -8,6 +8,7 @@ class MainMenuClass :
 {
 public:
     MainMenuClass();
+	void Init(Managers* mgrs);
     void Update(double dTime, Act act) override;
 private:
     RenderObject* pMenuButton;

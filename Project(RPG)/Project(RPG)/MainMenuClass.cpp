@@ -13,6 +13,12 @@ MainMenuClass::MainMenuClass()
 
 }
 
+void MainMenuClass::Init(Managers* mgrs)
+{
+	Mix_Music* mus = Mix_LoadMUS("Assets/Music/Windless-Slopes.mp3");
+	mgrs->AudioMgr->PlayMusic(mus, -1);
+}
+
 void MainMenuClass::Update(double dTime, Act act)
 {
 	/*if (act == Act::Jump)
