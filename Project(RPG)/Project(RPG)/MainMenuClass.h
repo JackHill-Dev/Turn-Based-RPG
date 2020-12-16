@@ -7,12 +7,9 @@ class MainMenuClass :
     public Scene
 {
 public:
-    MainMenuClass();
-	void Init(Managers* mgrs);
+    MainMenuClass(ObjectManager* rng);
     void Update(double dTime, Act act) override;
-    void ViewSettings();
 private:
     RenderObject* pMenuButton;
-    RenderObject* pSettings;
 };
 

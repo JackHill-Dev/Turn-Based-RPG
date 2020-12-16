@@ -72,6 +72,9 @@
     <ClCompile Include="QuitButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CombatScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameManager.h">
@@ -138,6 +141,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ManagerStruct.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CombatScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -16,8 +16,8 @@ bool GameManager::Init()
 	InitManagers();
 	SetupManagersStruct();
 
-	MainMenuClass* mMenu = new MainMenuClass();
-	TestScene* mTest = new TestScene();
+	MainMenuClass* mMenu = new MainMenuClass(mObjMgr);
+	TestScene* mTest = new TestScene(mObjMgr);
 
 	mMenu->Init(&mMgrs);
 
@@ -37,7 +37,10 @@ bool GameManager::Running()
 
 void GameManager::Run()
 {
-	SDL_Surface* screenSurface;
+	SDL_Rect r;
+	r.w = 500;
+	r.h = 500;
+	SDL_Texture* texture = SDL_CreateTexture(mRnd, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 1280, 720);
 	SDL_Event ev;
 	while(Running())
 	while (SDL_PollEvent(&ev))
@@ -59,13 +62,15 @@ void GameManager::Run()
 		case SDL_WINDOWEVENT_SIZE_CHANGED: std::cout << "Size changed";
 
 		}
-		
-		screenSurface = SDL_GetWindowSurface(mWnd);
-		mScManager->Draw(screenSurface);
-		SDL_UpdateWindowSurface(mWnd);
-		SDL_FreeSurface(screenSurface);
+		SDL_SetRenderTarget(mRnd, texture);
+		SDL_SetRenderDrawColor(mRnd, 0x64, 0x00, 0x00, 0x00);
+		SDL_RenderClear(mRnd);
+		//SDL_RenderFillRect(mRnd, &r);
+		SDL_SetRenderTarget(mRnd, NULL);
+		mScManager->Draw(mRnd);
+		SDL_RenderPresent(mRnd);
 	}
-
+	SDL_DestroyRenderer(mRnd);
 	SDL_DestroyWindow(mWnd);
 	SDL_Quit();
 }
@@ -83,7 +88,7 @@ void GameManager::SetupManagers()
 {
 	mScManager = new SceneManager();
 	mInputMgr = new InputManager();
-	mObjMgr = &ObjectManager::Instance();
+	mObjMgr = new ObjectManager(mRnd);
 	mAudioMgr = new AudioManager();
 }
 

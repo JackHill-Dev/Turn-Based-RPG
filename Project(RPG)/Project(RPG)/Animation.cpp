@@ -2,23 +2,19 @@
 void Animation::Advance()
 {
 	current++;
-	if (current > end)
-	{
-		current = start;
-
-	}
+	if (current > frames.size())
+		current = 0;
 }
-Animation::Animation(std::string name, int st, int en, int curr)
+Animation::Animation(std::string name, std::vector<std::pair<int,int>> anims)
 {
+	this->frames = anims;
 	this->name = name; 
-	start = st;
-	end = en;
-	current = curr;
+	current = 0;
 }
 
-int Animation::GetCurrentFrame()
+std::pair<int,int> Animation::GetCurrentFrame()
 {
-	return current;
+	return frames[current];
 }
 
 std::string Animation::GetName()

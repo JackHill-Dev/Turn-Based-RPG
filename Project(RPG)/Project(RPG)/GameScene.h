@@ -4,6 +4,6 @@ class GameScene :
     public Scene
 {
 public:
-    GameScene();
+    GameScene(ObjectManager* mgr);
 };
 

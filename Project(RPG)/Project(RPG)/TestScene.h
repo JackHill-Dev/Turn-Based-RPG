@@ -4,6 +4,6 @@ class TestScene :
     public Scene
 {
 public:
-    TestScene();
+    TestScene(ObjectManager* rng);
 };
 
