@@ -25,7 +25,7 @@ private:
 	ObjectManager* mObjMgr;
 	Database* mDb;
 	//GameManager* sInstance;
-
+	MainMenuClass* pMainMenu;
 	Managers mMgrs;
 
 public:
@@ -35,6 +35,7 @@ public:
 	Act Poll(SDL_Keycode kCode);
 	void Quit();
 	InputManager* GetInputMgr();
+	MainMenuClass* GetMainMenu();
 private:
 	bool CreateWindow();
 	void SetupManagers();

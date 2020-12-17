@@ -16,12 +16,12 @@ bool GameManager::Init()
 	InitManagers();
 	SetupManagersStruct();
 
-	MainMenuClass* mMenu = new MainMenuClass(mObjMgr);
+	pMainMenu = new MainMenuClass(mObjMgr);
 	TestScene* mTest = new TestScene(mObjMgr);
 
-	mMenu->Init(&mMgrs);
+	pMainMenu->Init(&mMgrs);
 
-	mScManager->AddScene(mMenu);
+	mScManager->AddScene(pMainMenu);
 	mScManager->AddScene(mTest);
 	mScManager->SetScene(0);
 
@@ -117,6 +117,11 @@ Act GameManager::Poll(SDL_Keycode kCode)
 InputManager* GameManager::GetInputMgr()
 {
 	return mInputMgr;
+}
+
+MainMenuClass* GameManager::GetMainMenu()
+{
+	return pMainMenu;
 }
 
 void GameManager::Quit()

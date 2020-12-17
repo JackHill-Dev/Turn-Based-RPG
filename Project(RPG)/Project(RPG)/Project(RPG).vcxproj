@@ -152,6 +152,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="CloseButton.cpp" />
     <ClCompile Include="CombatScene.cpp" />
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="GameManager.cpp" />
@@ -165,6 +166,7 @@
     <ClCompile Include="RenderObject.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SettingsButton.cpp" />
     <ClCompile Include="SpriteSheet.cpp" />
     <ClCompile Include="StartButton.cpp" />
     <ClCompile Include="TestScene.cpp" />
@@ -174,6 +176,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="CloseButton.h" />
     <ClInclude Include="CombatScene.h" />
     <ClInclude Include="Database.h" />
     <ClInclude Include="GameManager.h" />
@@ -190,6 +193,7 @@
     <ClInclude Include="RenderObject.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SettingsButton.h" />
     <ClInclude Include="SpriteSheet.h" />
     <ClInclude Include="StartButton.h" />
     <ClInclude Include="TestScene.h" />

@@ -5,6 +5,7 @@ RenderObject::RenderObject(std::string sprSheet)
 	path = sprSheet;
 	mCurrentAnim = nullptr;
 	mVisible = true;
+	bIsActive = true;
 }
 
 bool RenderObject::Update(double dTime, Act act)
