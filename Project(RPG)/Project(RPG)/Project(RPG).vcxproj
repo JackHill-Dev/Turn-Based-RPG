@@ -159,9 +159,12 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="ImportManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuClass.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="QuitButton.cpp" />
     <ClCompile Include="RenderObject.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -186,9 +189,12 @@
     <ClInclude Include="Actions.h" />
     <ClInclude Include="ImportManager.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Inventory.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="MainMenuClass.h" />
     <ClInclude Include="ManagerStruct.h" />
     <ClInclude Include="ObjectManager.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="QuitButton.h" />
     <ClInclude Include="RenderObject.h" />
     <ClInclude Include="Scene.h" />

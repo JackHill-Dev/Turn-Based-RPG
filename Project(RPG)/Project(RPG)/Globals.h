@@ -3,7 +3,8 @@
 #include <iostream>
 #include <memory>
 #include <functional>
-
+#include <string>
+#include <cassert>
 typedef void (*fnc)(void); // function pointer type
 
 enum Layer
@@ -12,3 +13,4 @@ enum Layer
 };
 
 const int layerNum = 4;
+

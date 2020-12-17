@@ -24,7 +24,11 @@ void MainMenuClass::ViewSettings()
 	pSettingsOverlay->SetActive(true);
 	pCloseButton->SetVisible(true);
 	pCloseButton->SetActive(true);
+
+	pStartButton->SetActive(false);
 	pSettingsButton->SetActive(false);
+	pQuitButton->SetActive(false);
+
 }
 
 void MainMenuClass::CloseSettings()
