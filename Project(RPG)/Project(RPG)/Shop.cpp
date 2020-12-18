@@ -14,3 +14,15 @@ Inventory* Shop::GetInventory()
 {
 	return &mInventory;
 }
+
+void Shop::BuyItem(Item* item)
+{
+	// Check if shop has item
+	// Check if player has sufficient gold
+	// Check that player meets level requirements
+		// Add item to player inventory
+		// Take the cost of the item off the player's gold amount
+		// Add cost of item to shop
+		// Remove item from shop inventory
+		
+}

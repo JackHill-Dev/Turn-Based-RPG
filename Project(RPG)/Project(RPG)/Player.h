@@ -7,6 +7,7 @@ public:
 	int GetGold();
 	Inventory* GetInventory();
 	void SetInventory(Inventory& inv);
+	void SellItem(Item* item);
 private:
 	Inventory mInventory;
 	int mGold;

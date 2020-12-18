@@ -19,3 +19,10 @@ void Player::SetInventory(Inventory& inv)
 {
 	mInventory = inv;
 }
+
+void Player::SellItem(Item* item)
+{
+	mGold += item->GetCost();
+	mInventory.RemoveItem(item);
+
+}

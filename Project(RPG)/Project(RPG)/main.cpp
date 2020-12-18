@@ -24,6 +24,9 @@ int main()
 	player.GetInventory()->AddItem(&sword);
 	player.GetInventory()->RemoveItem(&longSword);
 
+	player.SetGold(100);
+	player.SellItem(&sword);
+
 	GameManager manager;
 	manager.Init();
 
