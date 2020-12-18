@@ -4,8 +4,7 @@
 class Item
 {
 public:
-	virtual void SetName(std::string& name) = 0;
-	virtual void SetCost(int& name) = 0;
+	Item(std::string& name, int cost);
 	std::string GetName() const;
 	int GetCost() const;
 private:

@@ -6,7 +6,7 @@ class Inventory
 public:
 	void AddItem(Item* item);
 	void RemoveItem(Item* item);
-	Item* GetItem(Item& item);
+	Item* GetItem(Item* item);
 	std::vector<Item*> GetContents();
 private:
 	std::vector<Item*> mItems;

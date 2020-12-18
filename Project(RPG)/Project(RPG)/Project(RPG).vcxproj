@@ -171,6 +171,7 @@
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="SpriteSheet.cpp" />
     <ClCompile Include="StartButton.cpp" />
+    <ClCompile Include="Sword.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="UiObject.cpp" />
   </ItemGroup>
@@ -200,6 +201,7 @@
     <ClInclude Include="Shop.h" />
     <ClInclude Include="SpriteSheet.h" />
     <ClInclude Include="StartButton.h" />
+    <ClInclude Include="Sword.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="UiObject.h" />
   </ItemGroup>

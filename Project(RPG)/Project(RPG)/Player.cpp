@@ -14,3 +14,8 @@ Inventory* Player::GetInventory()
 {
 	return &mInventory;
 }
+
+void Player::SetInventory(Inventory& inv)
+{
+	mInventory = inv;
+}
