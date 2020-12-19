@@ -10,6 +10,7 @@ public:
 	std::vector<Item*> GetContents();
 private:
 	std::vector<Item*> mItems;
+	int mItemCount;
 
 };
 

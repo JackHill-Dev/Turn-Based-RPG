@@ -4,6 +4,8 @@ MainMenuClass::MainMenuClass(ObjectManager* rng) : Scene(rng)
 {
 	// Get all button objects
 	pMenuButton = AddObject("StartBtnObj", 5, 90, UI);
+	//pMenuButton->SetAnim("Hover"); // Can't find animation id - JP
+	auto a = pMenuButton->GetAnim();
 	AddObject("QuitBtnObj", 5, 400, UI);
 	// Get Background object
 	AddObject("mainMenuBGObj", 0, 0, Background);

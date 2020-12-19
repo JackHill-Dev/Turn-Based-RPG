@@ -1,6 +1,7 @@
 #include "GameManager.h"
 #include "TestScene.h"
 #include "CombatScene.h"
+#include "ShopScene.h"
 bool GameManager::Init()
 {
 	int imgFlags = IMG_INIT_PNG;
@@ -18,6 +19,7 @@ bool GameManager::Init()
 	SetupManagersStruct();
 
 	MainMenuClass* mMenu = new MainMenuClass(mObjMgr);
+	ShopScene* sS = new ShopScene(mObjMgr);
 	CombatScene* cS = new CombatScene(mObjMgr);
 	mScManager->AddScene(mMenu);
 	mScManager->AddScene(cS);
@@ -54,17 +56,15 @@ void GameManager::Run()
 			
 			break;
 		case SDL_MOUSEBUTTONDOWN:
-			//auto e = ev.button.button;
-			
 			SDL_GetMouseState(&x, &y);
 			act = Act::Click;
 
-
-
-			// TODO: Pass in struct with all managers to reduce amount of arguments being passed
-			//mScManager->Select(x,y, &mMgrs); // With what aaron has said should we pass in a scenemanager pointer into select so i can access it - JP No
 			break;
-		case SDL_WINDOWEVENT_SIZE_CHANGED: std::cout << "Size changed";
+		case SDL_WINDOWEVENT_SIZE_CHANGED: std::cout << "Size changed"; break;
+		case SDL_MOUSEMOTION:
+			SDL_GetMouseState(&x, &y);
+			act = Act::Hover;
+			break;
 
 		}
 		SDL_SetRenderTarget(mRnd, texture);

@@ -3,6 +3,7 @@
 void Inventory::AddItem(Item* item)
 {
 	mItems.push_back(item);
+	mItemCount = mItems.size();
 }
 
 void Inventory::RemoveItem(Item* item)

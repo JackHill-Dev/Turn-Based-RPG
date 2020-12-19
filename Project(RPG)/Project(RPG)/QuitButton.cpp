@@ -5,9 +5,18 @@ QuitButton::QuitButton(std::string sprSheet) : Button(sprSheet)
 {
 }
 
-void QuitButton::Select()
+bool QuitButton::Update(double dTime, Act act, std::pair<int, int> mouse)
 {
-	mgrs->GameMgr->Quit();
-}
+	if (this ==  nullptr)
+	{
+		return false;
+	}
 
+	if (act == Act::Click && InBounds(mouse.first, mouse.second))
+	{
+		mgrs->GameMgr->Quit();
+	}
+
+	return true;
+}
 

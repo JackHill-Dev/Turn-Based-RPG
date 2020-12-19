@@ -26,3 +26,8 @@ void Shop::BuyItem(Item* item)
 		// Remove item from shop inventory
 		
 }
+
+void Shop::SetInventory(Inventory& i)
+{
+	mInventory = i;
+}

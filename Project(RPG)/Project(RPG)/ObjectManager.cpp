@@ -42,6 +42,7 @@ bool ObjectManager::SetUp()
 	{
 		for (auto anim : i.second)
 		{
+			auto a = sheets[i.first];
 			sheets[i.first]->AddAnim(anim.GetName(), anim);
 		}
 	}

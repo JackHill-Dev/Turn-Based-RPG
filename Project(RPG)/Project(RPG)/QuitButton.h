@@ -7,7 +7,8 @@ public:
     QuitButton() {}
     QuitButton(std::string sprSheet);
 
-    void Select() override;
+
+    bool Update(double dTime, Act act, std::pair<int, int> mouse) override;
 
 };
 
