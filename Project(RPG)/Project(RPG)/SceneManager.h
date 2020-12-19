@@ -15,7 +15,7 @@ private:
 	SDL_Renderer* mRenderer;
 public:
 	bool Init(SDL_Renderer* renderer);
-	void Update(double dTime, Act act);
+	void Update(double dTime, Act act, std::pair<int,int> mousePos);
 	void Draw(SDL_Renderer* rnd);
 	void AddScene(Scene* scene);
 	void SetScene(int index);

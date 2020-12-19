@@ -6,7 +6,7 @@ Button::Button(std::string sprSheet) : UiObject(sprSheet)
 	
 }
 
-void Button::Select(Managers* mgrs)
+void Button::Select()
 {
 	std::cout << "Button Pressed";
 

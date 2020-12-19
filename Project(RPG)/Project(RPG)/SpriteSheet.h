@@ -6,6 +6,9 @@
 #include <map>
 class SpriteSheet
 {
+
+
+
 private:
 	SDL_Texture* mTexture;
 	const float mCellSizeX;
@@ -13,6 +16,9 @@ private:
 	const int mCellCount;
 	std::pair<int, int> textureSize;
 	std::map<std::string,Animation*> anims;
+
+
+
 public:
 	bool SetTexture(SDL_Texture* texture);
 	const std::string mFilePath;

@@ -14,9 +14,9 @@ bool SceneManager::Init(SDL_Renderer* renderer)
 	return true;
 }
 
-void SceneManager::Update(double dTime, Act act)
+void SceneManager::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
-	mCurrentScene->Update(dTime, act);
+	mCurrentScene->SceneUpdate(dTime, act, mousePos);
 	
 }
 
@@ -32,6 +32,7 @@ void SceneManager::AddScene(Scene* scene)
 
 void SceneManager::SetScene(int index)
 {
+	mCurrentScene->Clear(mRenderer);
 	mCurrentScene = mScenes[index];
 }
 

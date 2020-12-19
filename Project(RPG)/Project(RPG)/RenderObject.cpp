@@ -7,13 +7,14 @@ RenderObject::RenderObject(std::string sprSheet)
 	mVisible = true;
 }
 
-bool RenderObject::Update(double dTime, Act act)
+bool RenderObject::Update(double dTime, Act act, std::pair<int,int> mouse)
 {
 	return true;
 }
 
-bool RenderObject::Init()
+bool RenderObject::Init(Managers* mgrs)
 {
+	this->mgrs = mgrs;
 	mVisible = true;
 	return true;
 }
@@ -48,7 +49,7 @@ bool RenderObject::IsVisible()
 	return mVisible;
 }
 
-void RenderObject::Select(Managers* mgrs)
+void RenderObject::Select()
 {
 	//std::cout << "Render object clicked";
 }

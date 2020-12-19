@@ -1,2 +1,5 @@
-﻿  Animation.cpp
+﻿  main.cpp
+  SceneManager.cpp
+  StartButton.cpp
+  Generating Code...
   Project(RPG).vcxproj -> F:\Test\AdvancedGamesConsoleProject2\Project(RPG)\x64\Debug\Project(RPG).exe

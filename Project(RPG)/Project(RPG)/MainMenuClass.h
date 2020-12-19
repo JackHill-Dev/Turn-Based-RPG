@@ -8,7 +8,8 @@ class MainMenuClass :
 {
 public:
     MainMenuClass(ObjectManager* rng);
-    void Update(double dTime, Act act) override;
+protected:
+    void Update(double dTime, Act act, std::pair<int, int> mouse) override;
 private:
     RenderObject* pMenuButton;
 };

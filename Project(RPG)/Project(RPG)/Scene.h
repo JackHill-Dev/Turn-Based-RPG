@@ -21,9 +21,13 @@ private:
 	SDL_Surface* mSurface = nullptr;
 protected:
 	ObjectManager* mgr;
+	virtual void Update(double dTime, Act act, std::pair<int, int> mousePos);
 public:
 	Scene(ObjectManager* objmg);
-	virtual void Update(double dTime, Act act);
+
+	void SceneUpdate(double dTime, Act act, std::pair<int, int> mousePos);
+
+	
 	void Draw(SDL_Renderer* rnd);
 	void Select(int x, int y, Managers* mgrs);
 	void Clear(SDL_Renderer* rnd);

@@ -21,7 +21,14 @@ void UiObject::Clear()
 	mCallBack = nullptr;
 }
 
-void UiObject::Select(Managers* mgrs)
+void UiObject::Select()
 {
 	std::cout << "UI Object pressed";
+}
+
+bool UiObject::Update(double dTime, Act act, std::pair<int, int> mouse)
+{
+	
+	return true;
+		
 }

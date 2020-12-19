@@ -8,8 +8,8 @@ CombatScene::CombatScene(ObjectManager* objmg) : Scene(objmg)
 	character = AddObject("maleObj", 60, 60, Game);
 }
 
-void CombatScene::Update(double dTime, Act act)
-{
-	
-}
+//void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
+//{
+//	
+//}
 
