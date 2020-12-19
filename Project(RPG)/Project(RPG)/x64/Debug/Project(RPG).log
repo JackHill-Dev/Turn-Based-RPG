@@ -1,35 +1,46 @@
-﻿  CombatScene.cpp
+﻿  Button.cpp
+  CombatScene.cpp
+  GameManager.cpp
+  GameScene.cpp
+  MainMenuClass.cpp
+  ObjectManager.cpp
+  QuitButton.cpp
   Scene.cpp
-F:\Test\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(41,54): warning C4244: '=': conversion from '_Ty1' to 'int', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(18,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(42,54): warning C4244: '=': conversion from '_Ty1' to 'int', possible loss of data
           with
           [
               _Ty1=float
           ]
-F:\Test\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(42,55): warning C4244: '=': conversion from '_Ty2' to 'int', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(43,55): warning C4244: '=': conversion from '_Ty2' to 'int', possible loss of data
           with
           [
               _Ty2=float
           ]
-F:\Test\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(43,44): warning C4244: '=': conversion from '_Ty1' to 'int', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(44,44): warning C4244: '=': conversion from '_Ty1' to 'int', possible loss of data
           with
           [
               _Ty1=float
           ]
-F:\Test\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(44,44): warning C4244: '=': conversion from '_Ty2' to 'int', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(45,44): warning C4244: '=': conversion from '_Ty2' to 'int', possible loss of data
           with
           [
               _Ty2=float
           ]
-F:\Test\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(48,44): warning C4244: '=': conversion from '_Ty1' to 'int', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(49,44): warning C4244: '=': conversion from '_Ty1' to 'int', possible loss of data
           with
           [
               _Ty1=float
           ]
-F:\Test\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(49,44): warning C4244: '=': conversion from '_Ty2' to 'int', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(50,44): warning C4244: '=': conversion from '_Ty2' to 'int', possible loss of data
           with
           [
               _Ty2=float
           ]
-F:\Test\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(64,7): warning C4834: discarding return value of function with 'nodiscard' attribute
+F:\Test\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(65,7): warning C4834: discarding return value of function with 'nodiscard' attribute
+  SceneManager.cpp
+  StartButton.cpp
+  TestScene.cpp
+  main.cpp
   Generating Code...
   Project(RPG).vcxproj -> F:\Test\AdvancedGamesConsoleProject2\Project(RPG)\x64\Debug\Project(RPG).exe

@@ -41,9 +41,13 @@ void GameManager::Run()
 	r.h = 500;
 	SDL_Texture* texture = SDL_CreateTexture(mRnd, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 1280, 720);
 	SDL_Event ev;
+	Uint64 NOW = SDL_GetPerformanceCounter();
+	Uint64 LAST = 0;
+	double deltaTime = 0;
 	while(Running())
 	while (SDL_PollEvent(&ev))
 	{
+		LAST = NOW;
 		int x, y;
 		act = Act::Blank;
 		switch (ev.type)
@@ -72,7 +76,11 @@ void GameManager::Run()
 		SDL_RenderClear(mRnd);
 		//SDL_RenderFillRect(mRnd, &r);
 		SDL_SetRenderTarget(mRnd, NULL);
-		mScManager->Update(0, act, std::make_pair(x,y));
+		NOW = SDL_GetPerformanceCounter();
+
+		deltaTime = (double)((NOW - LAST) * 1000 / (double)SDL_GetPerformanceFrequency());
+
+		mScManager->Update(deltaTime, act, std::make_pair(x,y));
 		mScManager->Draw(mRnd);
 		SDL_RenderPresent(mRnd);
 	}
