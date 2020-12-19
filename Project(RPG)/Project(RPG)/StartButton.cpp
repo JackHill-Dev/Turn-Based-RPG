@@ -19,10 +19,11 @@ bool StartButton::Update(double dTime, Act act, std::pair<int, int> mouse)
 	if (act == Act::Hover && InBounds(mouse.first, mouse.second))
 	{
 		//std::cout << "Start button hovered" << std::endl;
-		
 		SetAnim("Hover");
-		
+
 	}
+	else
+		SetAnim("default");
 
 	return true;
 }
