@@ -12,6 +12,11 @@ Animation::Animation(std::string name, std::vector<std::pair<int,int>> anims)
 	current = 0;
 }
 
+Animation::Animation()
+{
+	this->name = "UNSET";
+}
+
 std::pair<int,int> Animation::GetCurrentFrame()
 {
 	return frames[current];

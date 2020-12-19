@@ -31,6 +31,6 @@ const std::map<std::string, SpriteSheet*> definedSheets
 const std::map<std::string, std::vector<Animation>> definedAnimations
 {
 	{
-		{"male", {Animation("WalkLeft", {std::make_pair(0,0),std::make_pair(1,0),std::make_pair(2,0)})}} // a defined vector of animations, make sure the name matches the sheet
+		{"male", {Animation("WalkLeft", {std::make_pair(0,0),std::make_pair(1,0),std::make_pair(2,1)})}} // a defined vector of animations, make sure the name matches the sheet
 	}
 };

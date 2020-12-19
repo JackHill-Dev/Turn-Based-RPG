@@ -15,7 +15,7 @@ private:
 	const float mCellSizeY;
 	const int mCellCount;
 	std::pair<int, int> textureSize;
-	std::map<std::string,Animation*> anims;
+	std::map<std::string,Animation> anims;
 
 
 
