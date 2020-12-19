@@ -38,8 +38,8 @@ void Scene::Draw(SDL_Renderer* rnd)
 
 
 		{
-			crop->x = obj->GetAnim()->GetCurrentFrame().first;
-			crop->y = obj->GetAnim()->GetCurrentFrame().second;
+			crop->x = obj->GetAnim()->GetCurrentFrame().first * obj->GetSheet()->GetCellSize().first;
+			crop->y = obj->GetAnim()->GetCurrentFrame().second * obj->GetSheet()->GetCellSize().second;
 			crop->w = obj->GetSheet()->GetCellSize().first;
 			crop->h = obj->GetSheet()->GetCellSize().second;
 
