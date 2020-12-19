@@ -50,12 +50,14 @@ bool ObjectManager::SetUp()
 	{
 		objects[i.first] = i.second;
 		objects[i.first]->SetTexture(sheets[(objects[i.first]->path)]);
+		objects[i.first]->Init(mgrs);
 	}
 	return true;
 }
 
-ObjectManager::ObjectManager(SDL_Renderer* rnd)
+ObjectManager::ObjectManager(SDL_Renderer* rnd, Managers* mgr)
 {
 	mRnd = rnd;
+	mgrs = mgr;
 	SetUp();
 }

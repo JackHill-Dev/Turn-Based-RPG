@@ -13,9 +13,8 @@ MainMenuClass::MainMenuClass(ObjectManager* rng) : Scene(rng)
 
 }
 
-void MainMenuClass::Update(double dTime, Act act)
+void MainMenuClass::Update(double dTime, Act act, std::pair<int, int> mouse)
 {
-	/*if (act == Act::Jump)
-		std::cout << "AGHH";*/
+	//Its better to do button checks here, as this way you can iterate through specific layer, but current functionality in buttons is fine - T
 }
 

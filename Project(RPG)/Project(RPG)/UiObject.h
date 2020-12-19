@@ -15,6 +15,7 @@ public:
 	void SetCallBack(void (*nCallBack)());
 	void Call();
 	void Clear();
-	virtual void Select(Managers* mgrs) override;
+	virtual void Select() override;
+	virtual bool Update(double dTime, Act act, std::pair<int, int> mouse) override;
 };
 

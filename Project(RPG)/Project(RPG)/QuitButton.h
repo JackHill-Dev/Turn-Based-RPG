@@ -7,7 +7,7 @@ public:
     QuitButton() {}
     QuitButton(std::string sprSheet);
 
-    void Select(Managers* mgrs) override;
+    void Select() override;
 
 };
 

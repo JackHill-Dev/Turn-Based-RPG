@@ -18,14 +18,16 @@ private:
 	std::string mName;
 	bool mVisible;
 	SpriteSheet* mSheet;
+protected:
+	Managers* mgrs;
 	
 public:
 	std::string path;
-	RenderObject() {}
+	RenderObject();
 	RenderObject(std::string sprSheet);
 
-	bool Update(double dTime, Act act);
-	bool Init();
+	virtual bool Update(double dTime, Act act, std::pair<int, int> mouse);
+	bool Init(Managers* mgrs);
 	std::pair<int, int> GetPos();
 	void SetAnim(std::string id);
 	void SetPos(std::pair<int, int> nPos);
@@ -33,7 +35,7 @@ public:
 	SpriteSheet* GetSheet();
 	bool IsVisible();
 	bool InBounds(int x, int y);
-	virtual void Select(Managers* mgrs);
+	virtual void Select();
 	Animation* GetAnim();
 };
 

@@ -1,4 +1,5 @@
-﻿  Player.cpp
-  main.cpp
+﻿  main.cpp
+  SceneManager.cpp
+  StartButton.cpp
   Generating Code...
-  Project(RPG).vcxproj -> C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\x64\Debug\Project(RPG).exe
+  Project(RPG).vcxproj -> F:\Test\AdvancedGamesConsoleProject2\Project(RPG)\x64\Debug\Project(RPG).exe

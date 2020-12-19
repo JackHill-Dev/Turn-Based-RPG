@@ -5,7 +5,7 @@ QuitButton::QuitButton(std::string sprSheet) : Button(sprSheet)
 {
 }
 
-void QuitButton::Select(Managers* mgrs)
+void QuitButton::Select()
 {
 	mgrs->GameMgr->Quit();
 }
