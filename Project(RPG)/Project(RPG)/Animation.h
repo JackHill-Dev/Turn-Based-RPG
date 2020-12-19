@@ -8,6 +8,7 @@ private:
 	std::vector<std::pair<int, int>> frames;
 public:
 	void Advance();
+	Animation();
 	Animation(std::string name, std::vector<std::pair<int, int>>);
 	std::pair<int, int> GetCurrentFrame();
 	std::string GetName();

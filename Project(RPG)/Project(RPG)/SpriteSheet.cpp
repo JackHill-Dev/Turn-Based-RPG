@@ -2,7 +2,8 @@
 
 SpriteSheet::SpriteSheet(std::string path, int textureSizeX, int textureSizeY, float nCellSizeX, float nCellSizeY, int nCellCount) : mFilePath(path), mCellCount(nCellCount), mCellSizeX(nCellSizeX),  mCellSizeY(nCellSizeY), textureSize(std::make_pair(textureSizeX,textureSizeY))
 {
-	anims["default"] = new Animation("default", { std::make_pair(0,0) });
+	//anims["default"] =  Animation("default", { std::make_pair(0,0) });
+	anims.insert(std::make_pair("default", Animation("default", { std::make_pair(0,0) })));
 }
 
 SDL_Texture* SpriteSheet::GetTexture()
@@ -29,9 +30,9 @@ std::pair<float, float> SpriteSheet::GetCellSize()
 }
 Animation* SpriteSheet::GetAnim(std::string name)
 {
-	return anims[name];
+	return &anims[name];
 }
 void SpriteSheet::AddAnim(std::string name, Animation anim)
 {
-	anims[name] = &anim;
+	anims[name] = anim;
 }
