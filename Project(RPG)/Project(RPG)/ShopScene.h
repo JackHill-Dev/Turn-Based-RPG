@@ -16,7 +16,7 @@ private:
 	// Temporary variables for testing
 	void SetupShopInv();
 	void SetupPlayerInv();
-
+	void OutputInventories();
 	Player mPlayer;
 
 	bool printOnce = true;

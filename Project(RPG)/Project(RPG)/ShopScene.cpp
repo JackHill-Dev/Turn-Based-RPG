@@ -6,27 +6,14 @@ ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
 {
 	SetupPlayerInv();
 	SetupShopInv();
+
+	AddObject("playerPortraitObj", 400, 100, Game);
+	AddObject("merchantPortraitObj", 620, 100, Game);
 }
 
 void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
-	if (printOnce)
-	{
-		auto i = mPlayer.GetInventory().GetContents();
-		std::cout << "Player inventory" << std::endl;
-		for (Item* i : mPlayer.GetInventory().GetContents())
-		{
-			std::cout << i->GetName() << " " << i->GetCost() << std::endl;
-		}
-
-		std::cout << "Shop inventory" << std::endl;
-		for (Item* i : mShop.GetInventory().GetContents())
-		{
-			std::cout << i->GetName() << " " << i->GetCost() << std::endl;
-		}
-
-		printOnce = false;
-	}
+	OutputInventories();
 }
 
 void ShopScene::SetupShopInv()
@@ -56,4 +43,25 @@ void ShopScene::SetupPlayerInv()
 	mPlayer.GetInventory().AddItem(twitchSword);
 	mPlayer.GetInventory().AddItem(massiveSword);
 
+}
+
+void ShopScene::OutputInventories()
+{
+	if (printOnce)
+	{
+		auto i = mPlayer.GetInventory().GetContents();
+		std::cout << "Player inventory" << std::endl;
+		for (Item* i : mPlayer.GetInventory().GetContents())
+		{
+			std::cout << i->GetName() << " " << i->GetCost() << std::endl;
+		}
+
+		std::cout << "Shop inventory" << std::endl;
+		for (Item* i : mShop.GetInventory().GetContents())
+		{
+			std::cout << i->GetName() << " " << i->GetCost() << std::endl;
+		}
+
+		printOnce = false;
+	}
 }
