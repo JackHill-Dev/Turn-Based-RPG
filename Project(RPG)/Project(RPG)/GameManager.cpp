@@ -22,7 +22,7 @@ bool GameManager::Init()
 	ShopScene* sS = new ShopScene(mObjMgr);
 	CombatScene* cS = new CombatScene(mObjMgr);
 	mScManager->AddScene(mMenu);
-	mScManager->AddScene(cS);
+	mScManager->AddScene(sS);
 	mScManager->SetScene(0);
 
 	mInputMgr->CreateKeyBind('a', Act::Jump);

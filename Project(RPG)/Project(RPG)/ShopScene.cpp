@@ -10,7 +10,7 @@ ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
 
 void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
-	/*if (printOnce)
+	if (printOnce)
 	{
 		auto i = &mPlayer.GetInventory()->GetContents();
 		std::cout << "Player inventory" << std::endl;
@@ -26,7 +26,7 @@ void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 		}
 
 		printOnce = false;
-	}*/
+	}
 }
 
 void ShopScene::SetupShopInv()
