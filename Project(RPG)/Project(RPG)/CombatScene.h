@@ -6,6 +6,6 @@ class CombatScene :
 {
 public:
     CombatScene(ObjectManager* objmg);
-    //void Update(double dTime, Act act,std::pair<int, int> mouse) override;
+    void Update(double dTime, Act act,std::pair<int, int> mouse) override;
 };
 

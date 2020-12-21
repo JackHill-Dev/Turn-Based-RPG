@@ -7,11 +7,13 @@
 #include "Button.h"
 #include "StartButton.h"
 #include "QuitButton.h"
+#include "Unit.h"
 
 const std::map<std::string,RenderObject*> definedObjects
 {
 	{
 		{"maleObj",new RenderObject("male")}, // a defined object
+		{"maleUnit", new Unit("male")},
 		{"mainMenuBGObj",new RenderObject("mainMenuBG")}, // a defined object
 		{"StartBtnObj",new StartButton("startBtn")},
 		{"QuitBtnObj",new QuitButton("quitBtn")}
@@ -31,6 +33,19 @@ const std::map<std::string, SpriteSheet*> definedSheets
 const std::map<std::string, std::vector<Animation>> definedAnimations
 {
 	{
-		{"male", {Animation("WalkLeft", {std::make_pair(0,0),std::make_pair(1,0)})}} // a defined vector of animations, make sure the name matches the sheet
+		{"male", {// a defined vector of animations, make sure the name matches the sheet
+		Animation("LookUp", {std::make_pair(0,0)}), 
+		Animation("LookLeft", {std::make_pair(0,1)}),
+		Animation("LookRight", {std::make_pair(0,2)}),
+		Animation("LookDown", {std::make_pair(0,3)}),
+
+
+
+		Animation("WalkUp", {std::make_pair(0,0), std::make_pair(1,0),std::make_pair(2,0)}),
+		Animation("WalkLeft", {std::make_pair(0,1), std::make_pair(1,1), std::make_pair(2,1)}),
+		Animation("WalkRight", {std::make_pair(0,2), std::make_pair(1,2), std::make_pair(2,2)}),
+		Animation("WalkDown", {std::make_pair(0,3), std::make_pair(1,3), std::make_pair(2,3)})
+
+		}} 
 	}
 };

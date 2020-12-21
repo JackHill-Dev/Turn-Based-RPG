@@ -169,6 +169,7 @@
     <ClCompile Include="StartButton.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="UiObject.cpp" />
+    <ClCompile Include="Unit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -194,6 +195,7 @@
     <ClInclude Include="StartButton.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="UiObject.h" />
+    <ClInclude Include="Unit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

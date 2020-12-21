@@ -51,7 +51,7 @@ void GameManager::Run()
 		a = SDL_GetTicks();
 		delta = a - b;
 
-		if (delta > 1000 / 60.0)
+		if (delta > 1000 / 60.0) // 60 fps cap
 		{
 			//std::cout << "fps: " << 1000 / delta << std::endl;
 
@@ -73,16 +73,22 @@ void GameManager::Run()
 				act = Act::Click;
 
 
-
+				break;
+			case SDL_MOUSEMOTION:
+				SDL_GetMouseState(&x, &y);
+				//act = Act::Click;
+				break;
 				// TODO: Pass in struct with all managers to reduce amount of arguments being passed
-				//mScManager->Select(x,y, &mMgrs); // With what aaron has said should we pass in a scenemanager pointer into select so i can access it - JP No
+				//mScManager->Select(x,y, &mMgrs); // With what aaron has said should we pass in a scenemanager pointer into select so i can access it - JP.. No -T
 				//break;
 			//case SDL_WINDOWEVENT_SIZE_CHANGED: std::cout << "Size changed";
 
 			}
+			SDL_RenderClear(mRnd);
+
 			SDL_SetRenderTarget(mRnd, texture);
 			SDL_SetRenderDrawColor(mRnd, 0x64, 0x00, 0x00, 0x00);
-			SDL_RenderClear(mRnd);
+			
 			//SDL_RenderFillRect(mRnd, &r);
 			SDL_SetRenderTarget(mRnd, NULL);
 			mScManager->Update(delta, act, std::make_pair(x, y));

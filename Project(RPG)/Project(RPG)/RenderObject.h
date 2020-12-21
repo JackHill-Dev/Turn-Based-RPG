@@ -13,14 +13,15 @@ class RenderObject
 {
 
 private:
-	Animation* mCurrentAnim;
-	std::pair<int, int> mPos;
+	
+	
 	std::string mName;
 	bool mVisible;
 	SpriteSheet* mSheet;
 protected:
 	Managers* mgrs;
-	
+	std::pair<double, double> mPos;
+	Animation* mCurrentAnim;
 public:
 	std::string path;
 	RenderObject();
