@@ -1,5 +1,12 @@
 #include "Inventory.h"
 #include <algorithm>
+Inventory::~Inventory()
+{
+	for (Item* i : mItems)
+	{
+		delete i;
+	}
+}
 void Inventory::AddItem(Item* item)
 {
 	mItems.push_back(item);

@@ -4,7 +4,9 @@
 class Item
 {
 public:
-	Item(std::string& name, int cost);
+	Item() {}
+	Item(std::string name, int cost);
+	~Item();
 	std::string GetName() const;
 	int GetCost() const;
 private:

@@ -17,9 +17,8 @@ private:
 	void SetupShopInv();
 	void SetupPlayerInv();
 
-	Inventory mShopInv;
-	Inventory mPlayerInv;
 	Player mPlayer;
+
 	bool printOnce = true;
 	
 

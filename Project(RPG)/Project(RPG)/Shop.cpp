@@ -10,9 +10,9 @@ int Shop::GetGold()
 	return mGold;
 }
 
-Inventory* Shop::GetInventory()
+Inventory& Shop::GetInventory()
 {
-	return &mInventory;
+	return mInventory;
 }
 
 void Shop::BuyItem(Item* item)

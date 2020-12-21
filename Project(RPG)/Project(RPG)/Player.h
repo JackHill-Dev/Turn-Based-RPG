@@ -3,10 +3,12 @@
 class Player
 {
 public:
+	Player();
+	~Player();
 	void SetGold(int amount);
 	int GetGold();
-	Inventory* GetInventory();
-	void SetInventory(Inventory& inv);
+	Inventory& GetInventory();
+	void SetInventory(Inventory inv);
 	void SellItem(Item* item);
 private:
 	Inventory mInventory;

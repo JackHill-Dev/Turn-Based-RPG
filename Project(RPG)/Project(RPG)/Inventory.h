@@ -4,6 +4,7 @@
 class Inventory
 {
 public:
+	~Inventory();
 	void AddItem(Item* item);
 	void RemoveItem(Item* item);
 	Item* GetItem(Item* item);
