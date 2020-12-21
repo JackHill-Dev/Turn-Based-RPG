@@ -41,48 +41,61 @@ void GameManager::Run()
 	r.h = 500;
 	SDL_Texture* texture = SDL_CreateTexture(mRnd, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 1280, 720);
 	SDL_Event ev;
-	Uint64 NOW = SDL_GetPerformanceCounter();
-	Uint64 LAST = 0;
+	unsigned int a = SDL_GetTicks();
+	unsigned int b = SDL_GetTicks();
+	double delta = 0;
 	double deltaTime = 0;
-	while(Running())
-	while (SDL_PollEvent(&ev))
+	
+	while (SDL_PollEvent(&ev)|| bRunning )
 	{
-		LAST = NOW;
-		int x, y;
-		act = Act::Blank;
-		switch (ev.type)
+		a = SDL_GetTicks();
+		delta = a - b;
+
+		if (delta > 1000 / 60.0)
 		{
-		case SDL_KEYUP:
-			
-		
-			
-			break;
-		case SDL_MOUSEBUTTONDOWN:
-			//auto e = ev.button.button;
-			
-			SDL_GetMouseState(&x, &y);
-			act = Act::Click;
+			//std::cout << "fps: " << 1000 / delta << std::endl;
+
+			b = a;
+
+			int x, y;
+			act = Act::Blank;
+			switch (ev.type)
+			{
+			case SDL_KEYUP:
 
 
 
-			// TODO: Pass in struct with all managers to reduce amount of arguments being passed
-			//mScManager->Select(x,y, &mMgrs); // With what aaron has said should we pass in a scenemanager pointer into select so i can access it - JP No
-			break;
-		case SDL_WINDOWEVENT_SIZE_CHANGED: std::cout << "Size changed";
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				//auto e = ev.button.button;
 
+				SDL_GetMouseState(&x, &y);
+				act = Act::Click;
+
+
+
+				// TODO: Pass in struct with all managers to reduce amount of arguments being passed
+				//mScManager->Select(x,y, &mMgrs); // With what aaron has said should we pass in a scenemanager pointer into select so i can access it - JP No
+				//break;
+			//case SDL_WINDOWEVENT_SIZE_CHANGED: std::cout << "Size changed";
+
+			}
+			SDL_SetRenderTarget(mRnd, texture);
+			SDL_SetRenderDrawColor(mRnd, 0x64, 0x00, 0x00, 0x00);
+			SDL_RenderClear(mRnd);
+			//SDL_RenderFillRect(mRnd, &r);
+			SDL_SetRenderTarget(mRnd, NULL);
+			mScManager->Update(delta, act, std::make_pair(x, y));
+			mScManager->Draw(mRnd);
+			SDL_RenderPresent(mRnd);
 		}
-		SDL_SetRenderTarget(mRnd, texture);
-		SDL_SetRenderDrawColor(mRnd, 0x64, 0x00, 0x00, 0x00);
-		SDL_RenderClear(mRnd);
-		//SDL_RenderFillRect(mRnd, &r);
-		SDL_SetRenderTarget(mRnd, NULL);
-		NOW = SDL_GetPerformanceCounter();
 
-		deltaTime = (double)((NOW - LAST) * 1000 / (double)SDL_GetPerformanceFrequency());
 
-		mScManager->Update(deltaTime, act, std::make_pair(x,y));
-		mScManager->Draw(mRnd);
-		SDL_RenderPresent(mRnd);
+
+
+
+		
+		//SDL_Delay(16);
 	}
 	SDL_DestroyRenderer(mRnd);
 	SDL_DestroyWindow(mWnd);

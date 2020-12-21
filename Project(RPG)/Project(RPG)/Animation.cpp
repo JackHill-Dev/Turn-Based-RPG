@@ -1,14 +1,14 @@
 #include "Animation.h"
 void Animation::Advance(double dTime)
 {
-	time += dTime;
+	
+	
+	time += dTime * 0.1f;
 	if (time >= speed)
 	{
 		current++;
-		if (current > frames.size()-1)
+		if (current >= frames.size())
 			current = 0;
-
-
 		time = 0;
 	}
 }

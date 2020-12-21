@@ -6,8 +6,8 @@ private:
 	int current;
 	std::string name;
 	std::vector<std::pair<int, int>> frames;
-	float speed = 0.5f;
-	double time = 0;
+	double speed = 15;
+	double time  = 0;
 public:
 	void Advance(double dTime);
 	Animation();
