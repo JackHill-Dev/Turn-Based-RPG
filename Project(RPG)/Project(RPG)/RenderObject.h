@@ -38,5 +38,6 @@ public:
 	bool InBounds(int x, int y);
 	virtual void Select();
 	Animation* GetAnim();
+	virtual RenderObject* Clone() { return new RenderObject(*this); }
 };
 

@@ -13,7 +13,7 @@ class Button :
 public:
     Button() {}
     Button(std::string);
-    
+    virtual Button* Clone() { return new Button(*this); };
     virtual void Select() override;
 };
 

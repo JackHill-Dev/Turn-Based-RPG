@@ -21,9 +21,13 @@ SDL_Texture* ObjectManager::LoadTexture(std::string path)
 }
 
 RenderObject* ObjectManager::RequestObject(std::string name)
-{
-	RenderObject* obj(objects[name]);
-	return obj;
+
+
+
+
+{	
+	
+	return objects[name]->Clone();
 }
 
 bool ObjectManager::SetUp()

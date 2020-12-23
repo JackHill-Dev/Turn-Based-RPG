@@ -13,6 +13,13 @@ CombatScene::CombatScene(ObjectManager* objmg) : Scene(objmg)
 	obj = (AddObject("maleObj", 60, 60, Game));
 	obj->SetAnim("LookDown");
 
+	(AddObject("maleObj", 120, 60, Game));
+	(AddObject("maleObj", 300, 60, Game));
+	(AddObject("maleObj", 300, 399, Game));
+	(AddObject("maleObj", 60, 60, Game));
+
+
+
 } 
 
 
