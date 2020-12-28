@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include "Shop.h"
 #include "Player.h"
-#include "Sword.h"
+
 class ShopScene :
     public Scene
 {

@@ -1,6 +1,6 @@
 #include "ShopScene.h"
-
-
+#include "Sword.h"
+#include "Armour.h"
 
 ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
 {
@@ -47,10 +47,14 @@ void ShopScene::SetupPlayerInv()
 
 	Sword* massiveSword = new Sword("Massive Sword", 500);
 	massiveSword->SetAtkPower(500);
+
+	Armour* plateArmour = new Armour("Plate Armour", 150);
 	
 	mPlayer.GetInventory().AddItem(bigSword);
 	mPlayer.GetInventory().AddItem(twitchSword);
+	mPlayer.GetInventory().AddItem(plateArmour);
 	mPlayer.GetInventory().AddItem(massiveSword);
+	
 
 }
 
