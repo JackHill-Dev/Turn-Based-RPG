@@ -1,9 +1,16 @@
 #include "Animation.h"
-void Animation::Advance()
+void Animation::Advance(double dTime)
 {
-	current++;
-	if (current > frames.size())
-		current = 0;
+	
+	
+	time += dTime * 0.1f;
+	if (time >= speed)
+	{
+		current++;
+		if (current >= frames.size())
+			current = 0;
+		time = 0;
+	}
 }
 Animation::Animation(std::string name, std::vector<std::pair<int,int>> anims)
 {

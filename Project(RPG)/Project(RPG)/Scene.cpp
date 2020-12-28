@@ -15,8 +15,9 @@ Scene::Scene(ObjectManager* objmg)
 
 void Scene::SceneUpdate(double dTime, Act act, std::pair<int, int> mousePos)
 {
-	std::for_each(mLayers.begin(), mLayers.end(), [dTime, act, mousePos](std::vector<RenderObject*> layer) {
-		std::for_each(layer.begin(), layer.end(), [dTime, act, mousePos](RenderObject* obj) {obj->Update(dTime, act, mousePos); });
+	float rTime = dTime / 1000;
+	std::for_each(mLayers.begin(), mLayers.end(), [dTime, rTime, act, mousePos](std::vector<RenderObject*> layer) {
+		std::for_each(layer.begin(), layer.end(), [dTime, rTime, act, mousePos](RenderObject* obj) {obj->Update(dTime, act, mousePos); obj->GetAnim()->Advance(dTime); });
 		});
 
 	Update(dTime, act, mousePos);
