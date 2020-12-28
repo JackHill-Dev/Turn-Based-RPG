@@ -1,6 +1,7 @@
 #include "GameManager.h"
 #include "TestScene.h"
 #include "CombatScene.h"
+#include "ShopScene.h"
 bool GameManager::Init()
 {
 	int imgFlags = IMG_INIT_PNG;
@@ -17,10 +18,11 @@ bool GameManager::Init()
 	InitManagers();
 	SetupManagersStruct();
 
-	MainMenuClass* mMenu = new MainMenuClass(mObjMgr);
+	MainMenuScene* mMenu = new MainMenuScene(mObjMgr);
 	CombatScene* cS = new CombatScene(mObjMgr);
+	ShopScene* shopScene = new ShopScene(mObjMgr);
 	mScManager->AddScene(mMenu);
-	mScManager->AddScene(cS);
+	mScManager->AddScene(shopScene);
 	mScManager->SetScene(0);
 
 	mInputMgr->CreateKeyBind('a', Act::Jump);
@@ -76,11 +78,8 @@ void GameManager::Run()
 				break;
 			case SDL_MOUSEMOTION:
 				SDL_GetMouseState(&x, &y);
-				//act = Act::Click;
+				act = Act::Hover;
 				break;
-				// TODO: Pass in struct with all managers to reduce amount of arguments being passed
-				//mScManager->Select(x,y, &mMgrs); // With what aaron has said should we pass in a scenemanager pointer into select so i can access it - JP.. No -T
-				//break;
 			//case SDL_WINDOWEVENT_SIZE_CHANGED: std::cout << "Size changed";
 
 			}
@@ -155,4 +154,5 @@ InputManager* GameManager::GetInputMgr()
 void GameManager::Quit()
 {
 	bRunning = false;
+	
 }

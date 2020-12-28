@@ -12,15 +12,12 @@ void StartButton::Select()
 
 bool StartButton::Update(double dTime, Act act, std::pair<int, int> mouse)
 {
-	
 	if(act == Act::Click && InBounds(mouse.first, mouse.second))
-		mgrs->SceneMgr->NextScene(1);
+		mgrs->SceneMgr->SetScene(1);
 
 	if (act == Act::Hover && InBounds(mouse.first, mouse.second))
 	{
-		//std::cout << "Start button hovered" << std::endl;
 		SetAnim("Hover");
-
 	}
 	else
 		SetAnim("default");

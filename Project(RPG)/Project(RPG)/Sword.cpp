@@ -2,6 +2,7 @@
 
 Sword::Sword(std::string name, int cost) : Item(name, cost)
 {
+	SetObjName("swordObj");
 }
 
 int Sword::GetAtkPower()

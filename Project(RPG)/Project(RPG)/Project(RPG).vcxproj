@@ -161,7 +161,7 @@
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainMenuClass.cpp" />
+    <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="QuitButton.cpp" />
@@ -192,7 +192,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
-    <ClInclude Include="MainMenuClass.h" />
+    <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="ManagerStruct.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Player.h" />

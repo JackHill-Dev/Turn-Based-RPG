@@ -1,12 +1,10 @@
-#include "MainMenuClass.h"
+#include "MainMenuScene.h"
 
-MainMenuClass::MainMenuClass(ObjectManager* rng) : Scene(rng)
+MainMenuScene::MainMenuScene(ObjectManager* rng) : Scene(rng)
 {
 	// Get all button objects
 	pMenuButton = AddObject("StartBtnObj", 5, 90, UI);
-	//pMenuButton->SetAnim("Hover"); // Can't find animation id - JP
-	auto a = pMenuButton->GetAnim();
-	AddObject("QuitBtnObj", 5, 400, UI);
+	pQuitButton = AddObject("QuitBtnObj", 5, 400, UI);
 	// Get Background object
 	AddObject("mainMenuBGObj", 0, 0, Background);
 	// Get all SFX objects
@@ -15,7 +13,7 @@ MainMenuClass::MainMenuClass(ObjectManager* rng) : Scene(rng)
 
 }
 
-void MainMenuClass::Update(double dTime, Act act, std::pair<int, int> mouse)
+void MainMenuScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 {
 	//Its better to do button checks here, as this way you can iterate through specific layer, but current functionality in buttons is fine - T
 }

@@ -28,7 +28,6 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 	if (act == Act::Click)
 	{
 
-		
 		float xDiff = mouse.first - character->GetPos().first;
 		if (xDiff < 0)
 			xDiff *= -1;

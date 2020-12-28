@@ -24,7 +24,7 @@ protected:
 	Animation* mCurrentAnim;
 public:
 	std::string path;
-	RenderObject();
+	RenderObject() {}
 	RenderObject(std::string sprSheet);
 
 	virtual bool Update(double dTime, Act act, std::pair<int, int> mouse);

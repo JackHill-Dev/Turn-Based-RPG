@@ -1,5 +1,5 @@
 #include "ShopScene.h"
-#include "Sword.h"
+
 
 
 ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
@@ -9,6 +9,15 @@ ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
 
 	AddObject("playerPortraitObj", 400, 100, Game);
 	AddObject("merchantPortraitObj", 620, 100, Game);
+
+	int gridOffset = 0; // current way of serparting them need them to form grid 
+	for (auto i : mPlayer.GetInventory().GetContents())
+	{
+		i->SetRenderObject(*AddObject(i->GetObjName(), 0 + gridOffset, 0, Game)); // Display item to screen and set its render object to the correct image
+		// if x > 5th grid postion on row 0
+			// then add to y offset and reset x offset
+		gridOffset += 30;
+	}
 }
 
 void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)

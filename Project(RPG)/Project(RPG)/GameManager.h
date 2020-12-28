@@ -7,7 +7,7 @@
 #include "InputManager.h"
 #include "Globals.h"
 #include "Actions.h"
-#include "MainMenuClass.h"
+#include "MainMenuScene.h"
 #include "ObjectManager.h"
 #include "ManagerStruct.h"
 
