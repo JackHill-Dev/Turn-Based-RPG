@@ -13,7 +13,7 @@ protected:
 private:
 	
 	Shop mShop;
-
+	void PlaceItems();
 	// Temporary variables for testing
 	void SetupShopInv();
 	void SetupPlayerInv();

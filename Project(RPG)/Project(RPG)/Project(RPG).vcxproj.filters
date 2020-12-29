@@ -216,7 +216,7 @@
       <Filter>Header Files\Items</Filter>
     </ClInclude>
     <ClInclude Include="Armour.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Items</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

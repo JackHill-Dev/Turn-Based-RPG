@@ -10,19 +10,50 @@ ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
 	AddObject("playerPortraitObj", 400, 100, Game);
 	AddObject("merchantPortraitObj", 620, 100, Game);
 
-	int gridOffset = 0; // current way of serparting them need them to form grid 
-	for (auto i : mPlayer.GetInventory().GetContents())
-	{
-		i->SetRenderObject(*AddObject(i->GetObjName(), 0 + gridOffset, 0, Game)); // Display item to screen and set its render object to the correct image
-		// if x > 5th grid postion on row 0
-			// then add to y offset and reset x offset
-		gridOffset += 30;
-	}
+	PlaceItems();
+
 }
 
 void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
-	OutputInventories();
+	// for each item on screen
+	for (auto i : mPlayer.GetInventory().GetContents())
+	{
+		// check if mouse is hovering over it
+		if (act == Act::Hover && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
+		{
+			// call onHover on item
+			i->OnHover();
+		}
+		else
+		{
+			i->OnLeave();
+		}
+	}
+	
+		
+			
+	
+}
+
+void ShopScene::PlaceItems()
+{
+	int gridOffsetX = 10; // current way of serparting them need them to form grid 
+	int gridOffsetY = 0;
+	for (auto i : mPlayer.GetInventory().GetContents())
+	{
+		// if x > 5th grid postion on row 0
+		if (gridOffsetX >= 360)
+		{
+			gridOffsetX = 10;
+			gridOffsetY += 90;
+		}
+
+		i->SetRenderObject(*AddObject(i->GetObjName(), 10 + gridOffsetX, 100 + gridOffsetY, Game)); // Display item to screen and set its render object to the correct image
+
+		// then add to y offset and reset x offset
+		gridOffsetX += 90;
+	}
 }
 
 void ShopScene::SetupShopInv()
@@ -52,8 +83,16 @@ void ShopScene::SetupPlayerInv()
 	
 	mPlayer.GetInventory().AddItem(bigSword);
 	mPlayer.GetInventory().AddItem(twitchSword);
-	mPlayer.GetInventory().AddItem(plateArmour);
 	mPlayer.GetInventory().AddItem(massiveSword);
+	mPlayer.GetInventory().AddItem(plateArmour);
+	mPlayer.GetInventory().AddItem(plateArmour);
+	mPlayer.GetInventory().AddItem(plateArmour);
+	mPlayer.GetInventory().AddItem(plateArmour);
+	mPlayer.GetInventory().AddItem(plateArmour);
+	mPlayer.GetInventory().AddItem(plateArmour);
+	mPlayer.GetInventory().AddItem(plateArmour);
+	mPlayer.GetInventory().AddItem(plateArmour);
+
 	
 
 }
