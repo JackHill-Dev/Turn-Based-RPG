@@ -31,27 +31,27 @@ void Scene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 void Scene::Draw(SDL_Renderer* rnd)
 {
 	// Need to move this otherwise a variable is pointlessly getting set every frame TODO: Ask TH & EH where's best to set this
-	SDL_Rect* rect = new SDL_Rect(); // TODO:Place these on the stack - JP, TH
-	SDL_Rect* crop = new SDL_Rect();
+	SDL_Rect rect; // TODO:Place these on the stack - JP, TH
+	SDL_Rect crop;
 	
 	std::for_each(mLayers.begin(), mLayers.end(), [rnd, &rect, &crop](std::vector<RenderObject*> layer) {
 		std::for_each(layer.begin(), layer.end(), [rnd, &rect, &crop](RenderObject* obj) {if (obj->IsVisible())
 
 
 		{
-			crop->x = obj->GetAnim()->GetCurrentFrame().first * obj->GetSheet()->GetCellSize().first;
-			crop->y = obj->GetAnim()->GetCurrentFrame().second * obj->GetSheet()->GetCellSize().second;
-			crop->w = obj->GetSheet()->GetCellSize().first;
-			crop->h = obj->GetSheet()->GetCellSize().second;
+			crop.x = obj->GetAnim()->GetCurrentFrame().first * obj->GetSheet()->GetCellSize().first;
+			crop.y = obj->GetAnim()->GetCurrentFrame().second * obj->GetSheet()->GetCellSize().second;
+			crop.w = obj->GetSheet()->GetCellSize().first;
+			crop.h = obj->GetSheet()->GetCellSize().second;
 
-			rect->x = obj->GetPos().first;
-			rect->y = obj->GetPos().second;
-			rect->w = obj->GetSheet()->GetCellSize().first;
-			rect->h = obj->GetSheet()->GetCellSize().second;
+			rect.x = obj->GetPos().first;
+			rect.y = obj->GetPos().second;
+			rect.w = obj->GetSheet()->GetCellSize().first;
+			rect.h = obj->GetSheet()->GetCellSize().second;
 			SDL_SetTextureColorMod(obj->GetSheet()->GetTexture(), obj->tint.r, obj->tint.g, obj->tint.b);
 
 			if (obj->IsVisible())
-				SDL_RenderCopy(rnd, obj->GetSheet()->GetTexture(), crop, rect);
+				SDL_RenderCopy(rnd, obj->GetSheet()->GetTexture(), &crop, &rect);
 				
 		}
 		});
