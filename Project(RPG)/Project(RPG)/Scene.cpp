@@ -48,6 +48,8 @@ void Scene::Draw(SDL_Renderer* rnd)
 			rect->y = obj->GetPos().second;
 			rect->w = obj->GetSheet()->GetCellSize().first;
 			rect->h = obj->GetSheet()->GetCellSize().second;
+			SDL_SetTextureColorMod(obj->GetSheet()->GetTexture(), obj->tint.r, obj->tint.g, obj->tint.b);
+
 			if (obj->IsVisible())
 				SDL_RenderCopy(rnd, obj->GetSheet()->GetTexture(), crop, rect);
 				

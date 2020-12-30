@@ -68,15 +68,19 @@ void GameManager::Run()
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 				//auto e = ev.button.button;
-
+				if(ev.button.button == SDL_BUTTON_LEFT)
+					act = Act::Click;
+				else
+					act = Act::RClick;
 				SDL_GetMouseState(&x, &y);
-				act = Act::Click;
+				
+				
 
 
 				break;
 			case SDL_MOUSEMOTION:
 				SDL_GetMouseState(&x, &y);
-				//act = Act::Click;
+				act = Act::MouseUpdate;
 				break;
 				// TODO: Pass in struct with all managers to reduce amount of arguments being passed
 				//mScManager->Select(x,y, &mMgrs); // With what aaron has said should we pass in a scenemanager pointer into select so i can access it - JP.. No -T

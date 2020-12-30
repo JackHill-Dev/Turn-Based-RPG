@@ -26,7 +26,7 @@ public:
 	std::string path;
 	RenderObject();
 	RenderObject(std::string sprSheet);
-
+	SDL_Color tint = { 255,255,255 }; //white
 	virtual bool Update(double dTime, Act act, std::pair<int, int> mouse);
 	bool Init(Managers* mgrs);
 	std::pair<int, int> GetPos();

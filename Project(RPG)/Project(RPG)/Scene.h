@@ -17,9 +17,10 @@ class Scene
 private:
 
 	std::string name;
-	std::vector<std::vector<RenderObject*>> mLayers;
+	
 	SDL_Surface* mSurface = nullptr;
 protected:
+	std::vector<std::vector<RenderObject*>> mLayers;
 	ObjectManager* mgr;
 	virtual void Update(double dTime, Act act, std::pair<int, int> mousePos);
 public:
