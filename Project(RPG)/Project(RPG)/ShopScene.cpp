@@ -19,12 +19,7 @@ void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
 	ManagePlayerInventory(mPlayer.GetInventory(), act, mousePos);
 	ManageShopInventory(mShop.GetInventory(), act, mousePos);
-	
 
-	// Clear items from screen and redraw items with updated inventories - JP
-	//ClearGameObjects();
-	//PlaceItems(mPlayer.GetInventory(), 10);
-	//PlaceItems(mShop.GetInventory(), 850);
 	
 }
 
@@ -48,6 +43,7 @@ void ShopScene::PlaceItems(Inventory& inv, int startX)
 	}
 }
 
+// Clear items from screen and redraw items with updated inventories 
 void ShopScene::UpdateItems()
 {
 	ClearGameObjects();
