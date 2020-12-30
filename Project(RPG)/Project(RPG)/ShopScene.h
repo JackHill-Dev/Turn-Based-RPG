@@ -14,6 +14,7 @@ private:
 	
 	Shop mShop;
 	void PlaceItems(Inventory& inv, int startX);
+	void UpdateItems();
 	// Temporary variables for testing
 	void SetupShopInv();
 	void SetupPlayerInv();

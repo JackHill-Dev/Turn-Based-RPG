@@ -22,9 +22,9 @@ void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 	
 
 	// Clear items from screen and redraw items with updated inventories - JP
-	ClearGameObjects();
-	PlaceItems(mPlayer.GetInventory(), 10);
-	PlaceItems(mShop.GetInventory(), 850);
+	//ClearGameObjects();
+	//PlaceItems(mPlayer.GetInventory(), 10);
+	//PlaceItems(mShop.GetInventory(), 850);
 	
 }
 
@@ -46,6 +46,13 @@ void ShopScene::PlaceItems(Inventory& inv, int startX)
 		// then add to y offset and reset x offset
 		gridOffsetX += 90;
 	}
+}
+
+void ShopScene::UpdateItems()
+{
+	ClearGameObjects();
+	PlaceItems(mPlayer.GetInventory(), 10);
+	PlaceItems(mShop.GetInventory(), 850);
 }
 
 void ShopScene::SetupShopInv()
@@ -116,13 +123,18 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 
 		if (act == Act::RightClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
-			mShop.BuyItem(i);
-			mPlayer.GetInventory().AddItem(i);
-			mPlayer.SetGold(-i->GetCost());
+			if (!(mPlayer.GetGold() < i->GetCost())) // If player can't afford item they can't buy it
+			{
+				mShop.BuyItem(i);
+				mPlayer.GetInventory().AddItem(i);
+				mPlayer.SetGold(-i->GetCost());
+			}
 
 		}
-
+		UpdateItems();
 	}
+	
+
 }
 
 void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, int> mousePos)
@@ -143,6 +155,9 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 			mPlayer.SellItem(i);
 			
 		}
+		UpdateItems();
 	}
+	
+
 }
 
