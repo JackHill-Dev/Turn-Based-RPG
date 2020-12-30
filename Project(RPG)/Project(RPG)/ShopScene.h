@@ -13,11 +13,13 @@ protected:
 private:
 	
 	Shop mShop;
-	void PlaceItems();
+	void PlaceItems(Inventory& inv, int startX);
 	// Temporary variables for testing
 	void SetupShopInv();
 	void SetupPlayerInv();
 	void OutputInventories();
+	void ManageShopInventory(Inventory& inv, Act act, std::pair<int, int> mousePos);
+	void ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, int> mousePos);
 	Player mPlayer;
 
 	bool printOnce = true;

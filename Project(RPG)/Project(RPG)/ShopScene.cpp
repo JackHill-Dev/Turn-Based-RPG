@@ -7,46 +7,38 @@ ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
 	SetupPlayerInv();
 	SetupShopInv();
 
-	AddObject("playerPortraitObj", 400, 100, Game);
-	AddObject("merchantPortraitObj", 620, 100, Game);
+	AddObject("playerPortraitObj", 400, 100, UI);
+	AddObject("merchantPortraitObj", 620, 100, UI);
 
-	PlaceItems();
+	PlaceItems(mPlayer.GetInventory(), 10);
+	PlaceItems(mShop.GetInventory(), 850);
 
 }
 
 void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
-	// for each item on screen
-	for (auto i : mPlayer.GetInventory().GetContents())
-	{
-		// check if mouse is hovering over it
-		if (act == Act::Hover && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
-		{
-			// call onHover on item
-			i->OnHover();
-		}
-		else
-		{
-			i->OnLeave();
-		}
-	}
+	ManagePlayerInventory(mPlayer.GetInventory(), act, mousePos);
+	ManageShopInventory(mShop.GetInventory(), act, mousePos);
 	
-		
-			
+
+	// Clear items from screen and redraw items with updated inventories - JP
+	ClearGameObjects();
+	PlaceItems(mPlayer.GetInventory(), 10);
+	PlaceItems(mShop.GetInventory(), 850);
 	
 }
 
-void ShopScene::PlaceItems()
+void ShopScene::PlaceItems(Inventory& inv, int startX)
 {
-	int gridOffsetX = 10; // current way of serparting them need them to form grid 
+	int gridOffsetX = startX; // current way of serparting them need them to form grid 
 	int gridOffsetY = 0;
-	for (auto i : mPlayer.GetInventory().GetContents())
+	for (auto i : inv.GetContents())
 	{
-		// if x > 5th grid postion on row 0
-		if (gridOffsetX >= 360)
+		// if x > 4th grid postion on row 0
+		if (gridOffsetX >= 360 + startX)
 		{
-			gridOffsetX = 10;
-			gridOffsetY += 90;
+			gridOffsetX = startX; // reset x offset
+			gridOffsetY += 90; // move y offset down
 		}
 
 		i->SetRenderObject(*AddObject(i->GetObjName(), 10 + gridOffsetX, 100 + gridOffsetY, Game)); // Display item to screen and set its render object to the correct image
@@ -85,13 +77,6 @@ void ShopScene::SetupPlayerInv()
 	mPlayer.GetInventory().AddItem(twitchSword);
 	mPlayer.GetInventory().AddItem(massiveSword);
 	mPlayer.GetInventory().AddItem(plateArmour);
-	mPlayer.GetInventory().AddItem(plateArmour);
-	mPlayer.GetInventory().AddItem(plateArmour);
-	mPlayer.GetInventory().AddItem(plateArmour);
-	mPlayer.GetInventory().AddItem(plateArmour);
-	mPlayer.GetInventory().AddItem(plateArmour);
-	mPlayer.GetInventory().AddItem(plateArmour);
-	mPlayer.GetInventory().AddItem(plateArmour);
 
 	
 
@@ -117,3 +102,47 @@ void ShopScene::OutputInventories()
 		printOnce = false;
 	}
 }
+
+void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int> mousePos)
+{
+	for (Item* i : inv.GetContents())
+	{
+		// check if mouse is hovering over it
+		if (act == Act::Hover && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
+		{
+			// call onHover on item
+			//i->OnHover();
+		}
+
+		if (act == Act::RightClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
+		{
+			mShop.BuyItem(i);
+			mPlayer.GetInventory().AddItem(i);
+			mPlayer.SetGold(-i->GetCost());
+
+		}
+
+	}
+}
+
+void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, int> mousePos)
+{
+	// for each item in player's inventory on screen
+	for (Item* i : mPlayer.GetInventory().GetContents())
+	{
+		// check if mouse is hovering over it
+		if (act == Act::Hover && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
+		{
+			// call onHover on item
+			//i->OnHover();
+		}
+		
+		if (act == Act::RightClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
+		{
+			mShop.GetInventory().AddItem(i);
+			mPlayer.SellItem(i);
+			
+		}
+	}
+}
+

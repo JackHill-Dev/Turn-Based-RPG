@@ -33,6 +33,7 @@ public:
 	void SetAnim(std::string id);
 	void SetPos(std::pair<int, int> nPos);
 	void SetTexture(SpriteSheet* nSheet);
+	void SetVisible(const bool vis);
 	SpriteSheet* GetSheet();
 	bool IsVisible();
 	bool InBounds(int x, int y);

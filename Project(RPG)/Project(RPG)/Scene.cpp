@@ -82,11 +82,17 @@ void Scene::Clear(SDL_Renderer* rnd)
 	//SDL_FillRect(mSurface, nullptr, SDL_MapRGB(mSurface->format, 0, 0, 0));
 }
 
+void Scene::ClearGameObjects()
+{
+	mLayers[2].clear();
+}
+
 RenderObject* Scene::AddObject(std::string obj, int x, int y, Layer layerNum)
 {
 	RenderObject* obje = mgr->RequestObject(obj);
 
 	mLayers[layerNum].push_back(obje);
+
 	obje->SetAnim("default");
 	obje->SetPos(std::make_pair(x, y));
 

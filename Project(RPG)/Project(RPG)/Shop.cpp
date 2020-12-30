@@ -17,6 +17,9 @@ Inventory& Shop::GetInventory()
 
 void Shop::BuyItem(Item* item)
 {
+	mGold + item->GetCost();
+	mInventory.RemoveItem(item);
+
 	// Check if shop has item
 	// Check if player has sufficient gold
 	// Check that player meets level requirements

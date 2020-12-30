@@ -72,8 +72,11 @@ void GameManager::Run()
 				//auto e = ev.button.button;
 
 				SDL_GetMouseState(&x, &y);
-				act = Act::Click;
-
+				if(ev.button.button == SDL_BUTTON_LEFT)
+					act = Act::Click;
+			
+				if (ev.button.button == SDL_BUTTON_RIGHT)
+					act = Act::RightClick;
 
 				break;
 			case SDL_MOUSEMOTION:

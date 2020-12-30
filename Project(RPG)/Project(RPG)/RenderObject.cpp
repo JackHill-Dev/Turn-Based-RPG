@@ -39,6 +39,11 @@ void RenderObject::SetTexture(SpriteSheet* nSheet)
 	mSheet = nSheet;
 }
 
+void RenderObject::SetVisible(const bool vis)
+{
+	mVisible = vis;
+}
+
 SpriteSheet* RenderObject::GetSheet()
 {
 	return mSheet;
