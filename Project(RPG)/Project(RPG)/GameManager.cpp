@@ -70,18 +70,19 @@ void GameManager::Run()
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 				//auto e = ev.button.button;
-
-				SDL_GetMouseState(&x, &y);
 				if(ev.button.button == SDL_BUTTON_LEFT)
 					act = Act::Click;
-			
-				if (ev.button.button == SDL_BUTTON_RIGHT)
-					act = Act::RightClick;
+				else
+					act = Act::RClick;
+				SDL_GetMouseState(&x, &y);
+				
+				
+
 
 				break;
 			case SDL_MOUSEMOTION:
 				SDL_GetMouseState(&x, &y);
-				act = Act::Hover;
+				act = Act::MouseUpdate;
 				break;
 			//case SDL_WINDOWEVENT_SIZE_CHANGED: std::cout << "Size changed";
 

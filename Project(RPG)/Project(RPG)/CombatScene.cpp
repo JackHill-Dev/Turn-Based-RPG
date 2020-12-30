@@ -1,8 +1,10 @@
 #include "CombatScene.h"
 
-
+RenderObject* selected;
 RenderObject* obj;
 Unit* character;
+Layer current = Layer::Game;
+std::pair<int, int> lastMousePos = { 0,0 };
 CombatScene::CombatScene(ObjectManager* objmg) : Scene(objmg)
 {
 	
@@ -10,13 +12,9 @@ CombatScene::CombatScene(ObjectManager* objmg) : Scene(objmg)
 	character = static_cast<Unit*>((AddObject("maleUnit", 80, 60, Game)));
 	character->SetAnim("LookDown");
 	character->SetPosition(std::make_pair (100, 100));
-	obj = (AddObject("maleObj", 60, 60, Game));
-	obj->SetAnim("LookDown");
 
-	(AddObject("maleObj", 120, 60, Game));
-	(AddObject("maleObj", 300, 60, Game));
-	(AddObject("maleObj", 300, 399, Game));
-	(AddObject("maleObj", 60, 60, Game));
+	(AddObject("maleUnit", 120, 60, Game));
+	(AddObject("maleUnit", 300, 60, Game));
 
 
 
@@ -25,44 +23,76 @@ CombatScene::CombatScene(ObjectManager* objmg) : Scene(objmg)
 
 void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 {	
-	if (act == Act::Click)
+
+
+
+	if (act == Act::MouseUpdate)
+	{
+		int i = 0;
+		if (selected != nullptr)
+		{
+			if(selected != character)
+			selected->tint = SDL_Color{ 255,255,255 };
+			selected = nullptr;
+		}
+
+		while (selected == nullptr && i < mLayers[current].size())
+		{
+
+
+			if (mLayers[current][i]!= character && mLayers[current][i]->InBounds(mouse.first, mouse.second))
+			{
+
+				selected = mLayers[current][i];
+				selected->tint = SDL_Color{ 0,255,0 };
+			}
+			i++;
+		}
+	}
+	else
+
 	{
 
-		float xDiff = mouse.first - character->GetPos().first;
-		if (xDiff < 0)
-			xDiff *= -1;
 
-		float yDiff = mouse.second - character->GetPos().second;
-		if (yDiff < 0)
-			yDiff *= -1;
-
-		if (xDiff > yDiff)
+		switch (act)
 		{
-
-			if (mouse.first < character->GetPos().first)
+		case Act::Click:
+			if (selected != nullptr)
 			{
-				character->SetAnim("LookLeft");
+
+				if (character != nullptr)
+					character->tint = SDL_Color{ 255,255,255 };
+				character = static_cast<Unit*>(selected);
+				character->tint = SDL_Color{ 255,100,255 };
+
+
+
 			}
 			else
 			{
-				character->SetAnim("LookRight");
+				if (character != nullptr)
+					character->tint = SDL_Color{ 255,255,255 };
+				character = nullptr;
+
 			}
-		}
-		else
-		{
-			if (mouse.second > character->GetPos().second)
-			{
-				character->SetAnim("LookUp");
-			}
-			else
-			{
-				character->SetAnim("LookDown");
-			}
+			break;
+		case Act::RClick:
+			if (character != nullptr)
+				character->SetTarget(mouse);
+			break;
+	
+		default:
+			break;
 		}
 
 
-		character->SetTarget(mouse);
+
 	}
+
+
+
+	
+
 
 	
 	//else
