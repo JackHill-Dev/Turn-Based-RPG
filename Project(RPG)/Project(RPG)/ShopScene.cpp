@@ -115,13 +115,13 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 	for (Item* i : inv.GetContents())
 	{
 		// check if mouse is hovering over it
-		if (act == Act::Hover && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
+		if (act == Act::MouseUpdate && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
 			// call onHover on item
 			//i->OnHover();
 		}
 
-		if (act == Act::RightClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
+		if (act == Act::RClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
 			if (!(mPlayer.GetGold() < i->GetCost())) // If player can't afford item they can't buy it
 			{
@@ -143,13 +143,13 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 	for (Item* i : mPlayer.GetInventory().GetContents())
 	{
 		// check if mouse is hovering over it
-		if (act == Act::Hover && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
+		if (act == Act::MouseUpdate && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
 			// call onHover on item
 			//i->OnHover();
 		}
 		
-		if (act == Act::RightClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
+		if (act == Act::RClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
 			mShop.GetInventory().AddItem(i);
 			mPlayer.SellItem(i);
