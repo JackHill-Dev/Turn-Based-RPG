@@ -5,7 +5,6 @@
 ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
 {
 
-
 	AddObject("playerPortraitObj", 400, 100, UI);
 	AddObject("merchantPortraitObj", 620, 100, UI);
 
@@ -33,33 +32,12 @@ void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 // keep a version of this function for initial placement?
 void ShopScene::PlaceItems(Inventory& inv, int startX)
 {
-	//int gridOffsetX = startX; // current way of serparting them need them to form grid 
-	//int gridOffsetY = 0;
 	for (auto i : inv.GetContents())
 	{
-		// if x > 4th grid postion on row 0
-		//if (gridOffsetX >= 360 + startX)
-		//{
-		//	gridOffsetX = startX; // reset x offset
-		//	gridOffsetY += 90; // move y offset down
-		//}
-
 		i->SetRenderObject(AddObject(i->GetObjName(), i->inventoryPos.pos.first, i->inventoryPos.pos.second, Game)); // Display item to screen and set its render object to the correct image
-		// i->GetRenderObject()->SetPos(i->GetInventoryPos());
-
-
-		// then add to y offset and reset x offset
-		//gridOffsetX += 90;
 	}
 }
 
-// Clear items from screen and redraw items with updated inventories 
-void ShopScene::UpdateItems()
-{
-	ClearGameObjects();
-	PlaceItems(mPlayer.GetInventory(), 10);
-	PlaceItems(mShop.GetInventory(), 850);
-}
 
 void ShopScene::SetupShopInv()
 {
@@ -120,6 +98,7 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 			{
 				mShop.BuyItem(i);
 				mPlayer.GetInventory().AddItem(i);
+				i->GetRenderObject()->SetPos(i->inventoryPos.pos);
 				mPlayer.SetGold(-i->GetCost());
 			}
 
@@ -148,10 +127,10 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 		
 		if (act == Act::RClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
-			i->GetRenderObject()->tint = SDL_Color{ 0,255,0 };
-			i->GetRenderObject()->SetPos(std::make_pair(900, 90));
-			//mShop.GetInventory().AddItem(i);
-			//mPlayer.SellItem(i);
+			mPlayer.SellItem(i);
+			mShop.GetInventory().AddItem(i);
+			i->GetRenderObject()->SetPos(i->inventoryPos.pos);
+			//std::cout << "STOP.";
 			
 		}
 		//UpdateItems();

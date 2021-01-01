@@ -2,7 +2,7 @@
 #include <algorithm>
 Inventory::Inventory()
 {
-	gridPositions.reserve(1000);
+	gridPositions.reserve(100);
 	//GeneratePositions();
 }
 Inventory::~Inventory()
@@ -25,16 +25,16 @@ void Inventory::AddItem(Item* item)
 		{
 			if (item->inventoryPos.gridPosFilled == false)
 			{
-				item->inventoryPos.pos = p;
-				item->inventoryPos.gridPosFilled = true;
+				item->inventoryPos.pos = p; // Set the item's inventory position to a free grid slot
+				item->inventoryPos.gridPosFilled = true; // Make the grid position unavaliable
+				 // Remove it from the current grid positions otherwise it will assgin the first grid pos for every item
 				gridPositions.erase(std::remove(gridPositions.begin(), gridPositions.end(), p));
 			}
 		}
 		
 	}
-	// if i->invPos->GridPosFilled is false
-		// then item->invPos->Pos = i->invPos->pos
-			// item->GetRenderObject()->SetPos(item->invPos->pos)
+	
+	// item->GetRenderObject()->SetPos(item->invPos->pos)
 
 	
 	
@@ -44,7 +44,13 @@ void Inventory::AddItem(Item* item)
 
 void Inventory::RemoveItem(Item* item)
 {
+	// Free up grid position and add it back to the grid positions
+	gridPositions.insert(gridPositions.begin(), item->inventoryPos.pos);
+
+	item->inventoryPos.gridPosFilled = false;
+
 	mItems.erase(std::remove_if(mItems.begin(), mItems.end(), [item](Item* i) {return i == item; }));
+
 	//Update inventory item count for save data
 	mItemCount = mItems.size();
 }
