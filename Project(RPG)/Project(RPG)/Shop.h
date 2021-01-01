@@ -3,6 +3,7 @@
 class Shop
 {
 public:
+	Shop();
 	void SetGold(int& amount);
 	void BuyItem(Item* item);
 	void SetInventory(Inventory& i);

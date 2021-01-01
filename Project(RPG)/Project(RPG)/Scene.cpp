@@ -31,7 +31,7 @@ void Scene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 void Scene::Draw(SDL_Renderer* rnd)
 {
 	// Need to move this otherwise a variable is pointlessly getting set every frame TODO: Ask TH & EH where's best to set this
-	SDL_Rect rect; // TODO:Place these on the stack - JP, TH
+	SDL_Rect rect;
 	SDL_Rect crop;
 	
 	std::for_each(mLayers.begin(), mLayers.end(), [rnd, &rect, &crop](std::vector<RenderObject*> layer) {

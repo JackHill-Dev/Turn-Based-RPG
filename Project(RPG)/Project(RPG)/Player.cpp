@@ -2,6 +2,7 @@
 
 Player::Player()
 {
+	mInventory.SetInitialGridPos(10);
 }
 
 Player::~Player()
@@ -23,7 +24,7 @@ Inventory& Player::GetInventory()
 	return mInventory;
 }
 
-// Currently lose item data, don't use until fixed, instead just add straight to inventory
+// Currently loses item data, don't use until fixed, instead just add straight to inventory - JP
 void Player::SetInventory(Inventory inv)
 {
 	mInventory = inv;

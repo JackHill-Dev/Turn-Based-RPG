@@ -1,5 +1,10 @@
 #include "Shop.h"
 
+Shop::Shop()
+{
+	mInventory.SetInitialGridPos(850);
+}
+
 void Shop::SetGold(int& amount)
 {
 	mGold += amount;

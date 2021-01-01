@@ -4,15 +4,22 @@
 
 ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
 {
-	SetupPlayerInv();
-	SetupShopInv();
+
 
 	AddObject("playerPortraitObj", 400, 100, UI);
 	AddObject("merchantPortraitObj", 620, 100, UI);
 
+	mPlayer.GetInventory().SetInitialGridPos(10);
+	mShop.GetInventory().SetInitialGridPos(850);
+
+	mPlayer.GetInventory().GeneratePositions();
+	mShop.GetInventory().GeneratePositions();
+
+	SetupPlayerInv();
+	SetupShopInv();
+
 	PlaceItems(mPlayer.GetInventory(), 10);
 	PlaceItems(mShop.GetInventory(), 850);
-
 }
 
 void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
@@ -20,26 +27,29 @@ void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 	ManagePlayerInventory(mPlayer.GetInventory(), act, mousePos);
 	ManageShopInventory(mShop.GetInventory(), act, mousePos);
 
-	
 }
 
+// TODO change to updating item/render object positions rather than recreating them every frame
+// keep a version of this function for initial placement?
 void ShopScene::PlaceItems(Inventory& inv, int startX)
 {
-	int gridOffsetX = startX; // current way of serparting them need them to form grid 
-	int gridOffsetY = 0;
+	//int gridOffsetX = startX; // current way of serparting them need them to form grid 
+	//int gridOffsetY = 0;
 	for (auto i : inv.GetContents())
 	{
 		// if x > 4th grid postion on row 0
-		if (gridOffsetX >= 360 + startX)
-		{
-			gridOffsetX = startX; // reset x offset
-			gridOffsetY += 90; // move y offset down
-		}
+		//if (gridOffsetX >= 360 + startX)
+		//{
+		//	gridOffsetX = startX; // reset x offset
+		//	gridOffsetY += 90; // move y offset down
+		//}
 
-		i->SetRenderObject(*AddObject(i->GetObjName(), 10 + gridOffsetX, 100 + gridOffsetY, Game)); // Display item to screen and set its render object to the correct image
+		i->SetRenderObject(AddObject(i->GetObjName(), i->inventoryPos.pos.first, i->inventoryPos.pos.second, Game)); // Display item to screen and set its render object to the correct image
+		// i->GetRenderObject()->SetPos(i->GetInventoryPos());
+
 
 		// then add to y offset and reset x offset
-		gridOffsetX += 90;
+		//gridOffsetX += 90;
 	}
 }
 
@@ -85,37 +95,24 @@ void ShopScene::SetupPlayerInv()
 
 }
 
-void ShopScene::OutputInventories()
-{
-	if (printOnce)
-	{
-		auto i = mPlayer.GetInventory().GetContents();
-		std::cout << "Player inventory" << std::endl;
-		for (Item* i : mPlayer.GetInventory().GetContents())
-		{
-			std::cout << i->GetName() << " " << i->GetCost() << std::endl;
-		}
 
-		std::cout << "Shop inventory" << std::endl;
-		for (Item* i : mShop.GetInventory().GetContents())
-		{
-			std::cout << i->GetName() << " " << i->GetCost() << std::endl;
-		}
-
-		printOnce = false;
-	}
-}
 
 void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int> mousePos)
 {
+	//UpdateItems();
 	for (Item* i : inv.GetContents())
 	{
 		// check if mouse is hovering over it
-		if (act == Act::MouseUpdate && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
+		if (act == Act::MouseUpdate )
 		{
-			// call onHover on item
-			//i->OnHover();
+			if (i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
+				i->OnHover();
+			else
+				i->OnLeave();
+			
+
 		}
+		
 
 		if (act == Act::RClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
@@ -127,7 +124,7 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 			}
 
 		}
-		UpdateItems();
+		
 	}
 	
 
@@ -135,23 +132,29 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 
 void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, int> mousePos)
 {
+	//UpdateItems();
 	// for each item in player's inventory on screen
 	for (Item* i : mPlayer.GetInventory().GetContents())
 	{
 		// check if mouse is hovering over it
-		if (act == Act::MouseUpdate && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
+		if (act == Act::MouseUpdate)
 		{
-			// call onHover on item
-			//i->OnHover();
+			if (i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
+				i->OnHover();
+			else
+				i->OnLeave();
+			
 		}
 		
 		if (act == Act::RClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
-			mShop.GetInventory().AddItem(i);
-			mPlayer.SellItem(i);
+			i->GetRenderObject()->tint = SDL_Color{ 0,255,0 };
+			i->GetRenderObject()->SetPos(std::make_pair(900, 90));
+			//mShop.GetInventory().AddItem(i);
+			//mPlayer.SellItem(i);
 			
 		}
-		UpdateItems();
+		//UpdateItems();
 	}
 	
 

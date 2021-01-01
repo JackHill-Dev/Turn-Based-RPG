@@ -27,7 +27,7 @@ int Item::GetCost() const
 
 RenderObject* Item::GetRenderObject()
 {
-	return &mRenderObject;
+	return mRenderObject;
 }
 
 void Item::SetObjName(std::string name)
@@ -35,18 +35,17 @@ void Item::SetObjName(std::string name)
 	mObjName = name;
 }
 
-void Item::SetRenderObject(RenderObject obj)
+void Item::SetRenderObject(RenderObject* obj)
 {
 	mRenderObject = obj;
 }
 
 void Item::OnHover()
 {
-	std::cout << "Hovering over " << GetName() << std::endl;
-	//SDL_SetTextureColorMod(mRenderObject.GetSheet()->GetTexture(), 250, 0, 0); // tint the item red when hovered over
+	mRenderObject->tint = SDL_Color{ 0, 255 , 0 }; // Green
 }
 
 void Item::OnLeave()
 {
-	//SDL_SetTextureColorMod(mRenderObject.GetSheet()->GetTexture(), 255, 255, 255);
+	mRenderObject->tint = SDL_Color{ 255, 255 , 255 }; // White
 }
