@@ -52,7 +52,6 @@ void Scene::Draw(SDL_Renderer* rnd)
 
 			if (obj->IsVisible())
 				SDL_RenderCopy(rnd, obj->GetSheet()->GetTexture(), &crop, &rect);
-				
 		}
 		});
 
@@ -81,13 +80,8 @@ void Scene::Clear(SDL_Renderer* rnd)
 	SDL_RenderClear(rnd);
 	SDL_SetRenderDrawColor(rnd, 255, 0, 0, 255);
 	SDL_RenderPresent(rnd);
-	//SDL_FillRect(mSurface, nullptr, SDL_MapRGB(mSurface->format, 0, 0, 0));
 }
 
-void Scene::ClearGameObjects()
-{
-	mLayers[2].clear();
-}
 
 RenderObject* Scene::AddObject(std::string obj, int x, int y, Layer layerNum)
 {

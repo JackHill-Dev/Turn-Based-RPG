@@ -17,6 +17,8 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"mainMenuBGObj",new RenderObject("mainMenuBG")}, 
 		{"playerPortraitObj",new RenderObject("playerPortrait")},
 		{"merchantPortraitObj",new RenderObject("merchantPortrait")},
+		{"itemFrameObj",new RenderObject("itemFrame")},
+		{"ShopBGObj",new RenderObject("shopBg")},
 		{"swordObj",new RenderObject("sword")},
 		{"armourObj",new RenderObject("armour")},
 		{"StartBtnObj",new StartButton("startBtn")},
@@ -33,6 +35,8 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"mainMenuBG", new SpriteSheet("Assets/Backgrounds/MainMenuBG_720.png",1280, 720, 1280, 720, 1)},
 		{"playerPortrait", new SpriteSheet("Assets/Sprites/Portraits/PlayerPortrait.png",210, 330, 210, 330, 1)},
 		{"merchantPortrait", new SpriteSheet("Assets/Sprites/Portraits/MerchantPortrait.png",210, 330, 210, 330, 1)},
+		{"shopBg", new SpriteSheet("Assets/Backgrounds/ShopBg.png",1280, 720, 1280, 720, 1)},
+		{"itemFrame", new SpriteSheet("Assets/Backgrounds/ItemFrame.png",85, 105, 85, 105, 1)},
 		{"sword", new SpriteSheet("Assets/Sprites/sword-art.png",160, 256, 32, 32, 40)},
 		{"armour", new SpriteSheet("Assets/Sprites/armour.png",76, 72, 76, 72, 1)}
 	}

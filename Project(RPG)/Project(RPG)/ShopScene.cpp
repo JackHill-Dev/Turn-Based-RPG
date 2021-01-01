@@ -4,40 +4,40 @@
 
 ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
 {
-
-	AddObject("playerPortraitObj", 400, 100, UI);
-	AddObject("merchantPortraitObj", 620, 100, UI);
-
-	mPlayer.GetInventory().SetInitialGridPos(10);
-	mShop.GetInventory().SetInitialGridPos(850);
-
-	mPlayer.GetInventory().GeneratePositions();
-	mShop.GetInventory().GeneratePositions();
-
-	SetupPlayerInv();
-	SetupShopInv();
-
-	PlaceItems(mPlayer.GetInventory(), 10);
-	PlaceItems(mShop.GetInventory(), 850);
+	bg_Music = Mix_LoadMUS("Assets/Music/MedievalLoop.mp3");
 }
 
 void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
+	if (!startOnce)
+	{
+		mgr->GetManagers()->AudioMgr->PlayMusic(bg_Music, -1);
+		startOnce = true;
+	}
+
 	ManagePlayerInventory(mPlayer.GetInventory(), act, mousePos);
 	ManageShopInventory(mShop.GetInventory(), act, mousePos);
-
 }
 
-// TODO change to updating item/render object positions rather than recreating them every frame
-// keep a version of this function for initial placement?
-void ShopScene::PlaceItems(Inventory& inv, int startX)
+void ShopScene::PlaceItems(Inventory& inv)
 {
 	for (auto i : inv.GetContents())
 	{
-		i->SetRenderObject(AddObject(i->GetObjName(), i->inventoryPos.pos.first, i->inventoryPos.pos.second, Game)); // Display item to screen and set its render object to the correct image
+		// Display item to screen and set its render object to the correct image
+		i->SetRenderObject(AddObject(i->GetObjName(), i->inventoryPos.pos.first, i->inventoryPos.pos.second, Game)); 
 	}
 }
 
+void ShopScene::Init()
+{
+	AddObject("ShopBGObj", 0, 0, Background);
+	AddObject("playerPortraitObj", 400, 100, UI);
+	AddObject("merchantPortraitObj", 620, 100, UI);
+
+	GenerateGrids();
+	DrawGrids();
+
+}
 
 void ShopScene::SetupShopInv()
 {
@@ -68,16 +68,13 @@ void ShopScene::SetupPlayerInv()
 	mPlayer.GetInventory().AddItem(twitchSword);
 	mPlayer.GetInventory().AddItem(massiveSword);
 	mPlayer.GetInventory().AddItem(plateArmour);
-
-	
+   
 
 }
 
 
-
 void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int> mousePos)
 {
-	//UpdateItems();
 	for (Item* i : inv.GetContents())
 	{
 		// check if mouse is hovering over it
@@ -91,7 +88,6 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 
 		}
 		
-
 		if (act == Act::RClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
 			if (!(mPlayer.GetGold() < i->GetCost())) // If player can't afford item they can't buy it
@@ -103,10 +99,8 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 			}
 
 		}
-		
 	}
 	
-
 }
 
 void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, int> mousePos)
@@ -130,12 +124,37 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 			mPlayer.SellItem(i);
 			mShop.GetInventory().AddItem(i);
 			i->GetRenderObject()->SetPos(i->inventoryPos.pos);
-			//std::cout << "STOP.";
-			
 		}
-		//UpdateItems();
 	}
 	
 
+}
+
+void ShopScene::GenerateGrids()
+{
+	mPlayer.GetInventory().SetInitialGridPos(10);
+	mShop.GetInventory().SetInitialGridPos(850);
+
+	mPlayer.GetInventory().GeneratePositions();
+	mShop.GetInventory().GeneratePositions();
+
+	SetupPlayerInv();
+	SetupShopInv();
+
+	PlaceItems(mPlayer.GetInventory());
+	PlaceItems(mShop.GetInventory());
+}
+
+void ShopScene::DrawGrids()
+{
+	for (auto i : mPlayer.GetInventory().GetContents())
+	{
+		AddObject("itemFrameObj", i->inventoryPos.pos.first, i->inventoryPos.pos.second, Background);
+	}
+
+	for (auto i : mShop.GetInventory().GetContents())
+	{
+		AddObject("itemFrameObj", i->inventoryPos.pos.first, i->inventoryPos.pos.second, Background);
+	}
 }
 

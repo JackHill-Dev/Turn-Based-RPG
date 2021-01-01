@@ -19,6 +19,7 @@ public:
 
 	RenderObject* RequestObject(std::string name); //Scenes will call this to add a renderobject to it
 	bool SetUp();
+	Managers* GetManagers() { return mgrs; }
 	ObjectManager(SDL_Renderer* rnd, Managers* mgr);
 private:
 	

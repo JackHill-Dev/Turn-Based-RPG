@@ -31,7 +31,6 @@ public:
 	void Draw(SDL_Renderer* rnd);
 	void Select(int x, int y, Managers* mgrs);
 	void Clear(SDL_Renderer* rnd);
-	void ClearGameObjects();
 	RenderObject* AddObject(std::string obj, int x, int y, Layer layerNum);
 };
 

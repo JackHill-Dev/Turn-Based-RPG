@@ -21,6 +21,7 @@ bool GameManager::Init()
 	MainMenuScene* mMenu = new MainMenuScene(mObjMgr);
 	CombatScene* cS = new CombatScene(mObjMgr);
 	ShopScene* shopScene = new ShopScene(mObjMgr);
+	shopScene->Init();
 	mScManager->AddScene(mMenu);
 	mScManager->AddScene(shopScene);
 	mScManager->SetScene(0);
