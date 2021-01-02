@@ -154,6 +154,7 @@
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CombatScene.cpp" />
+    <ClCompile Include="Consumable.cpp" />
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameScene.cpp" />
@@ -173,7 +174,7 @@
     <ClCompile Include="ShopScene.cpp" />
     <ClCompile Include="SpriteSheet.cpp" />
     <ClCompile Include="StartButton.cpp" />
-    <ClCompile Include="Sword.cpp" />
+    <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="UiObject.cpp" />
     <ClCompile Include="Unit.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CombatScene.h" />
+    <ClInclude Include="Consumable.h" />
     <ClInclude Include="Database.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObjects.h" />
@@ -206,7 +208,7 @@
     <ClInclude Include="ShopScene.h" />
     <ClInclude Include="SpriteSheet.h" />
     <ClInclude Include="StartButton.h" />
-    <ClInclude Include="Sword.h" />
+    <ClInclude Include="Weapon.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="UiObject.h" />
     <ClInclude Include="Unit.h" />

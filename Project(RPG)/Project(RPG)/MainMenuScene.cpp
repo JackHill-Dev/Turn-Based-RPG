@@ -5,6 +5,9 @@ MainMenuScene::MainMenuScene(ObjectManager* rng) : Scene(rng)
 	// Get all button objects
 	pMenuButton = AddObject("StartBtnObj", 5, 90, UI);
 	pQuitButton = AddObject("QuitBtnObj", 5, 400, UI);
+
+	// AddObject(pQuitButton->GetName(),5, 400, UI)
+
 	// Get Background object
 	AddObject("mainMenuBGObj", 0, 0, Background);
 	// Get all SFX objects

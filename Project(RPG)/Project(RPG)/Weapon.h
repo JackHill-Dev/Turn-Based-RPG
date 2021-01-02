@@ -1,10 +1,10 @@
 #pragma once
 #include "Item.h"
-class Sword :
+class Weapon :
     public Item
 {
 public:
-    Sword(std::string name, int cost);
+    Weapon(std::string name, int cost);
     int GetAtkPower();
     void SetAtkPower(int atk);
 private:

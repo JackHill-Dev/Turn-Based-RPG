@@ -1,5 +1,5 @@
 #include "ShopScene.h"
-#include "Sword.h"
+#include "Weapon.h"
 #include "Armour.h"
 
 ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
@@ -10,6 +10,7 @@ ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
 
 void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
+	// Uncomment to hear the shop music, currently disabled as it was getting annoying while testing  - JP
 	/*if (!startOnce)
 	{
 		mgr->GetManagers()->AudioMgr->PlayMusic(bg_Music, -1);
@@ -42,9 +43,9 @@ void ShopScene::Init()
 
 void ShopScene::SetupShopInv()
 {
-	Sword* longSword = new Sword("Long Sword", 50);
-	Sword* shortSword = new Sword("Short Sword", 100);
-	Sword* greatSword = new Sword("Great Sword", 500);
+	Weapon* longSword = new Weapon("Long Sword", 50);
+	Weapon* shortSword = new Weapon("Short Sword", 100);
+	Weapon* greatSword = new Weapon("Great Sword", 500);
 
 	mShop.GetInventory().AddItem(longSword);
 	mShop.GetInventory().AddItem(shortSword);
@@ -54,13 +55,13 @@ void ShopScene::SetupShopInv()
 
 void ShopScene::SetupPlayerInv()
 {
-	Sword* bigSword = new Sword("Big Sword", 50);
+	Weapon* bigSword = new Weapon("Big Sword", 50);
 	bigSword->SetAtkPower(10);
 
-	Sword* twitchSword = new Sword("Twitch Sword", 100);
+	Weapon* twitchSword = new Weapon("Twitch Sword", 100);
 	twitchSword->SetAtkPower(100);
 
-	Sword* massiveSword = new Sword("Massive Sword", 500);
+	Weapon* massiveSword = new Weapon("Massive Sword", 500);
 	massiveSword->SetAtkPower(500);
 
 	Armour* plateArmour = new Armour("Plate Armour", 150);

@@ -3,9 +3,6 @@
 #undef main
 #include "GameManager.h"
 
-#include "Player.h"
-#include "Inventory.h"
-#include "Sword.h"
 
 void Out()
 {
