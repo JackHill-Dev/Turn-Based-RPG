@@ -1,7 +1,7 @@
 #pragma once
+#include <map>
 #include "Globals.h"
 #include "RenderObject.h"
-#include <map>
 #include "SpriteSheet.h"
 #include "Animation.h"
 #include "Button.h"

@@ -26,6 +26,7 @@ private:
 	void DrawGrids();
 	Player mPlayer;
 	Mix_Music* bg_Music;
+	Mix_Chunk* buySell_SFX;
 	bool startOnce = false;
 
 	

@@ -5,10 +5,7 @@ StartButton::StartButton(std::string sprSheet) : Button(sprSheet)
 {
 	
 }
-void StartButton::Select()
-{
-	mgrs->SceneMgr->NextScene(1);
-}
+
 
 bool StartButton::Update(double dTime, Act act, std::pair<int, int> mouse)
 {

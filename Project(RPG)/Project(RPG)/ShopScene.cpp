@@ -5,15 +5,16 @@
 ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
 {
 	bg_Music = Mix_LoadMUS("Assets/Music/MedievalLoop.mp3");
+	buySell_SFX = Mix_LoadWAV("Assets/SFX/coin.wav");
 }
 
 void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
-	if (!startOnce)
+	/*if (!startOnce)
 	{
 		mgr->GetManagers()->AudioMgr->PlayMusic(bg_Music, -1);
 		startOnce = true;
-	}
+	}*/
 
 	ManagePlayerInventory(mPlayer.GetInventory(), act, mousePos);
 	ManageShopInventory(mShop.GetInventory(), act, mousePos);
@@ -63,12 +64,13 @@ void ShopScene::SetupPlayerInv()
 	massiveSword->SetAtkPower(500);
 
 	Armour* plateArmour = new Armour("Plate Armour", 150);
+	Armour* platArmour = new Armour("Plat Armour", 150);
 	
 	mPlayer.GetInventory().AddItem(bigSword);
 	mPlayer.GetInventory().AddItem(twitchSword);
 	mPlayer.GetInventory().AddItem(massiveSword);
 	mPlayer.GetInventory().AddItem(plateArmour);
-   
+	mPlayer.GetInventory().AddItem(platArmour);
 
 }
 
@@ -84,7 +86,6 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 				i->OnHover();
 			else
 				i->OnLeave();
-			
 
 		}
 		
@@ -94,6 +95,7 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 			{
 				mShop.BuyItem(i);
 				mPlayer.GetInventory().AddItem(i);
+				mgr->GetManagers()->AudioMgr->PlaySFX(buySell_SFX, 0, 0);
 				i->GetRenderObject()->SetPos(i->inventoryPos.pos);
 				mPlayer.SetGold(-i->GetCost());
 			}
@@ -105,7 +107,6 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 
 void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, int> mousePos)
 {
-	//UpdateItems();
 	// for each item in player's inventory on screen
 	for (Item* i : mPlayer.GetInventory().GetContents())
 	{
@@ -123,10 +124,10 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 		{
 			mPlayer.SellItem(i);
 			mShop.GetInventory().AddItem(i);
+			mgr->GetManagers()->AudioMgr->PlaySFX(buySell_SFX, 0, 1);
 			i->GetRenderObject()->SetPos(i->inventoryPos.pos);
 		}
 	}
-	
 
 }
 
@@ -149,7 +150,7 @@ void ShopScene::DrawGrids()
 {
 	for (auto i : mPlayer.GetInventory().GetContents())
 	{
-		AddObject("itemFrameObj", i->inventoryPos.pos.first, i->inventoryPos.pos.second, Background);
+		AddObject("itemFrameObj", i->inventoryPos.pos.first, i->inventoryPos.pos.second , Background);
 	}
 
 	for (auto i : mShop.GetInventory().GetContents())

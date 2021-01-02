@@ -74,7 +74,7 @@ void Inventory::SetInitialGridPos(int pos)
 void Inventory::GeneratePositions()
 {
 	int offsetX = mInitialGridPos;
-	int offsetY = 90;
+	int offsetY = 100;
 
 	for (int i = 0; i < gridPositions.capacity(); ++i)
 	{
