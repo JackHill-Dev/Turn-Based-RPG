@@ -1,6 +1,7 @@
 #include "ShopScene.h"
 #include "Weapon.h"
 #include "Armour.h"
+#include "Consumable.h"
 
 ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
 {
@@ -46,10 +47,13 @@ void ShopScene::SetupShopInv()
 	Weapon* longSword = new Weapon("Long Sword", 50);
 	Weapon* shortSword = new Weapon("Short Sword", 100);
 	Weapon* greatSword = new Weapon("Great Sword", 500);
+	Consumable* healthPotion = new Consumable("health potion", 25);
+	Consumable* healthPotion2 = new Consumable("health potion", 25);
 
 	mShop.GetInventory().AddItem(longSword);
 	mShop.GetInventory().AddItem(shortSword);
 	mShop.GetInventory().AddItem(greatSword);
+	mShop.GetInventory().AddItem(healthPotion2);
 
 }
 

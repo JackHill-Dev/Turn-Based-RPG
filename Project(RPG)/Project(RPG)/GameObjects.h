@@ -20,6 +20,7 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"itemFrameObj",new RenderObject("itemFrame")},
 		{"ShopBGObj",new RenderObject("shopBg")},
 		{"swordObj",new RenderObject("sword")},
+		{"potionObj",new RenderObject("potion")},
 		{"armourObj",new RenderObject("armour")},
 		{"StartBtnObj",new StartButton("startBtn")},
 		{"QuitBtnObj",new QuitButton("quitBtn")}
@@ -38,7 +39,8 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"shopBg", new SpriteSheet("Assets/Backgrounds/ShopBg.png",1280, 720, 1280, 720, 1)},
 		{"itemFrame", new SpriteSheet("Assets/Backgrounds/ItemFrame.png",85, 105, 85, 105, 1)},
 		{"sword", new SpriteSheet("Assets/Sprites/sword-art.png",160, 256, 32, 32, 40)},
-		{"armour", new SpriteSheet("Assets/Sprites/armour.png",76, 72, 76, 72, 1)}
+		{"armour", new SpriteSheet("Assets/Sprites/armour.png",76, 72, 76, 72, 1)},
+		{"potion", new SpriteSheet("Assets/Sprites/potion.png",48, 48, 48, 48, 1)}
 	}
 };
 
