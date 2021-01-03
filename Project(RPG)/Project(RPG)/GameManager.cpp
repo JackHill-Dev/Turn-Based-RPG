@@ -1,37 +1,6 @@
 #include "GameManager.h"
-#include "TestScene.h"
 #include "CombatScene.h"
-bool GameManager::Init()
-{
-	int imgFlags = IMG_INIT_PNG;
-	if (!(IMG_Init(imgFlags) & imgFlags))
-	{
-		printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
 
-	}
-
-	CreateWindow();
-
-	mDb = new Database();
-	SetupManagers();
-	InitManagers();
-	SetupManagersStruct();
-
-	MainMenuClass* mMenu = new MainMenuClass(mObjMgr);
-	CombatScene* cS = new CombatScene(mObjMgr);
-	mScManager->AddScene(mMenu);
-	mScManager->AddScene(cS);
-	mScManager->SetScene(0);
-
-	mInputMgr->CreateKeyBind('a', Act::Jump);
-
-	return true;
-}
-
-bool GameManager::Running()
-{
-	return bRunning;
-}
 
 void GameManager::Run()
 {
@@ -74,29 +43,21 @@ void GameManager::Run()
 					act = Act::RClick;
 				SDL_GetMouseState(&x, &y);
 				
-				
-
-
 				break;
 			case SDL_MOUSEMOTION:
 				SDL_GetMouseState(&x, &y);
 				act = Act::MouseUpdate;
 				break;
-				// TODO: Pass in struct with all managers to reduce amount of arguments being passed
-				//mScManager->Select(x,y, &mMgrs); // With what aaron has said should we pass in a scenemanager pointer into select so i can access it - JP.. No -T
-				//break;
-			//case SDL_WINDOWEVENT_SIZE_CHANGED: std::cout << "Size changed";
-
+	
 			}
 			SDL_RenderClear(mRnd);
 
 			SDL_SetRenderTarget(mRnd, texture);
 			SDL_SetRenderDrawColor(mRnd, 0x64, 0x00, 0x00, 0x00);
-			
-			//SDL_RenderFillRect(mRnd, &r);
+	
 			SDL_SetRenderTarget(mRnd, NULL);
-			mScManager->Update(delta, act, std::make_pair(x, y));
-			mScManager->Draw(mRnd);
+			currentScene->SceneUpdate(delta, act, std::make_pair(x, y));
+			currentScene->Draw(mRnd);
 			SDL_RenderPresent(mRnd);
 		}
 
@@ -111,8 +72,23 @@ void GameManager::Run()
 	SDL_DestroyWindow(mWnd);
 	SDL_Quit();
 }
+void GameManager::Quit()
+{
+	bRunning = false;
+}
+void GameManager::SetScene(int index)
+{
+	currentScene->Clear(mRnd);
+	currentScene = scenes[index];
+}
+void GameManager::LoadCombatScene(std::vector<Character*> player, std::vector<Character*> enemy)
+{
+	currentScene->Clear(mRnd);
 
-
+	CombatScene* scene = static_cast<CombatScene*>(scenes[1]);
+	scene->Load(player, enemy);
+	currentScene = scene;
+}
 
 bool GameManager::CreateWindow()
 {
@@ -120,43 +96,63 @@ bool GameManager::CreateWindow()
 	SDL_ShowWindow(mWnd);
 	return true;
 }
-
-void GameManager::SetupManagers()
+bool GameManager::Init()
 {
-	mScManager = new SceneManager();
-	mInputMgr = new InputManager();
-	mObjMgr = new ObjectManager(mRnd, &mMgrs);
-	mAudioMgr = new AudioManager();
+	
+	CreateWindow();
+	SetUp();
+	scenes.push_back(new MainMenuClass(this));
+	scenes.push_back(new CombatScene(this));
+	//LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
+	SetScene(0);
+
+	return true;
+}
+bool GameManager::SetUp()
+{
+	int imgFlags = IMG_INIT_PNG;
+	if (!(IMG_Init(imgFlags) & imgFlags))
+	{
+		printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+
+	}
+	//Converts definitions found in GameObjects.h to fully initlised and stored objects
+
+	//Load sheets
+	for (auto i : definedSheets)
+	{
+		sheets[i.first] = i.second;
+		sheets[i.first]->SetTexture(LoadTexture(i.second->mFilePath));
+	}
+	//Add animations to sheets
+	for (auto i : definedAnimations)
+	{
+		for (auto anim : i.second)
+		{
+			sheets[i.first]->AddAnim(anim.GetName(), anim);
+		}
+	}
+	//Create Object types
+	for (auto i : definedObjects)
+	{
+		objects[i.first] = i.second;
+		objects[i.first]->SetTexture(sheets[(objects[i.first]->path)]);
+		//objects[i.first]->Init(mgrs);
+	}
+	return true;
 }
 
-void GameManager::SetupManagersStruct()
+SDL_Texture* GameManager::LoadTexture(std::string path)
 {
-	mMgrs.GameMgr = this;
-	mMgrs.SceneMgr = mScManager;
-	mMgrs.AudioMgr = mAudioMgr;
-	mMgrs.ImportMgr = mImportMgr;
-	mMgrs.InputMgr = mInputMgr;
-	mMgrs.ObjectMgr = mObjMgr;
 
+	SDL_Surface* img = IMG_Load((path.c_str()));
+
+	std::cout << IMG_GetError();
+	return SDL_CreateTextureFromSurface(mRnd, img);
 }
 
-void GameManager::InitManagers()
+RenderObject* GameManager::RequestObject(std::string name)
 {
-	mAudioMgr->Init();
-	mScManager->Init(mRnd);
-}
 
-Act GameManager::Poll(SDL_Keycode kCode)
-{
-	return mInputMgr->Call(kCode);
-}
-
-InputManager* GameManager::GetInputMgr()
-{
-	return mInputMgr;
-}
-
-void GameManager::Quit()
-{
-	bRunning = false;
+	return objects[name]->Clone();
 }

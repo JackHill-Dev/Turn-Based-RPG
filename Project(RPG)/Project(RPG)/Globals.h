@@ -12,3 +12,5 @@ enum Layer
 };
 
 const int layerNum = 4;
+
+enum class Act { Blank, Jump, Why, Click, RClick, MouseUpdate };

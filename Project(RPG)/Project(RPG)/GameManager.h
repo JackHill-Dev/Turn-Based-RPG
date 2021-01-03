@@ -1,46 +1,41 @@
 #pragma once
 #include <SDL.h>
-#include "SceneManager.h"
-#include "AudioManager.h"
-#include "ImportManager.h"
-#include "Database.h"
-#include "InputManager.h"
+
 #include "Globals.h"
+#include "Scene.h"
 #include "Actions.h"
 #include "MainMenuClass.h"
-#include "ObjectManager.h"
-#include "ManagerStruct.h"
+#include "Character.h"
+
 
 class GameManager
 {
 private:
-	bool bRunning;
+	
+	bool bRunning= true;
 	SDL_Window* mWnd;
 	SDL_Renderer* mRnd;
-	SceneManager* mScManager;
 	SDL_Surface* mSurface;
 	AudioManager* mAudioMgr;
-	ImportManager* mImportMgr;
-	InputManager* mInputMgr;
-	ObjectManager* mObjMgr;
-	Database* mDb;
-	//GameManager* sInstance;
-
-	Managers mMgrs;
-
+	std::map<std::string, RenderObject*> objects; // This is where the RenderObject types are stored 
+	std::map<std::string, SpriteSheet*> sheets; // This is where the spritesheets are stored
+	SDL_Texture* LoadTexture(std::string path); //Moved it here for now
+	
 public:
 	bool Init();
-	bool Running();
-	void Run();
-	Act Poll(SDL_Keycode kCode);
-	void Quit();
-	InputManager* GetInputMgr();
-private:
-	bool CreateWindow();
-	void SetupManagers();
-	void SetupManagersStruct();
-	void InitManagers();
 
+	void Run();
+	void Quit();
+	void SetScene(int index);
+	void LoadCombatScene(std::vector<Character*> player, std::vector<Character*> enemy);
+	RenderObject* RequestObject(std::string name);
+private:
+	
+	
+	bool SetUp();
+	bool CreateWindow();
+	std::vector<Scene*> scenes;
+	Scene* currentScene;
 };
 
 

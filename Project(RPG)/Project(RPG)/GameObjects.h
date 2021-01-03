@@ -4,19 +4,19 @@
 #include <map>
 #include "SpriteSheet.h"
 #include "Animation.h"
-#include "Button.h"
-#include "StartButton.h"
-#include "QuitButton.h"
-#include "Unit.h"
+
+
+
 
 const std::map<std::string,RenderObject*> definedObjects
 {
 	{
 		{"maleObj",new RenderObject("male")}, // a defined object
-		{"maleUnit", new Unit("male")},
-		{"mainMenuBGObj",new RenderObject("mainMenuBG")}, // a defined object
-		{"StartBtnObj",new StartButton("startBtn")},
-		{"QuitBtnObj",new QuitButton("quitBtn")}
+		{"maleUnit", new RenderObject("male")},
+		{"startBtnObj", new RenderObject("startBtn")},
+		{"quitBtnObj", new RenderObject("quitBtn")},
+		{"mainMenuBGObj",new RenderObject("mainMenuBG")} // a defined object
+	
 	}
 };
 

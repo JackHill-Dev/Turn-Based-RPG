@@ -1,7 +1,6 @@
 #include "Scene.h"
-#include "ManagerStruct.h"
-
-Scene::Scene(ObjectManager* objmg)
+#include "GameManager.h"
+Scene::Scene(GameManager* objmg)
 {
 	mgr = objmg;
 	std::vector<RenderObject*> rObjects;
@@ -15,12 +14,13 @@ Scene::Scene(ObjectManager* objmg)
 
 void Scene::SceneUpdate(double dTime, Act act, std::pair<int, int> mousePos)
 {
+	Update(dTime, act, mousePos);
 	float rTime = dTime / 1000;
 	std::for_each(mLayers.begin(), mLayers.end(), [dTime, rTime, act, mousePos](std::vector<RenderObject*> layer) {
 		std::for_each(layer.begin(), layer.end(), [dTime, rTime, act, mousePos](RenderObject* obj) {obj->Update(dTime, act, mousePos); obj->GetAnim()->Advance(dTime); });
 		});
-
-	Update(dTime, act, mousePos);
+	
+	
 }
 
 void Scene::Update(double dTime, Act act, std::pair<int, int> mousePos)
@@ -46,8 +46,8 @@ void Scene::Draw(SDL_Renderer* rnd)
 
 			rect.x = obj->GetPos().first;
 			rect.y = obj->GetPos().second;
-			rect.w = obj->GetSheet()->GetCellSize().first;
-			rect.h = obj->GetSheet()->GetCellSize().second;
+			rect.w = obj->GetSheet()->GetCellSize().first * obj->scale;
+			rect.h = obj->GetSheet()->GetCellSize().second * obj->scale;
 			SDL_SetTextureColorMod(obj->GetSheet()->GetTexture(), obj->tint.r, obj->tint.g, obj->tint.b);
 
 			if (obj->IsVisible())
@@ -62,19 +62,6 @@ void Scene::Draw(SDL_Renderer* rnd)
 	
 }
 // When mouse is inside bounds of a render object in current scene
-void Scene::Select(int x, int y, Managers* mgrs)
-{
-	std::find_if(mLayers.rbegin(), mLayers.rend(), [x, y, &mgrs](std::vector<RenderObject*> layer) {
-
-		return std::find_if(layer.begin(), layer.end(), [x, y, &mgrs](RenderObject* obj) {
-			if (obj->InBounds(x, y))
-				obj->Select();
-			return(obj->InBounds(x, y));
-			
-			} ) != layer.end();
-
-		});
-}
 
 void Scene::Clear(SDL_Renderer* rnd)
 {

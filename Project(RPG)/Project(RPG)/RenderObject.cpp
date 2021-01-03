@@ -1,5 +1,13 @@
 #include "RenderObject.h"
 #include "ManagerStruct.h"
+void RenderObject::Untint()
+{
+	this->tint = { 255,255,255 };
+}
+void RenderObject::Tint(SDL_Colour tkint)
+{
+	this->tint = tkint;
+}
 RenderObject::RenderObject(std::string sprSheet)
 {
 	path = sprSheet;
@@ -12,9 +20,9 @@ bool RenderObject::Update(double dTime, Act act, std::pair<int,int> mouse)
 	return true;
 }
 
-bool RenderObject::Init(Managers* mgrs)
+bool RenderObject::Init()
 {
-	this->mgrs = mgrs;
+	
 	mVisible = true;
 	return true;
 }
