@@ -20,7 +20,7 @@ protected:
 	std::pair<double, double> mPos;
 	Animation* mCurrentAnim;
 public:
-	int scale = 1;
+	float scale = 1;
 	void Untint();
 	void Tint(SDL_Colour tkint);
 	std::string path;

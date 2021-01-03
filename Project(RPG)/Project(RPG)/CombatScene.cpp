@@ -49,26 +49,66 @@ CombatScene* CombatScene::Load(std::vector<Character*> player, std::vector<Chara
 
 void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 {	
-	for (auto i : chars)
-		if (i.getObj() != nullptr)
-	{
+	for (auto i : team)
+		if (i->getObj() != nullptr)
 		{
-			i.Update(dTime);
+			{
+				i->Update(dTime);
+			}
 		}
-	}
 
 	if (act == Act::Click)
 	{
-		if (current == Selection::Ground)
+		if (current == Selection::Any)
 		{
-			if (std::find(team.begin(), team.end(), character) != team.end())
-				character->SetTarget(mouse);
-			current = Selection::Any;
-		}
-
-		else 
-			if (current == Selection::Enemy)
+			for (auto i : playerHand)
+				if (i->getObj() != nullptr && i->getObj()->InBounds(mouse.first, mouse.second))
+				{
+					selectedCard = i;
+				}
+			if (selectedCard != nullptr)
 			{
+				current = Selection::Team;
+				selectedCard->getObj()->Tint(SDL_Color{ 255,255,0 });
+			}
+			else
+			{
+
+				character = nullptr;
+				for (auto i : team)
+				{
+					if (i->getObj()->InBounds(mouse.first, mouse.second))
+					{
+						character = i;
+
+					}
+				}
+				if (character != nullptr)
+				{
+					current = Selection::Ground;
+					character->getObj()->tint = SDL_Color{ 255,255,0 };
+				}
+
+			}
+		
+
+
+
+
+		}
+		else
+		{
+			switch (current)
+			{
+			case Ground:
+				if (std::find(team.begin(), team.end(), character) != team.end())
+					character->SetTarget(mouse);
+				character->getObj()->Untint();
+				character = nullptr;
+				current = Selection::Any;
+				break;
+
+			case Enemy:
 				if (character != nullptr)
 				{
 					for (auto i : enemy)
@@ -80,66 +120,70 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 
 					if (target != nullptr)
 					{
-						Cast(selectedCard,character, target);
+						Cast(selectedCard, character, target);
 						current = Selection::Any;
 					}
 				}
 				else
 					current = Selection::Team;
-			}
-		
-		else
-			if (current == Selection::Team || current == Selection::Any)
-			{
-				for (auto i : team)
-					if (i->getObj()->InBounds(mouse.first, mouse.second))
-					{
-						character = i;
-						
-					}
+				break;
 
-				if (character != nullptr)
+			case Team:
+
+				if(selectedCard != nullptr)
 				{
-
-					if (selectedCard != nullptr)
+					for (auto i : team)
 					{
+						if (i->getObj()->InBounds(mouse.first, mouse.second))
+						{
+							character = i;
+
+						}
+					}
+					if (character != nullptr)
+					{
+						character->getObj()->tint = (SDL_Color{ 255,255,0 });
 						current = Selection::Enemy;
 					}
-					else
-					{
-						current = Selection::Ground;
-					}
 				}
-			}
-		else
-			if (current == Selection::UICard || current == Selection::Any)
-			{
-				//selected = 
-				for(auto i: playerHand)
-					if (i->getObj() != nullptr && i->getObj()->InBounds(mouse.first, mouse.second))
-					{
-						selectedCard = i;
-					}
-				if (selectedCard != nullptr)
-					current = Selection::Team;
-			}
-		
 			
-	}
+				break;
 
-	else if (act == Act::MouseUpdate)
-	{
-
+			}
+		}
 	}
+	else
+		if (act == Act::MouseUpdate)
+		{
+
+		}
+	
 }
 
 
 void CombatScene::Cast(Card* card, Character* caster, Character* target)
 {
-	card->Cast(caster, target);
-	character = nullptr;
-	target = nullptr;
-	delete (card->getObj());
+	if (card != nullptr && caster != nullptr && target != nullptr)
+	{
+		character->getObj()->Untint();
+		card->Cast(caster, target);
+		character = nullptr;
+		target = nullptr;
+		selectedCard = nullptr;
+
+
+
+
+
+
+
+		mLayers[UI].erase(std::find(mLayers[UI].begin(), mLayers[UI].end(), card->getObj()));
+
+		delete (card->getObj());
+
+		playerHand.erase(std::find(playerHand.begin(), playerHand.end(), card));
+
+	}
 	//card->getObj() = nullptr;
 }
 
@@ -152,20 +196,21 @@ void CombatScene::LoadHand()
 		delete i->getObj();
 	playerHand.clear();
 
-	Card* card = nullptr;
-
+	Card* card = new Card(5, "slash", 1, "cardObj");
+	deck.push_back(card);
+	playerHand.push_back(card);
 	if(deck.size() > 0)
-	for (int i = 0; i < 5; ++i)
+	for (int i = 0; i < playerHand.size(); ++i)
 	{
 
-		card = deck[0];
+		
 			
-		card->Assign(AddObject(card->GetObjName(), 50, 50, UI));
-
-		playerHand.push_back(card);
+		deck[i]->Assign(AddObject(card->GetObjName(), 200 + 150 * i, 200, UI));
+		deck[i]->getObj()->scale = 0.5f;
+		
 	}
 
-	
+	current = Selection::Any;
 }
 
 

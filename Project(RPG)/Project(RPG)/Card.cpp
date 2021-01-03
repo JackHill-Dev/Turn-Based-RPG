@@ -1,6 +1,6 @@
 #include "Card.h"
 
-Card::Card(TargetType targetType, int damage, std::string name, int range, std::string objectName) : targetType(targetType), damage(damage), name(name), range(range), objectName(objectName)
+Card::Card(int damage, std::string name, int range, std::string objectName) : damage(damage), name(name), range(range), objectName(objectName)
 {
 
 }

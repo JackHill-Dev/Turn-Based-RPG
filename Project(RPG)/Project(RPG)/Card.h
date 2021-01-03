@@ -11,7 +11,7 @@ class Card
 	RenderObject* obj;
 	std::string objectName;
 public:
-	Card(TargetType targetType, int damage, std::string name, int range, std::string objectName);
+	Card(int damage, std::string name, int range, std::string objectName);
 	void Cast(Character* caster, Character* target);
 	RenderObject* getObj();
 	void Assign(RenderObject* object);

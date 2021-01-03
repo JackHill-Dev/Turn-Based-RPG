@@ -14,7 +14,7 @@ void GameManager::Run()
 	unsigned int b = SDL_GetTicks();
 	double delta = 0;
 	double deltaTime = 0;
-	
+	double cd = 0;
 	while (SDL_PollEvent(&ev)|| bRunning )
 	{
 		a = SDL_GetTicks();
@@ -28,34 +28,39 @@ void GameManager::Run()
 
 			int x, y;
 			act = Act::Blank;
-			switch (ev.type)
-			{
-			case SDL_KEYUP:
+			if (cd <= 0)
+				switch (ev.type)
+				{
+				case SDL_KEYUP:
 
 
 
-				break;
-			case SDL_MOUSEBUTTONDOWN:
-				//auto e = ev.button.button;
-				if(ev.button.button == SDL_BUTTON_LEFT)
-					act = Act::Click;
-				else
-					act = Act::RClick;
-				SDL_GetMouseState(&x, &y);
-				
-				break;
-			case SDL_MOUSEMOTION:
-				SDL_GetMouseState(&x, &y);
-				act = Act::MouseUpdate;
-				break;
-	
-			}
+					break;
+				case SDL_MOUSEBUTTONDOWN:
+					//auto e = ev.button.button;
+					if (ev.button.button == SDL_BUTTON_LEFT)
+						act = Act::Click;
+					else
+						act = Act::RClick;
+					SDL_GetMouseState(&x, &y);
+
+					break;
+				case SDL_MOUSEMOTION:
+					SDL_GetMouseState(&x, &y);
+					act = Act::MouseUpdate;
+					break;
+
+				}
+			else
+				cd -= delta;
+
 			SDL_RenderClear(mRnd);
 
 			SDL_SetRenderTarget(mRnd, texture);
 			SDL_SetRenderDrawColor(mRnd, 0x64, 0x00, 0x00, 0x00);
 	
 			SDL_SetRenderTarget(mRnd, NULL);
+			
 			currentScene->SceneUpdate(delta, act, std::make_pair(x, y));
 			currentScene->Draw(mRnd);
 			SDL_RenderPresent(mRnd);
