@@ -23,7 +23,7 @@ private:
 	void ManageShopInventory(Inventory& inv, Act act, std::pair<int, int> mousePos);
 	void ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, int> mousePos);
 	void GenerateGrids();
-	void DrawGrids();
+	void DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY);
 	Player mPlayer;
 	Mix_Music* bg_Music;
 	Mix_Chunk* buySell_SFX;

@@ -23,6 +23,7 @@ protected:
 	std::pair<double, double> mPos;
 	Animation* mCurrentAnim;
 public:
+	float scale = 1;
 	std::string path;
 	RenderObject() {}
 	RenderObject(std::string sprSheet);

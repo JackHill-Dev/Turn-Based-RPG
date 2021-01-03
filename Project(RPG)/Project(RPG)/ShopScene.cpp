@@ -15,12 +15,12 @@ ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
 void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
 	// Uncomment to hear the shop music, currently disabled as it was getting annoying while testing  - JP
-	if (!startOnce)
+	/*if (!startOnce)
 	{
 		mgr->GetManagers()->AudioMgr->PlayMusic(bg_Music, -1);
 		Mix_VolumeMusic(10);
 		startOnce = true;
-	}
+	}*/
 
 	ManagePlayerInventory(mPlayer.GetInventory(), act, mousePos);
 	ManageShopInventory(mShop.GetInventory(), act, mousePos);
@@ -37,12 +37,11 @@ void ShopScene::PlaceItems(Inventory& inv)
 
 void ShopScene::Init()
 {
-	AddObject("ShopBGObj", 0, 0, Background);
-	AddObject("playerPortraitObj", 400, 100, UI);
-	AddObject("merchantPortraitObj", 620, 100, UI);
+	AddObject("ShopBGObj", 1280 / 2, 720 / 2, Background);
+	AddObject("playerPortraitObj", 505, 225, UI);
+	AddObject("merchantPortraitObj", 725, 225, UI);
 
 	GenerateGrids();
-	DrawGrids();
 
 }
 
@@ -142,8 +141,8 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 
 void ShopScene::GenerateGrids()
 {
-	mPlayer.GetInventory().SetInitialGridPos(10);
-	mShop.GetInventory().SetInitialGridPos(850);
+	mPlayer.GetInventory().SetInitialGridPos(80);
+	mShop.GetInventory().SetInitialGridPos(880);
 
 	mPlayer.GetInventory().GeneratePositions();
 	mShop.GetInventory().GeneratePositions();
@@ -151,35 +150,28 @@ void ShopScene::GenerateGrids()
 	SetupPlayerInv();
 	SetupShopInv();
 
+	DrawGrid(4, 5, 80, 110); // Draw item frames for player inventory
+	DrawGrid(4, 5, 880, 110); // Draw item frames for shop inventory
+
 	PlaceItems(mPlayer.GetInventory());
 	PlaceItems(mShop.GetInventory());
 }
 
-void ShopScene::DrawGrids()
+
+void ShopScene::DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY)
 {
-	/*for (auto i : mPlayer.GetInventory().GetContents())
+	int cellAmount = gridWidth * gridHeight;
+	int initialX = offsetX;
+	for (int i = 0; i < cellAmount; ++i)
 	{
-		AddObject("itemFrameObj", i->inventoryPos.pos.first, i->inventoryPos.pos.second , Background);
-	}*/
-
-	int gridOffsetX = 10;
-	int gridOffsetY = 110;
-
-	for (int i = 0; i < 20; ++i)
-	{
-		if (gridOffsetX >= 360)
+		if (offsetX >= 360 + initialX)
 		{
-			gridOffsetX = 10;
-			gridOffsetY += 110;
+			offsetX = initialX;
+			offsetY += 110;
 		}
-
-		AddObject("itemFrameObj", gridOffsetX, gridOffsetY, Background);
-		gridOffsetX += 90;
-	}
-
-	for (auto i : mShop.GetInventory().GetContents())
-	{
-		AddObject("itemFrameObj", i->inventoryPos.pos.first, i->inventoryPos.pos.second, Background);
+		AddObject("itemFrameObj", offsetX, offsetY, Background);
+		offsetX += 90;
 	}
 }
+
 
