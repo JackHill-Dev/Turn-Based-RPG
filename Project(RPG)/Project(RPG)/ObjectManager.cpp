@@ -13,7 +13,6 @@ ObjectManager::~ObjectManager()
 
 SDL_Texture* ObjectManager::LoadTexture(std::string path)
 {
-	
 	SDL_Surface* img = IMG_Load((path.c_str()));
 	
 	std::cout << IMG_GetError();
@@ -21,12 +20,7 @@ SDL_Texture* ObjectManager::LoadTexture(std::string path)
 }
 
 RenderObject* ObjectManager::RequestObject(std::string name)
-
-
-
-
 {	
-	
 	return objects[name]->Clone();
 }
 

@@ -2,6 +2,7 @@
 #include "TestScene.h"
 #include "CombatScene.h"
 #include "ShopScene.h"
+#include <SDL_ttf.h>
 bool GameManager::Init()
 {
 	int imgFlags = IMG_INIT_PNG;
@@ -10,6 +11,13 @@ bool GameManager::Init()
 		printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
 
 	}
+
+
+	if (TTF_Init() < 0) {
+		std::cout << "ttf library not initialised properly";
+	}
+
+	
 
 	CreateWindow();
 
@@ -109,6 +117,7 @@ void GameManager::Run()
 	}
 	SDL_DestroyRenderer(mRnd);
 	SDL_DestroyWindow(mWnd);
+	TTF_CloseFont(font);
 	SDL_Quit();
 }
 

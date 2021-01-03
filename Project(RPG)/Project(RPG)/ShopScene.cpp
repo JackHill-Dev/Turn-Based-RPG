@@ -2,6 +2,8 @@
 #include "Weapon.h"
 #include "Armour.h"
 #include "Consumable.h"
+#include <SDL_ttf.h>
+
 
 ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
 {
@@ -9,6 +11,9 @@ ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
 	buySell_SFX = Mix_LoadWAV("Assets/SFX/coin.wav");
 
 	Mix_Volume(1, 5);
+
+
+
 	
 }
 
@@ -41,6 +46,7 @@ void ShopScene::Init()
 	AddObject("playerPortraitObj", 505, 225, UI);
 	AddObject("merchantPortraitObj", 725, 225, UI);
 
+	
 	GenerateGrids();
 
 }

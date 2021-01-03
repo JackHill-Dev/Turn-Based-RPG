@@ -30,7 +30,6 @@ void Scene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 
 void Scene::Draw(SDL_Renderer* rnd)
 {
-	// Need to move this otherwise a variable is pointlessly getting set every frame TODO: Ask TH & EH where's best to set this
 	SDL_Rect rect;
 	SDL_Rect crop;
 	
@@ -60,7 +59,12 @@ void Scene::Draw(SDL_Renderer* rnd)
 
 		});
 
-	
+	TTF_Font* font = TTF_OpenFont("Assets/Fonts/Silver.ttf", 32);
+	SDL_Texture* fontTexture= SDL_CreateTextureFromSurface(rnd, TTF_RenderText_Solid(font, std::to_string(counter).c_str() , SDL_Color{ 0,0,0 }));;
+	rect.x = 550;
+	rect.y = 550;
+	SDL_RenderCopy(rnd, fontTexture, &crop, &rect);
+	++counter;
 }
 // When mouse is inside bounds of a render object in current scene
 void Scene::Select(int x, int y, Managers* mgrs)

@@ -3,6 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include "RenderObject.h"
 #include "Globals.h"
 #include "GameObjects.h"
@@ -17,7 +18,7 @@ class Scene
 private:
 
 	std::string name;
-	
+	int counter = 0;
 	SDL_Surface* mSurface = nullptr;
 protected:
 	std::vector<std::vector<RenderObject*>> mLayers;

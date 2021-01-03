@@ -27,7 +27,7 @@ private:
 	//GameManager* sInstance;
 
 	Managers mMgrs;
-
+	TTF_Font* font;
 public:
 	bool Init();
 	bool Running();
