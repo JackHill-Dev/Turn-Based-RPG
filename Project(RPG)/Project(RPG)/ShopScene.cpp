@@ -7,16 +7,20 @@ ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
 {
 	bg_Music = Mix_LoadMUS("Assets/Music/MedievalLoop.mp3");
 	buySell_SFX = Mix_LoadWAV("Assets/SFX/coin.wav");
+
+	Mix_Volume(1, 5);
+	
 }
 
 void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
 	// Uncomment to hear the shop music, currently disabled as it was getting annoying while testing  - JP
-	/*if (!startOnce)
+	if (!startOnce)
 	{
 		mgr->GetManagers()->AudioMgr->PlayMusic(bg_Music, -1);
+		Mix_VolumeMusic(10);
 		startOnce = true;
-	}*/
+	}
 
 	ManagePlayerInventory(mPlayer.GetInventory(), act, mousePos);
 	ManageShopInventory(mShop.GetInventory(), act, mousePos);
@@ -100,7 +104,7 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 			{
 				mShop.BuyItem(i);
 				mPlayer.GetInventory().AddItem(i);
-				mgr->GetManagers()->AudioMgr->PlaySFX(buySell_SFX, 0, 0);
+				mgr->GetManagers()->AudioMgr->PlaySFX(buySell_SFX, 0, 1);
 				i->GetRenderObject()->SetPos(i->inventoryPos.pos);
 				mPlayer.SetGold(-i->GetCost());
 			}
@@ -129,8 +133,8 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 		{
 			mPlayer.SellItem(i);
 			mShop.GetInventory().AddItem(i);
-			mgr->GetManagers()->AudioMgr->PlaySFX(buySell_SFX, 0, 1);
-			i->GetRenderObject()->SetPos(i->inventoryPos.pos);
+			mgr->GetManagers()->AudioMgr->PlaySFX(buySell_SFX, 0, 1); // Play buy sfx on channel 1 and don't loop
+			i->GetRenderObject()->SetPos(i->inventoryPos.pos); // Update the render object position 
 		}
 	}
 
@@ -153,9 +157,24 @@ void ShopScene::GenerateGrids()
 
 void ShopScene::DrawGrids()
 {
-	for (auto i : mPlayer.GetInventory().GetContents())
+	/*for (auto i : mPlayer.GetInventory().GetContents())
 	{
 		AddObject("itemFrameObj", i->inventoryPos.pos.first, i->inventoryPos.pos.second , Background);
+	}*/
+
+	int gridOffsetX = 10;
+	int gridOffsetY = 110;
+
+	for (int i = 0; i < 20; ++i)
+	{
+		if (gridOffsetX >= 360)
+		{
+			gridOffsetX = 10;
+			gridOffsetY += 110;
+		}
+
+		AddObject("itemFrameObj", gridOffsetX, gridOffsetY, Background);
+		gridOffsetX += 90;
 	}
 
 	for (auto i : mShop.GetInventory().GetContents())
