@@ -1,20 +1,7 @@
 #include "AudioManager.h"
 
-AudioManager* AudioManager::sInstance = nullptr;
 
-AudioManager* AudioManager::Instance()
-{
-	if (sInstance == nullptr)
-		sInstance = new AudioManager();
 
-	return sInstance;
-}
-
-void AudioManager::Release()
-{
-	delete sInstance;
-	sInstance = nullptr;
-}
 
 AudioManager::AudioManager()
 {
@@ -25,8 +12,7 @@ AudioManager::~AudioManager()
 {
 	// null the import manager once i have it
 	Mix_Quit(); // Close the audio
-
-	Release();
+	
 
 }
 
@@ -42,12 +28,19 @@ void AudioManager::ClearSound(Mix_Music& mus)
 {
 }
 
-void AudioManager::Init()
+bool AudioManager::Init()
 {
-	if (Mix_OpenAudio(44100, /*MIX_DEFAULT_FORMAT*/ AUDIO_S16SYS, 2, 4096) < 0)
+	if (this == nullptr)
+	{
+		return false;
+	}
+
+	if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 4096) < 0)
 	{
 		std::cout << "Mixer load failed, error: " << Mix_GetError() << std::endl;
 	}
+
+	return true;
 
 }
 
@@ -67,7 +60,7 @@ void AudioManager::PlayMusic(Mix_Music* pMusic, int loops) // overload for testi
 }
 void AudioManager::PlaySFX(std::string& filename, int loops, int channel)
 {
-	// Mix_PlayChannel(Database->GetMusic(filename), loops);
+	// Mix_PlayChannel(Database->GetSFX(filename), loops);
 }
 // same as above but plays a sound effect
 void AudioManager::PlaySFX(Mix_Chunk* pSfx, int loops, int channel)

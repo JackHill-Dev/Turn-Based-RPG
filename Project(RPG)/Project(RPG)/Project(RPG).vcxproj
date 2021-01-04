@@ -151,40 +151,29 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AudioManager.cpp" />
-    <ClCompile Include="Database.cpp" />
+    <ClCompile Include="Card.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="CombatScene.cpp" />
     <ClCompile Include="GameManager.cpp" />
-    <ClCompile Include="GameScene.cpp" />
-    <ClCompile Include="ImportManager.cpp" />
-    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuClass.cpp" />
-    <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="RenderObject.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SpriteSheet.cpp" />
-    <ClCompile Include="TestScene.cpp" />
-    <ClCompile Include="UiObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AudioManager.h" />
-    <ClInclude Include="Database.h" />
+    <ClInclude Include="Card.h" />
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="CombatScene.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObjects.h" />
-    <ClInclude Include="GameScene.h" />
     <ClInclude Include="Globals.h" />
-    <ClInclude Include="Actions.h" />
-    <ClInclude Include="ImportManager.h" />
-    <ClInclude Include="InputManager.h" />
     <ClInclude Include="MainMenuClass.h" />
-    <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="RenderObject.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SpriteSheet.h" />
-    <ClInclude Include="TestScene.h" />
-    <ClInclude Include="UiObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

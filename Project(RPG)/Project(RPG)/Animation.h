@@ -3,12 +3,15 @@
 class Animation
 {
 private:
-	int start, end, current;
+	int current;
 	std::string name;
+	std::vector<std::pair<int, int>> frames;
+	double speed = 15;
+	double time  = 0;
 public:
-	void Advance();
-	Animation(std::string name, int st, int en, int curr);
-	int GetCurrentFrame();
+	void Advance(double dTime);
+	Animation();
+	Animation(std::string name, std::vector<std::pair<int, int>>);
+	std::pair<int, int> GetCurrentFrame();
 	std::string GetName();
 };
-

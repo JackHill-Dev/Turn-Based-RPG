@@ -4,21 +4,30 @@
 #include "SpriteSheet.h"
 #include "Actions.h"
 #include "Animation.h"
+
+
 class RenderObject
 {
 
 private:
-	Animation* mCurrentAnim;
-	std::pair<int, int> mPos;
+	
+	
 	std::string mName;
 	bool mVisible;
 	SpriteSheet* mSheet;
+protected:
 	
+	std::pair<double, double> mPos;
+	Animation* mCurrentAnim;
 public:
+	float scale = 1;
+	void Untint();
+	void Tint(SDL_Colour tkint);
 	std::string path;
+	RenderObject();
 	RenderObject(std::string sprSheet);
-
-	bool Update(double dTime, Act act);
+	SDL_Color tint = { 255,255,255 }; //white
+	virtual bool Update(double dTime, Act act, std::pair<int, int> mouse);
 	bool Init();
 	std::pair<int, int> GetPos();
 	void SetAnim(std::string id);
@@ -29,5 +38,6 @@ public:
 	bool InBounds(int x, int y);
 	virtual void Select();
 	Animation* GetAnim();
+	virtual RenderObject* Clone() { return new RenderObject(*this); }
 };
 

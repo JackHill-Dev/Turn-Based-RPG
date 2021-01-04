@@ -1,16 +1,17 @@
 #include "SpriteSheet.h"
 
-SpriteSheet::SpriteSheet(std::string path, float nCellSizeX, float nCellSizeY, int nCellCount) : mFilePath(path), mCellCount(nCellCount), mCellSizeX(nCellSizeX), mCellSizeY(nCellSizeY)
+SpriteSheet::SpriteSheet(std::string path, int textureSizeX, int textureSizeY, float nCellSizeX, float nCellSizeY, int nCellCount) : mFilePath(path), mCellCount(nCellCount), mCellSizeX(nCellSizeX),  mCellSizeY(nCellSizeY), textureSize(std::make_pair(textureSizeX,textureSizeY))
 {
-	anims["default"] = new Animation("default", 0, 0, 0);
+	//anims["default"] =  Animation("default", { std::make_pair(0,0) });
+	anims.insert(std::make_pair("default", Animation("default", { std::make_pair(0,0) })));
 }
 
-SDL_Surface* SpriteSheet::GetTexture()
+SDL_Texture* SpriteSheet::GetTexture()
 {
 	return mTexture;
 }
 
-bool SpriteSheet::SetTexture(SDL_Surface* texture)
+bool SpriteSheet::SetTexture(SDL_Texture* texture)
 {
 	if (mTexture == nullptr)
 	{
@@ -18,25 +19,22 @@ bool SpriteSheet::SetTexture(SDL_Surface* texture)
 		return true;
 	}
 	return false;
-
 }
-
-/*
-float SpriteSheet::GetCellSize()
+std::pair<float, float> SpriteSheet::GetTextureSize()
 {
-	return mCellSizeX;
+	return textureSize;
 }
-*/
-
 std::pair<float, float> SpriteSheet::GetCellSize()
 {
 	return std::make_pair(mCellSizeX, mCellSizeY);
 }
 Animation* SpriteSheet::GetAnim(std::string name)
 {
-	return anims[name];
+	if (&anims[name] == nullptr)
+		return &anims["default"];
+	return &anims[name];
 }
 void SpriteSheet::AddAnim(std::string name, Animation anim)
 {
-	anims[name] = &anim;
+	anims[name] = anim;
 }

@@ -1,24 +1,32 @@
 #include "Animation.h"
-void Animation::Advance()
+void Animation::Advance(double dTime)
 {
-	current++;
-	if (current > end)
+	
+	
+	time += dTime * 0.1f;
+	if (time >= speed)
 	{
-		current = start;
-
+		current++;
+		if (current >= frames.size())
+			current = 0;
+		time = 0;
 	}
 }
-Animation::Animation(std::string name, int st, int en, int curr)
+Animation::Animation(std::string name, std::vector<std::pair<int,int>> anims)
 {
+	this->frames = anims;
 	this->name = name; 
-	start = st;
-	end = en;
-	current = curr;
+	current = 0;
 }
 
-int Animation::GetCurrentFrame()
+Animation::Animation()
 {
-	return current;
+	this->name = "UNSET";
+}
+
+std::pair<int,int> Animation::GetCurrentFrame()
+{
+	return frames[current];
 }
 
 std::string Animation::GetName()

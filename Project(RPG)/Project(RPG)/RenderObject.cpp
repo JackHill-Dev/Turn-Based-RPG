@@ -1,4 +1,13 @@
 #include "RenderObject.h"
+#include "ManagerStruct.h"
+void RenderObject::Untint()
+{
+	this->tint = { 255,255,255 };
+}
+void RenderObject::Tint(SDL_Colour tkint)
+{
+	this->tint = tkint;
+}
 RenderObject::RenderObject(std::string sprSheet)
 {
 	path = sprSheet;
@@ -6,13 +15,14 @@ RenderObject::RenderObject(std::string sprSheet)
 	mVisible = true;
 }
 
-bool RenderObject::Update(double dTime, Act act)
+bool RenderObject::Update(double dTime, Act act, std::pair<int,int> mouse)
 {
 	return true;
 }
 
 bool RenderObject::Init()
 {
+	
 	mVisible = true;
 	return true;
 }
@@ -49,21 +59,26 @@ bool RenderObject::IsVisible()
 
 void RenderObject::Select()
 {
-
+	//std::cout << "Render object clicked";
 }
 
 bool RenderObject::InBounds(int x, int y)
 {
+	// currenlty this allows render objects to be pressed slightly outside of the sprites bounds - JP
+
 	//return false if cant be selected
 	std::pair<float, float> bound = GetSheet()->GetCellSize();
-	
-	if (x >= mPos.first - bound.first / 2 && x <= mPos.first + bound.first / 2)
-		return (y >= mPos.second - bound.second / 2 && y <= mPos.second + bound.second / 2);
+
+	bound.first = bound.first/2 *scale;
+	bound.second = bound.second/2*scale;
+	//float bound = GetSheet()->GetCellSize().first;
+	if (x > mPos.first - bound.first  && x < mPos.first + bound.first  )
+		return (y >= mPos.second  - bound.second  && y <= mPos.second + bound.second  );
 	else
 		return false;
 }
 
 Animation* RenderObject::GetAnim()
 {
-	return mCurrentAnim;
+	return mCurrentAnim;	
 }
