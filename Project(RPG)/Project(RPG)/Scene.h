@@ -13,6 +13,13 @@
 class SceneManager;
 class GameManager;
 
+struct UIText
+{
+	std::string text;
+	std::pair<int, int> pos;
+	SDL_Color textColor;
+};
+
 class Scene
 {
 private:
@@ -20,8 +27,10 @@ private:
 	std::string name;
 	int counter = 0;
 	SDL_Surface* mSurface = nullptr;
+	TTF_Font* mFont;
 protected:
 	std::vector<std::vector<RenderObject*>> mLayers;
+	std::unordered_map<std::string, UIText> mSceneText;
 	ObjectManager* mgr;
 	virtual void Update(double dTime, Act act, std::pair<int, int> mousePos);
 public:

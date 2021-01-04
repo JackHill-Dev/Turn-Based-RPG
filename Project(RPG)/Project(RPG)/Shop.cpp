@@ -5,7 +5,7 @@ Shop::Shop()
 	mInventory.SetInitialGridPos(850);
 }
 
-void Shop::SetGold(int& amount)
+void Shop::SetGold(int amount)
 {
 	mGold += amount;
 }
@@ -22,7 +22,7 @@ Inventory& Shop::GetInventory()
 
 void Shop::BuyItem(Item* item)
 {
-	mGold + item->GetCost();
+	mGold += item->GetCost();
 	mInventory.RemoveItem(item);
 
 	// Check if shop has item

@@ -12,7 +12,7 @@ ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
 
 	Mix_Volume(1, 5);
 
-
+	mShop.SetGold(200);
 
 	
 }
@@ -48,6 +48,18 @@ void ShopScene::Init()
 
 	
 	GenerateGrids();
+
+	
+	mPlayerGoldText.text = "Gold: " + std::to_string( mPlayer.GetGold());
+	mPlayerGoldText.pos = std::make_pair(520, 385);
+	mPlayerGoldText.textColor = SDL_Color{ 255, 215, 0 }; // Gold
+
+	mShopGoldText.text = "Gold: " + std::to_string(mShop.GetGold());
+	mShopGoldText.pos = std::make_pair(620, 385);
+	mShopGoldText.textColor = SDL_Color{ 255, 215, 0 }; // Gold
+	
+	mSceneText["PlayerGoldText"] = mPlayerGoldText;
+	mSceneText["ShopGoldText"] = mShopGoldText;
 
 }
 
@@ -91,6 +103,7 @@ void ShopScene::SetupPlayerInv()
 
 void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int> mousePos)
 {
+
 	for (Item* i : inv.GetContents())
 	{
 		// check if mouse is hovering over it
@@ -108,10 +121,12 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 			if (!(mPlayer.GetGold() < i->GetCost())) // If player can't afford item they can't buy it
 			{
 				mShop.BuyItem(i);
+				//mPlayer.SetGold(i->GetCost());
 				mPlayer.GetInventory().AddItem(i);
 				mgr->GetManagers()->AudioMgr->PlaySFX(buySell_SFX, 0, 1);
 				i->GetRenderObject()->SetPos(i->inventoryPos.pos);
-				mPlayer.SetGold(-i->GetCost());
+				mSceneText["PlayerGoldText"].text = "Gold: " + std::to_string(mPlayer.GetGold());;
+				mSceneText["ShopGoldText"].text = "Gold: " + std::to_string(mShop.GetGold());;
 			}
 
 		}
@@ -136,10 +151,16 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 		
 		if (act == Act::RClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
-			mPlayer.SellItem(i);
-			mShop.GetInventory().AddItem(i);
-			mgr->GetManagers()->AudioMgr->PlaySFX(buySell_SFX, 0, 1); // Play buy sfx on channel 1 and don't loop
-			i->GetRenderObject()->SetPos(i->inventoryPos.pos); // Update the render object position 
+			if (!(mShop.GetGold() < i->GetCost()))
+			{
+				mPlayer.SellItem(i);
+				mShop.SetGold(-i->GetCost());
+				mShop.GetInventory().AddItem(i);
+				mgr->GetManagers()->AudioMgr->PlaySFX(buySell_SFX, 0, 1); // Play buy sfx on channel 1 and don't loop
+				i->GetRenderObject()->SetPos(i->inventoryPos.pos); // Update the render object position 
+				mSceneText["PlayerGoldText"].text = "Gold: " + std::to_string(mPlayer.GetGold());;
+				mSceneText["ShopGoldText"].text = "Gold: " + std::to_string(mPlayer.GetGold());;
+			}
 		}
 	}
 

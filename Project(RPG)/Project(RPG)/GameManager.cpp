@@ -14,7 +14,7 @@ bool GameManager::Init()
 
 
 	if (TTF_Init() < 0) {
-		std::cout << "ttf library not initialised properly";
+		std::cout << "TTF library not initialised, SDL_ttf Error: " << TTF_GetError;
 	}
 
 	
