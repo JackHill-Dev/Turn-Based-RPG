@@ -1,5 +1,6 @@
 #include "GameManager.h"
 #include "TestScene.h"
+
 bool GameManager::Init()
 {
 	MainMenuClass* mMenu = new MainMenuClass();
@@ -63,7 +64,7 @@ void GameManager::Run()
 
 bool GameManager::CreateWindow()
 {
-	SDL_CreateWindowAndRenderer(2048, 1536, 0, &mWnd, &mRnd);
+	SDL_CreateWindowAndRenderer(2048, 2048, 0, &mWnd, &mRnd);
 	SDL_ShowWindow(mWnd);
 	return true;
 }
