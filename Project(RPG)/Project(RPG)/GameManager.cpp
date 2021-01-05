@@ -90,11 +90,19 @@ AudioManager* GameManager::GetAudioManager() const
 {
 	return mAudioMgr;
 }
+
+void GameManager::LoadOverworldMapScene()
+{
+	currentScene->Clear(mRnd);
+
+	OverworldMapScene* ovScene = static_cast<OverworldMapScene*>(scenes[1]);
+}
+
 void GameManager::LoadCombatScene(std::vector<Character*> player, std::vector<Character*> enemy)
 {
 	currentScene->Clear(mRnd);
 
-	CombatScene* scene = static_cast<CombatScene*>(scenes[1]);
+	CombatScene* scene = static_cast<CombatScene*>(scenes[2]);
 	scene->Load(player, enemy);
 	currentScene = scene;
 }
@@ -111,8 +119,8 @@ bool GameManager::Init()
 	CreateWindow();
 	SetUp();
 	//scenes.push_back(new MainMenuClass(this));
-	//scenes.push_back(new CombatScene(this));
 	scenes.push_back(new OverworldMapScene(this));
+	//scenes.push_back(new CombatScene(this));
 	//LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
 	SetScene(0);
 

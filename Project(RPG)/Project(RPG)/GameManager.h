@@ -30,6 +30,7 @@ public:
 	void SetScene(int index);
 	AudioManager* GetAudioManager() const;
 	void LoadCombatScene(std::vector<Character*> player, std::vector<Character*> enemy);
+	void LoadOverworldMapScene();
 	RenderObject* RequestObject(std::string name);
 private:
 	
