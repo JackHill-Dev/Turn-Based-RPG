@@ -1,22 +1,31 @@
 #pragma once
 #include "Scene.h"
 #include "Actions.h"
-#include "OverworldMap.h"
 #include <SDL.h>
+#include "Node.h"
 
 class OverworldMapScene : public Scene
 {
 private:
-
-	OverworldMap* pOvMap;
+	std::vector<Node*> mNodes;
 	RenderObject* pOverworld;
+	RenderObject* pStartNode;
+	RenderObject* pBossNode;
+	RenderObject* pShopNode;
+	RenderObject* pBattleNode;
+	Mix_Music* mBackgroundMus;
+	Mix_Chunk* mSFX;
 
 protected:
 
 public:
 
-	OverworldMapScene();
-	void Update(double dTime, Act act) override;
+	OverworldMapScene(GameManager* mObjMgr);
+
+	OverworldMapScene* Load(std::vector<Node*> nodes);
+	void Init();
+
+	void Update(double dTime, Act act, std::pair<int,int> mousePos) override;
 
 };
 

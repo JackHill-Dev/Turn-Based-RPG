@@ -17,26 +17,30 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"shopNodeObj", new RenderObject("shopNode")},
 		{"startNodeObj", new RenderObject("startNode")},
 		{"maleUnit", new RenderObject("male")},
+		/*
 		{"startBtnObj", new RenderObject("startBtn")},
 		{"quitBtnObj", new RenderObject("quitBtn")},
 		{"mainMenuBGObj",new RenderObject("mainMenuBG")}, // a defined object
 		{"cardObj", new RenderObject("card")}
+		*/
 	}
 };
 
 const std::map<std::string, SpriteSheet*> definedSheets
 {
 	{
-		{"overworld", new SpriteSheet("Assets/Backgrounds/Blank Map.png", 2048, 2048, 1)},
-		{"battleNode", new SpriteSheet("Assets/Sprites/BattleNode.png", 32, 32, 1)},
-		{"bossNode", new SpriteSheet("Assets/Sprites/BossNode.png", 32, 32, 1)},
-		{"shopNode", new SpriteSheet("Assets/Sprites/ShopNode.png", 32, 32, 1)},
-		{"startNode", new SpriteSheet("Assets/Sprites/StartNode.png", 32, 32, 1)},
-		{"male", new SpriteSheet("Assets/Sprites/Male/Male 01-1.png",96, 128, 32, 32, 12)}, // a defined sheet
+		{"overworld", new SpriteSheet("Assets/Backgrounds/Blank Map.png", 2048, 2048, 2048, 2048, 1)},
+		{"battleNode", new SpriteSheet("Assets/Sprites/BattleNode.png", 32, 32, 32, 32, 1)},
+		{"bossNode", new SpriteSheet("Assets/Sprites/BossNode.png", 32, 32, 32, 32, 1)},
+		{"shopNode", new SpriteSheet("Assets/Sprites/ShopNode.png", 32,32, 32, 32, 1)},
+		{"startNode", new SpriteSheet("Assets/Sprites/StartNode.png", 32, 32, 32, 32, 1)},
+		{"male", new SpriteSheet("Assets/Sprites/Male 01-1.png",96, 128, 32, 32, 12)}, // a defined sheet
+		/*		
 		{"startBtn", new SpriteSheet("Assets/Sprites/Buttons/StartBtn-02.png",128, 64, 128, 64, 12)},
 		{"quitBtn", new SpriteSheet("Assets/Sprites/Buttons/QuitBtn.png",128, 64, 128, 64, 12)},
 		{"mainMenuBG", new SpriteSheet("Assets/Backgrounds/MainMenuBG_720.png",1280, 720, 1280, 720, 1)},
-		{"card", new SpriteSheet("Assets/Sprites/Card/CardTemplate.png",230, 322, 230, 322, 1)}
+		{"card", new SpriteSheet("Assets/Sprites/Card/CardTemplate.png",230, 322, 230, 322, 1)},
+		*/
 	}
 };
 
