@@ -222,7 +222,7 @@
       <Filter>Header Files\Items</Filter>
     </ClInclude>
     <ClInclude Include="Consumable.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Items</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

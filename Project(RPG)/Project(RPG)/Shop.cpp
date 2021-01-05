@@ -22,7 +22,7 @@ Inventory& Shop::GetInventory()
 
 void Shop::BuyItem(Item* item)
 {
-	mGold += item->GetCost();
+	SetGold(item->GetCost());
 	mInventory.RemoveItem(item);
 
 	// Check if shop has item

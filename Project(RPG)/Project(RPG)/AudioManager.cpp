@@ -12,7 +12,6 @@ AudioManager::~AudioManager()
 {
 	// null the import manager once i have it
 	Mix_Quit(); // Close the audio
-	
 
 }
 

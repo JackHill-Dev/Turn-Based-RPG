@@ -1,8 +1,5 @@
 #include "ShopScene.h"
-#include "Weapon.h"
-#include "Armour.h"
-#include "Consumable.h"
-#include <SDL_ttf.h>
+
 
 
 ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
@@ -12,7 +9,7 @@ ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
 
 	Mix_Volume(1, 5);
 
-	mShop.SetGold(200);
+	mShop.SetGold(2000);
 
 	
 }
@@ -121,7 +118,7 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 			if (!(mPlayer.GetGold() < i->GetCost())) // If player can't afford item they can't buy it
 			{
 				mShop.BuyItem(i);
-				//mPlayer.SetGold(i->GetCost());
+				mPlayer.SetGold(-i->GetCost());
 				mPlayer.GetInventory().AddItem(i);
 				mgr->GetManagers()->AudioMgr->PlaySFX(buySell_SFX, 0, 1);
 				i->GetRenderObject()->SetPos(i->inventoryPos.pos);
@@ -151,7 +148,7 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 		
 		if (act == Act::RClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
-			if (!(mShop.GetGold() < i->GetCost()))
+			if (!(mShop.GetGold() < i->GetCost())) // Can only sell to the shop if the shop can give you the moeny for the item
 			{
 				mPlayer.SellItem(i);
 				mShop.SetGold(-i->GetCost());
@@ -159,7 +156,7 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 				mgr->GetManagers()->AudioMgr->PlaySFX(buySell_SFX, 0, 1); // Play buy sfx on channel 1 and don't loop
 				i->GetRenderObject()->SetPos(i->inventoryPos.pos); // Update the render object position 
 				mSceneText["PlayerGoldText"].text = "Gold: " + std::to_string(mPlayer.GetGold());;
-				mSceneText["ShopGoldText"].text = "Gold: " + std::to_string(mPlayer.GetGold());;
+				mSceneText["ShopGoldText"].text = "Gold: " + std::to_string(mShop.GetGold());;
 			}
 		}
 	}

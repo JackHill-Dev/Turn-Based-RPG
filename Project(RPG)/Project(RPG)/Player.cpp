@@ -14,6 +14,7 @@ void Player::SetGold(int amount)
 	mGold += amount;
 }
 
+
 int Player::GetGold()
 {
 	return mGold;
@@ -32,7 +33,7 @@ void Player::SetInventory(Inventory inv)
 
 void Player::SellItem(Item* item)
 {
-	mGold += item->GetCost();
+	SetGold(item->GetCost());
 	mInventory.RemoveItem(item);
 
 }

@@ -1,4 +1,6 @@
-﻿  GameManager.cpp
+﻿  AudioManager.cpp
+  GameManager.cpp
+  Player.cpp
   Shop.cpp
   ShopScene.cpp
   Generating Code...
