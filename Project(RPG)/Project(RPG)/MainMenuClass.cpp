@@ -22,7 +22,8 @@ void MainMenuClass::Update(double dTime, Act act, std::pair<int, int> mouse)
 	if (act == Act::Click)
 	{
 		if (start->InBounds(mouse.first, mouse.second))
-			mgr->LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
+			//mgr->LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
+			mgr->LoadOverworldMapScene();
 		else
 			if (quit->InBounds(mouse.first, mouse.second))
 				mgr->Quit();
