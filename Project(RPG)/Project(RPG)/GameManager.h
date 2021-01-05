@@ -27,7 +27,7 @@ public:
 
 	void Run();
 	void Quit();
-	void SetScene(int index);
+
 	
 	
 private:

@@ -10,7 +10,7 @@ Interface::Interface(bool* brunning, std::map<std::string, RenderObject*>* objP,
 RenderObject* Interface::RequestObject(std::string name)
 {
 
-	return (*objects)[name]->Clone();
+	return (*objects)[name]->Clone(); // Returns a clone of the object, a "deep" pointer copy
 }
 
 void Interface::PlayMusic(Mix_Music* pMusic, int loops) // overload for testing until the database and import manager classes are created
