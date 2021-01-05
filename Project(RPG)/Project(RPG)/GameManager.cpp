@@ -1,5 +1,4 @@
 #include "GameManager.h"
-#include "TestScene.h"
 #include "CombatScene.h"
 
 
@@ -87,6 +86,10 @@ void GameManager::SetScene(int index)
 	currentScene->Clear(mRnd);
 	currentScene = scenes[index];
 }
+AudioManager* GameManager::GetAudioManager() const
+{
+	return mAudioMgr;
+}
 void GameManager::LoadCombatScene(std::vector<Character*> player, std::vector<Character*> enemy)
 {
 	currentScene->Clear(mRnd);
@@ -107,8 +110,9 @@ bool GameManager::Init()
 	
 	CreateWindow();
 	SetUp();
-	scenes.push_back(new MainMenuClass(this));
-	scenes.push_back(new CombatScene(this));
+	//scenes.push_back(new MainMenuClass(this));
+	//scenes.push_back(new CombatScene(this));
+	scenes.push_back(new OverworldMapScene(this));
 	//LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
 	SetScene(0);
 

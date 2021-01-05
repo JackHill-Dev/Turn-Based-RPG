@@ -5,7 +5,6 @@
 #include "Scene.h"
 #include "Actions.h"
 #include "MainMenuClass.h"
-#include "ObjectManager.h"
 #include "OverworldMapScene.h"
 #include "Character.h"
 
@@ -29,6 +28,7 @@ public:
 	void Run();
 	void Quit();
 	void SetScene(int index);
+	AudioManager* GetAudioManager() const;
 	void LoadCombatScene(std::vector<Character*> player, std::vector<Character*> enemy);
 	RenderObject* RequestObject(std::string name);
 private:
