@@ -3,17 +3,17 @@
 #include "GameManager.h"
 RenderObject* start;
 RenderObject* quit;
-MainMenuClass::MainMenuClass(GameManager* rng) : Scene(rng)
+MainMenuClass::MainMenuClass(Interface* rng) : Scene(rng)
 {
 	// Get all button objects
 	//pMenuButton = AddObject("StartBtnObj", 5, 90, UI);
-	quit = AddObject("quitBtnObj", 5, 400, UI);
+	quit = AddObject("quitBtnObj", 70, 400, UI);
 	// Get Background object
-	start = AddObject("startBtnObj", 5, 90, UI);
+	start = AddObject("startBtnObj", 70, 90, UI);
 	// Get all SFX objects
 	// Get Music object
 	// Play music on loop (set loops to -1)
-	AddObject("mainMenuBGObj", 0, 0, Background);
+	AddObject("mainMenuBGObj", 640, 360, Background);
 }
 
 void MainMenuClass::Update(double dTime, Act act, std::pair<int, int> mouse)
@@ -22,8 +22,7 @@ void MainMenuClass::Update(double dTime, Act act, std::pair<int, int> mouse)
 	if (act == Act::Click)
 	{
 		if (start->InBounds(mouse.first, mouse.second))
-			//mgr->LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
-			mgr->LoadOverworldMapScene();
+			mgr->LoadScene(1);
 		else
 			if (quit->InBounds(mouse.first, mouse.second))
 				mgr->Quit();

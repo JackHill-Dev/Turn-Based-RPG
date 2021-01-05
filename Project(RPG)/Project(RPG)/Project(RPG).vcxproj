@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -150,11 +150,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="CombatScene.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="Interface.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuClass.cpp" />
     <ClCompile Include="RenderObject.cpp" />
@@ -163,13 +163,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
-    <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="CombatScene.h" />
+    <ClInclude Include="Deletethis.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObjects.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="Interface.h" />
     <ClInclude Include="MainMenuClass.h" />
     <ClInclude Include="RenderObject.h" />
     <ClInclude Include="Scene.h" />

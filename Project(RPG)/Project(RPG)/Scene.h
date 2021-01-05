@@ -1,4 +1,5 @@
 #pragma once
+
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -6,8 +7,8 @@
 #include "RenderObject.h"
 #include "Globals.h"
 #include "GameObjects.h"
-#include "AudioManager.h"
-class GameManager;
+
+#include "Interface.h"
 
 class Scene
 {
@@ -21,9 +22,9 @@ protected:
 
 	virtual void Update(double dTime, Act act, std::pair<int, int> mousePos);
 	
-	GameManager* mgr;
+	Interface* mgr;
 public:
-	Scene(GameManager* objmg);
+	Scene(Interface* objmg);
 
 	void SceneUpdate(double dTime, Act act, std::pair<int, int> mousePos);
 

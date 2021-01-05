@@ -39,7 +39,7 @@ void Character::Move(double dTime)
 	double yPos = object->GetPos().second;
 	double yDistance = target.second - object->GetPos().second;
 	double xDistance = target.first - object->GetPos().first;
-
+	moving = true;
 	
 	if (yDistance != 0)
 	{
@@ -64,6 +64,7 @@ void Character::Move(double dTime)
 		{
 			xPos = target.first;
 			object->SetAnim("LookUp");
+			moving = false;
 		}
 		else
 		{
@@ -92,9 +93,22 @@ void Character::Move(double dTime)
 
 	}
 	object->SetPos(std::make_pair(xPos, yPos));
+	
 }
 
-void Character::ModHealth(int mod)
+
+int Character::GetHealth()
 {
-	health.first += mod;
+	return health.first;
+}
+
+bool Character::ModHealth(int mod)
+{
+	health.first -= mod;
+	if (health.first > health.second)
+		health.first = health.second;
+	else
+		if (health.first <= 0)
+			return false;
+	return true;
 }
