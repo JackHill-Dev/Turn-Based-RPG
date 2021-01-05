@@ -16,7 +16,9 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"startBtnObj", new RenderObject("startBtn")},
 		{"quitBtnObj", new RenderObject("quitBtn")},
 		{"mainMenuBGObj",new RenderObject("mainMenuBG")}, // a defined object
-		{"cardObj", new RenderObject("card")}
+		{"cardObj", new RenderObject("card")},
+		{"tileObj", new RenderObject("tile")}
+		,{"forestBGObj",new RenderObject("forestBG")}
 	}
 };
 
@@ -27,7 +29,9 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"startBtn", new SpriteSheet("Assets/Sprites/Buttons/StartBtn-02.png",128, 64, 128, 64, 12)},
 		{"quitBtn", new SpriteSheet("Assets/Sprites/Buttons/QuitBtn.png",128, 64, 128, 64, 12)},
 		{"mainMenuBG", new SpriteSheet("Assets/Backgrounds/MainMenuBG_720.png",1280, 720, 1280, 720, 1)},
-		{"card", new SpriteSheet("Assets/Sprites/Card/CardTemplate.png",230, 322, 230, 322, 1)}
+		{"card", new SpriteSheet("Assets/Sprites/Card/CardTemplate.png",230, 322, 230, 322, 1)},
+		{"tile", new SpriteSheet("Assets/grass-tile.png", 32, 32, 32, 32, 1)},
+		{"forestBG", new SpriteSheet("Assets/forestbackground.png",1280, 720, 1280, 720, 1)}
 	}
 };
 
@@ -47,6 +51,14 @@ const std::map<std::string, std::vector<Animation>> definedAnimations
 		Animation("WalkRight", {std::make_pair(0,2), std::make_pair(1,2), std::make_pair(2,2)}),
 		Animation("WalkDown", {std::make_pair(0,3), std::make_pair(1,3), std::make_pair(2,3)})
 
-		}} 
+		}},
+		
+	{"tile",
+	{
+		Animation("Grass", {std::make_pair(0,0)})
+
+	}}
+
+		
 	}
 };

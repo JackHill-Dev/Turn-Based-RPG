@@ -4,8 +4,6 @@ Card::Card(int damage, std::string name, int range, std::string objectName) : da
 {
 
 }
-
-
 void Card::Cast(Character* caster, Character* target)
 {
 	target->ModHealth(damage);

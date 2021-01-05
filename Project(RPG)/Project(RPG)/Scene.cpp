@@ -1,6 +1,6 @@
 #include "Scene.h"
 #include "GameManager.h"
-Scene::Scene(GameManager* objmg)
+Scene::Scene(Interface* objmg)
 {
 	mgr = objmg;
 	std::vector<RenderObject*> rObjects;

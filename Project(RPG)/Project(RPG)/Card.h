@@ -8,7 +8,7 @@ class Card
 	int damage;
 	std::string name;
 	TargetType targetType;
-	RenderObject* obj;
+	RenderObject* obj = nullptr;
 	std::string objectName;
 public:
 	Card(int damage, std::string name, int range, std::string objectName);

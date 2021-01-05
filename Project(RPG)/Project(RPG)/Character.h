@@ -4,6 +4,7 @@
 class Character
 {
 public:
+	int GetHealth();
 	Character(std::string objectName);
 	~Character();
 	RenderObject* getObj();
@@ -11,7 +12,8 @@ public:
 	void Assign(RenderObject* object);
 	std::string GetObjName() { return objectName; };
 	void SetTarget(std::pair<double, double> target);
-	void ModHealth(int mod);
+	bool ModHealth(int mod);
+	bool moving = false;
 protected:
 	std::pair<int, int> health = { 15,15 }; // max, current
 	std::pair<int, int> mana = { 10,10 };
@@ -21,7 +23,7 @@ protected:
 	void Move(double dTime);
 	std::string objectName;
 	RenderObject* object;
-	bool moving = false;
+	
 	std::pair<double, double> target;
 };
 

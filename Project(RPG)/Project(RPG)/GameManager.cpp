@@ -14,8 +14,7 @@ void GameManager::Run()
 	unsigned int b = SDL_GetTicks();
 	double delta = 0;
 	double deltaTime = 0;
-	double cd = 0;
-	while (SDL_PollEvent(&ev)|| bRunning )
+	while ( bRunning )
 	{
 		a = SDL_GetTicks();
 		delta = a - b;
@@ -28,7 +27,7 @@ void GameManager::Run()
 
 			int x, y;
 			act = Act::Blank;
-			if (cd <= 0)
+			if (SDL_PollEvent(&ev))
 				switch (ev.type)
 				{
 				case SDL_KEYUP:
@@ -51,8 +50,7 @@ void GameManager::Run()
 					break;
 
 				}
-			else
-				cd -= delta;
+		
 
 			SDL_RenderClear(mRnd);
 
@@ -60,10 +58,11 @@ void GameManager::Run()
 			SDL_SetRenderDrawColor(mRnd, 0x64, 0x00, 0x00, 0x00);
 	
 			SDL_SetRenderTarget(mRnd, NULL);
-			
-			currentScene->SceneUpdate(delta, act, std::make_pair(x, y));
-			currentScene->Draw(mRnd);
+		
+			scenes[mCScene]->SceneUpdate(delta, act, std::make_pair(x, y));
+			scenes[mCScene]->Draw(mRnd);
 			SDL_RenderPresent(mRnd);
+		
 		}
 
 
@@ -73,6 +72,7 @@ void GameManager::Run()
 		
 		//SDL_Delay(16);
 	}
+	Mix_Quit();
 	SDL_DestroyRenderer(mRnd);
 	SDL_DestroyWindow(mWnd);
 	SDL_Quit();
@@ -80,19 +80,6 @@ void GameManager::Run()
 void GameManager::Quit()
 {
 	bRunning = false;
-}
-void GameManager::SetScene(int index)
-{
-	currentScene->Clear(mRnd);
-	currentScene = scenes[index];
-}
-void GameManager::LoadCombatScene(std::vector<Character*> player, std::vector<Character*> enemy)
-{
-	currentScene->Clear(mRnd);
-
-	CombatScene* scene = static_cast<CombatScene*>(scenes[1]);
-	scene->Load(player, enemy);
-	currentScene = scene;
 }
 
 bool GameManager::CreateWindow()
@@ -106,15 +93,20 @@ bool GameManager::Init()
 	
 	CreateWindow();
 	SetUp();
-	scenes.push_back(new MainMenuClass(this));
-	scenes.push_back(new CombatScene(this));
+	scenes.push_back(new MainMenuClass(&mInterface));
+	scenes.push_back(new CombatScene(&mInterface));
 	//LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
-	SetScene(0);
+	currentScene->Clear(mRnd);
+	currentScene = scenes[0];
 
 	return true;
 }
 bool GameManager::SetUp()
 {
+	if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 4096) < 0)
+	{
+		std::cout << "Mixer load failed, error: " << Mix_GetError() << std::endl;
+	}
 	int imgFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imgFlags) & imgFlags))
 	{
@@ -156,8 +148,3 @@ SDL_Texture* GameManager::LoadTexture(std::string path)
 	return SDL_CreateTextureFromSurface(mRnd, img);
 }
 
-RenderObject* GameManager::RequestObject(std::string name)
-{
-
-	return objects[name]->Clone();
-}
