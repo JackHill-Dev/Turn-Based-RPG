@@ -2,7 +2,7 @@
 
 
 
-ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
+ShopScene::ShopScene(Interface* rng) : Scene(rng)
 {
 	bg_Music = Mix_LoadMUS("Assets/Music/MedievalLoop.mp3");
 	buySell_SFX = Mix_LoadWAV("Assets/SFX/coin.wav");
@@ -11,7 +11,7 @@ ShopScene::ShopScene(ObjectManager* rng) : Scene(rng)
 
 	mShop.SetGold(2000);
 
-	
+	Init();
 }
 
 void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
@@ -120,7 +120,7 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 				mShop.BuyItem(i);
 				mPlayer.SetGold(-i->GetCost());
 				mPlayer.GetInventory().AddItem(i);
-				mgr->GetManagers()->AudioMgr->PlaySFX(buySell_SFX, 0, 1);
+				mgr->PlaySFX(buySell_SFX, 0, 1);
 				i->GetRenderObject()->SetPos(i->inventoryPos.pos);
 				mSceneText["PlayerGoldText"].text = "Gold: " + std::to_string(mPlayer.GetGold());;
 				mSceneText["ShopGoldText"].text = "Gold: " + std::to_string(mShop.GetGold());;
@@ -153,7 +153,7 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 				mPlayer.SellItem(i);
 				mShop.SetGold(-i->GetCost());
 				mShop.GetInventory().AddItem(i);
-				mgr->GetManagers()->AudioMgr->PlaySFX(buySell_SFX, 0, 1); // Play buy sfx on channel 1 and don't loop
+				mgr->PlaySFX(buySell_SFX, 0, 1); // Play buy sfx on channel 1 and don't loop
 				i->GetRenderObject()->SetPos(i->inventoryPos.pos); // Update the render object position 
 				mSceneText["PlayerGoldText"].text = "Gold: " + std::to_string(mPlayer.GetGold());;
 				mSceneText["ShopGoldText"].text = "Gold: " + std::to_string(mShop.GetGold());;

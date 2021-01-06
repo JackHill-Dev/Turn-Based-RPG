@@ -12,7 +12,6 @@ const std::map<std::string,RenderObject*> definedObjects
 {
 	{
 		{"maleObj",new RenderObject("male")}, // a defined object
-		{"maleUnit", new Unit("male")},
 		{"mainMenuBGObj",new RenderObject("mainMenuBG")}, 
 		{"playerPortraitObj",new RenderObject("playerPortrait")},
 		{"merchantPortraitObj",new RenderObject("merchantPortrait")},
@@ -21,11 +20,9 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"swordObj",new RenderObject("sword")},
 		{"potionObj",new RenderObject("potion")},
 		{"armourObj",new RenderObject("armour")},
-		{"StartBtnObj",new StartButton("startBtn")},
-		{"QuitBtnObj",new QuitButton("quitBtn")}
 		{"maleUnit", new RenderObject("male")},
-		{"startBtnObj", new RenderObject("startBtn")},
-		{"quitBtnObj", new RenderObject("quitBtn")},
+		{"StartBtnObj", new RenderObject("startBtn")},
+		{"QuitBtnObj", new RenderObject("quitBtn")},
 		{"mainMenuBGObj",new RenderObject("mainMenuBG")}, // a defined object
 		{"cardObj", new RenderObject("card")},
 		{"tileObj", new RenderObject("tile")}
@@ -46,7 +43,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"itemFrame", new SpriteSheet("Assets/Backgrounds/ItemFrame.png",85, 105, 85, 105, 1)},
 		{"sword", new SpriteSheet("Assets/Sprites/sword-art.png",160, 256, 32, 32, 40)},
 		{"armour", new SpriteSheet("Assets/Sprites/armour.png",76, 72, 76, 72, 1)},
-		{"potion", new SpriteSheet("Assets/Sprites/potion.png",48, 48, 48, 48, 1)}
+		{"potion", new SpriteSheet("Assets/Sprites/potion.png",48, 48, 48, 48, 1)},
 		{"card", new SpriteSheet("Assets/Sprites/Card/CardTemplate.png",230, 322, 230, 322, 1)},
 		{"tile", new SpriteSheet("Assets/grass-tile.png", 32, 32, 32, 32, 1)},
 		{"forestBG", new SpriteSheet("Assets/forestbackground.png",1280, 720, 1280, 720, 1)}
@@ -57,7 +54,7 @@ const std::map<std::string, std::vector<Animation>> definedAnimations
 {
 	{
 		{"male", {// a defined vector of animations, make sure the name matches the sheet
-		Animation("LookUp", {std::make_pair(0,0)}), 
+		Animation("LookUp", {std::make_pair(0,0)}),
 		Animation("LookLeft", {std::make_pair(0,1)}),
 		Animation("LookRight", {std::make_pair(0,2)}),
 		Animation("LookDown", {std::make_pair(0,3)}),
@@ -70,15 +67,21 @@ const std::map<std::string, std::vector<Animation>> definedAnimations
 
 		}} ,
 
-		{"startBtn", {Animation("Hover", {std::make_pair(1,0)})}}
-		}},
-		
-	{"tile",
-	{
-		Animation("Grass", {std::make_pair(0,0)})
+		{"startBtn", {Animation("Hover", {std::make_pair(1,0)})}},
 
-	}}
-
-		
+		{"tile",
+			{
+				Animation("Grass", {std::make_pair(0,0)})
+			}
+		}
 	}
+
+	
+
+
 };
+
+
+
+		
+	

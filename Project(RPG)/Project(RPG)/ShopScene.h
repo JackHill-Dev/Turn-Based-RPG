@@ -4,7 +4,6 @@
 #include "Scene.h"
 #include "Shop.h"
 #include "Player.h"
-#include "AudioManager.h"
 #include "Weapon.h"
 #include "Armour.h"
 #include "Consumable.h"
@@ -13,7 +12,7 @@ class ShopScene :
     public Scene
 {
 public:
-	ShopScene(ObjectManager* rng);
+	ShopScene(Interface* rng);
 	void Init();
 protected:
 	void Update(double dTime, Act act, std::pair<int, int> mousePos) override;

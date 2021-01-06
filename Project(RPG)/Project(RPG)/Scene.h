@@ -29,7 +29,6 @@ private:
 protected:
 	std::vector<std::vector<RenderObject*>> mLayers;
 	std::unordered_map<std::string, UIText> mSceneText;
-	ObjectManager* mgr;
 
 	virtual void Update(double dTime, Act act, std::pair<int, int> mousePos);
 	

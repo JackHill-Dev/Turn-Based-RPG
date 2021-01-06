@@ -7,11 +7,11 @@ class MainMenuScene :
     public Scene
 {
 public:
-    MainMenuClass(Interface* rng);
+    MainMenuScene(Interface* rng);
 protected:
     void Update(double dTime, Act act, std::pair<int, int> mouse) override;
 private:
-    RenderObject* pMenuButton;
-    RenderObject* pQuitButton;
+    RenderObject* start;
+    RenderObject* quit;
 };
 

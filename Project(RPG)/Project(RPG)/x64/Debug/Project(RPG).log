@@ -1,2 +1,3 @@
 ﻿  GameManager.cpp
-  Project(RPG).vcxproj -> F:\Test\AdvancedGamesConsoleProject2\Project(RPG)\x64\Debug\Project(RPG).exe
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(3,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Project(RPG).vcxproj -> C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\x64\Debug\Project(RPG).exe
