@@ -1,15 +1,13 @@
 #include "OverworldMapScene.h"
 #include "GameManager.h"
 
-enum NodeRole{Battle, Boss, Shop, Start};
-
-OverworldMapScene::OverworldMapScene(GameManager* mObjMgr) : Scene(mObjMgr)
+OverworldMapScene::OverworldMapScene(Interface* mObjMgr) : Scene(mObjMgr)
 {
-	pOverworld = AddObject("overworldObj", 1024, 1024, Map);
-	pStartNode = AddObject("startNodeObj", 1024, 980, UI);
-	pBossNode = AddObject("bossNodeObj", 2000, 400, UI);
-	pShopNode = AddObject("shopNodeObj", 800, 1100, UI);
-	pBattleNode = AddObject("battleNodeObj", 1200, 400, UI);
+	pOverworld = AddObject("overworldObj", 640, 360, Map);
+	pStartNode = AddObject("startNodeObj", 200, 360, UI);
+	pBossNode = AddObject("bossNodeObj", 800, 400, UI);
+	pShopNode = AddObject("shopNodeObj", 400, 100, UI);
+	pBattleNode = AddObject("battleNodeObj", 1000, 200, UI);
 
 	mBackgroundMus = Mix_LoadMUS("Assets/Music/Tavern+Loop+One+-+320bit.mp3");
 	
@@ -33,7 +31,7 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 	{
 		if (pBattleNode->InBounds(mousePos.first, mousePos.second))
 		{
-			//mgr->LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
+			mgr->LoadScene(Scenes::Combat);
 			std::cout << "This is the combat node" << std::endl;
 		}
 		if (pStartNode->InBounds(mousePos.first, mousePos.second))

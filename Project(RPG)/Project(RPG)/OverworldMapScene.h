@@ -21,7 +21,7 @@ protected:
 
 public:
 
-	OverworldMapScene(GameManager* mObjMgr);
+	OverworldMapScene(Interface* mObjMgr);
 
 	OverworldMapScene* Load(std::vector<Node*> nodes);
 	void Init();

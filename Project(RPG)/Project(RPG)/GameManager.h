@@ -27,9 +27,7 @@ public:
 	bool Init();
 
 	void Run();
-	void Quit();
-	void SetScene(int index);
-	
+	void Quit();	
 	
 private:
 	
