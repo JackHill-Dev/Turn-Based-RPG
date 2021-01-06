@@ -1,5 +1,15 @@
 #include "RenderObject.h"
 #include "ManagerStruct.h"
+void RenderObject::Untint()
+{
+	this->tint = { 255,255,255 };
+}
+
+void RenderObject::Tint(SDL_Colour tkint)
+{
+	this->tint = tkint;
+}
+
 RenderObject::RenderObject(std::string sprSheet)
 {
 	path = sprSheet;
@@ -12,9 +22,8 @@ bool RenderObject::Update(double dTime, Act act, std::pair<int,int> mouse)
 	return true;
 }
 
-bool RenderObject::Init(Managers* mgrs)
+bool RenderObject::Init()
 {
-	this->mgrs = mgrs;
 	mVisible = true;
 	return true;
 }
@@ -65,11 +74,12 @@ bool RenderObject::InBounds(int x, int y)
 
 	//return false if cant be selected
 	std::pair<float, float> bound = GetSheet()->GetCellSize();
-	bound.first = bound.first / 2 * scale;
-	bound.second = bound.second / 2 * scale;
+
+	bound.first = bound.first/2 *scale;
+	bound.second = bound.second/2*scale;
 	//float bound = GetSheet()->GetCellSize().first;
 	if (x > mPos.first - bound.first  && x < mPos.first + bound.first  )
-		return (y >= mPos.second  - bound.second   && y <= mPos.second + bound.second  );
+		return (y >= mPos.second  - bound.second  && y <= mPos.second + bound.second  );
 	else
 		return false;
 }

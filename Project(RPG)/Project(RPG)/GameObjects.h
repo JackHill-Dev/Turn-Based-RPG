@@ -4,10 +4,9 @@
 #include "RenderObject.h"
 #include "SpriteSheet.h"
 #include "Animation.h"
-#include "Button.h"
-#include "StartButton.h"
-#include "QuitButton.h"
-#include "Unit.h"
+
+
+
 
 const std::map<std::string,RenderObject*> definedObjects
 {
@@ -24,6 +23,13 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"armourObj",new RenderObject("armour")},
 		{"StartBtnObj",new StartButton("startBtn")},
 		{"QuitBtnObj",new QuitButton("quitBtn")}
+		{"maleUnit", new RenderObject("male")},
+		{"startBtnObj", new RenderObject("startBtn")},
+		{"quitBtnObj", new RenderObject("quitBtn")},
+		{"mainMenuBGObj",new RenderObject("mainMenuBG")}, // a defined object
+		{"cardObj", new RenderObject("card")},
+		{"tileObj", new RenderObject("tile")}
+		,{"forestBGObj",new RenderObject("forestBG")}
 	}
 };
 
@@ -41,6 +47,9 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"sword", new SpriteSheet("Assets/Sprites/sword-art.png",160, 256, 32, 32, 40)},
 		{"armour", new SpriteSheet("Assets/Sprites/armour.png",76, 72, 76, 72, 1)},
 		{"potion", new SpriteSheet("Assets/Sprites/potion.png",48, 48, 48, 48, 1)}
+		{"card", new SpriteSheet("Assets/Sprites/Card/CardTemplate.png",230, 322, 230, 322, 1)},
+		{"tile", new SpriteSheet("Assets/grass-tile.png", 32, 32, 32, 32, 1)},
+		{"forestBG", new SpriteSheet("Assets/forestbackground.png",1280, 720, 1280, 720, 1)}
 	}
 };
 
@@ -62,5 +71,14 @@ const std::map<std::string, std::vector<Animation>> definedAnimations
 		}} ,
 
 		{"startBtn", {Animation("Hover", {std::make_pair(1,0)})}}
+		}},
+		
+	{"tile",
+	{
+		Animation("Grass", {std::make_pair(0,0)})
+
+	}}
+
+		
 	}
 };

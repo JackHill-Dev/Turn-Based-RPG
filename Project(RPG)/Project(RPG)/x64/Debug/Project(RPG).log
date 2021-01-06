@@ -1,7 +1,2 @@
-﻿  AudioManager.cpp
-  GameManager.cpp
-  Player.cpp
-  Shop.cpp
-  ShopScene.cpp
-  Generating Code...
-  Project(RPG).vcxproj -> C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\x64\Debug\Project(RPG).exe
+﻿  GameManager.cpp
+  Project(RPG).vcxproj -> F:\Test\AdvancedGamesConsoleProject2\Project(RPG)\x64\Debug\Project(RPG).exe

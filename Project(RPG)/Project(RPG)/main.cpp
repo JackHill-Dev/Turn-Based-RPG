@@ -2,12 +2,6 @@
 #include <SDL_image.h>
 #undef main
 #include "GameManager.h"
-
-
-void Out()
-{
-	std::cout << "AHH";
-}
 int main()
 {
 

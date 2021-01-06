@@ -1,48 +1,5 @@
 #include "GameManager.h"
-#include "TestScene.h"
 #include "CombatScene.h"
-#include "ShopScene.h"
-#include <SDL_ttf.h>
-bool GameManager::Init()
-{
-	int imgFlags = IMG_INIT_PNG;
-	if (!(IMG_Init(imgFlags) & imgFlags))
-	{
-		printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
-
-	}
-
-
-	if (TTF_Init() < 0) {
-		std::cout << "TTF library not initialised, SDL_ttf Error: " << TTF_GetError;
-	}
-
-	
-
-	CreateWindow();
-
-	mDb = new Database();
-	SetupManagers();
-	InitManagers();
-	SetupManagersStruct();
-
-	MainMenuScene* mMenu = new MainMenuScene(mObjMgr);
-	CombatScene* cS = new CombatScene(mObjMgr);
-	ShopScene* shopScene = new ShopScene(mObjMgr);
-	shopScene->Init();
-	mScManager->AddScene(mMenu);
-	mScManager->AddScene(shopScene);
-	mScManager->SetScene(0);
-
-	mInputMgr->CreateKeyBind('a', Act::Jump);
-
-	return true;
-}
-
-bool GameManager::Running()
-{
-	return bRunning;
-}
 
 void GameManager::Run()
 {
@@ -56,8 +13,7 @@ void GameManager::Run()
 	unsigned int b = SDL_GetTicks();
 	double delta = 0;
 	double deltaTime = 0;
-	
-	while (SDL_PollEvent(&ev)|| bRunning )
+	while ( bRunning )
 	{
 		a = SDL_GetTicks();
 		delta = a - b;
@@ -70,42 +26,42 @@ void GameManager::Run()
 
 			int x, y;
 			act = Act::Blank;
-			switch (ev.type)
-			{
-			case SDL_KEYUP:
+			if (SDL_PollEvent(&ev))
+				switch (ev.type)
+				{
+				case SDL_KEYUP:
 
 
 
-				break;
-			case SDL_MOUSEBUTTONDOWN:
-				//auto e = ev.button.button;
-				if(ev.button.button == SDL_BUTTON_LEFT)
-					act = Act::Click;
-				else
-					act = Act::RClick;
-				SDL_GetMouseState(&x, &y);
-				
-				
+					break;
+				case SDL_MOUSEBUTTONDOWN:
+					//auto e = ev.button.button;
+					if (ev.button.button == SDL_BUTTON_LEFT)
+						act = Act::Click;
+					else
+						act = Act::RClick;
+					SDL_GetMouseState(&x, &y);
 
+					break;
+				case SDL_MOUSEMOTION:
+					SDL_GetMouseState(&x, &y);
+					act = Act::MouseUpdate;
+					break;
 
-				break;
-			case SDL_MOUSEMOTION:
-				SDL_GetMouseState(&x, &y);
-				act = Act::MouseUpdate;
-				break;
-			//case SDL_WINDOWEVENT_SIZE_CHANGED: std::cout << "Size changed";
+				}
+		
 
-			}
 			SDL_RenderClear(mRnd);
 
 			SDL_SetRenderTarget(mRnd, texture);
 			SDL_SetRenderDrawColor(mRnd, 0x64, 0x00, 0x00, 0x00);
-			
-			//SDL_RenderFillRect(mRnd, &r);
+	
 			SDL_SetRenderTarget(mRnd, NULL);
-			mScManager->Update(delta, act, std::make_pair(x, y));
-			mScManager->Draw(mRnd);
+		
+			scenes[mCScene]->SceneUpdate(delta, act, std::make_pair(x, y));
+			scenes[mCScene]->Draw(mRnd);
 			SDL_RenderPresent(mRnd);
+		
 		}
 
 
@@ -115,13 +71,16 @@ void GameManager::Run()
 		
 		//SDL_Delay(16);
 	}
+	Mix_Quit();
 	SDL_DestroyRenderer(mRnd);
 	SDL_DestroyWindow(mWnd);
 	TTF_CloseFont(font);
 	SDL_Quit();
 }
-
-
+void GameManager::Quit()
+{
+	bRunning = false;
+}
 
 bool GameManager::CreateWindow()
 {
@@ -129,44 +88,63 @@ bool GameManager::CreateWindow()
 	SDL_ShowWindow(mWnd);
 	return true;
 }
-
-void GameManager::SetupManagers()
+bool GameManager::Init()
 {
-	mScManager = new SceneManager();
-	mInputMgr = new InputManager();
-	mObjMgr = new ObjectManager(mRnd, &mMgrs);
-	mAudioMgr = new AudioManager();
-}
-
-void GameManager::SetupManagersStruct()
-{
-	mMgrs.GameMgr = this;
-	mMgrs.SceneMgr = mScManager;
-	mMgrs.AudioMgr = mAudioMgr;
-	mMgrs.ImportMgr = mImportMgr;
-	mMgrs.InputMgr = mInputMgr;
-	mMgrs.ObjectMgr = mObjMgr;
-
-}
-
-void GameManager::InitManagers()
-{
-	mAudioMgr->Init();
-	mScManager->Init(mRnd);
-}
-
-Act GameManager::Poll(SDL_Keycode kCode)
-{
-	return mInputMgr->Call(kCode);
-}
-
-InputManager* GameManager::GetInputMgr()
-{
-	return mInputMgr;
-}
-
-void GameManager::Quit()
-{
-	bRunning = false;
 	
+	CreateWindow();
+	SetUp();
+	scenes.push_back(new MainMenuClass(&mInterface));
+	scenes.push_back(new CombatScene(&mInterface));
+	//LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
+	currentScene->Clear(mRnd);
+	currentScene = scenes[0];
+
+	return true;
 }
+bool GameManager::SetUp()
+{
+	if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 4096) < 0)
+	{
+		std::cout << "Mixer load failed, error: " << Mix_GetError() << std::endl;
+	}
+	int imgFlags = IMG_INIT_PNG;
+	if (!(IMG_Init(imgFlags) & imgFlags))
+	{
+		printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+
+	}
+	//Converts definitions found in GameObjects.h to fully initlised and stored objects
+
+	//Load sheets
+	for (auto i : definedSheets)
+	{
+		sheets[i.first] = i.second;
+		sheets[i.first]->SetTexture(LoadTexture(i.second->mFilePath));
+	}
+	//Add animations to sheets
+	for (auto i : definedAnimations)
+	{
+		for (auto anim : i.second)
+		{
+			sheets[i.first]->AddAnim(anim.GetName(), anim);
+		}
+	}
+	//Create Object types
+	for (auto i : definedObjects)
+	{
+		objects[i.first] = i.second;
+		objects[i.first]->SetTexture(sheets[(objects[i.first]->path)]);
+		//objects[i.first]->Init(mgrs);
+	}
+	return true;
+}
+
+SDL_Texture* GameManager::LoadTexture(std::string path)
+{
+
+	SDL_Surface* img = IMG_Load((path.c_str()));
+
+	std::cout << IMG_GetError();
+	return SDL_CreateTextureFromSurface(mRnd, img);
+}
+

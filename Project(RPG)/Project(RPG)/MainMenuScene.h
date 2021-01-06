@@ -7,7 +7,7 @@ class MainMenuScene :
     public Scene
 {
 public:
-    MainMenuScene(ObjectManager* rng);
+    MainMenuClass(Interface* rng);
 protected:
     void Update(double dTime, Act act, std::pair<int, int> mouse) override;
 private:
