@@ -1,7 +1,6 @@
 #include "GameManager.h"
 #include "CombatScene.h"
-
-
+#include "ShopScene.h";
 void GameManager::Run()
 {
 	Act act;
@@ -75,6 +74,7 @@ void GameManager::Run()
 	Mix_Quit();
 	SDL_DestroyRenderer(mRnd);
 	SDL_DestroyWindow(mWnd);
+	//TTF_CloseFont(font);
 	SDL_Quit();
 }
 void GameManager::Quit()
@@ -93,8 +93,10 @@ bool GameManager::Init()
 	
 	CreateWindow();
 	SetUp();
-	scenes.push_back(new MainMenuClass(&mInterface));
+	scenes.push_back(new MainMenuScene(&mInterface));
+	scenes.push_back(new ShopScene(&mInterface));
 	scenes.push_back(new CombatScene(&mInterface));
+	//LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
 	currentScene->Clear(mRnd);
 	currentScene = scenes[0];
 
@@ -111,6 +113,10 @@ bool GameManager::SetUp()
 	{
 		printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
 
+	}
+
+	if(TTF_Init() < 0) {
+		std::cout << "TTF lib not initialised" << TTF_GetError;
 	}
 	//Converts definitions found in GameObjects.h to fully initlised and stored objects
 
