@@ -9,6 +9,8 @@ Scene::Scene(Interface* objmg)
 	{
 		mLayers.push_back(rObjects);
 	}
+
+	mFont = TTF_OpenFont("Assets/Fonts/Silver.ttf", 32);
 }
 
 
@@ -30,8 +32,7 @@ void Scene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 
 void Scene::Draw(SDL_Renderer* rnd)
 {
-	// Need to move this otherwise a variable is pointlessly getting set every frame TODO: Ask TH & EH where's best to set this
-	SDL_Rect rect; // TODO:Place these on the stack - JP, TH
+	SDL_Rect rect;
 	SDL_Rect crop;
 	
 	std::for_each(mLayers.begin(), mLayers.end(), [rnd, &rect, &crop](std::vector<RenderObject*> layer) {
@@ -55,14 +56,25 @@ void Scene::Draw(SDL_Renderer* rnd)
 
 			if (obj->IsVisible())
 				SDL_RenderCopy(rnd, obj->GetSheet()->GetTexture(), &crop, &rect);
-				
 		}
 		});
 
 
 		});
 
+	for (auto t : mSceneText)
+	{
+		rect.x = t.second.pos.first;
+		rect.y = t.second.pos.second;
+		rect.w = 90;
+		rect.h = 70;
+		SDL_Texture* fontTexture = SDL_CreateTextureFromSurface(rnd, TTF_RenderText_Solid(mFont, t.second.text.c_str(), t.second.textColor));;
+	    
+		SDL_RenderCopy(rnd, fontTexture, nullptr, &rect);
+	}
+
 	
+	++counter;
 }
 // When mouse is inside bounds of a render object in current scene
 
@@ -71,14 +83,15 @@ void Scene::Clear(SDL_Renderer* rnd)
 	SDL_RenderClear(rnd);
 	SDL_SetRenderDrawColor(rnd, 255, 0, 0, 255);
 	SDL_RenderPresent(rnd);
-	//SDL_FillRect(mSurface, nullptr, SDL_MapRGB(mSurface->format, 0, 0, 0));
 }
+
 
 RenderObject* Scene::AddObject(std::string obj, int x, int y, Layer layerNum)
 {
 	RenderObject* obje = mgr->RequestObject(obj);
 
 	mLayers[layerNum].push_back(obje);
+
 	obje->SetAnim("default");
 	obje->SetPos(std::make_pair(x, y));
 	return obje;
