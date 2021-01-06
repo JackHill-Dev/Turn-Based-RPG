@@ -18,7 +18,7 @@ protected:
 	void Update(double dTime, Act act, std::pair<int, int> mousePos) override;
 private:
 	
-	Shop mShop;
+
 	void PlaceItems(Inventory& inv);
 	void SetupShopInv(); // For testing
 	void SetupPlayerInv(); // For testing
@@ -28,6 +28,7 @@ private:
 	void DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY);
 
 	Player mPlayer;
+	Shop mShop;
 	UIText mPlayerGoldText;
 	UIText mShopGoldText;
 	Mix_Music* bg_Music;
