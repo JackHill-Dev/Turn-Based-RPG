@@ -26,9 +26,7 @@ public:
 	bool Init();
 
 	void Run();
-	void Quit();
-
-	
+	void Quit();	
 	
 private:
 	
