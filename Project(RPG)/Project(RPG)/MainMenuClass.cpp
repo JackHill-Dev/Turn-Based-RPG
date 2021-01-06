@@ -22,7 +22,7 @@ void MainMenuClass::Update(double dTime, Act act, std::pair<int, int> mouse)
 	if (act == Act::Click)
 	{
 		if (start->InBounds(mouse.first, mouse.second))
-			mgr->LoadScene(1);
+			mgr->LoadScene(Scenes::Overworld);
 		else
 			if (quit->InBounds(mouse.first, mouse.second))
 				mgr->Quit();
