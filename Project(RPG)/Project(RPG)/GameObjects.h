@@ -11,9 +11,13 @@
 const std::map<std::string,RenderObject*> definedObjects
 {
 	{
+		{"overworldObj", new RenderObject("overworld")},
+		{"battleNodeObj", new RenderObject("battleNode")},
+		{"bossNodeObj", new RenderObject("bossNode")},
+		{"shopNodeObj", new RenderObject("shopNode")},
+		{"startNodeObj", new RenderObject("startNode")},
 		{"maleObj",new RenderObject("male")}, 
 		{"maleUnit", new RenderObject("male")},
-		/*
 		{"startBtnObj", new RenderObject("startBtn")},
 		{"quitBtnObj", new RenderObject("quitBtn")},
 		{"mainMenuBGObj",new RenderObject("mainMenuBG")}, 

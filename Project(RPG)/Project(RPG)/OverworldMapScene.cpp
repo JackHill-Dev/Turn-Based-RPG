@@ -1,6 +1,7 @@
 #include "OverworldMapScene.h"
 #include "GameManager.h"
 
+// Map needs to position the nodes
 OverworldMapScene::OverworldMapScene(Interface* mObjMgr) : Scene(mObjMgr)
 {
 	pOverworld = AddObject("overworldObj", 640, 360, Map);
@@ -12,15 +13,15 @@ OverworldMapScene::OverworldMapScene(Interface* mObjMgr) : Scene(mObjMgr)
 	mBackgroundMus = Mix_LoadMUS("Assets/Music/Tavern+Loop+One+-+320bit.mp3");
 	
 	Mix_Volume(1, 5);
+	Init();
 }
 OverworldMapScene* OverworldMapScene::Load(std::vector<Node*> nodes)
 {
-	//mgr->GetAudioManager()->PlayMusic(mBackgroundMus);
 	return nullptr;
 }
 void OverworldMapScene::Init()
 {
-	
+	mgr->PlayMusic(mBackgroundMus, -1);
 }
 void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePos)
 {

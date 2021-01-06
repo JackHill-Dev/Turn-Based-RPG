@@ -84,7 +84,7 @@ void GameManager::Quit()
 
 bool GameManager::CreateWindow()
 {
-	SDL_CreateWindowAndRenderer(2048, 2048, 0, &mWnd, &mRnd);
+	SDL_CreateWindowAndRenderer(1280, 720, 0, &mWnd, &mRnd);
 	SDL_ShowWindow(mWnd);
 	return true;
 }
@@ -110,7 +110,7 @@ bool GameManager::SetUp()
 	int imgFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imgFlags) & imgFlags))
 	{
-		printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+		printf("\nSDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
 
 	}
 	//Converts definitions found in GameObjects.h to fully initlised and stored objects
