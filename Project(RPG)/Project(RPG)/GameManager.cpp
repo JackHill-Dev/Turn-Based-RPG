@@ -95,7 +95,6 @@ bool GameManager::Init()
 	SetUp();
 	scenes.push_back(new MainMenuClass(&mInterface));
 	scenes.push_back(new CombatScene(&mInterface));
-	//LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
 	currentScene->Clear(mRnd);
 	currentScene = scenes[0];
 
