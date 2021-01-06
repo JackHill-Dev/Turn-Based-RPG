@@ -19,6 +19,7 @@ void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 	// Uncomment to hear the shop music, currently disabled as it was getting annoying while testing  - JP
 	/*if (!startOnce)
 	{
+		mgr->PlayMusic(bg_Music, -1);
 		mgr->GetManagers()->AudioMgr->PlayMusic(bg_Music, -1);
 		Mix_VolumeMusic(10);
 		startOnce = true;
