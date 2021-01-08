@@ -21,4 +21,5 @@ enum Scenes
 	//Overworld = 1,
 	Combat = 1,
 	Shopi = 2,
+	Party = 3
 };

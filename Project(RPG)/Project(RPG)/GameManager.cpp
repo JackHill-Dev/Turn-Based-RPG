@@ -1,6 +1,7 @@
 #include "GameManager.h"
 #include "CombatScene.h"
 #include "ShopScene.h";
+#include "PartyViewerScene.h"
 void GameManager::Run()
 {
 	Act act;
@@ -96,6 +97,7 @@ bool GameManager::Init()
 	scenes.push_back(new MainMenuScene(&mInterface));
 	scenes.push_back(new CombatScene(&mInterface));
 	scenes.push_back(new ShopScene(&mInterface));
+	scenes.push_back(new PartyViewerScene(&mInterface));
 	//LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
 	currentScene->Clear(mRnd);
 	currentScene = scenes[0];
