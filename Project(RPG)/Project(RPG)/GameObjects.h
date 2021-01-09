@@ -11,7 +11,7 @@
 const std::map<std::string,RenderObject*> definedObjects
 {
 	{
-		{"maleObj",new RenderObject("male")}, // a defined object
+		{"maleObj",new RenderObject("male")},
 		{"playerPortraitObj",new RenderObject("playerPortrait")},
 		{"merchantPortraitObj",new RenderObject("merchantPortrait")},
 		{"itemFrameObj",new RenderObject("itemFrame")},
@@ -27,7 +27,7 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"maleUnit", new RenderObject("male")},
 		{"StartBtnObj", new RenderObject("startBtn")},
 		{"QuitBtnObj", new RenderObject("quitBtn")},
-		{"mainMenuBGObj",new RenderObject("mainMenuBG")}, // a defined object
+		{"mainMenuBGObj",new RenderObject("mainMenuBG")},
 		{"cardObj", new RenderObject("card")},
 		{"tileObj", new RenderObject("tile")},
 		{"forestBGObj",new RenderObject("forestBG")}
@@ -38,10 +38,15 @@ const std::map<std::string,RenderObject*> definedObjects
 const std::map<std::string, SpriteSheet*> definedSheets
 {
 	{
-		{"male", new SpriteSheet("Assets/Sprites/Male/Male 01-1.png",96, 128, 32, 32, 12)}, // a defined sheet
-		{"startBtn", new SpriteSheet("Assets/Sprites/Buttons/StartBtn-Sheet.png",128, 64, 128, 64, 12)},
+		{"male", new SpriteSheet("Assets/Sprites/Male/Male 01-1.png",96, 128, 32, 32, 12)},
+		{"startBtn", new SpriteSheet("Assets/Sprites/Buttons/StartBtn-02.png",128, 64, 128, 64, 12)},
 		{"quitBtn", new SpriteSheet("Assets/Sprites/Buttons/QuitBtn.png",128, 64, 128, 64, 12)},
 		{"mainMenuBG", new SpriteSheet("Assets/Backgrounds/MainMenuBG_720.png",1280, 720, 1280, 720, 1)},
+		{"overworld", new SpriteSheet("Assets/Backgrounds/Blank_Map_1280x720.png", 1280, 720, 1280, 720, 1)},
+		{"battleNode", new SpriteSheet("Assets/Sprites/BattleNode.png", 32, 32, 32, 32, 1)},
+		{"bossNode", new SpriteSheet("Assets/Sprites/BossNode.png", 32, 32, 32, 32, 1)},
+		{"shopNode", new SpriteSheet("Assets/Sprites/ShopNode.png", 32,32, 32, 32, 1)},
+		{"startNode", new SpriteSheet("Assets/Sprites/StartNode.png", 32, 32, 32, 32, 1)},
 		{"playerPortrait", new SpriteSheet("Assets/Sprites/Portraits/PlayerPortrait.png",210, 330, 210, 330, 1)},
 		{"merchantPortrait", new SpriteSheet("Assets/Sprites/Portraits/MerchantPortrait.png",210, 330, 210, 330, 1)},
 		{"shopBg", new SpriteSheet("Assets/Backgrounds/ShopBg.png",1280, 720, 1280, 720, 1)},
@@ -50,8 +55,8 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"armour", new SpriteSheet("Assets/Sprites/armour.png",76, 72, 76, 72, 1)},
 		{"potion", new SpriteSheet("Assets/Sprites/potion.png",48, 48, 48, 48, 1)},
 		{"card", new SpriteSheet("Assets/Sprites/Card/CardTemplate.png",230, 322, 230, 322, 1)},
-		{"tile", new SpriteSheet("Assets/grass-tile.png", 32, 32, 32, 32, 1)},
-		{"forestBG", new SpriteSheet("Assets/forestbackground.png",1280, 720, 1280, 720, 1)}
+		{"tile", new SpriteSheet("Assets/Backgrounds/grass-tile.png", 32, 32, 32, 32, 1)},
+		{"forestBG", new SpriteSheet("Assets/Backgrounds/forestbackground.png",1280, 720, 1280, 720, 1)}
 	}
 };
 

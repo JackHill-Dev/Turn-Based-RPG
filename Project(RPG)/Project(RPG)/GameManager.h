@@ -4,7 +4,7 @@
 #include "Globals.h"
 #include "Scene.h"
 #include "Actions.h"
-#include "MainMenuClass.h"
+#include "MainMenuScene.h"
 #include "OverworldMapScene.h"
 #include "Character.h"
 #include "Interface.h"
