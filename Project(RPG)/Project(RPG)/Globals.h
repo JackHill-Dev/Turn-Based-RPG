@@ -18,7 +18,7 @@ enum class Act { Blank, Jump, Why, Click, RClick, MouseUpdate };
 enum Scenes
 {
 	MainMenu = 0,
-	//Overworld = 1,
-	Combat = 1,
-	Shopi = 2,
+	Overworld = 1,
+	Combat = 2,
+	Shopi = 3,
 };
