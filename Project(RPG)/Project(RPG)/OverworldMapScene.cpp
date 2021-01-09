@@ -19,9 +19,20 @@ OverworldMapScene* OverworldMapScene::Load(std::vector<Node*> nodes)
 {
 	return nullptr;
 }
+void OverworldMapScene::setRandomNodePos(Node* node)
+{
+}
 void OverworldMapScene::Init()
 {
 	mgr->PlayMusic(mBackgroundMus, -1);
+}
+void OverworldMapScene::OnHover()
+{
+	//mRenderObj->tint = SDL_Color{ 255,255, 0 };
+}
+void OverworldMapScene::OnLeave()
+{
+	//mRenderObj->tint = SDL_Color{ 255, 255, 255 };
 }
 void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePos)
 {
@@ -41,6 +52,7 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 		}
 		if (pShopNode->InBounds(mousePos.first, mousePos.second))
 		{
+			mgr->LoadScene(Scenes::Shopi);
 			std::cout << "This is the shop node" << std::endl;
 		}
 		if (pBossNode->InBounds(mousePos.first, mousePos.second))
