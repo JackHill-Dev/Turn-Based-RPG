@@ -91,7 +91,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PartyViewerScene.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

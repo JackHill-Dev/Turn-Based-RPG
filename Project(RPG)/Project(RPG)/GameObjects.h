@@ -28,6 +28,7 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"maleUnit", new RenderObject("male")},
 		{"StartBtnObj", new RenderObject("startBtn")},
 		{"QuitBtnObj", new RenderObject("quitBtn")},
+		{"CloseBtnObj", new RenderObject("closeBtn")},
 		{"mainMenuBGObj",new RenderObject("mainMenuBG")}, // a defined object
 		{"cardObj", new RenderObject("card")},
 		{"tileObj", new RenderObject("tile")},
@@ -42,6 +43,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"male", new SpriteSheet("Assets/Sprites/Male/Male 01-1.png",96, 128, 32, 32, 12)}, // a defined sheet
 		{"startBtn", new SpriteSheet("Assets/Sprites/Buttons/StartBtn-Sheet.png",128, 64, 128, 64, 12)},
 		{"quitBtn", new SpriteSheet("Assets/Sprites/Buttons/QuitBtn.png",128, 64, 128, 64, 12)},
+		{"closeBtn", new SpriteSheet("Assets/Sprites/Buttons/CloseBtn2.png",32, 32, 32, 32, 1)},
 		{"mainMenuBG", new SpriteSheet("Assets/Backgrounds/MainMenuBG_720.png",1280, 720, 1280, 720, 1)},
 		{"playerPortrait", new SpriteSheet("Assets/Sprites/Portraits/PlayerPortrait.png",210, 330, 210, 330, 1)},
 		{"merchantPortrait", new SpriteSheet("Assets/Sprites/Portraits/MerchantPortrait.png",210, 330, 210, 330, 1)},

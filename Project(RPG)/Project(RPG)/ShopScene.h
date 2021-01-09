@@ -35,6 +35,8 @@ private:
 	Mix_Chunk* buySell_SFX;
 	bool startOnce = false;
 
+	//Temp
+	RenderObject* partyViewer;
 	
 
 };

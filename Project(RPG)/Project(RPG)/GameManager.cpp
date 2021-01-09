@@ -91,7 +91,6 @@ bool GameManager::CreateWindow()
 }
 bool GameManager::Init()
 {
-	
 	CreateWindow();
 	SetUp();
 	scenes.push_back(new MainMenuScene(&mInterface));

@@ -1,5 +1,5 @@
 #include "CombatScene.h"
-Character charac{"maleObj"};
+Character charac{"maleObj", "WizardObj"};
 
 RenderObject* reload;
 RenderObject* hovered = nullptr;

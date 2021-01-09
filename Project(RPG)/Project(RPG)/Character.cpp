@@ -1,8 +1,9 @@
 #include "Character.h"
 
-Character::Character(std::string objectName)
+Character::Character(std::string objectName, std::string portrait)
 {
 	this->objectName = objectName;
+	portraitName = portrait;
 }
 
 Character::~Character()
@@ -27,6 +28,12 @@ void Character::Assign(RenderObject* object)
 	this->object = object;
 	object->SetAnim("default");
 }
+
+//void Character::SetPortrait(RenderObject* portrait)
+//{
+//	portraitObj = portrait;
+//	portraitObj->SetAnim("default");
+//}
 
 void Character::SetTarget(std::pair<double, double> target)
 {
@@ -100,6 +107,26 @@ void Character::Move(double dTime)
 int Character::GetHealth()
 {
 	return health.first;
+}
+
+int Character::GetMana()
+{
+	return mana.first;
+}
+
+int Character::GetAgility()
+{
+	return agility.first;
+}
+
+int Character::GetStamina()
+{
+	return stamina.first;
+}
+
+int Character::GetMovement()
+{
+	return movement.first;
 }
 
 bool Character::ModHealth(int mod)

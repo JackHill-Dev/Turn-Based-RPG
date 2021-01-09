@@ -12,6 +12,7 @@ ShopScene::ShopScene(Interface* rng) : Scene(rng)
 	mShop.SetGold(2000);
 
 	Init();
+	partyViewer = AddObject("StartBtnObj", 400, 500, UI);
 }
 
 void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
@@ -23,6 +24,9 @@ void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 		Mix_VolumeMusic(10);
 		startOnce = true;
 	}*/
+
+	if (act == Act::Click && partyViewer->InBounds(mousePos.first, mousePos.second))
+		mgr->LoadScene(Party);
 
 	ManagePlayerInventory(mPlayer.GetInventory(), act, mousePos);
 	ManageShopInventory(mShop.GetInventory(), act, mousePos);
@@ -55,8 +59,8 @@ void ShopScene::Init()
 	mShopGoldText.pos = std::make_pair(620, 385);
 	mShopGoldText.textColor = SDL_Color{ 255, 215, 0 }; // Gold
 	
-	mSceneText["PlayerGoldText"] = mPlayerGoldText;
-	mSceneText["ShopGoldText"] = mShopGoldText;
+	mSceneText.push_back(mPlayerGoldText);
+	mSceneText.push_back( mShopGoldText);
 
 }
 
@@ -122,8 +126,8 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 				mPlayer.GetInventory().AddItem(i);
 				mgr->PlaySFX(buySell_SFX, 0, 1);
 				i->GetRenderObject()->SetPos(i->inventoryPos.pos);
-				mSceneText["PlayerGoldText"].text = "Gold: " + std::to_string(mPlayer.GetGold());;
-				mSceneText["ShopGoldText"].text = "Gold: " + std::to_string(mShop.GetGold());;
+				mSceneText[0].text = "Gold: " + std::to_string(mPlayer.GetGold());; // Display player gold
+				mSceneText[1].text = "Gold: " + std::to_string(mShop.GetGold());;	// Display shop gold
 			}
 
 		}
@@ -155,8 +159,8 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 				mShop.GetInventory().AddItem(i);
 				mgr->PlaySFX(buySell_SFX, 0, 1); // Play buy sfx on channel 1 and don't loop
 				i->GetRenderObject()->SetPos(i->inventoryPos.pos); // Update the render object position 
-				mSceneText["PlayerGoldText"].text = "Gold: " + std::to_string(mPlayer.GetGold());;
-				mSceneText["ShopGoldText"].text = "Gold: " + std::to_string(mShop.GetGold());;
+				mSceneText[0].text = "Gold: " + std::to_string(mPlayer.GetGold());;
+				mSceneText[1].text = "Gold: " + std::to_string(mShop.GetGold());;
 			}
 		}
 	}

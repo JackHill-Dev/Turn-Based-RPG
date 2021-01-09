@@ -14,7 +14,6 @@ void Player::SetGold(int amount)
 	mGold += amount;
 }
 
-
 int Player::GetGold()
 {
 	return mGold;
