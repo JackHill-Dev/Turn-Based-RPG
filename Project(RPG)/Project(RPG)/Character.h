@@ -1,14 +1,25 @@
 #pragma once
 #include "Globals.h"
 #include "RenderObject.h"
+
+struct Statistics
+{
+	std::pair<int, int> health = { 15,15 }; // max, current
+	std::pair<int, int> mana = { 10,10 };
+	std::pair<int, int> agility = { 10,10 };
+	std::pair<int, int> stamina = { 10,10 };
+	std::pair<int, int> movement = { 5,5 };
+};
+
 class Character
 {
 public:
-	int GetHealth();
+	/*int GetHealth();
 	int GetMana();
 	int GetAgility();
 	int GetStamina();
-	int GetMovement();
+	int GetMovement();*/
+	Statistics GetStats() { return mStats; }
 	Character(std::string objectName, std::string portrait);
 	~Character();
 	RenderObject* getObj();
@@ -23,11 +34,12 @@ public:
 
 
 protected:
-	std::pair<int, int> health = { 15,15 }; // max, current
-	std::pair<int, int> mana = { 10,10 };
-	std::pair<int, int> agility = { 10,10 };
-	std::pair<int, int> stamina = { 10,10 };
-	std::pair<int, int> movement = { 5,5 };
+	//std::pair<int, int> health = { 15,15 }; // max, current
+	//std::pair<int, int> mana = { 10,10 };
+	//std::pair<int, int> agility = { 10,10 };
+	//std::pair<int, int> stamina = { 10,10 };
+	//std::pair<int, int> movement = { 5,5 };
+	Statistics mStats;
 	void Move(double dTime);
 	std::string objectName;
 	RenderObject* object;

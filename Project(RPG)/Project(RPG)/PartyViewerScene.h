@@ -24,7 +24,7 @@ private:
 	void Init();
 	void GetCharacterPortraits();
 	void GetCharacterStatistics();
-	
+	UIText DrawStat(std::string statName, int stat, SDL_Color textColor, std::pair<int,int> pos);
 	// Temp
 	RenderObject* wizard;
 	RenderObject* rogue;

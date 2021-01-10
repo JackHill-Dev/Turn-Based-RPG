@@ -104,38 +104,38 @@ void Character::Move(double dTime)
 }
 
 
-int Character::GetHealth()
-{
-	return health.first;
-}
-
-int Character::GetMana()
-{
-	return mana.first;
-}
-
-int Character::GetAgility()
-{
-	return agility.first;
-}
-
-int Character::GetStamina()
-{
-	return stamina.first;
-}
-
-int Character::GetMovement()
-{
-	return movement.first;
-}
+//int Character::GetHealth()
+//{
+//	return health.first;
+//}
+//
+//int Character::GetMana()
+//{
+//	return mana.first;
+//}
+//
+//int Character::GetAgility()
+//{
+//	return agility.first;
+//}
+//
+//int Character::GetStamina()
+//{
+//	return stamina.first;
+//}
+//
+//int Character::GetMovement()
+//{
+//	return movement.first;
+//}
 
 bool Character::ModHealth(int mod)
 {
-	health.first -= mod;
-	if (health.first > health.second)
-		health.first = health.second;
+	mStats.health.first -= mod;
+	if (mStats.health.first > mStats.health.second)
+		mStats.health.first = mStats.health.second;
 	else
-		if (health.first <= 0)
+		if (mStats.health.first <= 0)
 			return false;
 	return true;
 }

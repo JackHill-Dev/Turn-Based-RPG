@@ -354,7 +354,7 @@ void CombatScene::Cast(Card* card, std::pair<Character*, tile*>* caster, std::pa
 		
 		card->Cast(caster->first, target->first);
 
-		if (target->first->GetHealth() <= 0)
+		if (target->first->GetStats().health.second <= 0)
 		{
 			mLayers[Game].erase(std::find(mLayers[Game].begin(), mLayers[Game].end(), target->first->getObj()));
 			enemy.erase(std::find(enemy.begin(), enemy.end(), *target));
