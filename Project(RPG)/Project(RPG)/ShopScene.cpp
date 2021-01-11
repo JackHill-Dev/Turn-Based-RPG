@@ -1,7 +1,5 @@
 #include "ShopScene.h"
 
-
-
 ShopScene::ShopScene(Interface* rng) : Scene(rng)
 {
 	bg_Music = Mix_LoadMUS("Assets/Music/MedievalLoop.mp3");
@@ -28,7 +26,6 @@ void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 	if (act == Act::Click && partyViewer->InBounds(mousePos.first, mousePos.second))
 		mgr->LoadScene(Party);
 
-	//ManagePlayerInventory(mPlayer.GetInventory(), act, mousePos);
 	ManagePlayerInventory(mgr->GetPlayer()->GetInventory(), act, mousePos);
 	ManageShopInventory(mShop.GetInventory(), act, mousePos);
 }
@@ -79,28 +76,6 @@ void ShopScene::SetupShopInv()
 	mShop.GetInventory().AddItem(healthPotion2);
 
 }
-
-//void ShopScene::SetupPlayerInv()
-//{
-//	Weapon* bigSword = new Weapon("Big Sword", 50);
-//	bigSword->SetAtkPower(10);
-//
-//	Weapon* twitchSword = new Weapon("Twitch Sword", 100);
-//	twitchSword->SetAtkPower(100);
-//
-//	Weapon* massiveSword = new Weapon("Massive Sword", 500);
-//	massiveSword->SetAtkPower(500);
-//
-//	Armour* plateArmour = new Armour("Plate Armour", 150);
-//	Armour* platArmour = new Armour("Plat Armour", 150);
-//	
-//	mPlayer.GetInventory().AddItem(bigSword);
-//	mPlayer.GetInventory().AddItem(twitchSword);
-//	mPlayer.GetInventory().AddItem(massiveSword);
-//	mPlayer.GetInventory().AddItem(plateArmour);
-//	mPlayer.GetInventory().AddItem(platArmour);
-//
-//}
 
 
 void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int> mousePos)
