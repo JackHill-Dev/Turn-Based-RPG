@@ -36,6 +36,7 @@ private:
 	bool startOnce = false;
 
 	//Temp
+	int RandomRange(int min, int max);
 	RenderObject* partyViewer; 
 	
 

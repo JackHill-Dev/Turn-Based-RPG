@@ -1,4 +1,8 @@
 #include "ShopScene.h"
+#include <random>
+#include <chrono>
+
+std::mt19937 random_number_engine(time(0));
 
 ShopScene::ShopScene(Interface* rng) : Scene(rng)
 {
@@ -64,16 +68,24 @@ void ShopScene::Init()
 
 void ShopScene::SetupShopInv()
 {
-	Weapon* longSword = new Weapon("Long Sword", 50);
-	Weapon* shortSword = new Weapon("Short Sword", 100);
-	Weapon* greatSword = new Weapon("Great Sword", 500);
-	Consumable* healthPotion = new Consumable("health potion", 25);
-	Consumable* healthPotion2 = new Consumable("health potion", 25);
+	for (int f = 0; f < 20; ++f)
+	{
 
-	mShop.GetInventory().AddItem(longSword);
-	mShop.GetInventory().AddItem(shortSword);
-	mShop.GetInventory().AddItem(greatSword);
-	mShop.GetInventory().AddItem(healthPotion2);
+		int i = RandomRange(0, 99);
+		if (i >= 0 && i <= 24)
+		{
+			mShop.GetInventory().AddItem(new Weapon("Sword", 50));
+		}
+		else if (i > 24 && i <= 49)
+		{
+			mShop.GetInventory().AddItem(new Armour("Armor", 150));
+		}
+		else
+		{
+			mShop.GetInventory().AddItem(new Consumable("Potion", 25));
+		}
+	}
+
 
 }
 
@@ -177,6 +189,12 @@ void ShopScene::DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY
 		AddObject("itemFrameObj", offsetX, offsetY, Background);
 		offsetX += 90;
 	}
+}
+
+int ShopScene::RandomRange(int min, int max)
+{
+	std::uniform_int_distribution<int> distribution(min, max);
+	return distribution(random_number_engine);
 }
 
 
