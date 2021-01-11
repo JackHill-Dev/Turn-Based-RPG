@@ -13,6 +13,7 @@ public:
 	void SetInventory(Inventory inv);
 	void SellItem(Item* item);
 	void SetGold(int amount);
+	void SetupParty(std::vector<Character*> characters);
 private:
 	Inventory mInventory;
 	std::vector<Character*> mPartyMembers;

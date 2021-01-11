@@ -93,6 +93,9 @@ bool GameManager::Init()
 {
 	CreateWindow();
 	SetUp();
+	mPlayer.SetGold(1000);
+	mPlayer.SetupParty({ new Character("maleObj", "WizardObj"), new Character("maleObj", "ClericObj"), new Character("maleObj", "RogueObj"), new Character("maleObj", "WarriorObj") });
+
 	scenes.push_back(new MainMenuScene(&mInterface));
 	scenes.push_back(new CombatScene(&mInterface));
 	scenes.push_back(new ShopScene(&mInterface));
@@ -112,12 +115,12 @@ bool GameManager::SetUp()
 	int imgFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imgFlags) & imgFlags))
 	{
-		printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+		printf("SDL_image could not initialize! SDL_image Error: %s\n\n", IMG_GetError());
 
 	}
 
 	if(TTF_Init() < 0) {
-		std::cout << "TTF lib not initialised" << TTF_GetError;
+		std::cout << "TTF lib not initialised" << TTF_GetError << std::endl;
 	}
 	//Converts definitions found in GameObjects.h to fully initlised and stored objects
 
@@ -142,6 +145,9 @@ bool GameManager::SetUp()
 		objects[i.first]->SetTexture(sheets[(objects[i.first]->path)]);
 		//objects[i.first]->Init(mgrs);
 	}
+
+	
+
 	return true;
 }
 

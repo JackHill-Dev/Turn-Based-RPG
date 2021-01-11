@@ -21,13 +21,13 @@ private:
 
 	void PlaceItems(Inventory& inv);
 	void SetupShopInv(); // For testing
-	void SetupPlayerInv(); // For testing
+	//void SetupPlayerInv(); // For testing
 	void ManageShopInventory(Inventory& inv, Act act, std::pair<int, int> mousePos);
 	void ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, int> mousePos);
 	void GenerateGrids();
 	void DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY);
 
-	Player mPlayer;
+	//Player mPlayer;
 	Shop mShop;
 	UIText mPlayerGoldText;
 	UIText mShopGoldText;
@@ -36,7 +36,7 @@ private:
 	bool startOnce = false;
 
 	//Temp
-	RenderObject* partyViewer;
+	RenderObject* partyViewer; 
 	
 
 };

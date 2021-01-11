@@ -1,7 +1,7 @@
 #include "Interface.h"
 
 
-Interface::Interface(bool* brunning, std::map<std::string, RenderObject*>* objP, int* currentScene) : objects(objP), currentScene(currentScene), running(brunning)
+Interface::Interface(bool* brunning, std::map<std::string, RenderObject*>* objP, Player* player, int* currentScene) : objects(objP), pPlayer(player), currentScene(currentScene), running(brunning)
 {
 
 	//this is the constructor where we pass in pointers to the required objects of which we need to alter/retrieve data from

@@ -7,11 +7,21 @@ Player::Player()
 
 Player::~Player()
 {
+	for (Character* c : mPartyMembers)
+	{
+		delete c;
+		c = nullptr;
+	}
 }
 
 void Player::SetGold(int amount)
 {
 	mGold += amount;
+}
+
+void Player::SetupParty(std::vector<Character*> characters)
+{
+	mPartyMembers = characters;
 }
 
 int Player::GetGold()
