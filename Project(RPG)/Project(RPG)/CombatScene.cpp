@@ -14,8 +14,8 @@ std::vector <Unit> team{};
 std::vector <Unit> enemy{};
 std::vector<std::pair<Card*, RenderObject*>> playerhand;
 std::vector<std::pair<Card*, RenderObject*>> enemyHand;
-
-auto slash_sfx = Mix_LoadWAV("Assets/SFX/slash.wav");
+Mix_Music* combat_music;
+Mix_Chunk* slash_sfx;
 struct map
 {
 	tile tiles[15][15];
@@ -30,8 +30,10 @@ enum Selection{Team,Enemy,Ground, UICard, Any};
 Selection current = Any;
 CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 {
-	
-	Mix_Volume(1, 5);
+	combat_music = Mix_LoadMUS("Assets/Combat_Music.wav");
+	slash_sfx = Mix_LoadWAV("Assets/SFX/slash.wav");
+
+	Mix_Volume(1, 15);
 	endTurn = AddObject("quitBtnObj", 500, 500, UI);
 	AddObject("forestBGObj", 640, 360, Background);
 	//reload = AddObject("quitBtnObj", 1100, 500, UI);
@@ -293,6 +295,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 
 void CombatScene::Load(std::vector<Character*> enemyTeam)
 {
+	mgr->PlayMusic(combat_music, -1);
 	int v = 0;
 	for (auto i : *mgr->player)
 	{
@@ -329,7 +332,7 @@ void CombatScene::Cast(std::pair<Card*, RenderObject*>* card)
 	character->object->Untint();
 	if (CalculatePath(character->occupiedTile, target->occupiedTile).size() <= 1)
 	{
-		mgr->PlaySFX(slash_sfx,1, 1);
+		mgr->PlaySFX(slash_sfx,0, 1);
 		card->first->Cast(character->character, target->character);
 		mLayers[UI].erase(std::find(mLayers[UI].begin(), mLayers[UI].end(), card->second));
 		playerhand.erase(std::find_if(playerhand.begin(), playerhand.end(), [card](std::pair<Card*, RenderObject*> cd)
@@ -392,6 +395,7 @@ void CombatScene::RunAi()
 						if (d.size() <= 1 && !d.empty() && i.character->stamina.first >= 10)
 						{
 							c.first->Cast(i.character, t.character);
+							mgr->PlaySFX(slash_sfx, 0, 1);
 							i.character->stamina.first -= 10;
 							validAction = true;
 						}
