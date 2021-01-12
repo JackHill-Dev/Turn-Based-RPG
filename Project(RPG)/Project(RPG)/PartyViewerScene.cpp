@@ -17,6 +17,10 @@ void PartyViewerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 	if (act == Act::Click && mCloseBtn->InBounds(mousePos.first, mousePos.second))
 		mgr->LoadPreviousScene(); 	// Go to previous scene that opened the party viewer
 
+	mSceneText.clear();
+	GetCharacterPortraits();
+	GetCharacterStatistics();
+
 }
 
 void PartyViewerScene::Init()
@@ -25,6 +29,8 @@ void PartyViewerScene::Init()
 
 	GetCharacterPortraits();
 	GetCharacterStatistics();
+
+
 }
 
 void PartyViewerScene::GetCharacterPortraits()
