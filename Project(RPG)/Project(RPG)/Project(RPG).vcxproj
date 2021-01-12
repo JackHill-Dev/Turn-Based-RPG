@@ -161,6 +161,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
+    <ClCompile Include="OverworldMapScene.cpp" />
     <ClCompile Include="PartyViewerScene.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RenderObject.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MainMenuScene.h" />
+    <ClInclude Include="OverworldMapScene.h" />
     <ClInclude Include="PartyViewerScene.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RenderObject.h" />
