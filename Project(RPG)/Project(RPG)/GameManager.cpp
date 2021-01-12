@@ -14,10 +14,17 @@ void GameManager::Run()
 	unsigned int b = SDL_GetTicks();
 	double delta = 0;
 	double deltaTime = 0;
+	int lastSceneIndex = mCScene;
 	while ( bRunning )
 	{
 		a = SDL_GetTicks();
 		delta = a - b;
+
+		if (mCScene != lastSceneIndex)
+		{
+			LoadScene();
+		}
+		lastSceneIndex = mCScene;
 
 		if (delta > 1000 / 60.0) // 60 fps cap
 		{
@@ -81,7 +88,13 @@ void GameManager::Quit()
 {
 	bRunning = false;
 }
-
+void GameManager::LoadScene()
+{
+	if (mCScene == 1)
+	{
+		combatInstance.first->Load(combatInstance.second);
+	}
+}
 bool GameManager::CreateWindow()
 {
 	SDL_CreateWindowAndRenderer(1280, 720, 0, &mWnd, &mRnd);
@@ -94,7 +107,10 @@ bool GameManager::Init()
 	CreateWindow();
 	SetUp();
 	scenes.push_back(new MainMenuClass(&mInterface));
-	scenes.push_back(new CombatScene(&mInterface));
+
+	combatInstance.first = new CombatScene(&mInterface);
+
+	scenes.push_back(combatInstance.first);
 	//LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
 	currentScene->Clear(mRnd);
 	currentScene = scenes[0];

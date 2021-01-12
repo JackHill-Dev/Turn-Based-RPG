@@ -1,7 +1,7 @@
 #include "Interface.h"
 
 
-Interface::Interface(bool* brunning, std::map<std::string, RenderObject*>* objP, int* currentScene) : objects(objP), currentScene(currentScene), running(brunning)
+Interface::Interface(bool* brunning, std::map<std::string, RenderObject*>* objP, int* currentScene, std::vector<Character*>* currentEnemies, std::vector<Character*>* player) : objects(objP), currentScene(currentScene), running(brunning), currentEnemies(currentEnemies), player(player)
 {
 
 	//this is the constructor where we pass in pointers to the required objects of which we need to alter/retrieve data from
@@ -15,8 +15,8 @@ RenderObject* Interface::RequestObject(std::string name)
 
 void Interface::PlayMusic(Mix_Music* pMusic, int loops) // overload for testing until the database and import manager classes are created
 {
-	Mix_VolumeMusic(10); // this is the volume at which the music is playing, 10 I believe is quite high
-	Mix_PlayMusic(pMusic, loops);	//Will add and overrite current music with pointer to file, and determine how many times it will repeat
+	Mix_VolumeMusic(10);			  // this is the volume at which the music is playing, 10 I believe is quite high
+	Mix_PlayMusic(pMusic, loops);	  //Will add and overrite current music with pointer to file, and determine how many times it will repeat
 }
 void Interface::PlaySFX(Mix_Chunk* pSfx, int loops, int channel)
 {

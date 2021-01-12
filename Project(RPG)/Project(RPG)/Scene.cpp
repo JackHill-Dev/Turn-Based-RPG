@@ -82,6 +82,6 @@ RenderObject* Scene::AddObject(std::string obj, int x, int y, Layer layerNum)
 	obje->SetAnim("default");
 	obje->SetPos(std::make_pair(x, y));
 
-	return obje;
+	return &*mLayers[layerNum].back();
 
 }

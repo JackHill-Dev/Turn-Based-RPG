@@ -18,7 +18,8 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"mainMenuBGObj",new RenderObject("mainMenuBG")}, // a defined object
 		{"cardObj", new RenderObject("card")},
 		{"tileObj", new RenderObject("tile")}
-		,{"forestBGObj",new RenderObject("forestBG")}
+		,{"forestBGObj",new RenderObject("forestBG")},
+		{"portrait", new RenderObject("malePortrait")}
 	}
 };
 
@@ -31,7 +32,8 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"mainMenuBG", new SpriteSheet("Assets/Backgrounds/MainMenuBG_720.png",1280, 720, 1280, 720, 1)},
 		{"card", new SpriteSheet("Assets/Sprites/Card/CardTemplate.png",230, 322, 230, 322, 1)},
 		{"tile", new SpriteSheet("Assets/grass-tile.png", 32, 32, 32, 32, 1)},
-		{"forestBG", new SpriteSheet("Assets/forestbackground.png",1280, 720, 1280, 720, 1)}
+		{"forestBG", new SpriteSheet("Assets/forestbackground.png",1280, 720, 1280, 720, 1)},
+		{"malePortrait", new SpriteSheet("Assets/Portrait.png",	357, 364, 357, 364, 1)}
 	}
 };
 
