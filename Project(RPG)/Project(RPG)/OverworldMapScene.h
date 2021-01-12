@@ -6,37 +6,64 @@
 
 struct Node
 {
-	RenderObject* pNodeObj;
+	Node(RenderObject* rObj, Scenes sceneForNode) : pNodeObject(rObj), nodeScene(sceneForNode){}
+	RenderObject* pNodeObject;
 	Scenes nodeScene;
+	std::vector<Node*> adjacentTiles;
 };
 
+struct Row
+{
+	std::vector<Node*> nodes;
+};
+
+	
 
 class OverworldMapScene : public Scene
 {
 private:
 
 	std::vector<Node*> mNodes;
-	RenderObject* pOverworld;
-	RenderObject* pStartNode;
-	RenderObject* pBossNode;
-	RenderObject* pShopNode;
-	RenderObject* pBattleNode;
-	Mix_Music* mBackgroundMus;
-	Mix_Chunk* mSFX;
+	std::vector<std::string> objNames
+	{ 
+		"startNodeObj",
+		"battleNodeObj",
+		"shopNodeObj", 
+		"bossNodeObj" 
+	};
+
+	Node* currentNode = nullptr;
+
+	RenderObject* pOverworld = nullptr;
+	RenderObject* pStartNode = nullptr;
+	RenderObject* pBossNode = nullptr;
+	RenderObject* pShopNode = nullptr;
+	RenderObject* pBattleNode = nullptr;
+
+	Mix_Music* mBackgroundMus = nullptr;
+	Mix_Chunk* mSFX = nullptr;
+
+	const int maxRows = 3;
+	const int maxNodes = 3;
 
 protected:
 
 public:
 
 	OverworldMapScene(Interface* mObjMgr);
-
-	OverworldMapScene* Load(std::vector<Node*> nodes);
-	void setRandomNodePos(Node* node);
 	void Init();
-	void OnHover();
-	void OnLeave();
+	void Load();
+
 	void Update(double dTime, Act act, std::pair<int,int> mousePos) override;
 
+	//Both SceneChange and HoverHandler will need to be revisited when buttons are in -EH
+	void SceneChange(Node* node, Act act, std::pair<int, int> mousePos);
+	void HoverHandler(Node* node, Act act, std::pair<int, int> mousePos);
+	std::string assignRandomNodeSprite();
+	Scenes assignSceneByString(std::string& nodeSceneString);
+
+	void OnHover(Node* node);
+	void OnLeave(Node* node);
 };
 
 
