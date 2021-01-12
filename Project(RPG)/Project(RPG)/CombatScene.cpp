@@ -14,6 +14,8 @@ std::vector <Unit> team{};
 std::vector <Unit> enemy{};
 std::vector<std::pair<Card*, RenderObject*>> playerhand;
 std::vector<std::pair<Card*, RenderObject*>> enemyHand;
+
+auto slash_sfx = Mix_LoadWAV("Assets/SFX/slash.wav");
 struct map
 {
 	tile tiles[15][15];
@@ -28,6 +30,7 @@ enum Selection{Team,Enemy,Ground, UICard, Any};
 Selection current = Any;
 CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 {
+	
 	
 	endTurn = AddObject("quitBtnObj", 500, 500, UI);
 	AddObject("forestBGObj", 640, 360, Background);
@@ -326,6 +329,7 @@ void CombatScene::Cast(std::pair<Card*, RenderObject*>* card)
 	character->object->Untint();
 	if (CalculatePath(character->occupiedTile, target->occupiedTile).size() <= 1)
 	{
+		mgr->PlaySFX(slash_sfx,0, 1);
 		card->first->Cast(character->character, target->character);
 		mLayers[UI].erase(std::find(mLayers[UI].begin(), mLayers[UI].end(), card->second));
 		playerhand.erase(std::find_if(playerhand.begin(), playerhand.end(), [card](std::pair<Card*, RenderObject*> cd)
