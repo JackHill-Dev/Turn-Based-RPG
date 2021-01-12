@@ -28,7 +28,7 @@ private:
 	TTF_Font* mFont;
 protected:
 	std::vector<std::vector<RenderObject*>> mLayers;
-	std::unordered_map<std::string, UIText> mSceneText;
+	std::vector<UIText> mSceneText;
 
 	virtual void Update(double dTime, Act act, std::pair<int, int> mousePos);
 	

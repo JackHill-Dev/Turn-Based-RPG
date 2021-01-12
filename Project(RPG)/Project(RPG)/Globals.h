@@ -30,5 +30,9 @@ enum Scenes
 	Overworld = 1,
 	Combat = 2,
 	Shopi = 3,
+	Party = 3
 	NoSceneYet = 4,
 };
+
+
+
