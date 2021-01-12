@@ -33,7 +33,7 @@ void Interface::StopMusic(Mix_Music& mus) // This stops the music playing regard
 	}
 }
 
-void Interface::LoadScene(Scenes scene)
+void Interface::LoadScene(int scene)
 {
 	prevScene = *currentScene; 
 	*currentScene = scene;

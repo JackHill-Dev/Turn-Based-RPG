@@ -4,7 +4,7 @@ MainMenuScene::MainMenuScene(Interface* rng) : Scene(rng)
 {
 	// Get all button objects
 	start  = AddObject("StartBtnObj", 60, 90, UI);
-	quit = AddObject("QuitBtnObj", 60, 400, UI);
+	quit = AddObject("quitBtnObj", 60, 400, UI);
 
 	// AddObject(pQuitButton->GetName(),5, 400, UI)
 

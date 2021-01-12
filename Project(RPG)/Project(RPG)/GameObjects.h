@@ -31,11 +31,10 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"startNodeObj", new RenderObject("startNode")},
 		{"maleUnit", new RenderObject("male")},
 		{"StartBtnObj", new RenderObject("startBtn")},
-		{"QuitBtnObj", new RenderObject("quitBtn")},
+		{"quitBtnObj", new RenderObject("quitBtn")},
 		{"mainMenuBGObj",new RenderObject("mainMenuBG")},
 		{"CloseBtnObj", new RenderObject("closeBtn")},
 		{"cardObj", new RenderObject("card")},
-
 		{"tileObj", new RenderObject("tile")},
 		{"forestBGObj",new RenderObject("forestBG")}
 		,{"portrait", new RenderObject("malePortrait")}

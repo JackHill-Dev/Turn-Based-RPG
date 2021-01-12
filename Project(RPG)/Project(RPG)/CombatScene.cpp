@@ -1,5 +1,5 @@
 #include "CombatScene.h"
-Character charac{"maleObj"};
+Character charac{"maleObj", "WizardObj"};
 
 
 RenderObject* endTurn;
@@ -118,8 +118,8 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 					playerTurn = false;
 					for (auto i : enemy)
 					{
-						i.character->movement.first = i.character->movement.second;
-						i.character->stamina.first = i.character->stamina.second;
+						i.character->GetStats().health.first = i.character->GetStats().movement.second;
+						i.character->GetStats().stamina.first = i.character->GetStats().stamina.second;
 
 					}
 				}
@@ -297,7 +297,7 @@ void CombatScene::Load(std::vector<Character*> enemyTeam)
 {
 	mgr->PlayMusic(combat_music, -1);
 	int v = 0;
-	for (auto i : *mgr->player)
+	for (auto i : mgr->pPlayer->GetParty())
 	{
 		Unit unit = Unit(i, &mapp.tiles[0][v], AddObject(i->GetObjName(), 0, 0, Game), AddObject("portrait", 250, 125+150*v, UI));
 		unit.profile->scale = 0.3f;
@@ -392,29 +392,29 @@ void CombatScene::RunAi()
 				for (auto& c : enemyHand)
 					{
 						auto d = CalculatePath(i.occupiedTile, t.occupiedTile);
-						if (d.size() <= 1 && !d.empty() && i.character->stamina.first >= 10)
+						if (d.size() <= 1 && !d.empty() && i.character->GetStats().stamina.first >= 10)
 						{
 							c.first->Cast(i.character, t.character);
 							mgr->PlaySFX(slash_sfx, 0, 1);
-							i.character->stamina.first -= 10;
+							i.character->GetStats().stamina.first -= 10;
 							validAction = true;
 						}
 
 					}
-					if (!validAction && i.character->movement.first > 0)
+					if (!validAction && i.character->GetStats().movement.first > 0)
 					{
 						auto p = CalculatePath(i.occupiedTile, t.occupiedTile);
 						if (p.size() > 1)
 						{
-							if (p.size() < i.character->movement.first)
+							if (p.size() < i.character->GetStats().movement.first)
 							{
 								i.SetTarget(p.back());
-								i.character->movement.first -= p.size();
+								i.character->GetStats().movement.first -= p.size();
 							}
 							else
 							{
-								i.SetTarget(p[i.character->movement.first - 1]);
-								i.character->movement.first = 0;
+								i.SetTarget(p[i.character->GetStats().movement.first - 1]);
+								i.character->GetStats().movement.first = 0;
 
 							}
 							validAction = true;

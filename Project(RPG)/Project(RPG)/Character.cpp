@@ -1,8 +1,9 @@
 #include "Character.h"
 
-Character::Character(std::string objectName)
+Character::Character(std::string objectName, std::string portraitName)
 {
 	this->objectName = objectName;
+	mPortraitName = portraitName;
 }
 
 Character::~Character()
@@ -14,16 +15,16 @@ Character::~Character()
 
 int Character::GetHealth()
 {
-	return health.first;
+	return mStats.health.first;
 }
 
 bool Character::ModHealth(int mod)
 {
-	health.first -= mod;
-	if (health.first > health.second)
-		health.first = health.second;
+	mStats.health.first -= mod;
+	if (mStats.health.first > mStats.health.second)
+		mStats.health.first = mStats.health.second;
 	else
-		if (health.first <= 0)
+		if (mStats.health.first <= 0)
 			return false;
 	return true;
 }

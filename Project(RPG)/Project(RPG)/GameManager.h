@@ -25,11 +25,10 @@ private:
 	Player mPlayer;
 	std::map<std::string, RenderObject*> objects; // This is where the RenderObject types are stored 
 	std::map<std::string, SpriteSheet*> sheets; // This is where the spritesheets are stored
-	Interface mInterface{&bRunning, &objects, &mPlayer,&mCScene };
+	//Interface mInterface{&bRunning, &objects, &mPlayer,&mCScene };
 
-	std::map<std::string, RenderObject*> objects; // This is where the RenderObject types are stored 
-	std::map<std::string, SpriteSheet*> sheets; // This is where the spritesheets are stored
-	Interface mInterface{&bRunning, &objects,&mCScene, &combatInstance.second, &player };
+
+	Interface mInterface{&bRunning, &objects,&mCScene, &combatInstance.second, &mPlayer };
 
 
 	SDL_Texture* LoadTexture(std::string path); //Moved it here for now
