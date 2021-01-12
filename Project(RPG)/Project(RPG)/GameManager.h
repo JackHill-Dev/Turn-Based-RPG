@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "Actions.h"
 #include "MainMenuScene.h"
+#include "OverworldMapScene.h"
 #include "Character.h"
 #include "Interface.h"
 

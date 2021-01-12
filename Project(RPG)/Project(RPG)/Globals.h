@@ -5,20 +5,30 @@
 #include <functional>
 
 typedef void (*fnc)(void); // function pointer type
+const int layerNum = 4;
 
 enum Layer
 {
-	UI = 3, Game = 2, Map = 1, Background = 0,
+	 Background = 0,
+	 Map = 1,
+	 Game = 2,
+	 UI = 3, 
 };
 
-const int layerNum = 4;
-
-enum class Act { Blank, Jump, Why, Click, RClick, MouseUpdate };
+enum class Act 
+{ 
+	Blank, 
+	Jump, 
+	Click,
+	RClick,
+	MouseUpdate
+};
 
 enum Scenes
 {
 	MainMenu = 0,
-	//Overworld = 1,
-	Combat = 1,
-	Shopi = 2,
+	Overworld = 1,
+	Combat = 2,
+	Shopi = 3,
+	NoSceneYet = 4,
 };

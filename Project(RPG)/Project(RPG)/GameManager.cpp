@@ -94,9 +94,9 @@ bool GameManager::Init()
 	CreateWindow();
 	SetUp();
 	scenes.push_back(new MainMenuScene(&mInterface));
+    scenes.push_back(new OverworldMapScene(&mInterface));
 	scenes.push_back(new CombatScene(&mInterface));
 	scenes.push_back(new ShopScene(&mInterface));
-	//LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
 	currentScene->Clear(mRnd);
 	currentScene = scenes[0];
 
@@ -111,7 +111,7 @@ bool GameManager::SetUp()
 	int imgFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imgFlags) & imgFlags))
 	{
-		printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+		printf("\nSDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
 
 	}
 
