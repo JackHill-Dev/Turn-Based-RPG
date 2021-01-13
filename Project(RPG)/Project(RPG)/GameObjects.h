@@ -14,7 +14,12 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"maleObj",new RenderObject("male")},
 		{"playerPortraitObj",new RenderObject("playerPortrait")},
 		{"merchantPortraitObj",new RenderObject("merchantPortrait")},
+		{"WizardObj",new RenderObject("wizard")},
+		{"RogueObj",new RenderObject("rogue")},
+		{"ClericObj",new RenderObject("cleric")},
+		{"WarriorObj",new RenderObject("warrior")},
 		{"itemFrameObj",new RenderObject("itemFrame")},
+		{"characterFrameObj",new RenderObject("characterFrame")},
 		{"ShopBGObj",new RenderObject("shopBg")},
 		{"swordObj",new RenderObject("sword")},
 		{"potionObj",new RenderObject("potion")},
@@ -26,11 +31,14 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"startNodeObj", new RenderObject("startNode")},
 		{"maleUnit", new RenderObject("male")},
 		{"StartBtnObj", new RenderObject("startBtn")},
-		{"QuitBtnObj", new RenderObject("quitBtn")},
+		{"quitBtnObj", new RenderObject("quitBtn")},
 		{"mainMenuBGObj",new RenderObject("mainMenuBG")},
+		{"CloseBtnObj", new RenderObject("closeBtn")},
 		{"cardObj", new RenderObject("card")},
 		{"tileObj", new RenderObject("tile")},
 		{"forestBGObj",new RenderObject("forestBG")}
+		,{"portrait", new RenderObject("malePortrait")}
+
 	}
 };
 
@@ -41,6 +49,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"male", new SpriteSheet("Assets/Sprites/Male/Male 01-1.png",96, 128, 32, 32, 12)},
 		{"startBtn", new SpriteSheet("Assets/Sprites/Buttons/StartBtn-02.png",128, 64, 128, 64, 12)},
 		{"quitBtn", new SpriteSheet("Assets/Sprites/Buttons/QuitBtn.png",128, 64, 128, 64, 12)},
+		{"closeBtn", new SpriteSheet("Assets/Sprites/Buttons/CloseBtn2.png",32, 32, 32, 32, 1)},
 		{"mainMenuBG", new SpriteSheet("Assets/Backgrounds/MainMenuBG_720.png",1280, 720, 1280, 720, 1)},
 		{"overworld", new SpriteSheet("Assets/Backgrounds/Blank_Map_1280x720.png", 1280, 720, 1280, 720, 1)},
 		{"battleNode", new SpriteSheet("Assets/Sprites/BattleNode.png", 32, 32, 32, 32, 1)},
@@ -49,14 +58,21 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"startNode", new SpriteSheet("Assets/Sprites/StartNode.png", 32, 32, 32, 32, 1)},
 		{"playerPortrait", new SpriteSheet("Assets/Sprites/Portraits/PlayerPortrait.png",210, 330, 210, 330, 1)},
 		{"merchantPortrait", new SpriteSheet("Assets/Sprites/Portraits/MerchantPortrait.png",210, 330, 210, 330, 1)},
+		{"wizard", new SpriteSheet("Assets/Sprites/Portraits/Wizard.png",177, 243, 177, 243, 1)},
+		{"rogue", new SpriteSheet("Assets/Sprites/Portraits/Rogue.png",177, 243, 177, 243, 1)},
+		{"cleric", new SpriteSheet("Assets/Sprites/Portraits/Cleric.png",177, 243, 177, 243, 1)},
+		{"warrior", new SpriteSheet("Assets/Sprites/Portraits/Warrior.png",177, 243, 177, 243, 1)},
 		{"shopBg", new SpriteSheet("Assets/Backgrounds/ShopBg.png",1280, 720, 1280, 720, 1)},
 		{"itemFrame", new SpriteSheet("Assets/Backgrounds/ItemFrame.png",85, 105, 85, 105, 1)},
+		{"characterFrame", new SpriteSheet("Assets/Backgrounds/CharacterFrame.png",228, 624, 228, 624, 1)},
 		{"sword", new SpriteSheet("Assets/Sprites/sword-art.png",160, 256, 32, 32, 40)},
 		{"armour", new SpriteSheet("Assets/Sprites/armour.png",76, 72, 76, 72, 1)},
 		{"potion", new SpriteSheet("Assets/Sprites/potion.png",48, 48, 48, 48, 1)},
 		{"card", new SpriteSheet("Assets/Sprites/Card/CardTemplate.png",230, 322, 230, 322, 1)},
-		{"tile", new SpriteSheet("Assets/Backgrounds/grass-tile.png", 32, 32, 32, 32, 1)},
-		{"forestBG", new SpriteSheet("Assets/Backgrounds/forestbackground.png",1280, 720, 1280, 720, 1)}
+		{"tile", new SpriteSheet("Assets/grass-tile.png", 32, 32, 32, 32, 1)},
+		{"forestBG", new SpriteSheet("Assets/forestbackground.png",1280, 720, 1280, 720, 1)},
+		{"malePortrait", new SpriteSheet("Assets/Portrait.png",	357, 364, 357, 364, 1)}
+
 	}
 };
 

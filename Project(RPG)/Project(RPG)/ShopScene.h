@@ -21,13 +21,13 @@ private:
 
 	void PlaceItems(Inventory& inv);
 	void SetupShopInv(); // For testing
-	void SetupPlayerInv(); // For testing
+	//void SetupPlayerInv(); // For testing
 	void ManageShopInventory(Inventory& inv, Act act, std::pair<int, int> mousePos);
 	void ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, int> mousePos);
 	void GenerateGrids();
 	void DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY);
 
-	Player mPlayer;
+	//Player mPlayer;
 	Shop mShop;
 	UIText mPlayerGoldText;
 	UIText mShopGoldText;
@@ -35,6 +35,9 @@ private:
 	Mix_Chunk* buySell_SFX;
 	bool startOnce = false;
 
+	//Temp
+	int RandomRange(int min, int max);
+	RenderObject* partyViewer; 
 	
 
 };

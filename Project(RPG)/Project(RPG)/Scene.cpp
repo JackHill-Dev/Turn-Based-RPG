@@ -64,11 +64,11 @@ void Scene::Draw(SDL_Renderer* rnd)
 
 	for (auto t : mSceneText)
 	{
-		rect.x = t.second.pos.first;
-		rect.y = t.second.pos.second;
+		rect.x = t.pos.first;
+		rect.y = t.pos.second;
 		rect.w = 90;
 		rect.h = 70;
-		SDL_Texture* fontTexture = SDL_CreateTextureFromSurface(rnd, TTF_RenderText_Solid(mFont, t.second.text.c_str(), t.second.textColor));;
+		SDL_Texture* fontTexture = SDL_CreateTextureFromSurface(rnd, TTF_RenderText_Solid(mFont, t.text.c_str(), t.textColor));;
 	    
 		SDL_RenderCopy(rnd, fontTexture, nullptr, &rect);
 	}
@@ -96,6 +96,6 @@ RenderObject* Scene::AddObject(std::string obj, int x, int y, Layer layerNum)
 	obje->SetPos(std::make_pair(x, y));
 	return obje;
 
-	return obje;
+	return &*mLayers[layerNum].back();
 
 }

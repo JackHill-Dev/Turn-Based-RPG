@@ -14,7 +14,6 @@ public:
 	void SetInitialGridPos(int pos);
 	void GeneratePositions();
 private:
-	
 
 	std::vector<Item*> mItems;
 	std::vector<std::pair<int, int>> gridPositions;

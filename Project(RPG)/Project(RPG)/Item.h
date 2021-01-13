@@ -20,6 +20,7 @@ public:
 	RenderObject* GetRenderObject();
 	void SetObjName(std::string name);
 	void SetRenderObject(RenderObject* obj);
+
 	void OnHover();
 	void OnLeave();
 
