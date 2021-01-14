@@ -46,8 +46,8 @@ void Scene::Draw(SDL_Renderer* rnd)
 			crop.h = obj->GetSheet()->GetCellSize().second;
 
 			
-			rect.w = obj->GetSheet()->GetCellSize().first * obj->scale; //scaling currentky buggy with inbounds, need to fix -T
-			rect.h = obj->GetSheet()->GetCellSize().second * obj->scale;
+			rect.w = obj->GetSheet()->GetCellSize().first * obj->scale.first; //scaling currentky buggy with inbounds, need to fix -T
+			rect.h = obj->GetSheet()->GetCellSize().second * obj->scale.second;
 
 			rect.x = obj->GetPos().first - rect.w/2;
 			rect.y = obj->GetPos().second - rect.h/2;

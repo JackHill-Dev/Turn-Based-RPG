@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "Actions.h"
+#include "ProgressBar.h"
 #include <SDL.h>
 #include <iostream>
 class MainMenuScene :

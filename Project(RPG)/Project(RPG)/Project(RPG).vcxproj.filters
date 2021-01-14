@@ -96,6 +96,9 @@
     <ClCompile Include="OverworldMapScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ProgressBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions.h">
@@ -165,6 +168,9 @@
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="OverworldMapScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

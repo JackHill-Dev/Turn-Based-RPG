@@ -74,7 +74,7 @@ void OverworldMapScene::Load()
 
 void OverworldMapScene::Init()
 {
-	mgr->PlayMusic(mBackgroundMus, -1);
+	//mgr->PlayMusic(mBackgroundMus, -1);
 }
 void OverworldMapScene::OnHover(Node* node)
 {
