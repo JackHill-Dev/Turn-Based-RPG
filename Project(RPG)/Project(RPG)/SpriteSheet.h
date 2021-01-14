@@ -11,7 +11,7 @@ class SpriteSheet
 
 private:
 	SDL_Texture* mTexture;
-	const float mCellSizeX;
+	 float mCellSizeX;
 	const float mCellSizeY;
 	const int mCellCount;
 	std::pair<int, int> textureSize;
@@ -26,6 +26,7 @@ public:
 	SpriteSheet(std::string path, int textureSizeX, int textureSizeY, float nCellSizeX, float nCellSizeY , int nCellCount);
 	SDL_Texture* GetTexture();
 	std::pair<float, float> GetCellSize();
+	void SetCellSizeX(float x) { mCellSizeX = x; }
 	Animation* GetAnim(std::string name);
 	void AddAnim(std::string name, Animation anim);
 };

@@ -18,6 +18,12 @@ struct UIText
 	SDL_Color textColor;
 };
 
+struct CheckBox
+{
+	RenderObject* obj;
+	bool bIsChecked = false;
+};
+
 class Scene
 {
 private:

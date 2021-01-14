@@ -25,9 +25,10 @@ public:
 	void OnLeave();
 
 	InvPos inventoryPos;
-private:
+protected:
 	std::string mName;
 	std::string mObjName;
+private:
 	RenderObject* mRenderObject;
 	int mCost;
 	

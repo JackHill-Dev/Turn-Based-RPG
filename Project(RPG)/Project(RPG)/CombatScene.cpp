@@ -300,7 +300,7 @@ void CombatScene::Load(std::vector<Character*> enemyTeam)
 	for (auto i : mgr->pPlayer->GetParty())
 	{
 		Unit unit = Unit(i, &mapp.tiles[0][v], AddObject(i->GetObjName(), 0, 0, Game), AddObject("portrait", 250, 125+150*v, UI));
-		unit.profile->scale = 0.3f;
+		unit.profile->scale = std::make_pair(0.3f, 0.3f);
 		team.push_back(unit);
 		v++;
 	}
@@ -309,7 +309,7 @@ void CombatScene::Load(std::vector<Character*> enemyTeam)
 	for(auto i : enemyTeam)
 	{
 		Unit unit = Unit(i, &mapp.tiles[14][v], AddObject(i->GetObjName(), 0, 0, Game),AddObject("portrait", 1000, 125+150*v, UI));
-		unit.profile->scale = 0.3f;
+		unit.profile->scale = std::make_pair(0.3f, 0.3f);
 		enemy.push_back(unit);
 		v++;
 	}
@@ -317,7 +317,7 @@ void CombatScene::Load(std::vector<Character*> enemyTeam)
 	for (int i = 0; i < 5; i++)
 	{
 		playerhand.push_back(std::make_pair(new Card(5, "Slash", 1, "cardObj"), AddObject("cardObj", centre.first - 200 + 100 * i - 15, 650, UI)));
-		playerhand.back().second->scale = 0.4f;
+		playerhand.back().second->scale = std::make_pair( 0.4f, 0.4f);
 	}
 	for (int i = 0; i < 5; i++)
 	{
