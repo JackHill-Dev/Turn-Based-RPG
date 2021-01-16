@@ -2,12 +2,15 @@
 #include "CombatScene.h"
 #include "ShopScene.h";
 #include "PartyViewerScene.h"
+
 void GameManager::Run()
 {
+
 	Act act;
-	SDL_Rect r;
-	r.w = 500;
-	r.h = 500;
+
+	mInterface.SetMasterVolume(-1, 1);
+
+	// LoadSettings();
 	SDL_Texture* texture = SDL_CreateTexture(mRnd, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 1280, 720);
 	SDL_Event ev;
 	unsigned int a = SDL_GetTicks();
@@ -105,6 +108,7 @@ bool GameManager::CreateWindow()
 bool GameManager::Init()
 {
 	CreateWindow();
+	mInterface.StoreWindow(mWnd);
 	SetUp();
 
 	mPlayer.SetGold(1000);

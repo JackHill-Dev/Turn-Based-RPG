@@ -24,8 +24,14 @@ void Interface::PlaySFX(Mix_Chunk* pSfx, int loops, int channel)
 	Mix_PlayChannel(channel, pSfx, loops); //This is where we can play sound effects, the different channels allow multiple sound effects to play at once
 }
 
+void Interface::SetMasterVolume(int channel, int volume)
+{
+	Mix_VolumeMusic(volume);
+	Mix_Volume(channel, volume);
+}
 
-void Interface::StopMusic(Mix_Music& mus) // This stops the music playing regardless of loops remaining
+
+void Interface::StopMusic() // This stops the music playing regardless of loops remaining
 {
 	if (Mix_PlayingMusic() != 0)
 	{
@@ -42,4 +48,10 @@ void Interface::LoadScene(int scene)
 void Interface::LoadPreviousScene()
 {
 	*currentScene = prevScene; 
+}
+
+void Interface::SetWindowSize(int w, int h)
+{
+	SDL_SetWindowSize(mWnd, w, h);
+	SDL_SetWindowPosition(mWnd, SDL_WINDOWPOS_CENTERED_MASK, SDL_WINDOWPOS_CENTERED_MASK);
 }

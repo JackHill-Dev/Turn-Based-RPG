@@ -16,7 +16,8 @@ OverworldMapScene::OverworldMapScene(Interface* mObjMgr) : Scene(mObjMgr)
 {
 	pOverworld = AddObject("overworldObj", 640, 360, Map);
 	mBackgroundMus = Mix_LoadMUS("Assets/Music/Tavern+Loop+One+-+320bit.mp3");
-	Mix_Volume(1, 5);
+	
+	//Mix_Volume(1, 5);
 	Init();
 	Load();
 }

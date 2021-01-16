@@ -87,17 +87,17 @@
     <ClCompile Include="Character.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Interface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PartyViewerScene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="OverworldMapScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Interface.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
     <ClCompile Include="ProgressBar.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,9 +155,6 @@
     <ClInclude Include="Consumable.h">
       <Filter>Header Files\Items</Filter>
     </ClInclude>
-    <ClInclude Include="Interface.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Card.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -170,8 +167,11 @@
     <ClInclude Include="OverworldMapScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Interface.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
     <ClInclude Include="ProgressBar.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
