@@ -36,8 +36,11 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"CloseBtnObj", new RenderObject("closeBtn")},
 		{"cardObj", new RenderObject("card")},
 		{"tileObj", new RenderObject("tile")},
-		{"forestBGObj",new RenderObject("forestBG")}
-		,{"portrait", new RenderObject("malePortrait")}
+		{"forestBGObj",new RenderObject("forestBG")},
+		{"portrait", new RenderObject("malePortrait")},
+		{"barBgObj", new RenderObject("barBg")},
+		{"barFillObj", new RenderObject("barFill")},
+		{"checkBoxObj", new RenderObject("checkBox")}
 
 	}
 };
@@ -66,12 +69,15 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"itemFrame", new SpriteSheet("Assets/Backgrounds/ItemFrame.png",85, 105, 85, 105, 1)},
 		{"characterFrame", new SpriteSheet("Assets/Backgrounds/CharacterFrame.png",228, 624, 228, 624, 1)},
 		{"sword", new SpriteSheet("Assets/Sprites/sword-art.png",160, 256, 32, 32, 40)},
-		{"armour", new SpriteSheet("Assets/Sprites/armour.png",76, 72, 76, 72, 1)},
+		{"armour", new SpriteSheet("Assets/Sprites/Items/armour.png",76, 72, 76, 72, 1)},
 		{"potion", new SpriteSheet("Assets/Sprites/potion.png",48, 48, 48, 48, 1)},
 		{"card", new SpriteSheet("Assets/Sprites/Card/CardTemplate.png",230, 322, 230, 322, 1)},
 		{"tile", new SpriteSheet("Assets/grass-tile.png", 32, 32, 32, 32, 1)},
 		{"forestBG", new SpriteSheet("Assets/forestbackground.png",1280, 720, 1280, 720, 1)},
-		{"malePortrait", new SpriteSheet("Assets/Portrait.png",	357, 364, 357, 364, 1)}
+		{"malePortrait", new SpriteSheet("Assets/Portrait.png",	357, 364, 357, 364, 1)},
+		{"barBg", new SpriteSheet("Assets/Sprites/Bar_Bg.png",	176, 32, 176, 32, 1)},
+		{"barFill", new SpriteSheet("Assets/Sprites/Bar_fill.png",	176, 32, 176, 32, 1)},
+		{"checkBox", new SpriteSheet("Assets/Sprites/CheckBox.png",	128, 64, 64, 64, 2)}
 
 	}
 };
@@ -94,6 +100,7 @@ const std::map<std::string, std::vector<Animation>> definedAnimations
 		}} ,
 
 		{"startBtn", {Animation("Hover", {std::make_pair(1,0)})}},
+		{"checkBox", {Animation("Checked", {std::make_pair(1,0)})}},
 
 		{"tile",
 			{

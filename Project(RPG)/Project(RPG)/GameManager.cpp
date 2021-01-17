@@ -172,8 +172,8 @@ SDL_Texture* GameManager::LoadTexture(std::string path)
 {
 
 	SDL_Surface* img = IMG_Load((path.c_str()));
-	if (IMG_GetError)
-		throw std::invalid_argument("could not load image at: " + path);
+	//if (IMG_GetError)
+	//	throw std::invalid_argument("could not load image at: " + path);
 	std::cout << IMG_GetError();
 	return SDL_CreateTextureFromSurface(mRnd, img);
 }

@@ -14,7 +14,6 @@ ShopScene::ShopScene(Interface* rng) : Scene(rng)
 	mShop.SetGold(2000);
 
 	Init();
-	partyViewer = AddObject("StartBtnObj", 400, 500, UI);
 }
 
 void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
@@ -26,9 +25,6 @@ void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 		Mix_VolumeMusic(10);
 		startOnce = true;
 	}*/
-
-	if (act == Act::Click && partyViewer->InBounds(mousePos.first, mousePos.second))
-		mgr->LoadScene(Party);
 
 	ManagePlayerInventory(mgr->GetPlayer()->GetInventory(), act, mousePos);
 	ManageShopInventory(mShop.GetInventory(), act, mousePos);
