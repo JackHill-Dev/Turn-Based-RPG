@@ -106,7 +106,7 @@ void SettingsScene::ApplySettings()
 
 	mgr->SetWindowSize();
 
-	//mgr->SetFullScreen()
+	mgr->SetFullScreen();
 
 }
 
