@@ -35,10 +35,10 @@ private:
 	Node* currentNode = nullptr;
 
 	RenderObject* pOverworld = nullptr;
-	RenderObject* pStartNode = nullptr;
-	RenderObject* pBossNode = nullptr;
-	RenderObject* pShopNode = nullptr;
-	RenderObject* pBattleNode = nullptr;
+	RenderObject* pMenuButton = nullptr;
+	RenderObject* pSettingsButton = nullptr;
+	RenderObject* pInventoryButton = nullptr;
+	RenderObject* pArmyViewerButton = nullptr;
 
 	Mix_Music* mBackgroundMus = nullptr;
 	Mix_Chunk* mSFX = nullptr;
