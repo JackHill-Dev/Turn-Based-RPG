@@ -69,7 +69,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"armour", new SpriteSheet("Assets/Sprites/armour.png",76, 72, 76, 72, 1)},
 		{"potion", new SpriteSheet("Assets/Sprites/potion.png",48, 48, 48, 48, 1)},
 		{"card", new SpriteSheet("Assets/Sprites/Card/CardTemplate.png",230, 322, 230, 322, 1)},
-		{"tile", new SpriteSheet("Assets/grass-tile.png", 32, 32, 32, 32, 1)},
+		{"tile", new SpriteSheet("Assets/Portrait.png", 32, 32, 32, 32, 1)},
 		{"forestBG", new SpriteSheet("Assets/forestbackground.png",1280, 720, 1280, 720, 1)},
 		{"malePortrait", new SpriteSheet("Assets/Portrait.png",	357, 364, 357, 364, 1)}
 

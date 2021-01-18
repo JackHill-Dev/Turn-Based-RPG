@@ -10,7 +10,7 @@
 #include "Interface.h"
 #include "Player.h"
 #include "CombatScene.h"
-
+#include "CardObject.h"
 class GameManager
 {
 private:
@@ -32,6 +32,7 @@ private:
 
 
 	SDL_Texture* LoadTexture(std::string path); //Moved it here for now
+	void AssembleCard();
 	void LoadScene();
 	
 public:

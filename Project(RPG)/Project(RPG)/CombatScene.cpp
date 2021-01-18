@@ -315,13 +315,13 @@ void CombatScene::Load(std::vector<Character*> enemyTeam)
 	}
 
 	for (int i = 0; i < 5; i++)
-	{
-		playerhand.push_back(std::make_pair(new Card(5, "Slash", 1, "cardObj"), AddObject("cardObj", centre.first - 200 + 100 * i - 15, 650, UI)));
+	{	
+		playerhand.push_back(std::make_pair(new Card(5, "Slash", 1, "cardObj1"), AddObject("cardObj1", centre.first - 200 + 100 * i - 15, 650, UI)));
 		playerhand.back().second->scale = 0.4f;
 	}
 	for (int i = 0; i < 5; i++)
 	{
-		enemyHand.push_back(std::make_pair(new Card(5, "Slash", 1, "cardObj"), nullptr));
+		enemyHand.push_back(std::make_pair(new Card(5, "Slash", 1, "cardObj1"), nullptr));
 		
 	}
 }

@@ -16,6 +16,7 @@ struct UIText
 	std::string text;
 	std::pair<int, int> pos;
 	SDL_Color textColor;
+	std::pair<float, float> sceneScale = std::make_pair(1, 1);
 };
 
 class Scene
