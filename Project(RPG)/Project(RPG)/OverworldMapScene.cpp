@@ -9,6 +9,7 @@ static std::mt19937 random_number_engine(rd());
 
 int RandomNumberGenerator(int min, int max)
 {
+	int i = 0;
 	std::uniform_int_distribution<int> distribution(min, max);
 	return distribution(random_number_engine);
 }
@@ -91,19 +92,22 @@ void OverworldMapScene::OnLeave(Node* node)
 
 void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePos)
 {
+	currentNode->pNodeObject->tint = SDL_Color{ 0,0,255 };
+	
 	if (act == Act::Click)
 	{
-		for (auto i : currentNode->adjacentTiles)
+		for (auto node : currentNode->adjacentTiles)
 		{
-			if (i->pNodeObject->InBounds(mousePos.first, mousePos.second))
+			if (node->pNodeObject->InBounds(mousePos.first, mousePos.second))
 			{
-				currentNode = i;
-				if(i->nodeScene != Scenes::NoSceneYet)
+				currentNode = node;
+				if(node->nodeScene != Scenes::NoSceneYet)
 				{				
-					mgr->LoadScene(i->nodeScene);
+					mgr->LoadScene(node->nodeScene);
 				}
 				
 			}
+			node->pNodeObject->Untint();
 		}
 		if (pArmyViewerButton->InBounds(mousePos.first, mousePos.second))
 		{
@@ -112,22 +116,25 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 	}
 	if (act == Act::MouseUpdate)
 	{
-		for (auto i : currentNode->adjacentTiles)
+		for (auto node : currentNode->adjacentTiles)
 		{
-			currentNode->pNodeObject->tint = SDL_Color{ 255,0,255 };
-
-			if (i->pNodeObject->InBounds(mousePos.first, mousePos.second))
+			if (node->pNodeObject->InBounds(mousePos.first, mousePos.second))
 			{
-				OnHover(i);
+				OnHover(node);
 			}
 			else
 			{
-				OnLeave(i);
-			}
-			
+				OnLeave(node);
+			}			
 		}
 	}
-
+	for (auto node : currentNode->adjacentTiles)
+	{
+		if (node != currentNode)
+		{
+			node->pNodeObject->tint = SDL_Color{ 0, 0, 0 };
+		}
+	}
 }
 
 std::string OverworldMapScene::assignRandomNodeSprite()

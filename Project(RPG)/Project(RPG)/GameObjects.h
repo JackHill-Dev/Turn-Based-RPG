@@ -43,7 +43,8 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"checkBoxObj", new RenderObject("checkBox")},
 		{"armyViewerButtonObj", new RenderObject("armyViewerButton")},
 		{"inventoryButtonObj", new RenderObject("inventoryButton")},
-		{"menuButtonObj", new RenderObject("menuButton")}
+		{"menuButtonObj", new RenderObject("menuButton")},
+		{"exitButtonObj", new RenderObject("exitButton")}
 	}
 };
 
@@ -82,7 +83,8 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"checkBox", new SpriteSheet("Assets/Sprites/CheckBox.png",	128, 64, 64, 64, 2)},
 		{"armyViewerButton", new SpriteSheet("Assets/Sprites/Buttons/Army_viewer_btn1.png", 200, 34, 200, 34, 1)},
 		{"inventoryButton", new SpriteSheet("Assets/Sprites/Buttons/inventoryBtn1.png", 200, 34, 200, 34, 1)},
-		{"menuButton", new SpriteSheet("Assets/Sprites/Buttons/MenuBtn1.png", 200, 34, 200, 34, 1)}
+		{"menuButton", new SpriteSheet("Assets/Sprites/Buttons/MenuBtn1.png", 200, 34, 200, 34, 1)},
+		{"exitButton", new SpriteSheet("Assets/Sprites/MenuBtn1.png", 200, 55, 200, 55, 1)}
 	}
 };
 
