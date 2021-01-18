@@ -3,6 +3,7 @@
 
 
 
+
 static std::random_device rd;
 static std::mt19937 random_number_engine(rd());
 
@@ -15,6 +16,9 @@ int RandomNumberGenerator(int min, int max)
 OverworldMapScene::OverworldMapScene(Interface* mObjMgr) : Scene(mObjMgr)
 {
 	pOverworld = AddObject("overworldObj", 640, 360, Map);
+	pArmyViewerButton = AddObject("armyViewerButtonObj", 350, 700, UI);
+	pMenuButton = AddObject("menuButtonObj", 640, 700, UI);
+	pInventoryButton = AddObject("inventoryButtonObj", 930, 700, UI);
 	mBackgroundMus = Mix_LoadMUS("Assets/Music/Tavern+Loop+One+-+320bit.mp3");
 	Mix_Volume(1, 5);
 	Init();
@@ -78,7 +82,7 @@ void OverworldMapScene::Init()
 }
 void OverworldMapScene::OnHover(Node* node)
 {
-	node->pNodeObject->tint = SDL_Color{ 255,255, 0 };
+	node->pNodeObject->tint = SDL_Color{ 0,255, 0 };
 }
 void OverworldMapScene::OnLeave(Node* node)
 {
@@ -101,11 +105,17 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 				
 			}
 		}
+		if (pArmyViewerButton->InBounds(mousePos.first, mousePos.second))
+		{
+			mgr->LoadScene(Scenes::Party);
+		}
 	}
 	if (act == Act::MouseUpdate)
 	{
 		for (auto i : currentNode->adjacentTiles)
 		{
+			currentNode->pNodeObject->tint = SDL_Color{ 255,0,255 };
+
 			if (i->pNodeObject->InBounds(mousePos.first, mousePos.second))
 			{
 				OnHover(i);
@@ -114,6 +124,7 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 			{
 				OnLeave(i);
 			}
+			
 		}
 	}
 

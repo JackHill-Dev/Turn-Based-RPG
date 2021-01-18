@@ -40,8 +40,10 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"portrait", new RenderObject("malePortrait")},
 		{"barBgObj", new RenderObject("barBg")},
 		{"barFillObj", new RenderObject("barFill")},
-		{"checkBoxObj", new RenderObject("checkBox")}
-
+		{"checkBoxObj", new RenderObject("checkBox")},
+		{"armyViewerButtonObj", new RenderObject("armyViewerButton")},
+		{"inventoryButtonObj", new RenderObject("inventoryButton")},
+		{"menuButtonObj", new RenderObject("menuButton")}
 	}
 };
 
@@ -77,8 +79,10 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"malePortrait", new SpriteSheet("Assets/Portrait.png",	357, 364, 357, 364, 1)},
 		{"barBg", new SpriteSheet("Assets/Sprites/Bar_Bg.png",	176, 32, 176, 32, 1)},
 		{"barFill", new SpriteSheet("Assets/Sprites/Bar_fill.png",	176, 32, 176, 32, 1)},
-		{"checkBox", new SpriteSheet("Assets/Sprites/CheckBox.png",	128, 64, 64, 64, 2)}
-
+		{"checkBox", new SpriteSheet("Assets/Sprites/CheckBox.png",	128, 64, 64, 64, 2)},
+		{"armyViewerButton", new SpriteSheet("Assets/Sprites/Buttons/Army_viewer_btn1.png", 200, 34, 200, 34, 1)},
+		{"inventoryButton", new SpriteSheet("Assets/Sprites/Buttons/inventoryBtn1.png", 200, 34, 200, 34, 1)},
+		{"menuButton", new SpriteSheet("Assets/Sprites/Buttons/MenuBtn1.png", 200, 34, 200, 34, 1)}
 	}
 };
 
