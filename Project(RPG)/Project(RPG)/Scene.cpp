@@ -11,6 +11,7 @@ Scene::Scene(Interface* objmg)
 	}
 
 	mFont = TTF_OpenFont("Assets/Fonts/Silver.ttf", 32);
+	
 }
 
 
@@ -64,13 +65,15 @@ void Scene::Draw(SDL_Renderer* rnd)
 
 	for (auto t : mSceneText)
 	{
-		rect.w = 70;
-		rect.h = 50;
+		rect.w = t.scale.first;
+		rect.h = t.scale.second;
 
 		rect.x = t.pos.first  - rect.w/2;
 		rect.y = t.pos.second - rect.h/2;
 	
-		SDL_Texture* fontTexture = SDL_CreateTextureFromSurface(rnd, TTF_RenderText_Solid(mFont, t.text.c_str(), t.textColor));;
+		
+		SDL_Texture* fontTexture = SDL_CreateTextureFromSurface(rnd, TTF_RenderText_Blended(mFont, t.text.c_str(), t.textColor));;
+
 	    if(t.isVisible)
 			SDL_RenderCopy(rnd, fontTexture, nullptr, &rect);
 	}

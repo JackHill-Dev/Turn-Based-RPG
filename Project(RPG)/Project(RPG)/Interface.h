@@ -32,7 +32,7 @@ public:
 	void LoadPreviousScene();
 	void StoreWindow(SDL_Window* wnd) { mWnd = wnd; }
 	void SetWindowSize();
-	void SetFullScreen() { SDL_SetWindowFullscreen(mWnd, SDL_WINDOW_FULLSCREEN); }
+	void SetFullScreen() { if(pSettings->bIsFullScreen) SDL_SetWindowFullscreen(mWnd, SDL_WINDOW_FULLSCREEN); }
 	Player* GetPlayer() { return pPlayer; }
 };
 

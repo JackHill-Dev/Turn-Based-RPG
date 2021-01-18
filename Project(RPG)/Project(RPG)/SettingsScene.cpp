@@ -71,9 +71,9 @@ void SettingsScene::Setup()
 
 void SettingsScene::SetupResOptions()
 {
-	resOptions.push_back({ nullptr, UIText{"1920 X 1080", std::make_pair(0,0), SDL_Color{0,0,0}}, 1920, 1080 });
-	resOptions.push_back({ nullptr, UIText{"1270 X 720", std::make_pair(0,0), SDL_Color{0,0,0}}, 1270, 720 });
-	resOptions.push_back({ nullptr, UIText{"800 X 600", std::make_pair(0,0), SDL_Color{0,0,0}}, 800, 600 });
+	resOptions.push_back({ nullptr, UIText{"1920 X 1080", std::make_pair(0,0),std::make_pair(70,50), SDL_Color{0,0,0}}, 1920, 1080 });
+	resOptions.push_back({ nullptr, UIText{"1270 X 720", std::make_pair(0,0), std::make_pair(70,50), SDL_Color{0,0,0}}, 1270, 720 });
+	resOptions.push_back({ nullptr, UIText{"800 X 600", std::make_pair(0,0),  std::make_pair(70,50), SDL_Color{0,0,0}}, 800, 600 });
 	int offsetY = 332;
 	for (int i = 0; i < resOptions.size(); ++i)
 	{
@@ -105,6 +105,8 @@ void SettingsScene::ApplySettings()
 	file << j.dump(1);
 
 	mgr->SetWindowSize();
+
+	//mgr->SetFullScreen()
 
 }
 
