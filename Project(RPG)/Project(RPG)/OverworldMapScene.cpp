@@ -133,7 +133,7 @@ Scenes OverworldMapScene::assignSceneByString(std::string& nodeSceneString)
 	}
 	if (nodeSceneString == "shopNode")
 	{
-		return Scenes::Shopi;
+		return Scenes::Shops;
 	}
 	else
 	{

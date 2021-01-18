@@ -14,6 +14,7 @@ class SettingsScene :
     public Scene
 {
 public:
+    SettingsScene(Interface* interface);
     void ApplySettings();
     void Collapse(bool collapsed);
     void Setup();
@@ -23,7 +24,7 @@ private:
     RenderObject* ApplyBtn;
     RenderObject* dropdownCollapsed;
     RenderObject* settingsCloseBtn;
-
+    UIText currentRes;
     std::vector<ResolutionOption> resOptions;
 protected:
     void Update(double dTime, Act act, std::pair<int, int> mousePos) override;

@@ -2,6 +2,7 @@
 #include "CombatScene.h"
 #include "ShopScene.h";
 #include "PartyViewerScene.h"
+#include "SettingsScene.h"
 #include "json.hpp"
 #include <fstream>;
 #include <istream>
@@ -122,6 +123,7 @@ bool GameManager::Init()
 	scenes.push_back(combatInstance.first);
 	scenes.push_back(new ShopScene(&mInterface));
 	scenes.push_back(new PartyViewerScene(&mInterface));
+	scenes.push_back(new SettingsScene(&mInterface));
 
 	//LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
 	currentScene->Clear(mRnd);
