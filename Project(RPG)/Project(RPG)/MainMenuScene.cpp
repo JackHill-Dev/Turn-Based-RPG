@@ -2,10 +2,12 @@
 #include "json.hpp"
 MainMenuScene::MainMenuScene(Interface* rng) : Scene(rng)
 {
+
 	// Get all main menu button objects
 	start  = AddObject("StartBtnObj", 70, 90, UI);
 	quit = AddObject("quitBtnObj", 70, 400, UI);
 	settings = AddObject("settingsBtnObj", 70, 250, UI);
+
 
 	// Get Background object
 	AddObject("mainMenuBGObj", 1280 / 2, 720 / 2, Background);

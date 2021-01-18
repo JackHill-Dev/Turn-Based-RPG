@@ -2,20 +2,13 @@
 #include "CombatScene.h"
 #include "ShopScene.h";
 #include "PartyViewerScene.h"
-#include "SettingsScene.h"
-#include "json.hpp"
-#include <fstream>;
-#include <istream>
-using Json = nlohmann::json;
 void GameManager::Run()
 {
-
 	Act act;
-
-	mInterface.SetMasterVolume(-1, 1);
-
-
-	SDL_Texture* texture = SDL_CreateTexture(mRnd, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, mSettings.w, mSettings.h);
+	SDL_Rect r;
+	r.w = 500;
+	r.h = 500;
+	SDL_Texture* texture = SDL_CreateTexture(mRnd, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 1280, 720);
 	SDL_Event ev;
 	unsigned int a = SDL_GetTicks();
 	unsigned int b = SDL_GetTicks();
@@ -63,9 +56,6 @@ void GameManager::Run()
 					act = Act::MouseUpdate;
 					break;
 
-				
-
-				
 				}
 		
 
@@ -82,6 +72,11 @@ void GameManager::Run()
 		
 		}
 
+
+
+
+
+		
 		//SDL_Delay(16);
 	}
 	Mix_Quit();
@@ -103,17 +98,17 @@ void GameManager::LoadScene()
 }
 bool GameManager::CreateWindow()
 {
-	SDL_CreateWindowAndRenderer(mSettings.w, mSettings.h, 0, &mWnd, &mRnd);
+	SDL_CreateWindowAndRenderer(1980, 1080, 0, &mWnd, &mRnd);
+	SDL_SetWindowResizable(mWnd,
+		SDL_TRUE);
 	SDL_ShowWindow(mWnd);
 	return true;
 }
 bool GameManager::Init()
 {
-	LoadSettings();
 	CreateWindow();
-	mInterface.StoreWindow(mWnd);
 	SetUp();
-
+	
 	mPlayer.SetGold(1000);
 	mPlayer.SetupParty({ new Character("maleObj", "WizardObj"), new Character("maleObj", "ClericObj"), new Character("maleObj", "RogueObj"), new Character("maleObj", "WarriorObj") });
 
@@ -123,7 +118,6 @@ bool GameManager::Init()
 	scenes.push_back(combatInstance.first);
 	scenes.push_back(new ShopScene(&mInterface));
 	scenes.push_back(new PartyViewerScene(&mInterface));
-	scenes.push_back(new SettingsScene(&mInterface));
 
 	//LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
 	currentScene->Clear(mRnd);
@@ -131,21 +125,6 @@ bool GameManager::Init()
 
 	return true;
 }
-void GameManager::LoadSettings()
-{
-	std::ifstream ifs("Settings.json");
-	if (ifs.is_open())
-	{
-		Json jf = Json::parse(ifs);
-		mSettings.mMasterVolume = jf["Audio"]["master-volume"].get<int>();
-		mSettings.w = jf["Display"]["Width"].get<int>();
-		mSettings.h = jf["Display"]["Height"].get<int>();
-		mSettings.bIsFullScreen = jf["Display"]["fullscreen"].get<bool>();
-
-	}
-	ifs.close();
-}
-
 bool GameManager::SetUp()
 {
 	if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 4096) < 0)
@@ -185,7 +164,7 @@ bool GameManager::SetUp()
 		objects[i.first]->SetTexture(sheets[(objects[i.first]->path)]);
 		//objects[i.first]->Init(mgrs);
 	}
-
+	AssembleCard();
 	
 
 	return true;
@@ -195,9 +174,58 @@ SDL_Texture* GameManager::LoadTexture(std::string path)
 {
 
 	SDL_Surface* img = IMG_Load((path.c_str()));
-	//if (IMG_GetError)
-	//	throw std::invalid_argument("could not load image at: " + path);
-	std::cout << IMG_GetError();
+
+	
+	
 	return SDL_CreateTextureFromSurface(mRnd, img);
 }
 
+void GameManager::AssembleCard()
+{
+	TTF_Font* mFont = TTF_OpenFont("Assets/Fonts/Test.ttf", 500);
+	
+	int imageWidth = 225;
+	int imageHeight = 225;
+
+	
+	SDL_Texture* base = SDL_CreateTexture(mRnd, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, sheets["card"]->GetCellSize().first, sheets["card"]->GetCellSize().second);
+
+	SDL_SetRenderTarget(mRnd, base);
+
+	SDL_Rect rect;
+	SpriteSheet* obj = sheets["card"];
+	
+
+	SDL_Rect crop;
+	crop.x = 0;
+	crop.y = 0;
+	crop.w = imageWidth;
+	crop.h = imageHeight;
+	
+	rect.w = imageWidth;
+	rect.h = imageHeight;
+	rect.x = 0;
+	rect.y = 0;
+	
+	SDL_Texture* fontTexture = SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Solid(mFont, "Saucy Dwarf", SDL_Color{ 0,0,0 }));;
+
+	SDL_RenderCopy(mRnd, sheets["merchantPortrait"]->GetTexture(), NULL, &rect);
+	SDL_RenderCopy(mRnd, sheets["card"]->GetTexture(), NULL, NULL);
+
+
+	rect.x = 10;
+	rect.y = 2;
+	rect.w = 100;
+	rect.h = 15;
+
+	SDL_RenderCopy(mRnd, fontTexture, NULL, &rect);
+	obj = new SpriteSheet("", sheets["card"]->GetTextureSize().first, sheets["card"]->GetTextureSize().second, sheets["card"]->GetTextureSize().first, sheets["card"]->GetTextureSize().second, 1);
+	
+	obj->SetTexture(base);
+	sheets.insert(std::make_pair("card1", obj));
+	
+	objects.insert(std::make_pair("cardObj1", new RenderObject("card1")));
+
+	objects["cardObj1"]->SetTexture(sheets["card1"]);
+	SDL_SetRenderTarget(mRnd, NULL);
+}

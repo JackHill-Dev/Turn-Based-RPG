@@ -101,7 +101,7 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 
 		}
 		
-		if (act == Act::RClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
+		if (act == Act::Click && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
 			if (!(mgr->GetPlayer()->GetGold() < i->GetCost())) // If player can't afford item they can't buy it
 			{
@@ -134,7 +134,7 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 			
 		}
 		
-		if (act == Act::RClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
+		if (act == Act::Click && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
 			if (!(mShop.GetGold() < i->GetCost())) // Can only sell to the shop if the shop can give you the moeny for the item
 			{
