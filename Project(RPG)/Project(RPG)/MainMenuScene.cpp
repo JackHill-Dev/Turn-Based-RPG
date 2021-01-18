@@ -1,17 +1,14 @@
 #include "MainMenuScene.h"
-
+#include "json.hpp"
 MainMenuScene::MainMenuScene(Interface* rng) : Scene(rng)
 {
-	// Get all button objects
-	start  = AddObject("StartBtnObj", 60, 90, UI);
-	quit = AddObject("quitBtnObj", 60, 400, UI);
-	
+	// Get all main menu button objects
+	start  = AddObject("StartBtnObj", 70, 90, UI);
+	quit = AddObject("quitBtnObj", 70, 400, UI);
+	settings = AddObject("settingsBtnObj", 70, 250, UI);
 
 	// Get Background object
 	AddObject("mainMenuBGObj", 1280 / 2, 720 / 2, Background);
-	// Get all SFX objects
-	// Get Music object
-	// Play music on loop (set loops to -1)
 
 }
 
@@ -20,12 +17,20 @@ void MainMenuScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 	
 	if (act == Act::Click)
 	{
-		if (start->InBounds(mouse.first, mouse.second))
+		if (start->InBounds(mouse.first, mouse.second) && start->IsActive())
 			mgr->LoadScene(Scenes::Overworld);
-		else
-			if (quit->InBounds(mouse.first, mouse.second))
-				mgr->Quit();
+
+		if (quit->InBounds(mouse.first, mouse.second) && quit->IsActive())
+			mgr->Quit();
+		
+		if (settings->InBounds(mouse.first, mouse.second) && settings->IsActive())
+			mgr->LoadScene(5);
 
 	}
+
 }
+
+
+
+
 

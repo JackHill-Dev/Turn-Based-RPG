@@ -14,6 +14,7 @@ private:
 	
 	std::string mName;
 	bool mVisible;
+	bool bIsActive = true;
 	SpriteSheet* mSheet;
 protected:
 	
@@ -37,8 +38,10 @@ public:
 	void SetScale(std::pair<float, float> nScale) { scale = nScale; }
 	void SetTexture(SpriteSheet* nSheet);
 	void SetVisible(const bool vis);
+	void SetActive(const bool active) { bIsActive = active; }
 	SpriteSheet* GetSheet();
 	bool IsVisible();
+	bool IsActive() { return bIsActive; }
 	bool InBounds(int x, int y);
 	virtual void Select();
 	Animation* GetAnim();

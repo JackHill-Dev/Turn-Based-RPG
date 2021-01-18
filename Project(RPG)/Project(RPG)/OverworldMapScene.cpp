@@ -21,7 +21,8 @@ OverworldMapScene::OverworldMapScene(Interface* mObjMgr) : Scene(mObjMgr)
 	pMenuButton = AddObject("menuButtonObj", 640, 700, UI);
 	pInventoryButton = AddObject("inventoryButtonObj", 930, 700, UI);
 	mBackgroundMus = Mix_LoadMUS("Assets/Music/Tavern+Loop+One+-+320bit.mp3");
-	Mix_Volume(1, 5);
+	
+	//Mix_Volume(1, 5);
 	Init();
 	Load();
 }
@@ -150,7 +151,7 @@ Scenes OverworldMapScene::assignSceneByString(std::string& nodeSceneString)
 	}
 	if (nodeSceneString == "shopNode")
 	{
-		return Scenes::Shopi;
+		return Scenes::Shops;
 	}
 	else
 	{

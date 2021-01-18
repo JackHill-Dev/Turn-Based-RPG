@@ -167,6 +167,7 @@
     <ClCompile Include="ProgressBar.cpp" />
     <ClCompile Include="RenderObject.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SettingsScene.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="ShopScene.cpp" />
     <ClCompile Include="SpriteSheet.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="Interface.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="json.hpp" />
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="OverworldMapScene.h" />
     <ClInclude Include="PartyViewerScene.h" />
@@ -193,6 +195,7 @@
     <ClInclude Include="ProgressBar.h" />
     <ClInclude Include="RenderObject.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SettingsScene.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="ShopScene.h" />
     <ClInclude Include="SpriteSheet.h" />
