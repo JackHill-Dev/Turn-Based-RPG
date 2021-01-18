@@ -2,7 +2,7 @@
 
 
 
-Interface::Interface(bool* brunning, std::map<std::string, RenderObject*>* objP, int* currentScene, std::vector<Character*>* currentEnemies, Player* player) : objects(objP), currentScene(currentScene), running(brunning), currentEnemies(currentEnemies), pPlayer(player)
+Interface::Interface(bool* brunning, std::map<std::string, RenderObject*>* objP, int* currentScene, std::vector<Character*>* currentEnemies, Player* player, Settings* settings) : objects(objP), currentScene(currentScene), running(brunning), currentEnemies(currentEnemies), pPlayer(player), pSettings(settings)
 {
 
 	//this is the constructor where we pass in pointers to the required objects of which we need to alter/retrieve data from
@@ -50,8 +50,8 @@ void Interface::LoadPreviousScene()
 	*currentScene = prevScene; 
 }
 
-void Interface::SetWindowSize(int w, int h)
+void Interface::SetWindowSize()
 {
-	SDL_SetWindowSize(mWnd, w, h);
+	SDL_SetWindowSize(mWnd, pSettings->w, pSettings->h);
 	SDL_SetWindowPosition(mWnd, SDL_WINDOWPOS_CENTERED_MASK, SDL_WINDOWPOS_CENTERED_MASK);
 }

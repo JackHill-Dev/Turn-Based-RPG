@@ -16,6 +16,7 @@ struct UIText
 	std::string text;
 	std::pair<int, int> pos;
 	SDL_Color textColor;
+	bool isVisible = true;
 };
 
 struct CheckBox

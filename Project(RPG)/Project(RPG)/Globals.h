@@ -34,5 +34,13 @@ enum Scenes
 	NoSceneYet = 4,
 };
 
+struct Settings
+{
+	bool bIsFullScreen = false;
+	int mMasterVolume;
+	int w, h;
+};
+
+
 
 

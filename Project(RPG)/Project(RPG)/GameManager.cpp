@@ -2,7 +2,10 @@
 #include "CombatScene.h"
 #include "ShopScene.h";
 #include "PartyViewerScene.h"
-
+#include "json.hpp"
+#include <fstream>;
+#include <istream>
+using Json = nlohmann::json;
 void GameManager::Run()
 {
 
@@ -10,8 +13,8 @@ void GameManager::Run()
 
 	mInterface.SetMasterVolume(-1, 1);
 
-	// LoadSettings();
-	SDL_Texture* texture = SDL_CreateTexture(mRnd, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 1280, 720);
+
+	SDL_Texture* texture = SDL_CreateTexture(mRnd, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, mSettings.w, mSettings.h);
 	SDL_Event ev;
 	unsigned int a = SDL_GetTicks();
 	unsigned int b = SDL_GetTicks();
@@ -59,6 +62,9 @@ void GameManager::Run()
 					act = Act::MouseUpdate;
 					break;
 
+				
+
+				
 				}
 		
 
@@ -75,11 +81,6 @@ void GameManager::Run()
 		
 		}
 
-
-
-
-
-		
 		//SDL_Delay(16);
 	}
 	Mix_Quit();
@@ -101,12 +102,13 @@ void GameManager::LoadScene()
 }
 bool GameManager::CreateWindow()
 {
-	SDL_CreateWindowAndRenderer(1280, 720, 0, &mWnd, &mRnd);
+	SDL_CreateWindowAndRenderer(mSettings.w, mSettings.h, 0, &mWnd, &mRnd);
 	SDL_ShowWindow(mWnd);
 	return true;
 }
 bool GameManager::Init()
 {
+	LoadSettings();
 	CreateWindow();
 	mInterface.StoreWindow(mWnd);
 	SetUp();
@@ -127,6 +129,21 @@ bool GameManager::Init()
 
 	return true;
 }
+void GameManager::LoadSettings()
+{
+	std::ifstream ifs("Settings.json");
+	if (ifs.is_open())
+	{
+		Json jf = Json::parse(ifs);
+		mSettings.mMasterVolume = jf["Audio"]["master-volume"].get<int>();
+		mSettings.w = jf["Display"]["Width"].get<int>();
+		mSettings.h = jf["Display"]["Height"].get<int>();
+		mSettings.bIsFullScreen = jf["Display"]["fullscreen"].get<bool>();
+
+	}
+	ifs.close();
+}
+
 bool GameManager::SetUp()
 {
 	if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 4096) < 0)
