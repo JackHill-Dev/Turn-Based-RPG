@@ -17,15 +17,13 @@ struct UIText
 	std::pair<int, int> pos;
 	std::pair<float, float> scale = std::make_pair(70,50);
 	SDL_Color textColor;
-
 	bool isVisible = true;
 };
-	std::pair<float, float> sceneScale = std::make_pair(1, 1);
+
 struct CheckBox
 {
 	RenderObject* obj;
 	bool bIsChecked = false;
-
 };
 
 class Scene

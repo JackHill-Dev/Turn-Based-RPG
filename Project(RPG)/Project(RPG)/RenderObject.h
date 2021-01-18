@@ -21,10 +21,7 @@ protected:
 	std::pair<double, double> mPos;
 	Animation* mCurrentAnim;
 public:
-
 	std::pair<float, float> scale;
-	std::pair<float,float> sceneScale = std::make_pair(1,1);
-
 	void Untint();
 	void Tint(SDL_Colour tkint);
 	std::string path;
