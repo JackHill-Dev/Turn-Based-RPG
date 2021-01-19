@@ -54,7 +54,7 @@ CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 	Mix_Volume(1, 15);
 	endTurn = AddObject("quitBtnObj", 1000, 650, UI);
 	endTurn->scale = std::make_pair(1, 1);
-	//pExit = AddObject("exitButtonObj", 600, 600, UI);
+	pExit = AddObject("exitButtonObj", 600, 600, UI);
 	AddObject("forestBGObj", 640, 360, Background);
 	//reload = AddObject("quitBtnObj", 1100, 500, UI);
 	for (int i = 0; i < 15; i++)
