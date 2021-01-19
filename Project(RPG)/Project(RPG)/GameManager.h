@@ -11,6 +11,7 @@
 #include "Player.h"
 #include "CombatScene.h"
 
+
 class GameManager
 {
 private:
@@ -28,7 +29,7 @@ private:
 	//Interface mInterface{&bRunning, &objects, &mPlayer,&mCScene };
 
 
-	Interface mInterface{&bRunning, &objects,&mCScene, &combatInstance.second, &mPlayer };
+	Interface mInterface{&bRunning, &objects,&mCScene, &combatInstance.second, &mPlayer, &mSettings};
 
 
 	SDL_Texture* LoadTexture(std::string path); //Moved it here for now
@@ -41,12 +42,12 @@ public:
 	void Quit();	
 	
 private:
-	
-	
+	void LoadSettings();
 	bool SetUp();
 	bool CreateWindow();
 	std::vector<Scene*> scenes;
 	Scene* currentScene;
+	Settings mSettings;
 };
 
 

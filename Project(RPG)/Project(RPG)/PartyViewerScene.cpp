@@ -88,5 +88,5 @@ void PartyViewerScene::GetCharacterStatistics()
 UIText PartyViewerScene::DrawStat(std::string statName, int stat, SDL_Color textColor, std::pair<int, int> pos)
 {
 	std::string statTxt = statName + ": " + std::to_string(stat);
-	return UIText{statTxt, pos, textColor};
+	return UIText{statTxt, pos,std::make_pair(70,50), textColor};
 }

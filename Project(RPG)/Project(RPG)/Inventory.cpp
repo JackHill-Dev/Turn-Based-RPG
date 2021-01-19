@@ -79,9 +79,9 @@ void Inventory::GeneratePositions()
 		if (offsetX >= 360 + mInitialGridPos)
 		{
 			offsetX = mInitialGridPos;
-			offsetY += 120;
+			offsetY += 110;
 		}
-
+		
 		p.first = offsetX;
 		p.second = offsetY;
 

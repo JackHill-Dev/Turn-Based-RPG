@@ -29,10 +29,18 @@ enum Scenes
 	MainMenu = 0,
 	Overworld = 1,
 	Combat = 2,
-	Shopi = 3,
+	Shops = 3,
 	Party = 4,
-	NoSceneYet = 5,
+	NoSceneYet = 10 
 };
+
+struct Settings
+{
+	bool bIsFullScreen = false;
+	int mMasterVolume;
+	int w, h;
+};
+
 
 
 

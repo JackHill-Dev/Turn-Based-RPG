@@ -2,13 +2,20 @@
 #include "CombatScene.h"
 #include "ShopScene.h";
 #include "PartyViewerScene.h"
+#include "SettingsScene.h"
+#include "json.hpp"
+#include <fstream>;
+#include <istream>
+using Json = nlohmann::json;
 void GameManager::Run()
 {
+
 	Act act;
-	SDL_Rect r;
-	r.w = 500;
-	r.h = 500;
-	SDL_Texture* texture = SDL_CreateTexture(mRnd, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 1280, 720);
+
+	mInterface.SetMasterVolume(-1, 1);
+
+
+	SDL_Texture* texture = SDL_CreateTexture(mRnd, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, mSettings.w, mSettings.h);
 	SDL_Event ev;
 	unsigned int a = SDL_GetTicks();
 	unsigned int b = SDL_GetTicks();
@@ -56,6 +63,9 @@ void GameManager::Run()
 					act = Act::MouseUpdate;
 					break;
 
+				
+
+				
 				}
 		
 
@@ -72,11 +82,6 @@ void GameManager::Run()
 		
 		}
 
-
-
-
-
-		
 		//SDL_Delay(16);
 	}
 	Mix_Quit();
@@ -98,13 +103,15 @@ void GameManager::LoadScene()
 }
 bool GameManager::CreateWindow()
 {
-	SDL_CreateWindowAndRenderer(1280, 720, 0, &mWnd, &mRnd);
+	SDL_CreateWindowAndRenderer(mSettings.w, mSettings.h, 0, &mWnd, &mRnd);
 	SDL_ShowWindow(mWnd);
 	return true;
 }
 bool GameManager::Init()
 {
+	LoadSettings();
 	CreateWindow();
+	mInterface.StoreWindow(mWnd);
 	SetUp();
 
 	mPlayer.SetGold(1000);
@@ -116,6 +123,7 @@ bool GameManager::Init()
 	scenes.push_back(combatInstance.first);
 	scenes.push_back(new ShopScene(&mInterface));
 	scenes.push_back(new PartyViewerScene(&mInterface));
+	scenes.push_back(new SettingsScene(&mInterface));
 
 	//LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
 	currentScene->Clear(mRnd);
@@ -123,6 +131,21 @@ bool GameManager::Init()
 
 	return true;
 }
+void GameManager::LoadSettings()
+{
+	std::ifstream ifs("Settings.json");
+	if (ifs.is_open())
+	{
+		Json jf = Json::parse(ifs);
+		mSettings.mMasterVolume = jf["Audio"]["master-volume"].get<int>();
+		mSettings.w = jf["Display"]["Width"].get<int>();
+		mSettings.h = jf["Display"]["Height"].get<int>();
+		mSettings.bIsFullScreen = jf["Display"]["fullscreen"].get<bool>();
+
+	}
+	ifs.close();
+}
+
 bool GameManager::SetUp()
 {
 	if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 4096) < 0)

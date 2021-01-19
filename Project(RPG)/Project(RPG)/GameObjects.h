@@ -40,11 +40,19 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"portrait", new RenderObject("malePortrait")},
 		{"barBgObj", new RenderObject("barBg")},
 		{"barFillObj", new RenderObject("barFill")},
-		{"checkBoxObj", new RenderObject("checkBox")},
+	
 		{"armyViewerButtonObj", new RenderObject("armyViewerButton")},
 		{"inventoryButtonObj", new RenderObject("inventoryButton")},
 		{"menuButtonObj", new RenderObject("menuButton")},
-		{"exitButtonObj", new RenderObject("exitButton")}
+		{"exitButtonObj", new RenderObject("exitButton")},
+		{"settingsBtnObj", new RenderObject("settingsBtn")},
+		{"settingsOverlayObj", new RenderObject("settingsOverlay")},
+		{"resCollapsedObj", new RenderObject("resCollapsed")},
+		{"resUnCollapsedObj", new RenderObject("resUnCollapsed")},
+		{"OptionsBackgroundObj", new RenderObject("OptionsBackground")},
+		{"ApplyBtnObj", new RenderObject("ApplyBtn")},
+		{"checkBoxObj", new RenderObject("checkBox")}
+
 	}
 };
 
@@ -80,11 +88,18 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"malePortrait", new SpriteSheet("Assets/Portrait.png",	357, 364, 357, 364, 1)},
 		{"barBg", new SpriteSheet("Assets/Sprites/Bar_Bg.png",	176, 32, 176, 32, 1)},
 		{"barFill", new SpriteSheet("Assets/Sprites/Bar_fill.png",	176, 32, 176, 32, 1)},
-		{"checkBox", new SpriteSheet("Assets/Sprites/CheckBox.png",	128, 64, 64, 64, 2)},
 		{"armyViewerButton", new SpriteSheet("Assets/Sprites/Buttons/Army_viewer_btn1.png", 200, 34, 200, 34, 1)},
 		{"inventoryButton", new SpriteSheet("Assets/Sprites/Buttons/inventoryBtn1.png", 200, 34, 200, 34, 1)},
 		{"menuButton", new SpriteSheet("Assets/Sprites/Buttons/MenuBtn1.png", 200, 34, 200, 34, 1)},
-		{"exitButton", new SpriteSheet("Assets/Sprites/Buttons/exitButton.png", 200, 55, 200, 55, 1)}
+		{"exitButton", new SpriteSheet("Assets/Sprites/MenuBtn1.png", 200, 55, 200, 55, 1)},
+		{"settingsBtn", new SpriteSheet("Assets/Sprites/Buttons/SettingsBtn.png",	128, 64, 128, 64, 1)},
+		{"settingsOverlay", new SpriteSheet("Assets/Sprites/SettingsOverlay.png",	640, 480, 640, 480, 1)},
+		{"resCollapsed", new SpriteSheet("Assets/Sprites/Buttons/dropDown-01.png",	240, 32, 240, 32, 1)},
+		{"resUnCollapsed", new SpriteSheet("Assets/Sprites/Buttons/dropDown-02.png",	240, 96, 240, 96, 1)},
+		{"OptionsBackground", new SpriteSheet("Assets/Sprites/OptionsBackground.png",	240, 32, 240, 32, 1)},
+		{"ApplyBtn", new SpriteSheet("Assets/Sprites/Buttons/ApplyBtn.png",	128, 64, 128, 64, 1)},
+		{"checkBox", new SpriteSheet("Assets/Sprites/CheckBox.png",	128, 64, 64, 64, 2)}
+
 	}
 };
 
