@@ -1,7 +1,7 @@
 #include "CombatScene.h"
 Character charac{"maleObj", "WizardObj"};
 
-
+double fightScene = 0;
 RenderObject* endTurn;
 RenderObject* pExit;
 bool playerTurn = false; // Is it the players turn
@@ -17,6 +17,9 @@ std::vector<std::pair<Card*, RenderObject*>> playerhand;
 std::vector<std::pair<Card*, RenderObject*>> enemyHand;
 Mix_Music* combat_music;
 Mix_Chunk* slash_sfx;
+RenderObject* fightSceneTeamCharacter;
+RenderObject* fightSceneEnemyCharacter;
+RenderObject* fightSceneBg;
 struct map
 {
 	tile tiles[15][15];
@@ -34,9 +37,24 @@ CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 	combat_music = Mix_LoadMUS("Assets/Combat_Music.wav");
 	slash_sfx = Mix_LoadWAV("Assets/SFX/slash.wav");
 
+
+	fightSceneBg = AddObject("forestFightSceneBg", centre.first, centre.second, UI);
+	fightSceneTeamCharacter = AddObject("maleObj", centre.first - 50, centre.second, UI);
+	fightSceneEnemyCharacter = AddObject("maleObj", centre.first + 50, centre.second, UI);
+	
+	fightSceneTeamCharacter->scale = std::make_pair(3, 3);
+	fightSceneEnemyCharacter->scale = std::make_pair(3, 3);
+	fightSceneTeamCharacter->SetVisible(false);
+	fightSceneEnemyCharacter->SetVisible(false);
+	fightSceneBg->SetVisible(false);
+
+
+
+
 	Mix_Volume(1, 15);
-	//endTurn = AddObject("quitBtnObj", 500, 500, UI);
-	//pExit = AddObject("exitButtonObj", 600, 600, UI);
+	endTurn = AddObject("quitBtnObj", 1000, 650, UI);
+	endTurn->scale = std::make_pair(1, 1);
+	pExit = AddObject("exitButtonObj", 600, 600, UI);
 	AddObject("forestBGObj", 640, 360, Background);
 	//reload = AddObject("quitBtnObj", 1100, 500, UI);
 	for (int i = 0; i < 15; i++)
@@ -92,214 +110,256 @@ CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 } 
 
 
+void RemoveCard(std::pair<Card*, RenderObject*>* cd)
+{
+
+}
+
 void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 {
-	if (act == Act::Click)
+    if (act == Act::Click)
 	{
 		if (pExit->InBounds(mouse.first, mouse.second))
 		{
 			mgr->LoadPreviousScene();
 		}
 	}
-
-	for (auto& i : team)
-		if (i.character->GetHealth() <= 0)
-			RemoveUnit(i);
-	for (auto& i : enemy)
-		if (i.character->GetHealth() <= 0)
-			RemoveUnit(i);
-
-	bool scenebusy = false;
-	if (playerTurn)
+	if (fightScene <= 0)
 	{
-		for (auto &i : team)
-			if (i.busy)
-			{
-				i.Move(dTime);
-				scenebusy = true;
-			}
-		if (!scenebusy)
+		fightSceneEnemyCharacter->SetVisible(false);
+		fightSceneTeamCharacter->SetVisible(false);
+		fightSceneBg->SetVisible(false);
+		for (auto& i : team)
+			if (i.character->GetHealth() <= 0)
+				RemoveUnit(i);
+		for (auto& i : enemy)
+			if (i.character->GetHealth() <= 0)
+				RemoveUnit(i);
+		bool scenebusy = false;
+		if (playerTurn)
 		{
-			if (act == Act::Click)
+			for (auto& i : team)
+				if (i.busy)
+				{
+					i.Move(dTime);
+					scenebusy = true;
+				}
+			if (!scenebusy)
 			{
-				if (endTurn->InBounds(mouse.first, mouse.second))
+				if (act == Act::Click)
 				{
-					playerTurn = false;
-					for (auto i : enemy)
+					if (endTurn->InBounds(mouse.first, mouse.second))
 					{
-						i.character->GetStats().health.first = i.character->GetStats().movement.second;
-						i.character->GetStats().stamina.first = i.character->GetStats().stamina.second;
+						playerTurn = false;
+						for (auto& i : enemy)
+						{
+							i.character->GetStats().movement.first = i.character->GetStats().movement.second;
+							i.character->GetStats().stamina.first = i.character->GetStats().stamina.second;
 
+						}
 					}
-				}
-				else
-				if (current == Selection::Any)
-				{
-					bool found = false;
-
-
-					for (auto& i : playerhand)
-						if (i.second->InBounds(mouse.first, mouse.second))
+					else
+						if (current == Selection::Any)
 						{
-							selectedCard = &i;
-							found = true;
-							hovered = i.second;
-							hovered->tint = SDL_Color{ 255,255,0 };
-							current = Selection::Team;
-						}
+							bool found = false;
 
-					if(!found)
-					for (auto &i : team)
-						if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
-						{
-							character = &i;
-							character->object->tint = SDL_Color{ 255,255,0 };
-							if(selectedCard != nullptr)
-								current = Selection::Enemy;
-							current = Selection::Ground;
-						}
-				}
-				else
-				{
-					switch (current)
-					{
-					case(Selection::Ground):
-						
-						for (int i =0; i < 15; i++)
-							for(int x = 0; x < 15; x++)
-								if (mapp.tiles[i][x].square->InBounds(mouse.first, mouse.second))
+
+							for (auto& i : playerhand)
+								if (i.second->InBounds(mouse.first, mouse.second))
 								{
-									character->SetTarget(&mapp.tiles[i][x]);
+									selectedCard = &i;
+									found = true;
+									hovered = i.second;
+									hovered->tint = SDL_Color{ 255,255,0 };
+									current = Selection::Team;
+								}
+
+							if (!found)
+								for (auto& i : team)
+									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
+									{
+										character = &i;
+										character->object->tint = SDL_Color{ 255,255,0 };
+										if (selectedCard != nullptr)
+											current = Selection::Enemy;
+										current = Selection::Ground;
+									}
+						}
+						else
+						{
+							switch (current)
+							{
+							case(Selection::Ground):
+
+								for (int i = 0; i < 15; i++)
+									for (int x = 0; x < 15; x++)
+										if (mapp.tiles[i][x].square->InBounds(mouse.first, mouse.second))
+										{
+											character->SetTarget(&mapp.tiles[i][x]);
+											character->object->Untint();
+										}
+
+								character = nullptr;
+								current = Selection::Any;
+
+								break;
+							case(Selection::Team):
+								for (auto& i : team)
+									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
+									{
+										if (i.character->GetStats().stamina.first > 5)
+										{
+											character = &i;
+											character->object->tint = SDL_Color{ 255,255,0 };
+											current = Selection::Enemy;
+										}
+										
+									}
+								if (character == nullptr)
+								{
+									selectedCard->second->Untint();
+									selectedCard = nullptr;
+									current = Selection::Any;
+								}
+								break;
+							case(Selection::Enemy):
+								for (auto& i : enemy)
+									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
+									{
+										target = &i;
+										
+									}
+								if (target == nullptr)
+								{
 									character->object->Untint();
+									character = nullptr;
+									selectedCard->second->Untint();
+									selectedCard = nullptr;
+									current = Selection::Any;
 								}
-
-						character = nullptr;
-						current = Selection::Any;
-
-						break;
-						case(Selection::Team):
-							for (auto& i : team)
-								if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
+								else
 								{
-									character = &i;
-									character->object->tint = SDL_Color{ 255,255,0 };
-									current = Selection::Enemy;
-								}
-							break;
-						case(Selection::Enemy):
-							for (auto& i : enemy)
-								if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
-								{
-									target = &i;
 									Cast(selectedCard);
 									target = nullptr;
 									character = nullptr;
 									selectedCard = nullptr;
 									current = Selection::Any;
 								}
-							break;
-					}
-
-				}
-			}
-			else
-				if (act == Act::MouseUpdate)
-				{
-					if (hovered != nullptr)
-					{
-						if (character != nullptr && character->object != nullptr && character->object == hovered)
-						{
+								break;
+							}
 
 						}
-						else
-							if (selectedCard != nullptr && selectedCard->second != nullptr && selectedCard->second == hovered)
+				}
+				else
+					if (act == Act::MouseUpdate)
+					{
+						if (hovered != nullptr)
+						{
+							if (character != nullptr && character->object != nullptr && character->object == hovered)
 							{
 
 							}
 							else
-							hovered->Untint();
-					}
-					hovered = nullptr;
-					if (current == Selection::Any)
-					{
-						
-						bool found = false;
+								if (selectedCard != nullptr && selectedCard->second != nullptr && selectedCard->second == hovered)
+								{
 
-						for(auto &i: playerhand)
-							if (i.second->InBounds(mouse.first, mouse.second))
-							{
-								found = true;
-								hovered = i.second;
-								hovered->tint = SDL_Color{ 0,255,0 };
-							}
+								}
+								else
+									hovered->Untint();
+						}
+						hovered = nullptr;
+						if (current == Selection::Any)
+						{
 
-						if(!found)
-							for (auto& i : team)
-								if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
+							bool found = false;
+
+							for (auto& i : playerhand)
+								if (i.second->InBounds(mouse.first, mouse.second))
 								{
 									found = true;
-									hovered = i.object;
-									hovered->tint = SDL_Color{ 0, 255, 0 };
-								}
-					}
-					else
-						switch (current)
-						{
-						case(Selection::Team):
-
-							for (auto& i : team)
-								if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
-								{
-									hovered = i.object;
-									hovered->tint = SDL_Color{ 0, 255, 0 };
-								}
-							
-							break;
-						case(Selection::Enemy):
-
-							for (auto& i : enemy)
-								if (i.object->InBounds(mouse.first, mouse.second))
-								{
-									hovered = i.object;
-									hovered->tint = SDL_Color{ 0, 255, 0 };
+									hovered = i.second;
+									hovered->tint = SDL_Color{ 0,255,0 };
 								}
 
-							break;
-						case(Selection::Ground):
-							bool found = false;
-							for(int i =0; i < 15; i++)
-								for(int t = 0; t < 15; t++)
-									if (!found && mapp.tiles[i][t].square->InBounds(mouse.first, mouse.second))
+							if (!found)
+								for (auto& i : team)
+									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
 									{
 										found = true;
-										hovered = mapp.tiles[i][t].square;
-										if(mapp.tiles[i][t].availiable)
-											hovered->tint = SDL_Color{ 0,255,0 };
-										else
-											hovered->tint = SDL_Color{ 255,0,0 };
+										hovered = i.object;
+										hovered->tint = SDL_Color{ 0, 255, 0 };
 									}
-							
-							break;
 						}
+						else
+							switch (current)
+							{
+							case(Selection::Team):
+
+								for (auto& i : team)
+									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
+									{
+										hovered = i.object;
+										if (i.character->GetStats().stamina.first > 5)
+										{
+
+											hovered->tint = SDL_Color{ 0, 255, 0 };
+										}
+										else
+											hovered->tint = SDL_Color{ 255, 0, 0 };
+										
+									}
+
+								break;
+							case(Selection::Enemy):
+
+								for (auto& i : enemy)
+									if (i.object->InBounds(mouse.first, mouse.second))
+									{
+										hovered = i.object;
+										hovered->tint = SDL_Color{ 0, 255, 0 };
+									}
+
+								break;
+							case(Selection::Ground):
+								bool found = false;
+								for (int i = 0; i < 15; i++)
+									for (int t = 0; t < 15; t++)
+										if (!found && mapp.tiles[i][t].square->InBounds(mouse.first, mouse.second))
+										{
+											found = true;
+											hovered = mapp.tiles[i][t].square;
+											if (mapp.tiles[i][t].availiable)
+												hovered->tint = SDL_Color{ 0,255,0 };
+											else
+												hovered->tint = SDL_Color{ 255,0,0 };
+										}
+
+								break;
+							}
 
 
+					}
+			}
+		}
+		else
+		{
+			for (auto& i : enemy)
+				if (i.busy)
+				{
+					i.Move(dTime);
+					scenebusy = true;
 				}
+			if (!scenebusy)
+			{
+				RunAi();
+			}
+
 		}
 	}
 	else
-	{
-		for(auto& i : enemy)
-			if (i.busy)
-			{
-				i.Move(dTime);
-				scenebusy = true;
-			}
-		if (!scenebusy)
-		{
-			RunAi();
-		}
+		fightScene -= (dTime/1000);
+	
 
-	}
 }
 
 void CombatScene::Load(std::vector<Character*> enemyTeam)
@@ -334,15 +394,25 @@ void CombatScene::Load(std::vector<Character*> enemyTeam)
 		
 	}
 }
+void PlayFightAnimation()
+{
+	fightSceneTeamCharacter->SetVisible(true);
+	fightSceneEnemyCharacter->SetVisible(true);
+	fightSceneBg->SetVisible(true);
+	fightScene = 5;
 
+
+}
 void CombatScene::Cast(std::pair<Card*, RenderObject*>* card)
 {
+	
 	target->object->Untint();
 	character->object->Untint();
 	if (CalculatePath(character->occupiedTile, target->occupiedTile).size() <= 1)
 	{
 		mgr->PlaySFX(slash_sfx,0, 1);
 		card->first->Cast(character->character, target->character);
+		character->character->GetStats().stamina.first -= 5;
 		mLayers[UI].erase(std::find(mLayers[UI].begin(), mLayers[UI].end(), card->second));
 		playerhand.erase(std::find_if(playerhand.begin(), playerhand.end(), [card](std::pair<Card*, RenderObject*> cd)
 
@@ -351,6 +421,7 @@ void CombatScene::Cast(std::pair<Card*, RenderObject*>* card)
 				return(card->first == cd.first);
 			})
 		);
+		PlayFightAnimation();
 		if (target->character->GetHealth() <= 0)
 			RemoveUnit(*target);
 	}
@@ -437,7 +508,22 @@ void CombatScene::RunAi()
 
 	}
 	if (!validAction)
+	{
+		for (int i = 0; i < playerhand.size(); ++i)
+		{
+			mLayers[UI].erase(std::find(mLayers[UI].begin(), mLayers[UI].end(), playerhand[i].second));
+			
+		}
+		playerhand.clear();
+		for (int i = 0; i < 5; i++)
+		{
+			playerhand.push_back(std::make_pair(new Card(5, "Slash", 1, "cardObj"), AddObject("cardObj", centre.first - 200 + 100 * i - 15, 650, UI)));
+			playerhand.back().second->scale = std::make_pair(0.4f, 0.4f);
+		}
 		playerTurn = true;
+	
+	}
+		
 }
 
 std::vector<tile*> CombatScene::CalculatePath(tile* start, tile* end)
@@ -504,3 +590,5 @@ std::vector<tile*> CombatScene::CalculatePath(tile* start, tile* end)
 
 	return path;
 }
+
+
