@@ -33,6 +33,7 @@ private:
 	UIText mShopGoldText;
 	Mix_Music* bg_Music;
 	Mix_Chunk* buySell_SFX;
+	RenderObject* pExitButton;
 	bool startOnce = false;
 
 	//Temp

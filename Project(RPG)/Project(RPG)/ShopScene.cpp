@@ -8,7 +8,6 @@ ShopScene::ShopScene(Interface* rng) : Scene(rng)
 {
 	bg_Music = Mix_LoadMUS("Assets/Music/MedievalLoop.mp3");
 	buySell_SFX = Mix_LoadWAV("Assets/SFX/coin.wav");
-
 	Mix_Volume(1, 5);
 
 	mShop.SetGold(2000);
@@ -26,6 +25,13 @@ void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 		startOnce = true;
 	}*/
 
+	if (act == Act::Click)
+	{
+		if (pExitButton->InBounds(mousePos.first, mousePos.second))
+		{
+			mgr->LoadPreviousScene();
+		}
+	}
 	ManagePlayerInventory(mgr->GetPlayer()->GetInventory(), act, mousePos);
 	ManageShopInventory(mShop.GetInventory(), act, mousePos);
 }
@@ -44,11 +50,10 @@ void ShopScene::Init()
 	AddObject("ShopBGObj", 1280 / 2, 720 / 2, Background);
 	AddObject("playerPortraitObj", 505, 225, UI); // This needs to load the player's portrait in the future - JP
 	AddObject("merchantPortraitObj", 725, 225, UI);
-
+	pExitButton = AddObject("exitButtonObj", 620, 600, UI);
 	
 	GenerateGrids();
 
-	
 	mPlayerGoldText.text = "Gold: " + std::to_string( mgr->GetPlayer()->GetGold());
 	mPlayerGoldText.pos = std::make_pair(520, 385);
 	mPlayerGoldText.textColor = SDL_Color{ 255, 215, 0 }; // Gold

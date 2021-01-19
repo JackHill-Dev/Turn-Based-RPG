@@ -72,7 +72,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"itemFrame", new SpriteSheet("Assets/Backgrounds/ItemFrame.png",85, 105, 85, 105, 1)},
 		{"characterFrame", new SpriteSheet("Assets/Backgrounds/CharacterFrame.png",228, 624, 228, 624, 1)},
 		{"sword", new SpriteSheet("Assets/Sprites/sword-art.png",160, 256, 32, 32, 40)},
-		{"armour", new SpriteSheet("Assets/Sprites/Items/armour.png",76, 72, 76, 72, 1)},
+		{"armour", new SpriteSheet("Assets/Sprites/armour.png",76, 72, 76, 72, 1)},
 		{"potion", new SpriteSheet("Assets/Sprites/potion.png",48, 48, 48, 48, 1)},
 		{"card", new SpriteSheet("Assets/Sprites/Card/CardTemplate.png",230, 322, 230, 322, 1)},
 		{"tile", new SpriteSheet("Assets/grass-tile.png", 32, 32, 32, 32, 1)},
@@ -84,7 +84,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"armyViewerButton", new SpriteSheet("Assets/Sprites/Buttons/Army_viewer_btn1.png", 200, 34, 200, 34, 1)},
 		{"inventoryButton", new SpriteSheet("Assets/Sprites/Buttons/inventoryBtn1.png", 200, 34, 200, 34, 1)},
 		{"menuButton", new SpriteSheet("Assets/Sprites/Buttons/MenuBtn1.png", 200, 34, 200, 34, 1)},
-		{"exitButton", new SpriteSheet("Assets/Sprites/MenuBtn1.png", 200, 55, 200, 55, 1)}
+		{"exitButton", new SpriteSheet("Assets/Sprites/Buttons/exitButton.png", 200, 55, 200, 55, 1)}
 	}
 };
 
