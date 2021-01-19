@@ -31,6 +31,7 @@ enum Scenes
 	Combat = 2,
 	Shops = 3,
 	Party = 4,
+	SettingsPage = 5,
 	NoSceneYet = 10 
 };
 

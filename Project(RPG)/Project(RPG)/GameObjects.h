@@ -96,9 +96,9 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"settingsOverlay", new SpriteSheet("Assets/Sprites/SettingsOverlay.png",	640, 480, 640, 480, 1)},
 		{"resCollapsed", new SpriteSheet("Assets/Sprites/Buttons/dropDown-01.png",	240, 32, 240, 32, 1)},
 		{"resUnCollapsed", new SpriteSheet("Assets/Sprites/Buttons/dropDown-02.png",	240, 96, 240, 96, 1)},
-		{"OptionsBackground", new SpriteSheet("Assets/Sprites/OptionsBackground.png",	240, 32, 240, 32, 1)},
+		{"OptionsBackground", new SpriteSheet("Assets/Sprites/Buttons/OptionsBackground.png",	240, 32, 240, 32, 1)},
 		{"ApplyBtn", new SpriteSheet("Assets/Sprites/Buttons/ApplyBtn.png",	128, 64, 128, 64, 1)},
-		{"checkBox", new SpriteSheet("Assets/Sprites/CheckBox.png",	128, 64, 64, 64, 2)}
+		{"checkBox", new SpriteSheet("Assets/Sprites/Buttons/CheckBox.png",	128, 64, 64, 64, 2)}
 
 	}
 };
