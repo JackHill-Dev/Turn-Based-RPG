@@ -3,6 +3,7 @@ Character charac{"maleObj", "WizardObj"};
 
 
 RenderObject* endTurn;
+RenderObject* pExit;
 bool playerTurn = false; // Is it the players turn
 RenderObject* hovered = nullptr;
 typedef CombatScene::tile tile;
@@ -25,7 +26,7 @@ map mapp;
 
 std::vector<Card*> deck;
 
-std::pair<double, double> centre = { 640,360};
+std::pair<double, double> centre = { 640,360 };
 enum Selection{Team,Enemy,Ground, UICard, Any};
 Selection current = Any;
 CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
@@ -34,7 +35,8 @@ CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 	slash_sfx = Mix_LoadWAV("Assets/SFX/slash.wav");
 
 	Mix_Volume(1, 15);
-	endTurn = AddObject("quitBtnObj", 500, 500, UI);
+	//endTurn = AddObject("quitBtnObj", 500, 500, UI);
+	pExit = AddObject("exitButtonObj", 600, 600, UI);
 	AddObject("forestBGObj", 640, 360, Background);
 	//reload = AddObject("quitBtnObj", 1100, 500, UI);
 	for (int i = 0; i < 15; i++)
@@ -92,7 +94,14 @@ CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 
 void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 {
-	
+	if (act == Act::Click)
+	{
+		if (pExit->InBounds(mouse.first, mouse.second))
+		{
+			mgr->LoadPreviousScene();
+		}
+	}
+
 	for (auto& i : team)
 		if (i.character->GetHealth() <= 0)
 			RemoveUnit(i);
