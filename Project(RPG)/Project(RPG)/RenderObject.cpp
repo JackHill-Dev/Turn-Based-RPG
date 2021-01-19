@@ -39,7 +39,7 @@ void RenderObject::SetAnim(std::string id)
 	mCurrentAnim = mSheet->GetAnim(id);
 }
 
-void RenderObject::SetPos(std::pair<int, int> nPos)
+void RenderObject::SetPos(std::pair<float, float> nPos)
 {
 	mPos = nPos;
 }
@@ -76,11 +76,11 @@ bool RenderObject::InBounds(int x, int y)
 	//return false if cant be selected
 	std::pair<float, float> bound = GetSheet()->GetCellSize();
 
-	bound.first = bound.first/2 *scale.first;
-	bound.second = bound.second/2*scale.second;
+	bound.first = bound.first / 2 * (scale.first * sceneScale.first);
+	bound.second = bound.second / 2 * (scale.second * sceneScale.second);
 	//float bound = GetSheet()->GetCellSize().first;
-	if (x > mPos.first - bound.first  && x < mPos.first + bound.first  )
-		return (y >= mPos.second  - bound.second  && y <= mPos.second + bound.second  );
+	if (x > mPos.first * sceneScale.first - bound.first && x < mPos.first * sceneScale.first + bound.first)
+		return (y >= mPos.second * sceneScale.second - bound.second && y <= mPos.second * sceneScale.second + bound.second);
 	else
 		return false;
 }

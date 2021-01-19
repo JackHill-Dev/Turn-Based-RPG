@@ -103,8 +103,13 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 			{
 				currentNode = node;
 				if(node->nodeScene != Scenes::NoSceneYet)
-				{				
-					mgr->LoadScene(node->nodeScene);
+				{	
+					if (node->nodeScene == Scenes::Combat)
+					{
+						mgr->LoadCombatScene({ new Character("maleObj", "portrait") });
+					}
+					else
+						mgr->LoadScene(node->nodeScene);
 				}
 				
 			}

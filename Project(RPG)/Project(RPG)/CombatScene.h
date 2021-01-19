@@ -108,5 +108,6 @@ private:
     std::vector<Character> chars{};
     std::vector<Card*> playerHand{};
 	std::vector<tile*> CalculatePath(tile* start, tile* end);
+	void RemoveCard(std::pair<Card*, RenderObject*>* cd);
 };
 

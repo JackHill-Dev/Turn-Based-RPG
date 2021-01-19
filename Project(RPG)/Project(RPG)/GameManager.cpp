@@ -96,7 +96,7 @@ void GameManager::Quit()
 }
 void GameManager::LoadScene()
 {
-	if (mCScene == 1)
+	if (mCScene == Scenes::Combat)
 	{
 		combatInstance.first->Load(combatInstance.second);
 	}
@@ -104,6 +104,7 @@ void GameManager::LoadScene()
 bool GameManager::CreateWindow()
 {
 	SDL_CreateWindowAndRenderer(mSettings.w, mSettings.h, 0, &mWnd, &mRnd);
+	SDL_SetWindowResizable(mWnd,SDL_TRUE);
 	SDL_ShowWindow(mWnd);
 	return true;
 }

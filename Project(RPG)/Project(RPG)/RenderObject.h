@@ -18,9 +18,10 @@ private:
 	SpriteSheet* mSheet;
 protected:
 	
-	std::pair<double, double> mPos;
+	std::pair<float, float> mPos;
 	Animation* mCurrentAnim;
 public:
+	std::pair<float, float> sceneScale = std::make_pair(1, 1);
 	std::pair<float, float> scale;
 	void Untint();
 	void Tint(SDL_Colour tkint);
@@ -34,7 +35,7 @@ public:
 	std::pair<int, int> GetPos();
 	std::pair<float, float> GetScale() { return scale; }
 	void SetAnim(std::string id);
-	void SetPos(std::pair<int, int> nPos);
+	void SetPos(std::pair<float, float> nPos);
 	void SetScale(std::pair<float, float> nScale) { scale = nScale; }
 	void SetTexture(SpriteSheet* nSheet);
 	void SetVisible(const bool vis);

@@ -51,7 +51,8 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"resUnCollapsedObj", new RenderObject("resUnCollapsed")},
 		{"OptionsBackgroundObj", new RenderObject("OptionsBackground")},
 		{"ApplyBtnObj", new RenderObject("ApplyBtn")},
-		{"checkBoxObj", new RenderObject("checkBox")}
+		{"checkBoxObj", new RenderObject("checkBox")},
+		{"forestFightSceneBg", new RenderObject("fightSceneForest")}
 
 	}
 };
@@ -59,7 +60,7 @@ const std::map<std::string,RenderObject*> definedObjects
 // Define sheets with an identifier, a sheet(Path, texture sizes(x,y), cell sizes(x,y) and cell count)
 const std::map<std::string, SpriteSheet*> definedSheets
 {
-	{
+	{	{"fightSceneForest", new SpriteSheet("Assets/ForestFight.png",700, 400, 700, 400, 12)},
 		{"male", new SpriteSheet("Assets/Sprites/Male/Male 01-1.png",96, 128, 32, 32, 12)},
 		{"startBtn", new SpriteSheet("Assets/Sprites/Buttons/StartBtn-02.png",128, 64, 128, 64, 12)},
 		{"quitBtn", new SpriteSheet("Assets/Sprites/Buttons/QuitBtn.png",128, 64, 128, 64, 12)},
@@ -83,7 +84,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"armour", new SpriteSheet("Assets/Sprites/Items/armour.png",76, 72, 76, 72, 1)},
 		{"potion", new SpriteSheet("Assets/Sprites/potion.png",48, 48, 48, 48, 1)},
 		{"card", new SpriteSheet("Assets/Sprites/Card/CardTemplate.png",230, 322, 230, 322, 1)},
-		{"tile", new SpriteSheet("Assets/grass-tile.png", 32, 32, 32, 32, 1)},
+		{"tile", new SpriteSheet("Assets/Portrait.png", 32, 32, 32, 32, 1)},
 		{"forestBG", new SpriteSheet("Assets/forestbackground.png",1280, 720, 1280, 720, 1)},
 		{"malePortrait", new SpriteSheet("Assets/Portrait.png",	357, 364, 357, 364, 1)},
 		{"barBg", new SpriteSheet("Assets/Sprites/Bar_Bg.png",	176, 32, 176, 32, 1)},
