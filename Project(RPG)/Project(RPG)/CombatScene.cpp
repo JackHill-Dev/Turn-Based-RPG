@@ -3,6 +3,7 @@ Character charac{"maleObj", "WizardObj"};
 
 double fightScene = 0;
 RenderObject* endTurn;
+RenderObject* pExit;
 bool playerTurn = false; // Is it the players turn
 RenderObject* hovered = nullptr;
 typedef CombatScene::tile tile;
@@ -28,7 +29,7 @@ map mapp;
 
 std::vector<Card*> deck;
 
-std::pair<double, double> centre = { 640,360};
+std::pair<double, double> centre = { 640,360 };
 enum Selection{Team,Enemy,Ground, UICard, Any};
 Selection current = Any;
 CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
@@ -53,6 +54,7 @@ CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 	Mix_Volume(1, 15);
 	endTurn = AddObject("quitBtnObj", 1000, 650, UI);
 	endTurn->scale = std::make_pair(1, 1);
+	//pExit = AddObject("exitButtonObj", 600, 600, UI);
 	AddObject("forestBGObj", 640, 360, Background);
 	//reload = AddObject("quitBtnObj", 1100, 500, UI);
 	for (int i = 0; i < 15; i++)
@@ -115,6 +117,13 @@ void RemoveCard(std::pair<Card*, RenderObject*>* cd)
 
 void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 {
+    if (act == Act::Click)
+	{
+		if (pExit->InBounds(mouse.first, mouse.second))
+		{
+			mgr->LoadPreviousScene();
+		}
+	}
 	if (fightScene <= 0)
 	{
 		fightSceneEnemyCharacter->SetVisible(false);
@@ -126,7 +135,6 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 		for (auto& i : enemy)
 			if (i.character->GetHealth() <= 0)
 				RemoveUnit(i);
-
 		bool scenebusy = false;
 		if (playerTurn)
 		{

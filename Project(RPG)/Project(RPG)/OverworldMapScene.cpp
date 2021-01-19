@@ -119,6 +119,10 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 		{
 			mgr->LoadScene(Scenes::Party);
 		}
+		if (pMenuButton->InBounds(mousePos.first, mousePos.second))
+		{
+			mgr->LoadScene(Scenes::SettingsPage);
+		}
 	}
 	if (act == Act::MouseUpdate)
 	{

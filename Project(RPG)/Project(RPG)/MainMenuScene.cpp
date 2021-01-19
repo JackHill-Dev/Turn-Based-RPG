@@ -24,7 +24,7 @@ void MainMenuScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 			mgr->Quit();
 		
 		if (settings->InBounds(mouse.first, mouse.second) && settings->IsActive())
-			mgr->LoadScene(5);
+			mgr->LoadScene(Scenes::SettingsPage);
 
 	}
 

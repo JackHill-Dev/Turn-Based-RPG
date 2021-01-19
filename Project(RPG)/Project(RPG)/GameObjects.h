@@ -81,7 +81,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"itemFrame", new SpriteSheet("Assets/Backgrounds/ItemFrame.png",85, 105, 85, 105, 1)},
 		{"characterFrame", new SpriteSheet("Assets/Backgrounds/CharacterFrame.png",228, 624, 228, 624, 1)},
 		{"sword", new SpriteSheet("Assets/Sprites/sword-art.png",160, 256, 32, 32, 40)},
-		{"armour", new SpriteSheet("Assets/Sprites/Items/armour.png",76, 72, 76, 72, 1)},
+		{"armour", new SpriteSheet("Assets/Sprites/armour.png",76, 72, 76, 72, 1)},
 		{"potion", new SpriteSheet("Assets/Sprites/potion.png",48, 48, 48, 48, 1)},
 		{"card", new SpriteSheet("Assets/Sprites/Card/CardTemplate.png",230, 322, 230, 322, 1)},
 		{"tile", new SpriteSheet("Assets/Portrait.png", 32, 32, 32, 32, 1)},
@@ -97,9 +97,9 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"settingsOverlay", new SpriteSheet("Assets/Sprites/SettingsOverlay.png",	640, 480, 640, 480, 1)},
 		{"resCollapsed", new SpriteSheet("Assets/Sprites/Buttons/dropDown-01.png",	240, 32, 240, 32, 1)},
 		{"resUnCollapsed", new SpriteSheet("Assets/Sprites/Buttons/dropDown-02.png",	240, 96, 240, 96, 1)},
-		{"OptionsBackground", new SpriteSheet("Assets/Sprites/OptionsBackground.png",	240, 32, 240, 32, 1)},
+		{"OptionsBackground", new SpriteSheet("Assets/Sprites/Buttons/OptionsBackground.png",	240, 32, 240, 32, 1)},
 		{"ApplyBtn", new SpriteSheet("Assets/Sprites/Buttons/ApplyBtn.png",	128, 64, 128, 64, 1)},
-		{"checkBox", new SpriteSheet("Assets/Sprites/CheckBox.png",	128, 64, 64, 64, 2)}
+		{"checkBox", new SpriteSheet("Assets/Sprites/Buttons/CheckBox.png",	128, 64, 64, 64, 2)}
 
 	}
 };
