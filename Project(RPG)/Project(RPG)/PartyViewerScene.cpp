@@ -54,7 +54,7 @@ void PartyViewerScene::GetCharacterPortraits()
 
 void PartyViewerScene::GetCharacterStatistics()
 {
-	int offsetX = 160;
+	int offsetX = 200;
 	int offsetY = 330;
 	for (Character* c  : mParty) 
 	{
