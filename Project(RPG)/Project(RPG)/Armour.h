@@ -4,6 +4,7 @@ class Armour :
     public Item
 {
 public:
+    Armour() {}
     Armour(std::string name, int cost);
 };
 

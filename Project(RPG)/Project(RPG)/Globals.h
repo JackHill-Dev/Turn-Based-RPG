@@ -9,10 +9,11 @@ const int layerNum = 4;
 
 enum Layer
 {
-	 Background = 0,
-	 Map = 1,
-	 Game = 2,
-	 UI = 3, 
+	Background = 0,
+	Map = 1,
+	Game = 2,
+	UI = 3,
+	Items = 4
 };
 
 enum class Act 

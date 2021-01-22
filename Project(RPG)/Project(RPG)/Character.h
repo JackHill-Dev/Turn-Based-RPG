@@ -1,7 +1,7 @@
 #pragma once
 #include "Globals.h"
 #include "RenderObject.h"
-
+#include "Inventory.h"
 struct Statistics
 {
 	std::pair<int, int> health = { 15,15 }; // max, current
@@ -15,6 +15,8 @@ class Character
 public:
 	int GetHealth();
 	Statistics& GetStats() { return mStats; }
+	Inventory& GetInventory(){ return mInventory; }
+	Character() {}
 	Character(std::string objectName, std::string portraitName);
 	~Character();
 	std::string GetPortraitName() { return mPortraitName; }
@@ -30,5 +32,7 @@ protected:
 	RenderObject* object;
 	
 	std::pair<double, double> target;
+private:
+	Inventory mInventory;
 };
 

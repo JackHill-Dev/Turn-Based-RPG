@@ -1,8 +1,6 @@
 #include "GameManager.h"
 #include "CombatScene.h"
-#include "ShopScene.h";
-#include "PartyViewerScene.h"
-#include "SettingsScene.h"
+
 #include "json.hpp"
 #include <fstream>;
 #include <istream>
@@ -100,6 +98,10 @@ void GameManager::LoadScene()
 	{
 		combatInstance.first->Load(combatInstance.second);
 	}
+	else if(mCScene == Scenes::Party)
+	{
+		partyViewerInstance->Load();
+	}
 }
 bool GameManager::CreateWindow()
 {
@@ -114,16 +116,16 @@ bool GameManager::Init()
 	CreateWindow();
 	mInterface.StoreWindow(mWnd);
 	SetUp();
-
-	mPlayer.SetGold(1000);
-	mPlayer.SetupParty({ new Character("maleObj", "WizardObj"), new Character("maleObj", "ClericObj"), new Character("maleObj", "RogueObj"), new Character("maleObj", "WarriorObj") });
+	SetupPlayer();
+	
 
 	scenes.push_back(new MainMenuScene(&mInterface));
     scenes.push_back(new OverworldMapScene(&mInterface));
 	combatInstance.first = new CombatScene(&mInterface);
 	scenes.push_back(combatInstance.first);
 	scenes.push_back(new ShopScene(&mInterface));
-	scenes.push_back(new PartyViewerScene(&mInterface));
+	partyViewerInstance = new PartyViewerScene(&mInterface);
+	scenes.push_back(partyViewerInstance);
 	scenes.push_back(new SettingsScene(&mInterface));
 
 	//LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
@@ -145,6 +147,18 @@ void GameManager::LoadSettings()
 
 	}
 	ifs.close();
+}
+
+void GameManager::SetupPlayer()
+{
+	mPlayer.SetGold(1000);
+	mArmour = Armour("armourObj", 100);
+	mPlayer.GetInventory().AddItem(&mArmour);
+
+	mWizard = Character("maleObj", "WizardObj");
+	mWarrior = Character("maleObj", "WarriorObj");
+
+	mPlayer.SetupParty({ &mWizard, new Character("maleObj", "ClericObj"), new Character("maleObj", "RogueObj"), &mWarrior });
 }
 
 bool GameManager::SetUp()

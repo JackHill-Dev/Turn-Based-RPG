@@ -139,6 +139,23 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 			
 		}
 		
+		if (act == Act::Click && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
+		{
+			if (!i->bPickedUp)
+				i->bPickedUp = true;
+			else
+				i->bPickedUp = false;
+		}
+
+		if (act == Act::MouseUpdate && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
+		{
+			if (i->bPickedUp)
+			{
+				i->GetRenderObject()->SetPos(std::make_pair(mousePos.first, mousePos.second));
+			}
+
+		}
+
 		if (act == Act::RClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
 			if (!(mShop.GetGold() < i->GetCost())) // Can only sell to the shop if the shop can give you the moeny for the item

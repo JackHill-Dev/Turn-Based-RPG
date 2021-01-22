@@ -11,7 +11,7 @@ struct InvPos
 class Item
 {
 public:
-	Item() = delete;
+	Item() {}
 	Item(std::string name, int cost);
 	~Item();
 	std::string GetName() const;
@@ -23,7 +23,7 @@ public:
 
 	void OnHover();
 	void OnLeave();
-
+	bool bPickedUp = false;
 	InvPos inventoryPos;
 protected:
 	std::string mName;
