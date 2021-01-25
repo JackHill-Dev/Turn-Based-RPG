@@ -2,6 +2,7 @@
 #include "Globals.h"
 #include "RenderObject.h"
 #include "Inventory.h"
+#include "Armour.h"
 struct Statistics
 {
 	std::pair<int, int> health = { 15,15 }; // max, current
@@ -9,6 +10,11 @@ struct Statistics
 	std::pair<int, int> agility = { 10,10 };
 	std::pair<int, int> stamina = { 10,10 };
 	std::pair<int, int> movement = { 5,5 };
+};
+struct EquipSlot
+{
+	RenderObject* slotObj = nullptr;
+	Armour* _item = nullptr;
 };
 class Character
 {
@@ -21,10 +27,11 @@ public:
 	~Character();
 	std::string GetPortraitName() { return mPortraitName; }
 	std::string GetObjName() { return objectName; };
+	void SetArmour(Armour* armour) { ArmourEquipSlot._item = armour; }
 	
 	bool ModHealth(int mod);
 	bool moving = false;
-	
+	EquipSlot ArmourEquipSlot;
 protected:
 	Statistics mStats;
 	std::string mPortraitName;
@@ -34,5 +41,6 @@ protected:
 	std::pair<double, double> target;
 private:
 	Inventory mInventory;
+
 };
 

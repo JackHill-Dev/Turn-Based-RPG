@@ -12,10 +12,10 @@ struct CharacterCard
 
 struct ItemObject
 {
-	Item* ittem;
+	Item* _item;
 	RenderObject* obj;
 
-	ItemObject(Item* i, RenderObject* r) : ittem(i), obj(r) {}
+	ItemObject(Item* i, RenderObject* r) : _item(i), obj(r) {}
 };
 
 class PartyViewerScene :
@@ -39,6 +39,7 @@ private:
 
 	// Temp
 	std::vector<RenderObject*> playerInvGrid;
+	RenderObject* armourEquipSlot;
 
 };
 

@@ -152,7 +152,7 @@ void GameManager::LoadSettings()
 void GameManager::SetupPlayer()
 {
 	mPlayer.SetGold(1000);
-	mArmour = Armour("armourObj", 100);
+	mArmour = Armour("armourObj", 100, 20);
 	mPlayer.GetInventory().AddItem(&mArmour);
 
 	mWizard = Character("maleObj", "WizardObj");

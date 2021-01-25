@@ -27,9 +27,19 @@ void PartyViewerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 			{
 				i.obj->bPickedUp = true; // Pickup the item
 			}
-			else
+			else if(i.obj->bPickedUp)
 			{
 				i.obj->bPickedUp = false; // Dropped the item
+				for (auto c : mParty)
+				{
+					if (i.obj->InBounds(c->ArmourEquipSlot.slotObj->GetPos().first, c->ArmourEquipSlot.slotObj->GetPos().second))
+					{
+						// if type armour
+							c->SetArmour(static_cast<Armour*>(i._item));
+						// else
+							// Play incorrect sound effect or display msg on screen
+					}
+				}
 				// Check if what is under the item is an item frame
 					//and if so set the items pos to the same as the item frame
 					// then check which character's equipment slot it is and then assign them that piece of equipment
@@ -67,9 +77,6 @@ void PartyViewerScene::Init()
 	playerInvGrid = DrawGrid(4, 5, 300, 450, 160);
 	Load();
 
-	// Equipment slots
-	DrawGrid(1, 3, 100, 100, 32);
-	DrawGrid(1, 3, 390, 100, 32);
 
 
 }
@@ -93,7 +100,8 @@ void PartyViewerScene::GetCharacterPortraits()
 	// Get all party memebers from player
 	for (Character* c : mParty)
 	{
-		RenderObject& obj = *AddObject(c->GetPortraitName(), offsetX, 180, UI); // Get all of their portrait render objects and add them to the scene
+		AddObject(c->GetPortraitName(), offsetX, 180, UI); // Get all of their portrait render objects and add them to the scene
+		c->ArmourEquipSlot.slotObj = AddObject("itemFrameObj", offsetX - 100, 150, UI);
 		offsetX += 250;							
 	}
 	offsetX = 250;
