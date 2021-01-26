@@ -18,6 +18,23 @@ int Character::GetHealth()
 	return mStats.health.first;
 }
 
+void Character::UpdateCharacter()
+{
+	if (ArmourEquipSlot._item == nullptr)
+	{
+		mStats.movement = std::make_pair(5, 5);
+		mStats.health = std::make_pair(15, 15);
+	}
+	Armour* armour = static_cast<Armour*>(ArmourEquipSlot._item);
+	if(ArmourEquipSlot._item != nullptr)
+	{
+			mStats.movement = std::make_pair(4, 4);
+			mStats.health.first += armour->defence;
+			mStats.health.second += armour->defence;
+	}
+			
+}
+
 bool Character::ModHealth(int mod)
 {
 	mStats.health.first -= mod;

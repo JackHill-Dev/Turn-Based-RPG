@@ -29,15 +29,29 @@ void PartyViewerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 			}
 			else if(i.obj->bPickedUp)
 			{
-				i.obj->bPickedUp = false; // Dropped the item
+				
 				for (auto c : mParty)
 				{
 					if (i.obj->InBounds(c->ArmourEquipSlot.slotObj->GetPos().first, c->ArmourEquipSlot.slotObj->GetPos().second))
 					{
 						// if type armour
+						if (i._item->GetType() == ARMOUR)
+						{
+							i.obj->bPickedUp = false; // Dropped the item
 							c->SetArmour(static_cast<Armour*>(i._item));
-						// else
-							// Play incorrect sound effect or display msg on screen
+							c->UpdateCharacter();
+						}
+						else
+						{
+						
+							std::cout << "Item not of type armour!";
+						}
+
+					}
+					else
+					{
+						c->SetArmour(nullptr);
+						c->UpdateCharacter();
 					}
 				}
 				// Check if what is under the item is an item frame

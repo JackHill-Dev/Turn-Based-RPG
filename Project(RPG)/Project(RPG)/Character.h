@@ -14,7 +14,7 @@ struct Statistics
 struct EquipSlot
 {
 	RenderObject* slotObj = nullptr;
-	Armour* _item = nullptr;
+	Item* _item = nullptr;
 };
 class Character
 {
@@ -28,7 +28,7 @@ public:
 	std::string GetPortraitName() { return mPortraitName; }
 	std::string GetObjName() { return objectName; };
 	void SetArmour(Armour* armour) { ArmourEquipSlot._item = armour; }
-	
+	void UpdateCharacter();
 	bool ModHealth(int mod);
 	bool moving = false;
 	EquipSlot ArmourEquipSlot;
