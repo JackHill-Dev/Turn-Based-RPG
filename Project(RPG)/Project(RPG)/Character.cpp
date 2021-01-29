@@ -18,6 +18,12 @@ int Character::GetHealth()
 	return mStats.health.first;
 }
 
+void Character::SetArmour(Armour* armour)
+{
+	ArmourEquipSlot._item = armour;
+
+}
+
 void Character::UpdateCharacter()
 {
 	if (ArmourEquipSlot._item == nullptr)

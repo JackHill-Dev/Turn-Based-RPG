@@ -20,46 +20,50 @@ void PartyViewerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 	
 	for (auto i : itemObjects)
 	{
-		
 		if (act == Act::Click && i.obj->InBounds(mousePos.first, mousePos.second))
 		{
-			if (!i.obj->bPickedUp)
+			if (i.obj->bPickedUp)
 			{
-				i.obj->bPickedUp = true; // Pickup the item
-			}
-			else if(i.obj->bPickedUp)
-			{
-				
 				for (auto c : mParty)
 				{
-					if (i.obj->InBounds(c->ArmourEquipSlot.slotObj->GetPos().first, c->ArmourEquipSlot.slotObj->GetPos().second))
+					// Check if what is under the item is an item frame
+					if (i.obj->InBounds(c->ArmourEquipSlot.slotObj->GetPos().first, c->ArmourEquipSlot.slotObj->GetPos().second) )
 					{
 						// if type armour
-						if (i._item->GetType() == ARMOUR)
+						if (i._item->GetType() == ARMOUR ) // Getting called twice and don't know why
 						{
-							i.obj->bPickedUp = false; // Dropped the item
-							c->SetArmour(static_cast<Armour*>(i._item));
-							c->UpdateCharacter();
+							if (!i._item->bEquipped)
+							{
+								c->SetArmour(static_cast<Armour*>(i._item)); // then check which character's equipment slot it is and then assign them that piece of equipment
+								c->UpdateCharacter();
+								i._item->bEquipped = true;
+								i.obj->bPickedUp = false; // Dropped the item
+							}
 						}
-						else
-						{
 						
-							std::cout << "Item not of type armour!";
-						}
 
 					}
 					else
+					{
+
+						i.obj->bPickedUp = false;
+						
+					}
+
+					if (!i._item->bEquipped)
 					{
 						c->SetArmour(nullptr);
 						c->UpdateCharacter();
 					}
 				}
-				// Check if what is under the item is an item frame
-					//and if so set the items pos to the same as the item frame
-					// then check which character's equipment slot it is and then assign them that piece of equipment
-				
 			
 			}
+			else
+			{
+				i.obj->bPickedUp = true; // Pickup the item
+				i._item->bEquipped = false; // Make sure the item isn't equipped by a character
+			}
+
 
 		}
 
@@ -68,6 +72,7 @@ void PartyViewerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 			if (i.obj->bPickedUp)
 			{
 				i.obj->SetPos(std::make_pair(mousePos.first, mousePos.second));
+				
 				
 			}
 		}
@@ -115,7 +120,7 @@ void PartyViewerScene::GetCharacterPortraits()
 	for (Character* c : mParty)
 	{
 		AddObject(c->GetPortraitName(), offsetX, 180, UI); // Get all of their portrait render objects and add them to the scene
-		c->ArmourEquipSlot.slotObj = AddObject("itemFrameObj", offsetX - 100, 150, UI);
+		c->ArmourEquipSlot.slotObj = AddObject("itemFrameObj", offsetX - 160, 150, Background);
 		offsetX += 250;							
 	}
 	offsetX = 250;

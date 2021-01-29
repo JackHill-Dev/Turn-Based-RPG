@@ -21,13 +21,12 @@ class Character
 public:
 	int GetHealth();
 	Statistics& GetStats() { return mStats; }
-	Inventory& GetInventory(){ return mInventory; }
 	Character() {}
 	Character(std::string objectName, std::string portraitName);
 	~Character();
 	std::string GetPortraitName() { return mPortraitName; }
 	std::string GetObjName() { return objectName; };
-	void SetArmour(Armour* armour) { ArmourEquipSlot._item = armour; }
+	void SetArmour(Armour* armour);
 	void UpdateCharacter();
 	bool ModHealth(int mod);
 	bool moving = false;
@@ -40,7 +39,7 @@ protected:
 	
 	std::pair<double, double> target;
 private:
-	Inventory mInventory;
+
 
 };
 

@@ -22,6 +22,7 @@ enum class Act
 	Jump, 
 	Click,
 	RClick,
+	MouseUp,
 	MouseUpdate
 };
 

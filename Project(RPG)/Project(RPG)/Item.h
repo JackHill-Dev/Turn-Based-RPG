@@ -30,6 +30,7 @@ public:
 	void OnHover();
 	void OnLeave();
 	bool bPickedUp = false;
+	bool bEquipped = false;
 	InvPos inventoryPos;
 protected:
 	std::string mName;

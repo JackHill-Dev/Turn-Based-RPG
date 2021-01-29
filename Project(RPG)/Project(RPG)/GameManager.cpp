@@ -43,7 +43,8 @@ void GameManager::Run()
 				switch (ev.type)
 				{
 				case SDL_KEYUP:
-
+					if (ev.button.button == SDL_BUTTON_LEFT)
+						act = Act::MouseUp;
 
 
 					break;
