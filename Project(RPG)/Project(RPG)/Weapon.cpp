@@ -2,7 +2,7 @@
 
 Weapon::Weapon(std::string name, int cost) : Item(name, cost)
 {
-	mType == WEAPON;
+	mType = WEAPON;
 	SetObjName("swordObj");
 }
 

@@ -3,6 +3,7 @@
 #include "RenderObject.h"
 #include "Inventory.h"
 #include "Armour.h"
+#include "Weapon.h"
 struct Statistics
 {
 	std::pair<int, int> health = { 15,15 }; // max, current
@@ -27,10 +28,12 @@ public:
 	std::string GetPortraitName() { return mPortraitName; }
 	std::string GetObjName() { return objectName; };
 	void SetArmour(Armour* armour);
+	void SetWeapon(Weapon* weapon);
 	void UpdateCharacter();
 	bool ModHealth(int mod);
 	bool moving = false;
 	EquipSlot ArmourEquipSlot;
+	EquipSlot mWeaponEquipSlot;
 protected:
 	Statistics mStats;
 	std::string mPortraitName;

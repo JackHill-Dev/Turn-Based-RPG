@@ -26,34 +26,25 @@ void PartyViewerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 			{
 				for (auto c : mParty)
 				{
-					// Check if what is under the item is an item frame
-					if (i.obj->InBounds(c->ArmourEquipSlot.slotObj->GetPos().first, c->ArmourEquipSlot.slotObj->GetPos().second) )
-					{
-						// if type armour
-						if (i._item->GetType() == ARMOUR ) // Getting called twice and don't know why
-						{
-							if (!i._item->bEquipped)
-							{
-								c->SetArmour(static_cast<Armour*>(i._item)); // then check which character's equipment slot it is and then assign them that piece of equipment
-								c->UpdateCharacter();
-								i._item->bEquipped = true;
-								i.obj->bPickedUp = false; // Dropped the item
-							}
-						}
-						
-
-					}
-					else
-					{
-
-						i.obj->bPickedUp = false;
-						
-					}
+					HandleArmourEquip(i, *c);
+					HandleWeaponEquip(i, *c);
 
 					if (!i._item->bEquipped)
 					{
-						c->SetArmour(nullptr);
-						c->UpdateCharacter();
+						switch (i._item->GetType())
+						{
+						case ItemType::ARMOUR:
+							c->SetArmour(nullptr);
+							c->UpdateCharacter();
+							break;
+						case ItemType::WEAPON:
+							 c->SetWeapon(nullptr);
+							 c->UpdateCharacter();
+						default:
+							std::cout << "\nUnknown item type";
+							break;
+						}
+					
 					}
 				}
 			
@@ -121,6 +112,7 @@ void PartyViewerScene::GetCharacterPortraits()
 	{
 		AddObject(c->GetPortraitName(), offsetX, 180, UI); // Get all of their portrait render objects and add them to the scene
 		c->ArmourEquipSlot.slotObj = AddObject("itemFrameObj", offsetX - 160, 150, Background);
+		c->mWeaponEquipSlot.slotObj = AddObject("itemFrameObj", offsetX - 160, 260, Background);
 		offsetX += 250;							
 	}
 	offsetX = 250;
@@ -162,6 +154,56 @@ void PartyViewerScene::GetCharacterStatistics()
 
 		offsetX += 250;
 		offsetY = 330;
+	}
+}
+
+void PartyViewerScene::HandleArmourEquip(ItemObject& i, Character& c)
+{
+	// Check if what is under the item is an item frame
+	if (i.obj->InBounds(c.ArmourEquipSlot.slotObj->GetPos().first, c.ArmourEquipSlot.slotObj->GetPos().second) && c.ArmourEquipSlot._item == nullptr)
+	{
+		// if type armour
+		if (i._item->GetType() == ARMOUR) // Getting called twice and don't know why
+		{
+			if (!i._item->bEquipped)
+			{
+				c.SetArmour(static_cast<Armour*>(i._item)); // then check which character's equipment slot it is and then assign them that piece of equipment
+				//c.UpdateCharacter();
+				i._item->bEquipped = true;
+				i.obj->bPickedUp = false; // Dropped the item
+			}
+
+		}
+
+	}
+	else
+	{
+		i.obj->bPickedUp = false;
+	}
+}
+
+void PartyViewerScene::HandleWeaponEquip(ItemObject& i, Character& c)
+{
+	// Check if what is under the item is an item frame
+	if (i.obj->InBounds(c.mWeaponEquipSlot.slotObj->GetPos().first, c.mWeaponEquipSlot.slotObj->GetPos().second) && c.mWeaponEquipSlot._item == nullptr)
+	{
+		// if type weapon
+		if (i._item->GetType() == WEAPON) // Getting called twice and don't know why
+		{
+			if (!i._item->bEquipped)
+			{
+				c.SetWeapon(static_cast<Weapon*>(i._item)); // then check which character's equipment slot it is and then assign them that piece of equipment
+				//c.UpdateCharacter();
+				i._item->bEquipped = true;
+				i.obj->bPickedUp = false; // Dropped the item
+			}
+
+		}
+
+	}
+	else
+	{
+		i.obj->bPickedUp = false;
 	}
 }
 

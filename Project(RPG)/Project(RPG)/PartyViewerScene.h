@@ -33,13 +33,16 @@ private:
 
 	void GetCharacterPortraits();
 	void GetCharacterStatistics();
+	void HandleArmourEquip(ItemObject& i, Character& c);
+	void HandleWeaponEquip(ItemObject& i, Character& c);
+
 	std::vector<RenderObject*> DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY, int gridBoundsX);
 	UIText DrawStat(std::string statName, int stat, SDL_Color textColor, std::pair<int,int> pos);
 	std::vector<Character*> mParty;
 
 	// Temp
 	std::vector<RenderObject*> playerInvGrid;
-	RenderObject* armourEquipSlot;
+	//RenderObject* armourEquipSlot;
 
 };
 
