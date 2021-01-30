@@ -15,12 +15,14 @@
 #include "CombatScene.h"
 #include "Consumable.h"
 #include "Armour.h"
+#include "InventoryScene.h"
 class GameManager
 {
 private:
 	//std::vector<Character*> player{ new Character("maleObj") };
 	std::pair<CombatScene*, std::vector<Character*>> combatInstance;
 	PartyViewerScene* partyViewerInstance;
+	InventoryScene* mInventorySceneInstance;
 	bool bRunning= true;
 	int mCScene = 0;
 	SDL_Window* mWnd;
@@ -30,8 +32,6 @@ private:
 	Player mPlayer;
 	std::map<std::string, RenderObject*> objects; // This is where the RenderObject types are stored 
 	std::map<std::string, SpriteSheet*> sheets; // This is where the spritesheets are stored
-	//Interface mInterface{&bRunning, &objects, &mPlayer,&mCScene };
-
 
 	Interface mInterface{&bRunning, &objects,&mCScene, &combatInstance.second, &mPlayer, &mSettings};
 

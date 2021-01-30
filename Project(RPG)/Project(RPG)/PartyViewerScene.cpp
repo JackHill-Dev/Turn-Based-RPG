@@ -18,63 +18,60 @@ void PartyViewerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 		mgr->LoadPreviousScene(); 	// Go to previous scene that opened the party viewer
 
 	
-	for (auto i : itemObjects)
-	{
-		if (act == Act::Click && i.obj->InBounds(mousePos.first, mousePos.second))
-		{
-			if (i.obj->bPickedUp)
-			{
-				for (auto c : mParty)
-				{
-					HandleArmourEquip(i, *c);
-					HandleWeaponEquip(i, *c);
+	//for (auto i : itemObjects)
+	//{
+	//	if (act == Act::Click && i.obj->InBounds(mousePos.first, mousePos.second))
+	//	{
+	//		if (i.obj->bPickedUp)
+	//		{
+	//			for (auto c : mParty)
+	//			{
+	//				HandleArmourEquip(i, *c);
+	//				HandleWeaponEquip(i, *c);
 
-					if (!i._item->bEquipped)
-					{
-						switch (i._item->GetType())
-						{
-						case ItemType::ARMOUR:
-							c->SetArmour(nullptr);
-							c->UpdateCharacter();
-							break;
-						case ItemType::WEAPON:
-							 c->SetWeapon(nullptr);
-							 c->UpdateCharacter();
-						default:
-							std::cout << "\nUnknown item type";
-							break;
-						}
-					
-					}
-				}
-			
-			}
-			else
-			{
-				i.obj->bPickedUp = true; // Pickup the item
-				i._item->bEquipped = false; // Make sure the item isn't equipped by a character
-			}
-
-
-		}
-
-		if (act == Act::MouseUpdate && i.obj->InBounds(mousePos.first, mousePos.second))
-		{
-			if (i.obj->bPickedUp)
-			{
-				i.obj->SetPos(std::make_pair(mousePos.first, mousePos.second));
-				
-				
-			}
-		}
-	}
+	//				if (!i._item->bEquipped)
+	//				{
+	//					switch (i._item->GetType())
+	//					{
+	//					case ItemType::ARMOUR:
+	//						c->SetArmour(nullptr);
+	//						c->UpdateCharacter();
+	//						break;
+	//					case ItemType::WEAPON:
+	//						 c->SetWeapon(nullptr);
+	//						 c->UpdateCharacter();
+	//					default:
+	//						std::cout << "\nUnknown item type";
+	//						break;
+	//					}
+	//				
+	//				}
+	//			}
+	//		
+	//		}
+	//		else
+	//		{
+	//			i.obj->bPickedUp = true; // Pickup the item
+	//			i._item->bEquipped = false; // Make sure the item isn't equipped by a character
+	//		}
 
 
+	//	}
+
+	//	if (act == Act::MouseUpdate && i.obj->InBounds(mousePos.first, mousePos.second))
+	//	{
+	//		if (i.obj->bPickedUp)
+	//		{
+	//			i.obj->SetPos(std::make_pair(mousePos.first, mousePos.second));
+	//			
+	//			
+	//		}
+	//	}
 	mSceneText.clear();
-	
-	GetCharacterStatistics();
 
+	GetCharacterStatistics();
 }
+
 
 void PartyViewerScene::Init()
 {
@@ -84,8 +81,8 @@ void PartyViewerScene::Init()
 	GetCharacterStatistics();
 
 	// Player inventory
-	playerInvGrid = DrawGrid(4, 5, 300, 450, 160);
-	Load();
+//	playerInvGrid = DrawGrid(4, 5, 300, 450, 160);
+//	Load();
 
 
 
@@ -93,13 +90,14 @@ void PartyViewerScene::Init()
 
 void PartyViewerScene::Load()
 {
-	mLayers[Game].clear();
+	mParty = mgr->GetPlayer()->GetParty();
+	/*mLayers[Game].clear();
 	int i = 0;
 	for (Item* item : mgr->GetPlayer()->GetInventory().GetContents())
 	{
 		itemObjects.push_back(ItemObject(item, AddObject(item->GetObjName(), playerInvGrid[i]->GetPos().first, playerInvGrid[i]->GetPos().second, Game)));
 		++i;
-	}
+	}*/
 
 }
 
@@ -111,8 +109,6 @@ void PartyViewerScene::GetCharacterPortraits()
 	for (Character* c : mParty)
 	{
 		AddObject(c->GetPortraitName(), offsetX, 180, UI); // Get all of their portrait render objects and add them to the scene
-		c->ArmourEquipSlot.slotObj = AddObject("itemFrameObj", offsetX - 160, 150, Background);
-		c->mWeaponEquipSlot.slotObj = AddObject("itemFrameObj", offsetX - 160, 260, Background);
 		offsetX += 250;							
 	}
 	offsetX = 250;
@@ -157,55 +153,51 @@ void PartyViewerScene::GetCharacterStatistics()
 	}
 }
 
-void PartyViewerScene::HandleArmourEquip(ItemObject& i, Character& c)
-{
-	// Check if what is under the item is an item frame
-	if (i.obj->InBounds(c.ArmourEquipSlot.slotObj->GetPos().first, c.ArmourEquipSlot.slotObj->GetPos().second) && c.ArmourEquipSlot._item == nullptr)
-	{
-		// if type armour
-		if (i._item->GetType() == ARMOUR) // Getting called twice and don't know why
-		{
-			if (!i._item->bEquipped)
-			{
-				c.SetArmour(static_cast<Armour*>(i._item)); // then check which character's equipment slot it is and then assign them that piece of equipment
-				//c.UpdateCharacter();
-				i._item->bEquipped = true;
-				i.obj->bPickedUp = false; // Dropped the item
-			}
+//void PartyViewerScene::HandleArmourEquip(ItemObject& i, Character& c)
+//{
+//	// Check if what is under the item is an item frame
+//	if (i.obj->InBounds(c.ArmourEquipSlot.slotObj->GetPos().first, c.ArmourEquipSlot.slotObj->GetPos().second) && c.ArmourEquipSlot._item == nullptr)
+//	{
+//		// if type armour
+//		if (i._item->GetType() == ARMOUR) // Getting called twice and don't know why
+//		{
+//			if (!i._item->bEquipped)
+//			{
+//				c.SetArmour(static_cast<Armour*>(i._item)); // then check which character's equipment slot it is and then assign them that piece of equipment
+//				i._item->bEquipped = true;
+//				i.obj->bPickedUp = false; // Dropped the item
+//			}
+//
+//		}
+//
+//	}
+//	else
+//	{
+//		i.obj->bPickedUp = false;
+//	}
+//}
 
-		}
-
-	}
-	else
-	{
-		i.obj->bPickedUp = false;
-	}
-}
-
-void PartyViewerScene::HandleWeaponEquip(ItemObject& i, Character& c)
-{
-	// Check if what is under the item is an item frame
-	if (i.obj->InBounds(c.mWeaponEquipSlot.slotObj->GetPos().first, c.mWeaponEquipSlot.slotObj->GetPos().second) && c.mWeaponEquipSlot._item == nullptr)
-	{
-		// if type weapon
-		if (i._item->GetType() == WEAPON) // Getting called twice and don't know why
-		{
-			if (!i._item->bEquipped)
-			{
-				c.SetWeapon(static_cast<Weapon*>(i._item)); // then check which character's equipment slot it is and then assign them that piece of equipment
-				//c.UpdateCharacter();
-				i._item->bEquipped = true;
-				i.obj->bPickedUp = false; // Dropped the item
-			}
-
-		}
-
-	}
-	else
-	{
-		i.obj->bPickedUp = false;
-	}
-}
+//void PartyViewerScene::HandleWeaponEquip(ItemObject& i, Character& c)
+//{
+//	// Check if what is under the item is an item frame
+//	if (i.obj->InBounds(c.mWeaponEquipSlot.slotObj->GetPos().first, c.mWeaponEquipSlot.slotObj->GetPos().second) && c.mWeaponEquipSlot._item == nullptr)
+//	{
+//		// if type weapon
+//		if (i._item->GetType() == WEAPON) // Getting called twice and don't know why
+//		{
+//			if (!i._item->bEquipped)
+//			{
+//				c.SetWeapon(static_cast<Weapon*>(i._item)); // then check which character's equipment slot it is and then assign them that piece of equipment
+//				i._item->bEquipped = true; // Equipped item 
+//				i.obj->bPickedUp = false; // Dropped the item
+//			}
+//		}
+//	}
+//	else
+//	{
+//		i.obj->bPickedUp = false;
+//	}
+//}
 
 UIText PartyViewerScene::DrawStat(std::string statName, int stat, SDL_Color textColor, std::pair<int, int> pos)
 {
@@ -213,22 +205,22 @@ UIText PartyViewerScene::DrawStat(std::string statName, int stat, SDL_Color text
 	return UIText{statTxt, pos,std::make_pair(70,50), textColor};
 }
 
-std::vector<RenderObject*> PartyViewerScene::DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY, int gridBoundsX)
-{
-	std::vector<RenderObject*> objs;
-	int cellAmount = gridWidth * gridHeight;
-	int initialX = offsetX;
-	for (int i = 0; i < cellAmount; ++i)
-	{
-		if (offsetX >= gridBoundsX + initialX)
-		{
-			offsetX = initialX;
-			offsetY += 60;
-		}
-		RenderObject* temp = AddObject("itemFrameObj", offsetX, offsetY, Background);
-		temp->SetScale(std::make_pair(0.5,0.5));
-		objs.push_back(temp);
-		offsetX += 50;
-	}
-	return objs;
-}
+//std::vector<RenderObject*> PartyViewerScene::DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY, int gridBoundsX)
+//{
+//	std::vector<RenderObject*> objs;
+//	int cellAmount = gridWidth * gridHeight;
+//	int initialX = offsetX;
+//	for (int i = 0; i < cellAmount; ++i)
+//	{
+//		if (offsetX >= gridBoundsX + initialX)
+//		{
+//			offsetX = initialX;
+//			offsetY += 60;
+//		}
+//		RenderObject* temp = AddObject("itemFrameObj", offsetX, offsetY, Background);
+//		temp->SetScale(std::make_pair(0.5,0.5));
+//		objs.push_back(temp);
+//		offsetX += 50;
+//	}
+//	return objs;
+//}

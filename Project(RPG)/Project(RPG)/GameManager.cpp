@@ -103,6 +103,10 @@ void GameManager::LoadScene()
 	{
 		partyViewerInstance->Load();
 	}
+	else if(mCScene == 6) // Inventory Scene
+	{
+		mInventorySceneInstance->Load();
+	}
 }
 bool GameManager::CreateWindow()
 {
@@ -128,6 +132,8 @@ bool GameManager::Init()
 	partyViewerInstance = new PartyViewerScene(&mInterface);
 	scenes.push_back(partyViewerInstance);
 	scenes.push_back(new SettingsScene(&mInterface));
+	mInventorySceneInstance = new InventoryScene(&mInterface);
+	scenes.push_back(mInventorySceneInstance);
 
 	//LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
 	currentScene->Clear(mRnd);
