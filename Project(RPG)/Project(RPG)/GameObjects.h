@@ -11,7 +11,7 @@
 const std::map<std::string,RenderObject*> definedObjects
 {
 	{
-		{"maleObj",new RenderObject("male")},
+		{"femaleObj",new RenderObject("female")},
 		{"playerPortraitObj",new RenderObject("playerPortrait")},
 		{"merchantPortraitObj",new RenderObject("merchantPortrait")},
 		{"WizardObj",new RenderObject("wizard")},
@@ -51,8 +51,11 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"OptionsBackgroundObj", new RenderObject("OptionsBackground")},
 		{"ApplyBtnObj", new RenderObject("ApplyBtn")},
 		{"checkBoxObj", new RenderObject("checkBox")},
-		{"forestFightSceneBg", new RenderObject("fightSceneForest")}
-
+		{"forestFightSceneBg", new RenderObject("fightSceneForest")},
+		{"warSprObj",new RenderObject("warSpr")},
+		{"rogSprObj",new RenderObject("rogSpr")},
+		{"mageSprObj",new RenderObject("mageSpr")},
+		{"backBtnObj", new RenderObject("backBtn")}
 	}
 };
 
@@ -60,7 +63,8 @@ const std::map<std::string,RenderObject*> definedObjects
 const std::map<std::string, SpriteSheet*> definedSheets
 {
 	{	{"fightSceneForest", new SpriteSheet("Assets/ForestFight.png",700, 400, 700, 400, 12)},
-		{"male", new SpriteSheet("Assets/Sprites/Male/Male 01-1.png",96, 128, 32, 32, 12)},
+		{"male", new SpriteSheet("Assets/Sprites/Male 01-1.png",96, 128, 32, 32, 12)},
+		{"female", new SpriteSheet("Assets/Sprites/Female 01.1.png", 96, 128, 32, 32, 12)},
 		{"startBtn", new SpriteSheet("Assets/Sprites/Buttons/StartBtn-02.png",128, 64, 128, 64, 12)},
 		{"quitBtn", new SpriteSheet("Assets/Sprites/Buttons/QuitBtn.png",128, 64, 128, 64, 12)},
 		{"closeBtn", new SpriteSheet("Assets/Sprites/Buttons/CloseBtn2.png",32, 32, 32, 32, 1)},
@@ -98,8 +102,12 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"resUnCollapsed", new SpriteSheet("Assets/Sprites/Buttons/dropDown-02.png",	240, 96, 240, 96, 1)},
 		{"OptionsBackground", new SpriteSheet("Assets/Sprites/Buttons/OptionsBackground.png",	240, 32, 240, 32, 1)},
 		{"ApplyBtn", new SpriteSheet("Assets/Sprites/Buttons/ApplyBtn.png",	128, 64, 128, 64, 1)},
-		{"checkBox", new SpriteSheet("Assets/Sprites/Buttons/CheckBox.png",	128, 64, 64, 64, 2)}
-
+		{"checkBox", new SpriteSheet("Assets/Sprites/Buttons/CheckBox.png",	128, 64, 64, 64, 2)},
+		{"warSpr", new SpriteSheet("Assets/Sprites/WarriorSprite.png", 96, 128, 32, 32, 12)},
+		{"rogSpr", new SpriteSheet("Assets/Sprites/ArcherSprite.png", 96, 128, 32, 32, 12)},
+		{"magSpr", new SpriteSheet("Assets/Sprites/MageSprite.png", 96, 128, 32, 32, 12)},
+		{"scrollBg", new SpriteSheet("Assets/Backgrounds/ResizedScroll.png", 1280, 720, 1280, 720, 1)},
+		{"backBtn", new SpriteSheet("Assets/Sprites/Buttons/BackButtonNoBg.png", 81, 97, 81, 97, 1)}
 	}
 };
 
