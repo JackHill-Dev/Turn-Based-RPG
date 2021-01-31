@@ -139,22 +139,7 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 			
 		}
 		
-		if (act == Act::Click && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
-		{
-			if (!i->bPickedUp)
-				i->bPickedUp = true;
-			else
-				i->bPickedUp = false;
-		}
 
-		if (act == Act::MouseUpdate && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
-		{
-			if (i->bPickedUp)
-			{
-				i->GetRenderObject()->SetPos(std::make_pair(mousePos.first, mousePos.second));
-			}
-
-		}
 
 		if (act == Act::RClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
@@ -176,13 +161,12 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 
 void ShopScene::GenerateGrids()
 {
-	mgr->GetPlayer()->GetInventory().SetInitialGridPos(80);
+	//mgr->GetPlayer()->GetInventory().SetInitialGridPos(80); // TODO: Move to game manager SetupPlayer
 	mShop.GetInventory().SetInitialGridPos(880);
 
 	mgr->GetPlayer()->GetInventory().GeneratePositions();
 	mShop.GetInventory().GeneratePositions();
 
-	//SetupPlayerInv();
 	SetupShopInv();
 
 	DrawGrid(4, 5, 80, 110); // Draw item frames for player inventory

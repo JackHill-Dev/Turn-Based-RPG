@@ -18,6 +18,7 @@ void InventoryScene::Load()
 		++i;
 	}
 
+	// if a character has an equip slot filled then draw them to the screen and add them the the scene's item objects
 	for (auto c : mParty)
 	{
 		if (c->ArmourEquipSlot._item != nullptr)
@@ -133,6 +134,7 @@ void InventoryScene::HandleArmourEquip(ItemObject & i, Character & c)
 			if (!i._item->bEquipped)
 			{
 				c.SetArmour(static_cast<Armour*>(i._item)); // then check which character's equipment slot it is and then assign them that piece of equipment
+				i.obj->SetPos(std::make_pair(c.ArmourEquipSlot.slotObj->GetPos().first, c.ArmourEquipSlot.slotObj->GetPos().second));
 				mgr->GetPlayer()->GetInventory().RemoveItem(i._item);
 				i._item->bEquipped = true;
 				i.obj->bPickedUp = false; // Dropped the item
@@ -158,6 +160,7 @@ void InventoryScene::HandleArmourEquip(ItemObject & i, Character & c)
 			if (!i._item->bEquipped)
 			{
 				c.SetWeapon(static_cast<Weapon*>(i._item)); // then check which character's equipment slot it is and then assign them that piece of equipment
+				i.obj->SetPos(std::make_pair(c.mWeaponEquipSlot.slotObj->GetPos().first, c.mWeaponEquipSlot.slotObj->GetPos().second));
 				mgr->GetPlayer()->GetInventory().RemoveItem(i._item);
 				i._item->bEquipped = true; // Equipped item 
 				i.obj->bPickedUp = false; // Dropped the item

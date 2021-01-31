@@ -1,5 +1,6 @@
-﻿  OverworldMapScene.cpp
+﻿  GameManager.cpp
 C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.h(9,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
           with
           [

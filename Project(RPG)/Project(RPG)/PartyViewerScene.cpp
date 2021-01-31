@@ -91,74 +91,9 @@ void PartyViewerScene::GetCharacterStatistics()
 	}
 }
 
-//void PartyViewerScene::HandleArmourEquip(ItemObject& i, Character& c)
-//{
-//	// Check if what is under the item is an item frame
-//	if (i.obj->InBounds(c.ArmourEquipSlot.slotObj->GetPos().first, c.ArmourEquipSlot.slotObj->GetPos().second) && c.ArmourEquipSlot._item == nullptr)
-//	{
-//		// if type armour
-//		if (i._item->GetType() == ARMOUR) // Getting called twice and don't know why
-//		{
-//			if (!i._item->bEquipped)
-//			{
-//				c.SetArmour(static_cast<Armour*>(i._item)); // then check which character's equipment slot it is and then assign them that piece of equipment
-//				i._item->bEquipped = true;
-//				i.obj->bPickedUp = false; // Dropped the item
-//			}
-//
-//		}
-//
-//	}
-//	else
-//	{
-//		i.obj->bPickedUp = false;
-//	}
-//}
-
-//void PartyViewerScene::HandleWeaponEquip(ItemObject& i, Character& c)
-//{
-//	// Check if what is under the item is an item frame
-//	if (i.obj->InBounds(c.mWeaponEquipSlot.slotObj->GetPos().first, c.mWeaponEquipSlot.slotObj->GetPos().second) && c.mWeaponEquipSlot._item == nullptr)
-//	{
-//		// if type weapon
-//		if (i._item->GetType() == WEAPON) // Getting called twice and don't know why
-//		{
-//			if (!i._item->bEquipped)
-//			{
-//				c.SetWeapon(static_cast<Weapon*>(i._item)); // then check which character's equipment slot it is and then assign them that piece of equipment
-//				i._item->bEquipped = true; // Equipped item 
-//				i.obj->bPickedUp = false; // Dropped the item
-//			}
-//		}
-//	}
-//	else
-//	{
-//		i.obj->bPickedUp = false;
-//	}
-//}
-
 UIText PartyViewerScene::DrawStat(std::string statName, int stat, SDL_Color textColor, std::pair<int, int> pos)
 {
 	std::string statTxt = statName + ": " + std::to_string(stat);
 	return UIText{statTxt, pos,std::make_pair(70,50), textColor};
 }
 
-//std::vector<RenderObject*> PartyViewerScene::DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY, int gridBoundsX)
-//{
-//	std::vector<RenderObject*> objs;
-//	int cellAmount = gridWidth * gridHeight;
-//	int initialX = offsetX;
-//	for (int i = 0; i < cellAmount; ++i)
-//	{
-//		if (offsetX >= gridBoundsX + initialX)
-//		{
-//			offsetX = initialX;
-//			offsetY += 60;
-//		}
-//		RenderObject* temp = AddObject("itemFrameObj", offsetX, offsetY, Background);
-//		temp->SetScale(std::make_pair(0.5,0.5));
-//		objs.push_back(temp);
-//		offsetX += 50;
-//	}
-//	return objs;
-//}
