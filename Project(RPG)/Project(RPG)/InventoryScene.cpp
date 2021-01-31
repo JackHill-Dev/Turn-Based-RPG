@@ -20,10 +20,13 @@ void InventoryScene::Load()
 
 	for (auto c : mParty)
 	{
-		// Currently causes item duping glitch (feature)
 		if (c->ArmourEquipSlot._item != nullptr)
 			itemObjects.push_back(ItemObject(c->ArmourEquipSlot._item, AddObject(c->ArmourEquipSlot._item->GetObjName(),
 				c->ArmourEquipSlot.slotObj->GetPos().first, c->ArmourEquipSlot.slotObj->GetPos().second, Game)));
+
+		if (c->mWeaponEquipSlot._item != nullptr)
+			itemObjects.push_back(ItemObject(c->mWeaponEquipSlot._item, AddObject(c->mWeaponEquipSlot._item->GetObjName(),
+				c->mWeaponEquipSlot.slotObj->GetPos().first, c->mWeaponEquipSlot.slotObj->GetPos().second, Game)));
 	}
 }
 
@@ -43,7 +46,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 					HandleArmourEquip(i, *c);
 					HandleWeaponEquip(i, *c);
 
-					if (c->ArmourEquipSlot._item == i._item && !i._item->bEquipped)
+					if ((c->ArmourEquipSlot._item == i._item || c->mWeaponEquipSlot._item == i._item) && !i._item->bEquipped)
 					{
 						switch (i._item->GetType())
 						{
@@ -55,6 +58,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 						case ItemType::WEAPON:
 							c->SetWeapon(nullptr);
 							c->UpdateCharacter();
+							mgr->GetPlayer()->GetInventory().AddItem(i._item);
 						default:
 							std::cout << "\nUnknown item type";
 							break;
@@ -154,6 +158,7 @@ void InventoryScene::HandleArmourEquip(ItemObject & i, Character & c)
 			if (!i._item->bEquipped)
 			{
 				c.SetWeapon(static_cast<Weapon*>(i._item)); // then check which character's equipment slot it is and then assign them that piece of equipment
+				mgr->GetPlayer()->GetInventory().RemoveItem(i._item);
 				i._item->bEquipped = true; // Equipped item 
 				i.obj->bPickedUp = false; // Dropped the item
 			}

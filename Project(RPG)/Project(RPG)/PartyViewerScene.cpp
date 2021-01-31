@@ -6,7 +6,7 @@ PartyViewerScene::PartyViewerScene(Interface* mgr) : Scene(mgr)
 	AddObject("mainMenuBGObj", 640, 360, Background);
 	// Add close button to scene
 	mCloseBtn = AddObject("CloseBtnObj", 1200, 50, UI);
-
+	mInventoryBtn = AddObject("inventoryButtonObj", 640, 700, UI);
 	Init();
 
 }
@@ -15,58 +15,11 @@ void PartyViewerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 {
 	// Check if close button has been pressed 
 	if (act == Act::Click && mCloseBtn->InBounds(mousePos.first, mousePos.second))
-		mgr->LoadPreviousScene(); 	// Go to previous scene that opened the party viewer
+		mgr->LoadScene(Overworld); 	// Go to previous scene that opened the party viewer
 
+	if (act == Act::Click && mInventoryBtn->InBounds(mousePos.first, mousePos.second))
+		mgr->LoadScene(6); // Inventory screen
 	
-	//for (auto i : itemObjects)
-	//{
-	//	if (act == Act::Click && i.obj->InBounds(mousePos.first, mousePos.second))
-	//	{
-	//		if (i.obj->bPickedUp)
-	//		{
-	//			for (auto c : mParty)
-	//			{
-	//				HandleArmourEquip(i, *c);
-	//				HandleWeaponEquip(i, *c);
-
-	//				if (!i._item->bEquipped)
-	//				{
-	//					switch (i._item->GetType())
-	//					{
-	//					case ItemType::ARMOUR:
-	//						c->SetArmour(nullptr);
-	//						c->UpdateCharacter();
-	//						break;
-	//					case ItemType::WEAPON:
-	//						 c->SetWeapon(nullptr);
-	//						 c->UpdateCharacter();
-	//					default:
-	//						std::cout << "\nUnknown item type";
-	//						break;
-	//					}
-	//				
-	//				}
-	//			}
-	//		
-	//		}
-	//		else
-	//		{
-	//			i.obj->bPickedUp = true; // Pickup the item
-	//			i._item->bEquipped = false; // Make sure the item isn't equipped by a character
-	//		}
-
-
-	//	}
-
-	//	if (act == Act::MouseUpdate && i.obj->InBounds(mousePos.first, mousePos.second))
-	//	{
-	//		if (i.obj->bPickedUp)
-	//		{
-	//			i.obj->SetPos(std::make_pair(mousePos.first, mousePos.second));
-	//			
-	//			
-	//		}
-	//	}
 	mSceneText.clear();
 
 	GetCharacterStatistics();
@@ -79,26 +32,11 @@ void PartyViewerScene::Init()
 
 	GetCharacterPortraits();
 	GetCharacterStatistics();
-
-	// Player inventory
-//	playerInvGrid = DrawGrid(4, 5, 300, 450, 160);
-//	Load();
-
-
-
 }
 
 void PartyViewerScene::Load()
 {
 	mParty = mgr->GetPlayer()->GetParty();
-	/*mLayers[Game].clear();
-	int i = 0;
-	for (Item* item : mgr->GetPlayer()->GetInventory().GetContents())
-	{
-		itemObjects.push_back(ItemObject(item, AddObject(item->GetObjName(), playerInvGrid[i]->GetPos().first, playerInvGrid[i]->GetPos().second, Game)));
-		++i;
-	}*/
-
 }
 
 void PartyViewerScene::GetCharacterPortraits()

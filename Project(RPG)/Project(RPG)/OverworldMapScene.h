@@ -37,7 +37,6 @@ private:
 	RenderObject* pOverworld = nullptr;
 	RenderObject* pMenuButton = nullptr;
 	RenderObject* pSettingsButton = nullptr;
-	RenderObject* pInventoryButton = nullptr;
 	RenderObject* pArmyViewerButton = nullptr;
 
 	Mix_Music* mBackgroundMus = nullptr;
