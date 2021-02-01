@@ -69,7 +69,7 @@ public:
 	//Both SceneChange and HoverHandler will need to be revisited when buttons are in -EH
 	void SceneChange(Node* node, Act act, std::pair<int, int> mousePos);
 	void HoverHandler(Node* node, Act act, std::pair<int, int> mousePos);
-	std::string assignRandomNodeSprite();
+	std::string assignRandomNodeSprite(int num);
 	Scenes assignSceneByString(std::string& nodeSceneString);
 
 	void OnHover(Node* node);

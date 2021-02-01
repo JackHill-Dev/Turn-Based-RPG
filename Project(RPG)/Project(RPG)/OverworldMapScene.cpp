@@ -46,7 +46,7 @@ void OverworldMapScene::Load()
 			}
 			std::cout << "\n ROW: " + std::to_string(rowCount) + "\n"  + "node: " + std::to_string(nodeCount) + "\n" + "X-Value: " + std::to_string(tempCoords.first) + "\n" + "Y-Value: " + std::to_string(tempCoords.second) + "\n" ;
 			newRow.nodes.push_back
-			(new Node(AddObject(assignRandomNodeSprite(), tempCoords.first,
+			(new Node(AddObject(assignRandomNodeSprite(rowCount), tempCoords.first,
 							   tempCoords.second, Layer::UI), Scenes::NoSceneYet));
 			newRow.nodes[nodeCount]->nodeScene = assignSceneByString(newRow.nodes[nodeCount]->pNodeObject->path);
 			
@@ -157,9 +157,16 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 	}
 }
 
-std::string OverworldMapScene::assignRandomNodeSprite()
+std::string OverworldMapScene::assignRandomNodeSprite(int num)
 {
-	return objNames[RandomNumberGenerator(0, 3)];
+	if (num <=3)
+	{
+		return objNames[num];
+	}
+	else 
+	{
+		return objNames[RandomNumberGenerator(0, 3)];
+	}
 }
 
 Scenes OverworldMapScene::assignSceneByString(std::string& nodeSceneString)
