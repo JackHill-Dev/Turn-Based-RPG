@@ -9,7 +9,6 @@ static std::mt19937 random_number_engine(rd());
 
 int RandomNumberGenerator(int min, int max)
 {
-	int i = 0;
 	std::uniform_int_distribution<int> distribution(min, max);
 	return distribution(random_number_engine);
 }
@@ -37,9 +36,11 @@ void OverworldMapScene::Load()
 
 		for (int nodeCount = 0; nodeCount < maxNodes; ++nodeCount)
 		{
+			std::pair<int, int> tempCoords = GoodNodePos[RandomNumberGenerator(0, 49)];
+			std::cout << "\n ROW: " + std::to_string(rowCount) + "\n"  + "node: " + std::to_string(nodeCount) + "\n" + "X-Value: " + std::to_string(tempCoords.first) + "\n" + "Y-Value: " + std::to_string(tempCoords.second) + "\n" ;
 			newRow.nodes.push_back
-			(new Node(AddObject(assignRandomNodeSprite(), RandomNumberGenerator(200,1000),
-							   RandomNumberGenerator(200,600), Layer::UI), Scenes::NoSceneYet));
+			(new Node(AddObject(assignRandomNodeSprite(), tempCoords.first,
+							   tempCoords.second, Layer::UI), Scenes::NoSceneYet));
 			newRow.nodes[nodeCount]->nodeScene = assignSceneByString(newRow.nodes[nodeCount]->pNodeObject->path);
 		}
 		rows.push_back(newRow);
