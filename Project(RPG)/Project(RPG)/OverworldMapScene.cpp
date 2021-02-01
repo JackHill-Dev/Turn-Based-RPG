@@ -1,6 +1,7 @@
 #include "OverworldMapScene.h"
 #include "GameManager.h"
 #include <deque>
+#include <set>
 
 
 
@@ -29,30 +30,45 @@ OverworldMapScene::OverworldMapScene(Interface* mObjMgr) : Scene(mObjMgr)
 
 void OverworldMapScene::Load()
 {
+	int maxVals = maxRows * maxNodes;
+	int valCount = 0;
+	int nodeIndex = 0;
 	std::vector<Row> rows;
-	std::vector<std::pair<int, int>> usedCoords;
+	std::set<std::pair<int, int>> uniqueCoords;
+	std::vector<std::pair<int, int>> validCoords;
 	std::pair<int, int> oldCoords = std::make_pair<int,int>(0,0);
+	
+
+	while (valCount < maxVals)
+	{
+		int oldSetSize = uniqueCoords.size();
+
+		uniqueCoords.insert(GoodNodePos[RandomNumberGenerator(0, 49)]);
+
+		if (uniqueCoords.size() > oldSetSize)
+		{
+			++valCount;
+		}
+	}
+
+	std::copy(uniqueCoords.begin(), uniqueCoords.end(), std::back_inserter(validCoords));
 
 	for (int rowCount = 0; rowCount < maxRows; ++rowCount)
 	{
 		Row newRow;
+
 		
 		for (int nodeCount = 0; nodeCount < maxNodes; ++nodeCount)
 		{
-			std::pair<int, int> tempCoords = GoodNodePos[RandomNumberGenerator(0, 49)];
-			while (tempCoords.first == oldCoords.first && tempCoords.second == oldCoords.second)
-			{
-				tempCoords = GoodNodePos[RandomNumberGenerator(0, 49)];
-			}
-			std::cout << "\n ROW: " + std::to_string(rowCount) + "\n"  + "node: " + std::to_string(nodeCount) + "\n" + "X-Value: " + std::to_string(tempCoords.first) + "\n" + "Y-Value: " + std::to_string(tempCoords.second) + "\n" ;
 			newRow.nodes.push_back
-			(new Node(AddObject(assignRandomNodeSprite(rowCount), tempCoords.first,
-							   tempCoords.second, Layer::UI), Scenes::NoSceneYet));
+			(new Node(AddObject(assignRandomNodeSprite(rowCount), validCoords[nodeIndex].first,
+							   validCoords[nodeIndex].second, Layer::UI), Scenes::NoSceneYet));
+
 			newRow.nodes[nodeCount]->nodeScene = assignSceneByString(newRow.nodes[nodeCount]->pNodeObject->path);
-			
-			oldCoords = tempCoords;
+			++nodeIndex;
 		}
 		rows.push_back(newRow);
+
 	}
 
 	//Generating Links
@@ -92,13 +108,13 @@ void OverworldMapScene::Init()
 {
 	//mgr->PlayMusic(mBackgroundMus, -1);
 }
-void OverworldMapScene::OnHover(Node* node)
+void OverworldMapScene::OnHover(RenderObject* rObj)
 {
-	node->pNodeObject->tint = SDL_Color{ 0,255, 0 };
+	rObj->tint = SDL_Color{ 0,255, 0 };
 }
-void OverworldMapScene::OnLeave(Node* node)
+void OverworldMapScene::OnLeave(RenderObject* rObj)
 {
-	node->pNodeObject->Untint();
+	rObj->Untint();
 }
 
 void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePos)
@@ -120,32 +136,38 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 					}
 					else
 						mgr->LoadScene(node->nodeScene);
-				}
-				
+				}			
 			}
 			node->pNodeObject->Untint();
 		}
 		if (pArmyViewerButton->InBounds(mousePos.first, mousePos.second))
 		{
+			OnLeave(pArmyViewerButton);
 			mgr->LoadScene(Scenes::Party);
 		}
 		if (pMenuButton->InBounds(mousePos.first, mousePos.second))
 		{
+			OnLeave(pMenuButton);
 			mgr->LoadScene(Scenes::SettingsPage);
 		}
 	}
 	if (act == Act::MouseUpdate)
 	{
-		for (auto node : currentNode->adjacentTiles)
+		if (pMenuButton->InBounds(mousePos.first, mousePos.second))
 		{
-			if (node->pNodeObject->InBounds(mousePos.first, mousePos.second))
-			{
-				OnHover(node);
-			}
-			else
-			{
-				OnLeave(node);
-			}			
+			OnHover(pMenuButton);
+		}
+		else
+		{
+			OnLeave(pMenuButton);
+		}
+		if(pArmyViewerButton->InBounds(mousePos.first, mousePos.second))
+		{
+			OnHover(pArmyViewerButton);
+		}
+		else
+		{
+			OnLeave(pArmyViewerButton);
 		}
 	}
 	for (auto node : currentNode->adjacentTiles)
