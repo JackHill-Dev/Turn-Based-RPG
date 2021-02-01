@@ -18,7 +18,7 @@ void MainMenuScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 	if (act == Act::Click)
 	{
 		if (start->InBounds(mouse.first, mouse.second) && start->IsActive())
-			mgr->LoadScene(Scenes::Overworld);
+			mgr->LoadScene(Scenes::ClassPicker);
 
 		if (quit->InBounds(mouse.first, mouse.second) && quit->IsActive())
 			mgr->Quit();
