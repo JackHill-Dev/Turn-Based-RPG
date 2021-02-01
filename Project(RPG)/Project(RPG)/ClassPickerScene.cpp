@@ -144,22 +144,27 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 
 		if (pYesBtn->InBounds(mousePos.first, mousePos.second) && pYesBtn->IsVisible())
 		{
-			PartyCount++;
+			// create a local vector of characters, push into that, then use setupParty
 			if (PartyCount <= 3)
 			{
 				
+				
 				if (IsWarriorView)
 				{
-					mgr->GetPlayer()->AddToParty(new Character("warSprObj", "WarriorObj"));
+					//mgr->GetPlayer()->AddToParty(new Character("warSprObj", "WarriorObj"));
+					mCharacters.push_back(new Character("warSprObj", "WarriorObj"));
 				}
 				if (IsRogueView)
 				{
-					mgr->GetPlayer()->AddToParty(new Character("rogSprObj", "RogueObj"));
+					//mgr->GetPlayer()->AddToParty(new Character("rogSprObj", "RogueObj"));
+					mCharacters.push_back(new Character("rogSprObj", "RogueObj"));
 				}
 				if (IsMageView)
 				{
-					mgr->GetPlayer()->AddToParty(new Character("mageSprObj", "ClericObj"));
+					//mgr->GetPlayer()->AddToParty(new Character("mageSprObj", "ClericObj"));
+					mCharacters.push_back(new Character("mageSprObj", "ClericObj"));				
 				}
+				++PartyCount;
 				SetUpSummaryView();
 				IsFocused = false;
 				IsWarriorView = false;
@@ -169,6 +174,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 			}
 			else
 			{
+				mgr->GetPlayer()->SetupParty(mCharacters);
 				mgr->LoadScene(Scenes::Overworld);
 			}
 		}

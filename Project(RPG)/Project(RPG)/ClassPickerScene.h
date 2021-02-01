@@ -27,8 +27,7 @@ private:
 	Mix_Chunk* confirm_SFX;
 	Mix_Chunk* back_SFX;
 
-	// This will be to add to the party - Currently going to get it working with 3.
-	Player* pPlayer;
+	std::vector<Character*> mCharacters;
 
 	bool IsFocused = false;
 	bool IsWarriorView = false;
