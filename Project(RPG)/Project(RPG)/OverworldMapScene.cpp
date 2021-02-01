@@ -1,5 +1,6 @@
 #include "OverworldMapScene.h"
 #include "GameManager.h"
+#include <deque>
 
 
 
@@ -29,19 +30,27 @@ OverworldMapScene::OverworldMapScene(Interface* mObjMgr) : Scene(mObjMgr)
 void OverworldMapScene::Load()
 {
 	std::vector<Row> rows;
+	std::pair<int, int> oldCoords = std::make_pair<int,int>(0,0);
 
 	for (int rowCount = 0; rowCount < maxRows; ++rowCount)
 	{
 		Row newRow;
-
+		
 		for (int nodeCount = 0; nodeCount < maxNodes; ++nodeCount)
 		{
 			std::pair<int, int> tempCoords = GoodNodePos[RandomNumberGenerator(0, 49)];
+
+			while (tempCoords.first == oldCoords.first && tempCoords.second == oldCoords.second)
+			{
+				tempCoords = GoodNodePos[RandomNumberGenerator(0, 49)];
+			}
 			std::cout << "\n ROW: " + std::to_string(rowCount) + "\n"  + "node: " + std::to_string(nodeCount) + "\n" + "X-Value: " + std::to_string(tempCoords.first) + "\n" + "Y-Value: " + std::to_string(tempCoords.second) + "\n" ;
 			newRow.nodes.push_back
 			(new Node(AddObject(assignRandomNodeSprite(), tempCoords.first,
 							   tempCoords.second, Layer::UI), Scenes::NoSceneYet));
 			newRow.nodes[nodeCount]->nodeScene = assignSceneByString(newRow.nodes[nodeCount]->pNodeObject->path);
+			
+			oldCoords = tempCoords;
 		}
 		rows.push_back(newRow);
 	}
