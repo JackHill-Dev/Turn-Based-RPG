@@ -97,6 +97,16 @@ void GameManager::Quit()
 }
 void GameManager::LoadScene()
 {
+	switch (mCScene)
+	{
+	case Scenes::Combat:
+		combatInstance.first->Load(combatInstance.second);
+		break;
+	case Scenes::Party:
+
+		partyViewerInstance->Load();
+		break;
+	}
 	if (mCScene == Scenes::Combat)
 	{
 		combatInstance.first->Load(combatInstance.second);
@@ -124,7 +134,8 @@ bool GameManager::Init()
 	combatInstance.first = new CombatScene(&mInterface);
 	scenes.push_back(combatInstance.first);
 	scenes.push_back(new ShopScene(&mInterface));
-	scenes.push_back(new PartyViewerScene(&mInterface));
+	partyViewerInstance = new PartyViewerScene(&mInterface);
+	scenes.push_back(partyViewerInstance);
 	scenes.push_back(new SettingsScene(&mInterface));
 	scenes.push_back(new ClassPickerScene(&mInterface));
 

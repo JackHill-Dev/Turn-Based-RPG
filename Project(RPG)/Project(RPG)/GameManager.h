@@ -10,6 +10,7 @@
 #include "Interface.h"
 #include "Player.h"
 #include "CombatScene.h"
+#include "PartyViewerScene.h"
 
 
 class GameManager
@@ -17,6 +18,7 @@ class GameManager
 private:
 	//std::vector<Character*> player{ new Character("maleObj") };
 	std::pair<CombatScene*, std::vector<Character*>> combatInstance;
+	PartyViewerScene* partyViewerInstance;
 	bool bRunning= true;
 	int mCScene = 0;
 	SDL_Window* mWnd;
