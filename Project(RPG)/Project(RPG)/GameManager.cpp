@@ -3,6 +3,7 @@
 #include "ShopScene.h";
 #include "PartyViewerScene.h"
 #include "SettingsScene.h"
+#include "ClassPickerScene.h"
 #include "json.hpp"
 #include <fstream>;
 #include <istream>
@@ -116,7 +117,7 @@ bool GameManager::Init()
 	SetUp();
 
 	mPlayer.SetGold(1000);
-	mPlayer.SetupParty({ new Character("maleObj", "WizardObj"), new Character("maleObj", "ClericObj"), new Character("maleObj", "RogueObj"), new Character("maleObj", "WarriorObj") });
+	//mPlayer.SetupParty({ new Character("maleObj", "WizardObj"), new Character("maleObj", "ClericObj"), new Character("maleObj", "RogueObj"), new Character("maleObj", "WarriorObj") });
 
 	scenes.push_back(new MainMenuScene(&mInterface));
     scenes.push_back(new OverworldMapScene(&mInterface));
@@ -125,6 +126,7 @@ bool GameManager::Init()
 	scenes.push_back(new ShopScene(&mInterface));
 	scenes.push_back(new PartyViewerScene(&mInterface));
 	scenes.push_back(new SettingsScene(&mInterface));
+	scenes.push_back(new ClassPickerScene(&mInterface));
 
 	//LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
 	currentScene->Clear(mRnd);
