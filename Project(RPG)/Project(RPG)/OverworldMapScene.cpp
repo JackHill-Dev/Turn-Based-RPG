@@ -30,6 +30,7 @@ OverworldMapScene::OverworldMapScene(Interface* mObjMgr) : Scene(mObjMgr)
 void OverworldMapScene::Load()
 {
 	std::vector<Row> rows;
+	std::vector<std::pair<int, int>> usedCoords;
 	std::pair<int, int> oldCoords = std::make_pair<int,int>(0,0);
 
 	for (int rowCount = 0; rowCount < maxRows; ++rowCount)
@@ -39,7 +40,6 @@ void OverworldMapScene::Load()
 		for (int nodeCount = 0; nodeCount < maxNodes; ++nodeCount)
 		{
 			std::pair<int, int> tempCoords = GoodNodePos[RandomNumberGenerator(0, 49)];
-
 			while (tempCoords.first == oldCoords.first && tempCoords.second == oldCoords.second)
 			{
 				tempCoords = GoodNodePos[RandomNumberGenerator(0, 49)];
@@ -103,7 +103,7 @@ void OverworldMapScene::OnLeave(Node* node)
 
 void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePos)
 {
-	currentNode->pNodeObject->tint = SDL_Color{ 0,0,255 };
+	currentNode->pNodeObject->tint = SDL_Color{ 139,0, 139 };
 	
 	if (act == Act::Click)
 	{
@@ -152,7 +152,7 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 	{
 		if (node != currentNode)
 		{
-			node->pNodeObject->tint = SDL_Color{ 0, 0, 0 };
+			node->pNodeObject->tint = SDL_Color{ 65, 105, 225 };
 		}
 	}
 }
