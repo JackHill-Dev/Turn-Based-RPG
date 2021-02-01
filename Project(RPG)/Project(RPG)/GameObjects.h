@@ -11,6 +11,7 @@
 const std::map<std::string,RenderObject*> definedObjects
 {
 	{
+		{"maleObj", new RenderObject("male")},
 		{"femaleObj",new RenderObject("female")},
 		{"playerPortraitObj",new RenderObject("playerPortrait")},
 		{"merchantPortraitObj",new RenderObject("merchantPortrait")},
@@ -29,7 +30,6 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"bossNodeObj", new RenderObject("bossNode")},
 		{"shopNodeObj", new RenderObject("shopNode")},
 		{"startNodeObj", new RenderObject("startNode")},
-		{"maleUnit", new RenderObject("male")},
 		{"StartBtnObj", new RenderObject("startBtn")},
 		{"quitBtnObj", new RenderObject("quitBtn")},
 		{"mainMenuBGObj",new RenderObject("mainMenuBG")},
@@ -54,8 +54,11 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"forestFightSceneBg", new RenderObject("fightSceneForest")},
 		{"warSprObj",new RenderObject("warSpr")},
 		{"rogSprObj",new RenderObject("rogSpr")},
-		{"mageSprObj",new RenderObject("mageSpr")},
-		{"backBtnObj", new RenderObject("backBtn")}
+		{"mageSprObj",new RenderObject("magSpr")},
+		{"scrollBgObj", new RenderObject("scrollBg")},
+		{"backBtnObj", new RenderObject("backBtn")},
+		{"yesTxtBtnObj", new RenderObject("yesTxtBtn")},
+		{"backTxtBtnObj", new RenderObject("backTxtBtn")},
 	}
 };
 
@@ -107,7 +110,9 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"rogSpr", new SpriteSheet("Assets/Sprites/ArcherSprite.png", 96, 128, 32, 32, 12)},
 		{"magSpr", new SpriteSheet("Assets/Sprites/MageSprite.png", 96, 128, 32, 32, 12)},
 		{"scrollBg", new SpriteSheet("Assets/Backgrounds/ResizedScroll.png", 1280, 720, 1280, 720, 1)},
-		{"backBtn", new SpriteSheet("Assets/Sprites/Buttons/BackButtonNoBg.png", 81, 97, 81, 97, 1)}
+		{"backBtn", new SpriteSheet("Assets/Sprites/Buttons/BackButtonNoBg.png", 81, 97, 81, 97, 1)},
+		{"yesTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/Yes.png", 54, 36, 54, 36, 1)},
+		{"backTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/Back.png", 71, 36, 71, 36, 1)},
 	}
 };
 
