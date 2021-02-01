@@ -161,10 +161,8 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 
 void ShopScene::GenerateGrids()
 {
-	//mgr->GetPlayer()->GetInventory().SetInitialGridPos(80); // TODO: Move to game manager SetupPlayer
 	mShop.GetInventory().SetInitialGridPos(880);
 
-	mgr->GetPlayer()->GetInventory().GeneratePositions();
 	mShop.GetInventory().GeneratePositions();
 
 	SetupShopInv();

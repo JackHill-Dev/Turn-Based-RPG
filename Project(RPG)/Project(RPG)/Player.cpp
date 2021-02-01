@@ -2,7 +2,9 @@
 
 Player::Player()
 {
-	mInventory.SetInitialGridPos(10);
+	// Workaround for shop grid positioning until i rework it - JP
+	mInventory.SetInitialGridPos(80);
+	mInventory.GeneratePositions();
 }
 
 Player::~Player()
