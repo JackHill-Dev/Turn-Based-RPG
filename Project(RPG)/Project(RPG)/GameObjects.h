@@ -89,9 +89,9 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"sword", new SpriteSheet("Assets/Sprites/sword-art.png",160, 256, 32, 32, 40)},
 		{"armour", new SpriteSheet("Assets/Sprites/armour.png",76, 72, 76, 72, 1)},
 		{"potion", new SpriteSheet("Assets/Sprites/potion.png",48, 48, 48, 48, 1)},
-		{"card", new SpriteSheet("Assets/Sprites/Card/CardTemplate.png",230, 322, 230, 322, 1)},
-		{"tile", new SpriteSheet("Assets/Portrait.png", 32, 32, 32, 32, 1)},
-		{"forestBG", new SpriteSheet("Assets/forestbackground.png",1280, 720, 1280, 720, 1)},
+		{"card", new SpriteSheet("Assets/Sprites/Cards/CardTemplate.png",230, 322, 230, 322, 1)},
+		{"tile", new SpriteSheet("Assets/Backgrounds/grass-tile.png", 32, 32, 32, 32, 1)},
+		{"forestBG", new SpriteSheet("Assets/Backgrounds/forestbackground.png",1280, 720, 1280, 720, 1)},
 		{"malePortrait", new SpriteSheet("Assets/Portrait.png",	357, 364, 357, 364, 1)},
 		{"barBg", new SpriteSheet("Assets/Sprites/Bar_Bg.png",	176, 32, 176, 32, 1)},
 		{"barFill", new SpriteSheet("Assets/Sprites/Bar_fill.png",	176, 32, 176, 32, 1)},
@@ -132,6 +132,48 @@ const std::map<std::string, std::vector<Animation>> definedAnimations
 
 
 		}} ,
+
+		{"warSpr", 
+			{
+				Animation("LookUp", {std::make_pair(0,0)}),
+				Animation("LookLeft", {std::make_pair(0,1)}),
+				Animation("LookRight", {std::make_pair(0,2)}),
+				Animation("LookDown", {std::make_pair(0,3)}),
+
+				Animation("WalkUp", {std::make_pair(0,0), std::make_pair(1,0),std::make_pair(2,0)}),
+				Animation("WalkLeft", {std::make_pair(0,1), std::make_pair(1,1), std::make_pair(2,1)}),
+				Animation("WalkRight", {std::make_pair(0,2), std::make_pair(1,2), std::make_pair(2,2)}),
+				Animation("WalkDown", {std::make_pair(0,3), std::make_pair(1,3), std::make_pair(2,3)}),
+			}
+		},
+
+		{"rogSpr",
+				{
+					Animation("LookUp", {std::make_pair(0,0)}),
+					Animation("LookLeft", {std::make_pair(0,1)}),
+					Animation("LookRight", {std::make_pair(0,2)}),
+					Animation("LookDown", {std::make_pair(0,3)}),
+
+					Animation("WalkUp", {std::make_pair(0,0), std::make_pair(1,0),std::make_pair(2,0)}),
+					Animation("WalkLeft", {std::make_pair(0,1), std::make_pair(1,1), std::make_pair(2,1)}),
+					Animation("WalkRight", {std::make_pair(0,2), std::make_pair(1,2), std::make_pair(2,2)}),
+					Animation("WalkDown", {std::make_pair(0,3), std::make_pair(1,3), std::make_pair(2,3)}),
+				}
+		},
+
+		{"magSpr",
+				{
+					Animation("LookUp", {std::make_pair(0,0)}),
+					Animation("LookLeft", {std::make_pair(0,1)}),
+					Animation("LookRight", {std::make_pair(0,2)}),
+					Animation("LookDown", {std::make_pair(0,3)}),
+
+					Animation("WalkUp", {std::make_pair(0,0), std::make_pair(1,0),std::make_pair(2,0)}),
+					Animation("WalkLeft", {std::make_pair(0,1), std::make_pair(1,1), std::make_pair(2,1)}),
+					Animation("WalkRight", {std::make_pair(0,2), std::make_pair(1,2), std::make_pair(2,2)}),
+					Animation("WalkDown", {std::make_pair(0,3), std::make_pair(1,3), std::make_pair(2,3)}),
+				}
+		},
 
 		{"startBtn", {Animation("Hover", {std::make_pair(1,0)})}},
 		{"checkBox", {Animation("Checked", {std::make_pair(1,0)})}},

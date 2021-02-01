@@ -366,7 +366,9 @@ void CombatScene::Load(std::vector<Character*> enemyTeam)
 {
 	mgr->PlayMusic(combat_music, -1);
 	int v = 0;
-	for (auto i : mgr->pPlayer->GetParty())
+
+	// TO-DO: Seems to be a bug here - Doesn't actually contain the range when stepping through and counts double party size for some reason - EH
+	for (auto i : mgr->GetPlayer()->GetParty())
 	{
 		Unit unit = Unit(i, &mapp.tiles[0][v], AddObject(i->GetObjName(), 0, 0, Game), AddObject("portrait", 250, 125+150*v, UI));
 		unit.profile->scale = std::make_pair(0.3f, 0.3f);
