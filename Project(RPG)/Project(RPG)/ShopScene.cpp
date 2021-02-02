@@ -8,7 +8,7 @@ ShopScene::ShopScene(Interface* rng) : Scene(rng)
 {
 	bg_Music = Mix_LoadMUS("Assets/Music/MedievalLoop.mp3");
 	buySell_SFX = Mix_LoadWAV("Assets/SFX/coin.wav");
-	Mix_Volume(1, 5);
+	leave_SFX = Mix_LoadWAV("Assets/SFX/DoorClose.wav");
 
 	mShop.SetGold(2000);
 
@@ -29,6 +29,7 @@ void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 	{
 		if (pExitButton->InBounds(mousePos.first, mousePos.second))
 		{
+			mgr->PlaySFX(leave_SFX, 0, 1);
 			mgr->LoadPreviousScene();
 		}
 	}
