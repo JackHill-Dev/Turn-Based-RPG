@@ -22,7 +22,6 @@ OverworldMapScene::OverworldMapScene(Interface* mObjMgr) : Scene(mObjMgr)
 	pMenuButton = AddObject("menuButtonObj", 440, 700, UI);
 	mBackgroundMus = Mix_LoadMUS("Assets/Music/Tavern+Loop+One+-+320bit.mp3");
 	
-	//Mix_Volume(1, 5);
 	Init();
 	Load();
 }
@@ -106,6 +105,11 @@ void OverworldMapScene::Load()
 void OverworldMapScene::Init()
 {
 	//mgr->PlayMusic(mBackgroundMus, -1);
+
+	confirm_SFX = Mix_LoadWAV("Assets/SFX/confirmSound.wav");
+	back_SFX = Mix_LoadWAV("Assets/SFX/BackSound.wav");
+	button_Click_SFX = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
+	shop_Entry_SFX = Mix_LoadWAV("Assets/SFX/DoorOpen.wav");
 }
 void OverworldMapScene::OnHover(RenderObject* rObj)
 {
@@ -127,25 +131,42 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 			if (node->pNodeObject->InBounds(mousePos.first, mousePos.second))
 			{
 				currentNode = node;
-				if(node->nodeScene != Scenes::NoSceneYet)
-				{	
-					if (node->nodeScene == Scenes::Combat)
+				if (node->nodeScene != Scenes::NoSceneYet)
+				{
+					switch (node->nodeScene)
 					{
-						mgr->LoadCombatScene({ new Character("maleObj", "portrait"), new Character("maleObj", "portrait"), new Character("maleObj", "portrait") });
+						case Scenes::Combat:
+							mgr->PlaySFX(button_Click_SFX, 0, 1);
+							mgr->LoadCombatScene({ new Character("maleObj", "portrait"), new Character("maleObj", "portrait"), new Character("maleObj", "portrait") });
+							break;
+
+						case Scenes::Shops:
+							mgr->PlaySFX(shop_Entry_SFX, 0, 1);
+							mgr->LoadScene(node->nodeScene);
+							break;
+
+						default:
+							mgr->LoadScene(node->nodeScene);
+							break;
 					}
-					else
-						mgr->LoadScene(node->nodeScene);
-				}			
+				}
+				else
+				{
+					mgr->PlaySFX(button_Click_SFX, 0, 1);
+				}				
 			}
 			node->pNodeObject->Untint();
 		}
+
 		if (pArmyViewerButton->InBounds(mousePos.first, mousePos.second))
 		{
+			mgr->PlaySFX(button_Click_SFX, 0, 1);
 			OnLeave(pArmyViewerButton);
 			mgr->LoadScene(Scenes::Party);
 		}
 		if (pMenuButton->InBounds(mousePos.first, mousePos.second))
 		{
+			mgr->PlaySFX(button_Click_SFX, 0, 1);
 			OnLeave(pMenuButton);
 			mgr->LoadScene(Scenes::SettingsPage);
 		}

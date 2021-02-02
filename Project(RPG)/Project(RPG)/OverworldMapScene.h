@@ -50,7 +50,10 @@ private:
 	RenderObject* pArmyViewerButton = nullptr;
 
 	Mix_Music* mBackgroundMus = nullptr;
-	Mix_Chunk* mSFX = nullptr;
+	Mix_Chunk* button_Click_SFX;
+	Mix_Chunk* confirm_SFX;
+	Mix_Chunk* back_SFX;
+	Mix_Chunk* shop_Entry_SFX;
 
 	const int maxRows = 4;
 	const int maxNodes = 3;
