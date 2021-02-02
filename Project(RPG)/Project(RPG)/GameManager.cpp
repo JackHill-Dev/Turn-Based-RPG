@@ -127,8 +127,13 @@ bool GameManager::Init()
 	SetupPlayer();
 	
 
-	scenes.push_back(new MainMenuScene(&mInterface)); // 0
-    scenes.push_back(new OverworldMapScene(&mInterface)); // 1
+	mPlayer.SetGold(1000);
+
+	//mPlayer.SetupParty({ new Character("mageObj", "portrait"), new Character("mageObj", "portrait"), new Character("mageObj", "portrait") });
+	mPlayer.SetDeck({new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Slash"]) });
+
+	scenes.push_back(new MainMenuScene(&mInterface));
+    scenes.push_back(new OverworldMapScene(&mInterface));
 	combatInstance.first = new CombatScene(&mInterface);
 	scenes.push_back(combatInstance.first); // 2
 	mShopSceneInstance = new ShopScene(&mInterface);

@@ -120,13 +120,14 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"SlashCard", new SpriteSheet("Assets/Sprites/SlashCard.png", 600, 951, 600, 951,false)},
 		{"Magic", new SpriteSheet("Assets/Sprites/Effects/MagicEffect.png", 9200, 300, 400, 300,true)},
 		{"tree", new SpriteSheet("Assets/Sprites/baum.png", 128,128,128,128,false)},
-		{"female", new SpriteSheet("Assets/Sprites/Female 01.1.png", 96, 128, 32, 32, 12)},
-		{"rogSpr", new SpriteSheet("Assets/Sprites/ArcherSprite.png", 96, 128, 32, 32, 12)},
-		{"magSpr", new SpriteSheet("Assets/Sprites/MageSprite.png", 96, 128, 32, 32, 12)},
-		{"scrollBg", new SpriteSheet("Assets/Backgrounds/ResizedScroll.png", 1280, 720, 1280, 720, 1)},
-		{"backBtn", new SpriteSheet("Assets/Sprites/Buttons/BackButtonNoBg.png", 81, 97, 81, 97, 1)},
-		{"yesTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/Yes.png", 54, 36, 54, 36, 1)},
-		{"backTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/Back.png", 71, 36, 71, 36, 1)},
+		{"female", new SpriteSheet("Assets/Sprites/Female 01.1.png", 96, 128, 32, 32, false)},
+		{"rogSpr", new SpriteSheet("Assets/Sprites/ArcherSprite.png", 96, 128, 32, 32, false)},
+		{"magSpr", new SpriteSheet("Assets/Sprites/MageSprite.png", 96, 128, 32, 32, false)},
+		{"warSpr", new SpriteSheet("Assets/Sprites/WarriorSprite.png", 96, 128, 32, 32, false)},
+		{"scrollBg", new SpriteSheet("Assets/Backgrounds/ResizedScroll.png", 1280, 720, 1280, 720, false)},
+		{"backBtn", new SpriteSheet("Assets/Sprites/Buttons/BackButtonNoBg.png", 81, 97, 81, 97, false)},
+		{"yesTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/Yes.png", 54, 36, 54, 36, false)},
+		{"backTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/Back.png", 71, 36, 71, 36, false)},
 
 
 	}
