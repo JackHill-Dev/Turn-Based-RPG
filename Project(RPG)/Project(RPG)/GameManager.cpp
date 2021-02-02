@@ -95,18 +95,15 @@ void GameManager::Quit()
 }
 void GameManager::LoadScene()
 {
-	if (mCScene == Scenes::Combat)
+	switch (mCScene)
 	{
-		combatInstance.first->Load(combatInstance.second);
+	case Scenes::Combat: combatInstance.first->Load(combatInstance.second); break;
+	case Scenes::Shops: mShopSceneInstance->Load(); break;
+	case Scenes::Party:  partyViewerInstance->Load(); break;
+	case Scenes::InventoryScreen : mInventorySceneInstance->Load(); break;
 	}
-	else if(mCScene == Scenes::Party)
-	{
-		partyViewerInstance->Load();
-	}
-	else if(mCScene == 6) // Inventory Scene
-	{
-		mInventorySceneInstance->Load();
-	}
+
+
 }
 bool GameManager::CreateWindow()
 {
@@ -128,7 +125,8 @@ bool GameManager::Init()
     scenes.push_back(new OverworldMapScene(&mInterface));
 	combatInstance.first = new CombatScene(&mInterface);
 	scenes.push_back(combatInstance.first);
-	scenes.push_back(new ShopScene(&mInterface));
+	mShopSceneInstance = new ShopScene(&mInterface);
+	scenes.push_back(mShopSceneInstance);
 	partyViewerInstance = new PartyViewerScene(&mInterface);
 	scenes.push_back(partyViewerInstance);
 	scenes.push_back(new SettingsScene(&mInterface));

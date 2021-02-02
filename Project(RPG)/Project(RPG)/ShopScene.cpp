@@ -55,16 +55,23 @@ void ShopScene::Init()
 	GenerateGrids();
 
 	mPlayerGoldText.text = "Gold: " + std::to_string( mgr->GetPlayer()->GetGold());
-	mPlayerGoldText.pos = std::make_pair(520, 385);
+	mPlayerGoldText.pos = std::make_pair(520, 415);
 	mPlayerGoldText.textColor = SDL_Color{ 255, 215, 0 }; // Gold
 
 	mShopGoldText.text = "Gold: " + std::to_string(mShop.GetGold());
-	mShopGoldText.pos = std::make_pair(620, 385);
+	mShopGoldText.pos = std::make_pair(620, 415);
 	mShopGoldText.textColor = SDL_Color{ 255, 215, 0 }; // Gold
 	
 	mSceneText.push_back(mPlayerGoldText);
 	mSceneText.push_back( mShopGoldText);
 
+}
+
+void ShopScene::Load()
+{
+	mLayers[Game].clear();
+	PlaceItems(mgr->GetPlayer()->GetInventory());
+	PlaceItems(mShop.GetInventory());
 }
 
 void ShopScene::SetupShopInv()
@@ -190,6 +197,8 @@ void ShopScene::DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY
 		offsetX += 90;
 	}
 }
+
+
 
 int ShopScene::RandomRange(int min, int max)
 {

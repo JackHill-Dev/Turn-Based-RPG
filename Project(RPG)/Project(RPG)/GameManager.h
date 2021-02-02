@@ -23,6 +23,7 @@ private:
 	std::pair<CombatScene*, std::vector<Character*>> combatInstance;
 	PartyViewerScene* partyViewerInstance;
 	InventoryScene* mInventorySceneInstance;
+	ShopScene* mShopSceneInstance;
 	bool bRunning= true;
 	int mCScene = 0;
 	SDL_Window* mWnd;
