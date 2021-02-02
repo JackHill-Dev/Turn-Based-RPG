@@ -10,7 +10,7 @@ Scene::Scene(Interface* objmg)
 		mLayers.push_back(rObjects);
 	}
 
-	mFont = TTF_OpenFont("Assets/Fonts/Silver.ttf", 32);
+	mFont = TTF_OpenFont("Assets/Fonts/ThaleahFat.ttf", 32);
 	
 }
 

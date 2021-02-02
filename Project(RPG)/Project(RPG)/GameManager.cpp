@@ -3,6 +3,7 @@
 #include "ShopScene.h";
 #include "PartyViewerScene.h"
 #include "SettingsScene.h"
+#include "ClassPickerScene.h"
 #include "json.hpp"
 #include <fstream>;
 #include <istream>
@@ -96,6 +97,16 @@ void GameManager::Quit()
 }
 void GameManager::LoadScene()
 {
+	switch (mCScene)
+	{
+	case Scenes::Combat:
+		combatInstance.first->Load(combatInstance.second);
+		break;
+	case Scenes::Party:
+
+		partyViewerInstance->Load();
+		break;
+	}
 	if (mCScene == Scenes::Combat)
 	{
 		combatInstance.first->Load(combatInstance.second);
@@ -116,15 +127,17 @@ bool GameManager::Init()
 	SetUp();
 
 	mPlayer.SetGold(1000);
-	mPlayer.SetupParty({ new Character("maleObj", "WizardObj"), new Character("maleObj", "ClericObj"), new Character("maleObj", "RogueObj"), new Character("maleObj", "WarriorObj") });
+	//mPlayer.SetupParty({ new Character("maleObj", "WizardObj"), new Character("maleObj", "ClericObj"), new Character("maleObj", "RogueObj"), new Character("maleObj", "WarriorObj") });
 
 	scenes.push_back(new MainMenuScene(&mInterface));
     scenes.push_back(new OverworldMapScene(&mInterface));
 	combatInstance.first = new CombatScene(&mInterface);
 	scenes.push_back(combatInstance.first);
 	scenes.push_back(new ShopScene(&mInterface));
-	scenes.push_back(new PartyViewerScene(&mInterface));
+	partyViewerInstance = new PartyViewerScene(&mInterface);
+	scenes.push_back(partyViewerInstance);
 	scenes.push_back(new SettingsScene(&mInterface));
+	scenes.push_back(new ClassPickerScene(&mInterface));
 
 	//LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
 	currentScene->Clear(mRnd);

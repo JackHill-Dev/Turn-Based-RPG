@@ -32,6 +32,7 @@ enum Scenes
 	Shops = 3,
 	Party = 4,
 	SettingsPage = 5,
+	ClassPicker = 6,
 	NoSceneYet = 10 
 };
 

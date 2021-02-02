@@ -18,6 +18,12 @@ struct UIText
 	std::pair<float, float> scale = std::make_pair(70,50);
 	SDL_Color textColor;
 	bool isVisible = true;
+
+	std::pair<float, float>SetTextScale(float x, float y) 
+	{ 
+		scale = std::make_pair(x, y); 
+		return scale;
+	}
 };
 
 struct CheckBox

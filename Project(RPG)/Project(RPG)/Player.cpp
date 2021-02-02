@@ -19,6 +19,11 @@ void Player::SetGold(int amount)
 	mGold += amount;
 }
 
+void Player::AddToParty(Character* character)
+{
+	GetParty().push_back(character);
+}
+
 void Player::SetupParty(std::vector<Character*> characters)
 {
 	mPartyMembers = characters;
