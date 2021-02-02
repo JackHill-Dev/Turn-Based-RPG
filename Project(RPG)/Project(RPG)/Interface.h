@@ -28,7 +28,7 @@ public:
 	void SetMasterVolume(int channel, int volume);
 	void StopMusic();							//This functions will halt all music, even the indefinite looping ones
 	void LoadScene(int index);	//Loads scene via its indexed location in the vector scenes 0 being the mainMenu, 1 being combat etc
-	void LoadCombatScene(std::vector<Character*> enemies) { *currentEnemies = enemies; *currentScene = Scenes::Combat; }
+	void LoadCombatScene(std::vector<Character*> enemies) { *currentEnemies = enemies; prevScene = *currentScene; *currentScene = Scenes::Combat; }
 	void LoadPreviousScene();
 	void StoreWindow(SDL_Window* wnd) { mWnd = wnd; }
 	void SetWindowSize();

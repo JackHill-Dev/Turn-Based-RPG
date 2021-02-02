@@ -6,7 +6,6 @@ PartyViewerScene::PartyViewerScene(Interface* mgr) : Scene(mgr)
 	AddObject("mainMenuBGObj", 640, 360, Background);
 	// Add close button to scene
 	mCloseBtn = AddObject("CloseBtnObj", 1200, 50, UI);
-
 	Init();
 
 }
@@ -26,12 +25,16 @@ void PartyViewerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 void PartyViewerScene::Init()
 {
 	mParty = mgr->GetPlayer()->GetParty();
-
 	GetCharacterPortraits();
 	GetCharacterStatistics();
-
-
 }
+
+void PartyViewerScene::Load()
+{
+	mParty = mgr->GetPlayer()->GetParty();
+}
+
+
 
 void PartyViewerScene::GetCharacterPortraits()
 {

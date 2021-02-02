@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "Character.h"
 
 struct CharacterCard
 {
@@ -15,12 +16,14 @@ class PartyViewerScene :
 {
 public:
 	PartyViewerScene(Interface* mgr);
+	void Load();
 protected:
 	void Update(double dTime, Act act, std::pair<int, int> mousePos) override;
 private:
 	RenderObject* mCloseBtn;
 
 	void Init();
+
 	void GetCharacterPortraits();
 	void GetCharacterStatistics();
 	UIText DrawStat(std::string statName, int stat, SDL_Color textColor, std::pair<int,int> pos);
