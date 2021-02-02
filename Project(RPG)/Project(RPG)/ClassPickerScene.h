@@ -35,6 +35,7 @@ private:
 	bool IsMageView = false;
 
 	int PartyCount = 0;
+	const int maxPartySize = 3;
 
 protected:
 

@@ -23,7 +23,6 @@ ClassPickerScene::ClassPickerScene(Interface* mObjMgr) : Scene(mObjMgr)
 
 void ClassPickerScene::Init()
 {
-	PartyCount = 1;
 	SetUpSummaryView();
 }
 
@@ -135,42 +134,40 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 
 		if (pRejectBtn->InBounds(mousePos.first, mousePos.second) && pRejectBtn->IsVisible())
 		{
-			SetUpSummaryView();
+			
 			IsFocused = false;
 			IsWarriorView = false;
 			IsRogueView = false;
 			IsMageView = false;
+			SetUpSummaryView();
 		}
 
 		if (pYesBtn->InBounds(mousePos.first, mousePos.second) && pYesBtn->IsVisible())
 		{
-			// create a local vector of characters, push into that, then use setupParty
-			if (PartyCount <= 3)
+			++PartyCount;
+			if (IsWarriorView)
 			{
-				
-				
-				if (IsWarriorView)
-				{
-					//mgr->GetPlayer()->AddToParty(new Character("warSprObj", "WarriorObj"));
-					mCharacters.push_back(new Character("warSprObj", "WarriorObj"));
-				}
-				if (IsRogueView)
-				{
-					//mgr->GetPlayer()->AddToParty(new Character("rogSprObj", "RogueObj"));
-					mCharacters.push_back(new Character("rogSprObj", "RogueObj"));
-				}
-				if (IsMageView)
-				{
-					//mgr->GetPlayer()->AddToParty(new Character("mageSprObj", "ClericObj"));
-					mCharacters.push_back(new Character("mageSprObj", "ClericObj"));				
-				}
-				++PartyCount;
-				SetUpSummaryView();
+				//mgr->GetPlayer()->AddToParty(new Character("warSprObj", "WarriorObj"));
+				mCharacters.push_back(new Character("warSprObj", "WarriorObj"));
+			}
+			if (IsRogueView)
+			{
+				//mgr->GetPlayer()->AddToParty(new Character("rogSprObj", "RogueObj"));
+				mCharacters.push_back(new Character("rogSprObj", "RogueObj"));
+			}
+			if (IsMageView)
+			{
+				//mgr->GetPlayer()->AddToParty(new Character("mageSprObj", "ClericObj"));
+				mCharacters.push_back(new Character("mageSprObj", "ClericObj"));
+			}
+
+			if (PartyCount < maxPartySize)
+			{							
 				IsFocused = false;
 				IsWarriorView = false;
 				IsRogueView = false;
 				IsMageView = false;
-
+				SetUpSummaryView();
 			}
 			else
 			{
@@ -197,7 +194,7 @@ void ClassPickerScene::SetUpSummaryView()
 
 	mSceneText.clear();
 
-	mHeader.text = "CHARACTER CREATOR: " + std::to_string(PartyCount);
+	mHeader.text = "CHARACTER CREATOR: " + std::to_string(PartyCount+1);
 	mHeader.pos = std::make_pair<int>(640, 230);
 	mHeader.textColor = SDL_Color{ 0,0,0 };
 	mHeader.SetTextScale(300, 60);
