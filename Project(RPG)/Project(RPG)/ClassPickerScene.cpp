@@ -91,6 +91,11 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 		{
 			if (IsFocused)
 			{
+				if (PartyCount > 0)
+				{
+					mCharacters.pop_back();
+					--PartyCount;
+				}
 				SetUpSummaryView();
 				IsFocused = false;
 				IsWarriorView = false;
@@ -99,11 +104,20 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 			}
 			else
 			{
-				mgr->LoadPreviousScene();
-				IsFocused = false;
-				IsWarriorView = false;
-				IsRogueView = false;
-				IsMageView = false;
+				if (PartyCount > 0)
+				{
+					mCharacters.pop_back();
+					--PartyCount;
+					SetUpSummaryView();
+				}
+				else
+				{
+					mgr->LoadPreviousScene();
+					IsFocused = false;
+					IsWarriorView = false;
+					IsRogueView = false;
+					IsMageView = false;
+				}
 			}
 		}
 
@@ -134,7 +148,11 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 
 		if (pRejectBtn->InBounds(mousePos.first, mousePos.second) && pRejectBtn->IsVisible())
 		{
-			
+			if (PartyCount > 0)
+			{
+				--PartyCount;
+				mCharacters.pop_back();
+			}
 			IsFocused = false;
 			IsWarriorView = false;
 			IsRogueView = false;
@@ -171,6 +189,10 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 			}
 			else
 			{
+				IsFocused = false;
+				IsWarriorView = false;
+				IsRogueView = false;
+				IsMageView = false;
 				mgr->GetPlayer()->SetupParty(mCharacters);
 				mgr->LoadScene(Scenes::Overworld);
 			}
