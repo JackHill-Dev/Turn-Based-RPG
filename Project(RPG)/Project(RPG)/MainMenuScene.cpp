@@ -10,6 +10,9 @@ MainMenuScene::MainMenuScene(Interface* rng) : Scene(rng)
 	// Get Background object
 	AddObject("mainMenuBGObj", 1280 / 2, 720 / 2, Background);
 
+
+	confirm_SFX = Mix_LoadWAV("Assets/SFX/confirmSound.wav");
+	back_SFX = Mix_LoadWAV("Assets/SFX/BackSound.wav");
 }
 
 void MainMenuScene::Update(double dTime, Act act, std::pair<int, int> mouse)
@@ -18,13 +21,21 @@ void MainMenuScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 	if (act == Act::Click)
 	{
 		if (start->InBounds(mouse.first, mouse.second) && start->IsActive())
+		{
+			mgr->PlaySFX(confirm_SFX, 0, 1);
 			mgr->LoadScene(Scenes::ClassPicker);
+		}
 
 		if (quit->InBounds(mouse.first, mouse.second) && quit->IsActive())
+		{
 			mgr->Quit();
+		}
 		
 		if (settings->InBounds(mouse.first, mouse.second) && settings->IsActive())
+		{
+			mgr->PlaySFX(confirm_SFX, 0, 1);
 			mgr->LoadScene(Scenes::SettingsPage);
+		}
 
 	}
 
