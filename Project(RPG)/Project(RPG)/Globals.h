@@ -46,8 +46,6 @@ struct Settings
 	int w, h;
 };
 
-
-
 struct DefinedCard
 {
 public:
