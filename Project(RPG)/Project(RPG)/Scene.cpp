@@ -72,11 +72,11 @@ void Scene::Draw(SDL_Renderer* rnd)
 
 	for (auto t : mSceneText)
 	{
-		rect.w = t.scale.first * resolutionScaleX;
-		rect.h = t.scale.second * resolutionScaleY;
+		rect.w = t.scale.first;
+		rect.h = t.scale.second;
 
-		rect.x = t.pos.first* resolutionScaleX - rect.w/2;
-		rect.y = t.pos.second* resolutionScaleY - rect.h/2;
+		rect.x = t.pos.first - rect.w/2;
+		rect.y = t.pos.second - rect.h/2;
 	
 		
 		SDL_Texture* fontTexture = SDL_CreateTextureFromSurface(rnd, TTF_RenderText_Blended(mFont, t.text.c_str(), t.textColor));;
