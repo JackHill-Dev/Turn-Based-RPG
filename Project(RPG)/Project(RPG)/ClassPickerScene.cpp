@@ -18,6 +18,9 @@ ClassPickerScene::ClassPickerScene(Interface* mObjMgr) : Scene(mObjMgr)
 	pYesBtn = AddObject("yesTxtBtnObj", 800, 480, UI);
 	pRejectBtn = AddObject("backTxtBtnObj", 480, 480, UI);
 
+	confirm_SFX = Mix_LoadWAV("Assets/SFX/confirmSound.wav");
+	back_SFX = Mix_LoadWAV("Assets/SFX/BackSound.wav");
+
 	Init();
 }
 
@@ -89,6 +92,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 	{
 		if (pBackBtn->InBounds(mousePos.first, mousePos.second))
 		{
+			mgr->PlaySFX(back_SFX, 0, 1);
 			if (IsFocused)
 			{
 				if (PartyCount > 0)
@@ -123,6 +127,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 
 		if (pWarriorIcon->InBounds(mousePos.first, mousePos.second) && pWarriorIcon->IsVisible())
 		{
+			mgr->PlaySFX(confirm_SFX, 0, 1);
 			IsFocused = true;
 			IsWarriorView = true;
 			OnLeave(pWarriorIcon);
@@ -132,6 +137,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 
 		if (pRogueIcon->InBounds(mousePos.first, mousePos.second) && pRogueIcon->IsVisible())
 		{
+			mgr->PlaySFX(confirm_SFX, 0, 1);
 			IsFocused = true;
 			IsRogueView = true;
 			OnLeave(pRogueIcon);
@@ -140,6 +146,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 
 		if (pMageIcon->InBounds(mousePos.first, mousePos.second) && pMageIcon->IsVisible())
 		{
+			mgr->PlaySFX(confirm_SFX, 0, 1);
 			IsFocused = true;
 			IsMageView = true;
 			OnLeave(pMageIcon);
@@ -148,6 +155,8 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 
 		if (pRejectBtn->InBounds(mousePos.first, mousePos.second) && pRejectBtn->IsVisible())
 		{
+			mgr->PlaySFX(back_SFX, 0, 1);
+
 			if (PartyCount > 0)
 			{
 				--PartyCount;
@@ -162,6 +171,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 
 		if (pYesBtn->InBounds(mousePos.first, mousePos.second) && pYesBtn->IsVisible())
 		{
+			mgr->PlaySFX(confirm_SFX, 0, 1);
 			++PartyCount;
 			if (IsWarriorView)
 			{
