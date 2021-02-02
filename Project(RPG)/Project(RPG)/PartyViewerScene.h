@@ -24,6 +24,8 @@ protected:
 private:
 	RenderObject* mCloseBtn;
 	RenderObject* mInventoryBtn;
+	Mix_Chunk* button_SFX;
+
 	void Init();
 
 	void GetCharacterPortraits();
