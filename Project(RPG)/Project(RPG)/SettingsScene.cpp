@@ -14,17 +14,25 @@ void SettingsScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 
 		if (settingsCloseBtn->InBounds(mousePos.first, mousePos.second) && settingsCloseBtn->IsActive())
 		{
+			mgr->PlaySFX(back_SFX, 0, 1);
 			mgr->LoadPreviousScene();
 		}
 
 		if (dropdownCollapsed->InBounds(mousePos.first, mousePos.second) && dropdownCollapsed->IsActive())
+		{
+			mgr->PlaySFX(button_Click_SFX, 0, 1);
 			Collapse(false);
+		}	
 		else
+		{
 			Collapse(true);
+		}
+			
 	
 
 		if (ApplyBtn->InBounds(mousePos.first, mousePos.second) && ApplyBtn->IsActive())
 		{
+			mgr->PlaySFX(confirm_SFX, 0, 1);
 			ApplySettings();
 		}
 
@@ -32,11 +40,13 @@ void SettingsScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 		{
 			if (!mgr->GetSettings().bIsFullScreen)
 			{
+				mgr->PlaySFX(button_Click_SFX, 0, 1);
 				checkBox->SetAnim("Checked");
 				mgr->GetSettings().bIsFullScreen = true;
 			}
 			else
 			{
+				mgr->PlaySFX(button_Click_SFX, 0, 1);
 				checkBox->SetAnim("default");
 				mgr->GetSettings().bIsFullScreen = false;
 			}
@@ -63,6 +73,9 @@ void SettingsScene::Setup()
 	ApplyBtn = AddObject("ApplyBtnObj", 640, 550, UI);
 	checkBox = AddObject("checkBoxObj", 720, 200, UI);
 	checkBox->SetScale(std::make_pair(0.5, 0.5));
+	confirm_SFX = Mix_LoadWAV("Assets/SFX/confirmSound.wav");
+	back_SFX = Mix_LoadWAV("Assets/SFX/BackSound.wav");
+	button_Click_SFX = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
 	if (mgr->GetSettings().bIsFullScreen)
 		checkBox->SetAnim("Checked");
 
