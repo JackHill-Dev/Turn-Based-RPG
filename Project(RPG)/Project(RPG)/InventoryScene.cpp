@@ -9,8 +9,10 @@ InventoryScene::InventoryScene(Interface* mgr) : Scene(mgr)
 
 void InventoryScene::Load()
 {
+	mParty = mgr->GetPlayer()->GetParty();
 	mLayers[Game].clear();
 	itemObjects.clear();
+	
 	int i = 0;
 	for (Item* item : mgr->GetPlayer()->GetInventory().GetContents())
 	{
@@ -97,7 +99,7 @@ void InventoryScene::GetCharacterPortraits()
 	{
 	case 1: testX = 640; break;
 	case 2: testX = 540; break;
-	case 3: testX = 1000; break;
+	case 3: testX = 440; break;
 	case 4: testX = 250; break;
 	default: testX = 0; break;
 	}
