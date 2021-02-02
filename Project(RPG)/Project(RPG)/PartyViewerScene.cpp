@@ -18,7 +18,7 @@ void PartyViewerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 		mgr->LoadScene(Overworld); 	// Go to previous scene that opened the party viewer
 
 	if (act == Act::Click && mInventoryBtn->InBounds(mousePos.first, mousePos.second))
-		mgr->LoadScene(6); // Inventory screen
+		mgr->LoadScene(Scenes::InventoryScreen); // Inventory screen
 	
 	mSceneText.clear();
 
@@ -36,6 +36,7 @@ void PartyViewerScene::Init()
 void PartyViewerScene::Load()
 {
 	mParty = mgr->GetPlayer()->GetParty();
+	GetCharacterPortraits();
 }
 
 void PartyViewerScene::GetCharacterPortraits()

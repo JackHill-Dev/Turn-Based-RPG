@@ -17,7 +17,7 @@ void InventoryScene::Load()
 		itemObjects.push_back(ItemObject(item, AddObject(item->GetObjName(), playerInvGrid[i]->GetPos().first, playerInvGrid[i]->GetPos().second, Game)));
 		++i;
 	}
-
+	GetCharacterPortraits();
 	// if a character has an equip slot filled then draw them to the screen and add them the the scene's item objects
 	for (auto c : mParty)
 	{
@@ -29,6 +29,8 @@ void InventoryScene::Load()
 			itemObjects.push_back(ItemObject(c->mWeaponEquipSlot._item, AddObject(c->mWeaponEquipSlot._item->GetObjName(),
 				c->mWeaponEquipSlot.slotObj->GetPos().first, c->mWeaponEquipSlot.slotObj->GetPos().second, Game)));
 	}
+
+
 }
 
 void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
@@ -95,14 +97,15 @@ void InventoryScene::GetCharacterPortraits()
 	{
 	case 1: testX = 640; break;
 	case 2: testX = 540; break;
-	case 3: testX = 440; break;
+	case 3: testX = 1000; break;
 	case 4: testX = 250; break;
+	default: testX = 0; break;
 	}
 	
 	int offsetX = testX; // Allows for equal seperation of portraits and frames
 
 	// Get all party memebers from player
-	for (Character* c : mParty)
+	for (Character* c : mgr->GetPlayer()->GetParty())
 	{
 		AddObject(c->GetPortraitName(), offsetX, 180, UI)->SetScale(std::make_pair(0.8,0.8)); // Get all of their portrait render objects and add them to the scene
 
@@ -118,7 +121,7 @@ void InventoryScene::GetCharacterPortraits()
 void InventoryScene::Init()
 {
 	mParty = mgr->GetPlayer()->GetParty();
-	GetCharacterPortraits();
+
 	playerInvGrid = DrawGrid(9, 3, 250, 400, 800);
 	Load();
 }

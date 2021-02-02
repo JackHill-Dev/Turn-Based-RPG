@@ -124,17 +124,18 @@ bool GameManager::Init()
 	SetupPlayer();
 	
 
-	scenes.push_back(new MainMenuScene(&mInterface));
-    scenes.push_back(new OverworldMapScene(&mInterface));
+	scenes.push_back(new MainMenuScene(&mInterface)); // 0
+    scenes.push_back(new OverworldMapScene(&mInterface)); // 1
 	combatInstance.first = new CombatScene(&mInterface);
-	scenes.push_back(combatInstance.first);
+	scenes.push_back(combatInstance.first); // 2
 	mShopSceneInstance = new ShopScene(&mInterface);
-	scenes.push_back(mShopSceneInstance);
+	scenes.push_back(mShopSceneInstance); // 3
 	partyViewerInstance = new PartyViewerScene(&mInterface);
-	scenes.push_back(partyViewerInstance);
-	scenes.push_back(new SettingsScene(&mInterface));
+	scenes.push_back(partyViewerInstance); // 4
+	scenes.push_back(new SettingsScene(&mInterface)); // 5
+	scenes.push_back(new ClassPickerScene(&mInterface)); // 6
 	mInventorySceneInstance = new InventoryScene(&mInterface);
-	scenes.push_back(mInventorySceneInstance);
+	scenes.push_back(mInventorySceneInstance); // 7
 
 	//LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
 	currentScene->Clear(mRnd);
@@ -166,7 +167,7 @@ void GameManager::SetupPlayer()
 	mWizard = Character("maleObj", "WizardObj");
 	mWarrior = Character("maleObj", "WarriorObj");
 
-	mPlayer.SetupParty({ &mWizard, new Character("maleObj", "ClericObj"), new Character("maleObj", "RogueObj"), &mWarrior });
+	//mPlayer.SetupParty({ &mWizard, new Character("maleObj", "ClericObj"), new Character("maleObj", "RogueObj"), &mWarrior });
 }
 
 bool GameManager::SetUp()
