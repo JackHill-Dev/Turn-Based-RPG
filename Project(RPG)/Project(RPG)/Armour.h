@@ -4,6 +4,10 @@ class Armour :
     public Item
 {
 public:
-    Armour(std::string name, int cost);
+    Armour() {}
+    Armour(std::string name, int cost, int def = 10);
+    int defence = 10;
+private:
+ 
 };
 

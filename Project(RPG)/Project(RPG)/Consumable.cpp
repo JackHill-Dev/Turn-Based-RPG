@@ -2,7 +2,7 @@
 
 Consumable::Consumable(std::string name, int cost) : Item(name, cost)
 {
-	SetObjName("potionObj");
+	mObjName = "potionObj";
 }
 
 void Consumable::OnConsume()

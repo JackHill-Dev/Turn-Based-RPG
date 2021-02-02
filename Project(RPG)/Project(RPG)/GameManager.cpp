@@ -46,7 +46,8 @@ void GameManager::Run()
 				switch (ev.type)
 				{
 				case SDL_KEYUP:
-
+					if (ev.button.button == SDL_BUTTON_LEFT)
+						act = Act::MouseUp;
 
 
 					break;
@@ -99,18 +100,13 @@ void GameManager::LoadScene()
 {
 	switch (mCScene)
 	{
-	case Scenes::Combat:
-		combatInstance.first->Load(combatInstance.second);
-		break;
-	case Scenes::Party:
+	case Scenes::Combat: combatInstance.first->Load(combatInstance.second); break;
+	case Scenes::Shops: mShopSceneInstance->Load(); break;
+	case Scenes::Party:  partyViewerInstance->Load(); break;
+	case Scenes::InventoryScreen : mInventorySceneInstance->Load(); break;
+	}
 
-		partyViewerInstance->Load();
-		break;
-	}
-	if (mCScene == Scenes::Combat)
-	{
-		combatInstance.first->Load(combatInstance.second);
-	}
+
 }
 bool GameManager::CreateWindow()
 {
@@ -125,19 +121,20 @@ bool GameManager::Init()
 	CreateWindow();
 	mInterface.StoreWindow(mWnd);
 	SetUp();
-
-	mPlayer.SetGold(1000);
-	//mPlayer.SetupParty({ new Character("maleObj", "WizardObj"), new Character("maleObj", "ClericObj"), new Character("maleObj", "RogueObj"), new Character("maleObj", "WarriorObj") });
+	SetupPlayer();
+	
 
 	scenes.push_back(new MainMenuScene(&mInterface));
     scenes.push_back(new OverworldMapScene(&mInterface));
 	combatInstance.first = new CombatScene(&mInterface);
 	scenes.push_back(combatInstance.first);
-	scenes.push_back(new ShopScene(&mInterface));
+	mShopSceneInstance = new ShopScene(&mInterface);
+	scenes.push_back(mShopSceneInstance);
 	partyViewerInstance = new PartyViewerScene(&mInterface);
 	scenes.push_back(partyViewerInstance);
 	scenes.push_back(new SettingsScene(&mInterface));
-	scenes.push_back(new ClassPickerScene(&mInterface));
+	mInventorySceneInstance = new InventoryScene(&mInterface);
+	scenes.push_back(mInventorySceneInstance);
 
 	//LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
 	currentScene->Clear(mRnd);
@@ -158,6 +155,18 @@ void GameManager::LoadSettings()
 
 	}
 	ifs.close();
+}
+
+void GameManager::SetupPlayer()
+{
+	mPlayer.SetGold(1000);
+	mArmour = Armour("armourObj", 100, 20);
+	mPlayer.GetInventory().AddItem(&mArmour);
+
+	mWizard = Character("maleObj", "WizardObj");
+	mWarrior = Character("maleObj", "WarriorObj");
+
+	mPlayer.SetupParty({ &mWizard, new Character("maleObj", "ClericObj"), new Character("maleObj", "RogueObj"), &mWarrior });
 }
 
 bool GameManager::SetUp()

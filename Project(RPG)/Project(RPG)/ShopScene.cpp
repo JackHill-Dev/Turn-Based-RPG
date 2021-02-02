@@ -55,16 +55,23 @@ void ShopScene::Init()
 	GenerateGrids();
 
 	mPlayerGoldText.text = "Gold: " + std::to_string( mgr->GetPlayer()->GetGold());
-	mPlayerGoldText.pos = std::make_pair(520, 385);
+	mPlayerGoldText.pos = std::make_pair(520, 415);
 	mPlayerGoldText.textColor = SDL_Color{ 255, 215, 0 }; // Gold
 
 	mShopGoldText.text = "Gold: " + std::to_string(mShop.GetGold());
-	mShopGoldText.pos = std::make_pair(620, 385);
+	mShopGoldText.pos = std::make_pair(620, 415);
 	mShopGoldText.textColor = SDL_Color{ 255, 215, 0 }; // Gold
 	
 	mSceneText.push_back(mPlayerGoldText);
 	mSceneText.push_back( mShopGoldText);
 
+}
+
+void ShopScene::Load()
+{
+	mLayers[Game].clear();
+	PlaceItems(mgr->GetPlayer()->GetInventory());
+	PlaceItems(mShop.GetInventory());
 }
 
 void ShopScene::SetupShopInv()
@@ -139,6 +146,8 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 			
 		}
 		
+
+
 		if (act == Act::RClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
 			if (!(mShop.GetGold() < i->GetCost())) // Can only sell to the shop if the shop can give you the moeny for the item
@@ -159,13 +168,10 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 
 void ShopScene::GenerateGrids()
 {
-	mgr->GetPlayer()->GetInventory().SetInitialGridPos(80);
 	mShop.GetInventory().SetInitialGridPos(880);
 
-	mgr->GetPlayer()->GetInventory().GeneratePositions();
 	mShop.GetInventory().GeneratePositions();
 
-	//SetupPlayerInv();
 	SetupShopInv();
 
 	DrawGrid(4, 5, 80, 110); // Draw item frames for player inventory
@@ -191,6 +197,8 @@ void ShopScene::DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY
 		offsetX += 90;
 	}
 }
+
+
 
 int ShopScene::RandomRange(int min, int max)
 {

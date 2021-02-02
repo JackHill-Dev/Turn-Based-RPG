@@ -9,10 +9,11 @@ const int layerNum = 4;
 
 enum Layer
 {
-	 Background = 0,
-	 Map = 1,
-	 Game = 2,
-	 UI = 3, 
+	Background = 0,
+	Map = 1,
+	Game = 2,
+	UI = 3,
+	Items = 4
 };
 
 enum class Act 
@@ -21,6 +22,7 @@ enum class Act
 	Jump, 
 	Click,
 	RClick,
+	MouseUp,
 	MouseUpdate
 };
 
@@ -33,6 +35,7 @@ enum Scenes
 	Party = 4,
 	SettingsPage = 5,
 	ClassPicker = 6,
+	InventoryScreen = 7,
 	NoSceneYet = 10 
 };
 

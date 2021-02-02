@@ -6,6 +6,7 @@ PartyViewerScene::PartyViewerScene(Interface* mgr) : Scene(mgr)
 	AddObject("mainMenuBGObj", 640, 360, Background);
 	// Add close button to scene
 	mCloseBtn = AddObject("CloseBtnObj", 1200, 50, UI);
+	mInventoryBtn = AddObject("inventoryButtonObj", 640, 700, UI);
 	Init();
 
 }
@@ -14,13 +15,16 @@ void PartyViewerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 {
 	// Check if close button has been pressed 
 	if (act == Act::Click && mCloseBtn->InBounds(mousePos.first, mousePos.second))
-		mgr->LoadPreviousScene(); 	// Go to previous scene that opened the party viewer
+		mgr->LoadScene(Overworld); 	// Go to previous scene that opened the party viewer
 
+	if (act == Act::Click && mInventoryBtn->InBounds(mousePos.first, mousePos.second))
+		mgr->LoadScene(6); // Inventory screen
+	
 	mSceneText.clear();
-	GetCharacterPortraits();
-	GetCharacterStatistics();
 
+	GetCharacterStatistics();
 }
+
 
 void PartyViewerScene::Init()
 {
@@ -34,8 +38,6 @@ void PartyViewerScene::Load()
 	mParty = mgr->GetPlayer()->GetParty();
 }
 
-
-
 void PartyViewerScene::GetCharacterPortraits()
 {
 	int offsetX = 250; // Allows for equal seperation of portraits and frames
@@ -43,7 +45,7 @@ void PartyViewerScene::GetCharacterPortraits()
 	// Get all party memebers from player
 	for (Character* c : mParty)
 	{
-		RenderObject& obj = *AddObject(c->GetPortraitName(), offsetX, 180, Game); // Get all of their portrait render objects and add them to the scene
+		AddObject(c->GetPortraitName(), offsetX, 180, UI); // Get all of their portrait render objects and add them to the scene
 		offsetX += 250;							
 	}
 	offsetX = 250;
@@ -93,3 +95,4 @@ UIText PartyViewerScene::DrawStat(std::string statName, int stat, SDL_Color text
 	std::string statTxt = statName + ": " + std::to_string(stat);
 	return UIText{statTxt, pos,std::make_pair(70,50), textColor};
 }
+

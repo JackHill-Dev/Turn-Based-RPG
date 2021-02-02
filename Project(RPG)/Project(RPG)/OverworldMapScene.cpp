@@ -18,9 +18,8 @@ int RandomNumberGenerator(int min, int max)
 OverworldMapScene::OverworldMapScene(Interface* mObjMgr) : Scene(mObjMgr)
 {
 	pOverworld = AddObject("overworldObj", 640, 360, Map);
-	pArmyViewerButton = AddObject("armyViewerButtonObj", 350, 700, UI);
-	pMenuButton = AddObject("menuButtonObj", 640, 700, UI);
-	pInventoryButton = AddObject("inventoryButtonObj", 930, 700, UI);
+	pArmyViewerButton = AddObject("armyViewerButtonObj", 730, 700, UI);
+	pMenuButton = AddObject("menuButtonObj", 440, 700, UI);
 	mBackgroundMus = Mix_LoadMUS("Assets/Music/Tavern+Loop+One+-+320bit.mp3");
 	
 	//Mix_Volume(1, 5);
@@ -150,6 +149,7 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 			OnLeave(pMenuButton);
 			mgr->LoadScene(Scenes::SettingsPage);
 		}
+		
 	}
 	if (act == Act::MouseUpdate)
 	{

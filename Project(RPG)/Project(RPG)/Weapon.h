@@ -8,7 +8,7 @@ public:
     int GetAtkPower();
     void SetAtkPower(int atk);
 private:
-    int mAttackPower;
+    int mAttackPower = 10;
 
 };
 

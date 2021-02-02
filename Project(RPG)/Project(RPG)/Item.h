@@ -8,10 +8,16 @@ struct InvPos
 	bool gridPosFilled = false;
 };
 
+enum ItemType
+{
+	UNDEFINED = 0,
+	ARMOUR,
+	WEAPON
+};
 class Item
 {
 public:
-	Item() = delete;
+	Item() {}
 	Item(std::string name, int cost);
 	~Item();
 	std::string GetName() const;
@@ -20,16 +26,19 @@ public:
 	RenderObject* GetRenderObject();
 	void SetObjName(std::string name);
 	void SetRenderObject(RenderObject* obj);
-
+	ItemType GetType() { return mType; }
 	void OnHover();
 	void OnLeave();
-
+	bool bPickedUp = false;
+	bool bEquipped = false;
 	InvPos inventoryPos;
 protected:
 	std::string mName;
 	std::string mObjName;
+	ItemType mType = UNDEFINED;
 private:
 	RenderObject* mRenderObject;
+
 	int mCost;
 	
 	
