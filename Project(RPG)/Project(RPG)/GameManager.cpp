@@ -262,6 +262,6 @@ void GameManager::CreateCard(DefinedCard* card)
 	cards.insert({ card->name, new Card(card->damage, card->name, card->range, "cardObj" + std::to_string(cards.size()), card->animation) });
 	SDL_SetRenderTarget(mRnd, NULL);
 
-	SDL_Texture* fontTexture = (SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended(mFont, card.name , SDL_Color{ 0,0,0 }));;
+	//SDL_Texture* fontTexture = (SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended(mFont, card.name , SDL_Color{ 0,0,0 }));;
 }
 
