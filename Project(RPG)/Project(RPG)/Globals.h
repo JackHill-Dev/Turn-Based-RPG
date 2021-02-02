@@ -5,7 +5,7 @@
 #include <functional>
 
 typedef void (*fnc)(void); // function pointer type
-const int layerNum = 4;
+const int layerNum = 5;
 
 enum Layer
 {
@@ -13,7 +13,7 @@ enum Layer
 	Map = 1,
 	Game = 2,
 	UI = 3,
-	Items = 4
+	Effects = 4
 };
 
 enum class Act 
@@ -48,4 +48,11 @@ struct Settings
 
 
 
+struct DefinedCard
+{
+public:
+	DefinedCard(int range, int damage, int intelligenceCost, int staminaCost, int agilityCost, std::string name, std::string description, std::string picture,std::string animation) : range(range), damage(damage), intelligenceCost(intelligenceCost), staminaCost(staminaCost), agilityCost(agilityCost), name(name), description(description), picture(picture), animation(animation) {};
 
+	int range, damage, intelligenceCost, staminaCost, agilityCost;
+	std::string name, description, picture, animation;
+};

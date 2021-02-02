@@ -8,7 +8,6 @@
 class Interface
 {
 private:
-
 	bool* running;											// A pointer to the boolean that says whether its running or not, quit sets this to false
 	int* currentScene;										// A pointer to the currentsceneIndex
 	int prevScene;
@@ -18,7 +17,6 @@ private:
 	Settings* pSettings;
 public:
 	Player* pPlayer;
-	
 	RenderObject* RequestObject(std::string name);			// Requests a renderobject and returns a clone of the instance to the scene
 	Settings& GetSettings() { return *pSettings; }
 	Interface(bool* brunning,std::map<std::string, RenderObject*>* objP, int* currentScene, std::vector<Character*>* currentEnemies, Player* player, Settings* settings); //This is the constructor, we pass in the pointers to the various variables which sets them
@@ -28,7 +26,9 @@ public:
 	void SetMasterVolume(int channel, int volume);
 	void StopMusic();							//This functions will halt all music, even the indefinite looping ones
 	void LoadScene(int index);	//Loads scene via its indexed location in the vector scenes 0 being the mainMenu, 1 being combat etc
+
 	void LoadCombatScene(std::vector<Character*> enemies) { *currentEnemies = enemies; prevScene = *currentScene; *currentScene = Scenes::Combat; }
+
 	void LoadPreviousScene();
 	void StoreWindow(SDL_Window* wnd) { mWnd = wnd; }
 	void SetWindowSize();

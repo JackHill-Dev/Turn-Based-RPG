@@ -55,6 +55,6 @@ public:
 	void Draw(SDL_Renderer* rnd);
 	
 	void Clear(SDL_Renderer* rnd);
-	RenderObject* AddObject(std::string obj, int x, int y, Layer layerNum);
+	RenderObject* AddObject(std::string obj, double x, double y, Layer layerNum);
 };
 

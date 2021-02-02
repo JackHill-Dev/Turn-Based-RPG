@@ -11,6 +11,7 @@
 #include "SettingsScene.h"
 #include "Character.h"
 #include "Interface.h"
+
 #include "Player.h"
 #include "CombatScene.h"
 #include "Consumable.h"
@@ -33,11 +34,15 @@ private:
 	Player mPlayer;
 	std::map<std::string, RenderObject*> objects; // This is where the RenderObject types are stored 
 	std::map<std::string, SpriteSheet*> sheets; // This is where the spritesheets are stored
+	std::map<std::string, Card*> cards;
+	//Interface mInterface{&bRunning, &objects, &mPlayer,&mCScene };
+
 
 	Interface mInterface{&bRunning, &objects,&mCScene, &combatInstance.second, &mPlayer, &mSettings};
 
 
 	SDL_Texture* LoadTexture(std::string path); //Moved it here for now
+	void CreateCard(DefinedCard* card);
 	void LoadScene();
 	
 public:

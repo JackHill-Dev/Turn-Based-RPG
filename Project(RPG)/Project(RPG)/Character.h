@@ -6,7 +6,7 @@
 #include "Weapon.h"
 struct Statistics
 {
-	std::pair<int, int> health = { 15,15 }; // max, current
+	std::pair<int, int> health = { 15,15 }; // current, max
 	std::pair<int, int> mana = { 10,10 };
 	std::pair<int, int> agility = { 10,10 };
 	std::pair<int, int> stamina = { 10,10 };
