@@ -1,9 +1,10 @@
 #include "SpriteSheet.h"
 
-SpriteSheet::SpriteSheet(std::string path, int textureSizeX, int textureSizeY, float nCellSizeX, float nCellSizeY, int nCellCount) : mFilePath(path), mCellCount(nCellCount), mCellSizeX(nCellSizeX),  mCellSizeY(nCellSizeY), textureSize(std::make_pair(textureSizeX,textureSizeY))
+SpriteSheet::SpriteSheet(std::string path, int textureSizeX, int textureSizeY, float nCellSizeX, float nCellSizeY, bool fillScreen) : mFilePath(path), fillScreen(fillScreen), mCellSizeX(nCellSizeX),  mCellSizeY(nCellSizeY), textureSize(std::make_pair(textureSizeX,textureSizeY))
 {
+	if(!anims.count("default"))
+		anims.insert(std::make_pair("default", Animation("default", { std::make_pair(0,0) })));
 	//anims["default"] =  Animation("default", { std::make_pair(0,0) });
-	anims.insert(std::make_pair("default", Animation("default", { std::make_pair(0,0) })));
 }
 
 SDL_Texture* SpriteSheet::GetTexture()

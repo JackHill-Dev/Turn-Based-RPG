@@ -1,7 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "Card.h"
-
+#include <deque>
 class CombatScene :
     public Scene
 {
@@ -21,6 +21,7 @@ public:
 
     struct Unit
     {
+		std::deque<tile*> currentPath;
 		RenderObject* object;
 		RenderObject* profile;
         Character* character;
@@ -31,83 +32,93 @@ public:
 			object->SetPos(occupiedTile->pos);
 			occupiedTile->availiable = false;
 		}
-		bool SetTarget(tile* tile)
+		bool SetTarget(std::deque<tile*> path)
 		{
-			if (tile->availiable)
-			{
-				
-				occupiedTile->availiable = true;
-				busy = true;
-				occupiedTile = tile;
-				occupiedTile->availiable = false;
-				return true;
-
-			}
+			occupiedTile->availiable = true;
+			occupiedTile = path.back();
+			occupiedTile->availiable = false;
+			currentPath = path;
+			busy = true;
 			return false;
 		}
 		void Move(double dTime)
 		{
-			std::pair<double, double> target = occupiedTile->pos;
-			double xPos = object->GetPos().first;
-			double yPos = object->GetPos().second;
-			double yDistance = target.second - object->GetPos().second;
-			double xDistance = target.first - object->GetPos().first;
-			
 
-			if (yDistance != 0)
-			{
-				if (std::abs(yDistance) < 1.f)
-					yPos = target.second;
 
-				if (yDistance > 0)
-				{
-					yPos += dTime * 0.1f;
-					object->SetAnim("WalkUp");
-				}
-				else if (yDistance < 0)
-				{
-					yPos -= dTime * 0.1f;
-					object->SetAnim("WalkDown");
-				}
-			}
-			else
+			if (currentPath.size() > 0)
 			{
-				if (std::abs(xDistance) < 1.f)
+
+
+
+				std::pair<double, double> target = currentPath.front()->pos;
+				double xPos = object->GetPos().first;
+				double yPos = object->GetPos().second;
+				double yDistance = target.second - object->GetPos().second;
+				double xDistance = target.first - object->GetPos().first;
+
+				if (yDistance != 0)
 				{
-					xPos = target.first;
-					object->SetAnim("LookUp");
-					busy = false;
+					if (std::abs(yDistance) < 1.f)
+						yPos = target.second;
+
+					if (yDistance > 0)
+					{
+						yPos += dTime * 0.1f;
+						object->SetAnim("WalkUp");
+					}
+					else if (yDistance < 0)
+					{
+						yPos -= dTime * 0.1f;
+						object->SetAnim("WalkDown");
+					}
 				}
 				else
 				{
-					if (xDistance > 0)
+					if (std::abs(xDistance) < 1.f)
 					{
-						xPos += dTime * 0.1f;
-						object->SetAnim("WalkRight");
-
+						xPos = target.first;
+						//object->SetAnim("LookUp");
+						currentPath.pop_front();
 					}
-					else if (xDistance < 0)
+					else
 					{
-						xPos -= dTime * 0.1f;
-						object->SetAnim("WalkLeft");
+						if (xDistance > 0)
+						{
+							xPos += dTime * 0.1f;
+							object->SetAnim("WalkRight");
 
+						}
+						else if (xDistance < 0)
+						{
+							xPos -= dTime * 0.1f;
+							object->SetAnim("WalkLeft");
+
+						}
 					}
 				}
-			}
-			object->SetPos(std::make_pair(xPos, yPos));
+				object->SetPos(std::make_pair(xPos, yPos));
 
+			}
+			else
+			{
+				busy = false;
+				object->SetAnim("LookUp");
+			}
 		}
+		
     };
 	void Load(std::vector<Character*> enemy);
     CombatScene(Interface* objmg);
     void Update(double dTime, Act act,std::pair<int, int> mouse) override;
 private:
+	void PlayFightAnimation();
 	void RunAi();
-	void Cast(std::pair<Card*, RenderObject*>* card);
-	void RemoveUnit(Unit unit);
+	void Cast(Unit* caster, Unit* target, const std::pair<Card*, RenderObject*>* card);
+	void RemoveUnit(Unit* unit);
     std::vector<Character> chars{};
     std::vector<Card*> playerHand{};
-	std::vector<tile*> CalculatePath(tile* start, tile* end);
+	std::deque<tile*> CalculatePath(tile* start, tile* end);
 	void RemoveCard(std::pair<Card*, RenderObject*>* cd);
+	double GetDistance(tile* start, tile* end) { return std::abs(std::sqrt(std::pow(end->pos.first - start->pos.first, 2) + std::pow(end->pos.second - start->pos.second, 2)))/32; }
 };
 
