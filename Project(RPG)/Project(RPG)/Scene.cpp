@@ -40,7 +40,7 @@ void Scene::Draw(SDL_Renderer* rnd)
 	SDL_GetRendererOutputSize(rnd, &w, &h);
 	float resolutionScaleX = 1 + ((float)w - 1280) / 1280;
 	float resolutionScaleY = 1 + ((float)h - 720) / 720;
-
+	
 	std::for_each(mLayers.begin(), mLayers.end(), [rnd, &rect, &crop, resolutionScaleX, resolutionScaleY](std::vector<RenderObject*> layer) {
 		std::for_each(layer.begin(), layer.end(), [rnd, &rect, &crop, resolutionScaleX, resolutionScaleY](RenderObject* obj) {if (obj->IsVisible())
 
@@ -53,12 +53,12 @@ void Scene::Draw(SDL_Renderer* rnd)
 			crop.w = obj->GetSheet()->GetCellSize().first;
 			crop.h = obj->GetSheet()->GetCellSize().second;
 
-			
-			rect.w = obj->GetSheet()->GetCellSize().first * (obj->scale.first * resolutionScaleX); //scaling currentky buggy with inbounds, need to fix -T
-			rect.h = obj->GetSheet()->GetCellSize().second * (obj->scale.second * resolutionScaleY);
 
-			rect.x = obj->GetPos().first * resolutionScaleX - rect.w/2;
-			rect.y = obj->GetPos().second * resolutionScaleY - rect.h/2;
+			rect.w = obj->GetSheet()->GetCellSize().first * (obj->scale.first);// *resolutionScaleX); //scaling currentky buggy with inbounds, need to fix -T
+			rect.h = obj->GetSheet()->GetCellSize().second * (obj->scale.second);// *resolutionScaleY);
+
+			rect.x = obj->GetPos().first  - rect.w/2;
+			rect.y = obj->GetPos().second  - rect.h/2;
 
 			SDL_SetTextureColorMod(obj->GetSheet()->GetTexture(), obj->tint.r, obj->tint.g, obj->tint.b);
 
@@ -87,6 +87,9 @@ void Scene::Draw(SDL_Renderer* rnd)
 
 	
 	++counter;
+	SDL_RenderSetScale(rnd,
+		resolutionScaleX,
+		resolutionScaleY);
 }
 // When mouse is inside bounds of a render object in current scene
 
@@ -98,7 +101,7 @@ void Scene::Clear(SDL_Renderer* rnd)
 }
 
 
-RenderObject* Scene::AddObject(std::string obj, int x, int y, Layer layerNum)
+RenderObject* Scene::AddObject(std::string obj, double x, double y, Layer layerNum)
 {
 	RenderObject* obje = mgr->RequestObject(obj);
 

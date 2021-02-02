@@ -1,12 +1,12 @@
 #include "Card.h"
 
-Card::Card(int damage, std::string name, int range, std::string objectName) : damage(damage), name(name), range(range), objectName(objectName)
+Card::Card(int damage, std::string name, int range, std::string objectName, std::string effect) : name(name), cardValues(range, damage, 10, 0, 0), effect(effect), objectName(objectName)
 {
 
 }
 void Card::Cast(Character* caster, Character* target)
 {
-	target->ModHealth(damage);
+	target->ModHealth(cardValues.damage);
 }
 
 RenderObject* Card::getObj()

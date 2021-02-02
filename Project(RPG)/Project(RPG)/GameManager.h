@@ -8,9 +8,11 @@
 #include "OverworldMapScene.h"
 #include "Character.h"
 #include "Interface.h"
+
 #include "Player.h"
 #include "CombatScene.h"
 #include "PartyViewerScene.h"
+
 
 
 class GameManager
@@ -28,6 +30,7 @@ private:
 	Player mPlayer;
 	std::map<std::string, RenderObject*> objects; // This is where the RenderObject types are stored 
 	std::map<std::string, SpriteSheet*> sheets; // This is where the spritesheets are stored
+	std::map<std::string, Card*> cards;
 	//Interface mInterface{&bRunning, &objects, &mPlayer,&mCScene };
 
 
@@ -35,6 +38,7 @@ private:
 
 
 	SDL_Texture* LoadTexture(std::string path); //Moved it here for now
+	void CreateCard(DefinedCard* card);
 	void LoadScene();
 	
 public:
