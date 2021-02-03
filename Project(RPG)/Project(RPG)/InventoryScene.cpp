@@ -4,6 +4,7 @@ InventoryScene::InventoryScene(Interface* mgr) : Scene(mgr)
 {
 	AddObject("ShopBGObj", 640, 360, Background);
 	pCloseBtn = AddObject("exitButtonObj", 1000, 50, UI);
+	button_SFX = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
 	Init();
 }
 
@@ -38,7 +39,10 @@ void InventoryScene::Load()
 void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
 	if (act == Act::Click && pCloseBtn->InBounds(mousePos.first, mousePos.second))
+	{
+		mgr->PlaySFX(button_SFX, 0, 1);
 		mgr->LoadPreviousScene();
+	}
 
 	for (auto i : itemObjects)
 	{

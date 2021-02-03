@@ -32,6 +32,8 @@ private:
 	UIText mShopGoldText;
 	Mix_Music* bg_Music;
 	Mix_Chunk* buySell_SFX;
+	Mix_Chunk* button_Click_SFX;
+	Mix_Chunk* leave_SFX;
 	RenderObject* pExitButton;
 	bool startOnce = false;
 

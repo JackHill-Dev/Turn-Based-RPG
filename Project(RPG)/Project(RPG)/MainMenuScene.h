@@ -22,6 +22,9 @@ protected:
     void Update(double dTime, Act act, std::pair<int, int> mouse) override;
 private:
 
+    Mix_Chunk* confirm_SFX;
+    Mix_Chunk* back_SFX;
+
     // Main menu buttons
     RenderObject* start;
     RenderObject* quit;

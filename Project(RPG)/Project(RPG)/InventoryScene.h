@@ -25,6 +25,7 @@ private:
 	std::vector<RenderObject*> DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY, int gridBoundsX);
 private:
 	RenderObject* pCloseBtn;
+	Mix_Chunk* button_SFX;
 
 	std::vector<RenderObject*> playerInvGrid;
 	std::vector<ItemObject> itemObjects;

@@ -7,6 +7,7 @@ PartyViewerScene::PartyViewerScene(Interface* mgr) : Scene(mgr)
 	// Add close button to scene
 	mCloseBtn = AddObject("CloseBtnObj", 1200, 50, UI);
 	mInventoryBtn = AddObject("inventoryButtonObj", 640, 700, UI);
+	button_SFX = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
 	Init();
 
 }
@@ -15,10 +16,16 @@ void PartyViewerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 {
 	// Check if close button has been pressed 
 	if (act == Act::Click && mCloseBtn->InBounds(mousePos.first, mousePos.second))
+	{
+		mgr->PlaySFX(button_SFX, 0, 1);
 		mgr->LoadScene(Overworld); 	// Go to previous scene that opened the party viewer
-
+	}
+		
 	if (act == Act::Click && mInventoryBtn->InBounds(mousePos.first, mousePos.second))
+	{
+		mgr->PlaySFX(button_SFX, 0, 1);
 		mgr->LoadScene(Scenes::InventoryScreen); // Inventory screen
+	}
 	
 	mSceneText.clear();
 

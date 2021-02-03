@@ -23,7 +23,7 @@ public:
 	void Quit() { *running = false;};						// Sets bRunning to false which closes the loop
 	void PlayMusic(Mix_Music* pMusic, int loops);			//Jacks audio manager has been merged into this, these functions will play the music and setting the loop count to -1 will loop indefinitely
 	void PlaySFX(Mix_Chunk* pSfx, int loops, int channel);  //Similar to PlayMusic, takes a pointer to the music file to play as well as how many loops, -1 playing indefinitely
-	void SetMasterVolume(int channel, int volume);
+	void SetMasterVolume(int channel, int musVolume, int sfxVolume);
 	void StopMusic();							//This functions will halt all music, even the indefinite looping ones
 	void LoadScene(int index);	//Loads scene via its indexed location in the vector scenes 0 being the mainMenu, 1 being combat etc
 

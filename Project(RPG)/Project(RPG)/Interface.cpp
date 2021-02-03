@@ -24,10 +24,10 @@ void Interface::PlaySFX(Mix_Chunk* pSfx, int loops, int channel)
 	Mix_PlayChannel(channel, pSfx, loops); //This is where we can play sound effects, the different channels allow multiple sound effects to play at once
 }
 
-void Interface::SetMasterVolume(int channel, int volume)
+void Interface::SetMasterVolume(int channel, int musVolume, int sfxVolume)
 {
-	Mix_VolumeMusic(volume);
-	Mix_Volume(channel, volume);
+	Mix_VolumeMusic(musVolume);
+	Mix_Volume(channel, sfxVolume);
 }
 
 

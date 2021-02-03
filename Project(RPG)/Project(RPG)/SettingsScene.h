@@ -24,6 +24,10 @@ private:
     RenderObject* ApplyBtn;
     RenderObject* dropdownCollapsed;
     RenderObject* settingsCloseBtn;
+
+    Mix_Chunk* confirm_SFX;
+    Mix_Chunk* back_SFX;
+    Mix_Chunk* button_Click_SFX;
     UIText currentRes;
     std::vector<ResolutionOption> resOptions;
 protected:

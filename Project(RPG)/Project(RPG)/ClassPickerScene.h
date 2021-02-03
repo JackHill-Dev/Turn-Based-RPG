@@ -26,7 +26,6 @@ private:
 	Mix_Music* bg_Music;
 	Mix_Chunk* confirm_SFX;
 	Mix_Chunk* back_SFX;
-
 	std::vector<Character*> mCharacters;
 
 	bool IsFocused = false;
