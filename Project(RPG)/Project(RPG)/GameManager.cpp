@@ -1,9 +1,4 @@
 #include "GameManager.h"
-#include "CombatScene.h"
-#include "ShopScene.h";
-#include "PartyViewerScene.h"
-#include "SettingsScene.h"
-#include "ClassPickerScene.h"
 #include "json.hpp"
 #include <fstream>;
 #include <istream>
@@ -103,9 +98,12 @@ void GameManager::LoadScene()
 {
 	switch (mCScene)
 	{
+	case Scenes::MainMenu: mMainMenuSceneInstance->Load(); break;
+	case Scenes::ClassPicker: mClassPickerInstance->Load(); break;
 	case Scenes::Combat: combatInstance.first->Load(combatInstance.second); break;
 	case Scenes::Shops: mShopSceneInstance->Load(); break;
 	case Scenes::Party:  partyViewerInstance->Load(); break;
+	case Scenes::SettingsPage: mSettingsSceneInstance->Load(); break;
 	case Scenes::InventoryScreen : mInventorySceneInstance->Load(); break;
 	}
 
@@ -131,17 +129,27 @@ bool GameManager::Init()
 
 	//mPlayer.SetupParty({ new Character("mageObj", "portrait"), new Character("mageObj", "portrait"), new Character("mageObj", "portrait") });
 	mPlayer.SetDeck({new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Slash"]) });
-
+	
+	mMainMenuSceneInstance = new MainMenuScene(&mInterface);
 	scenes.push_back(new MainMenuScene(&mInterface));
+
     scenes.push_back(new OverworldMapScene(&mInterface));
+
 	combatInstance.first = new CombatScene(&mInterface);
 	scenes.push_back(combatInstance.first); // 2
+
 	mShopSceneInstance = new ShopScene(&mInterface);
 	scenes.push_back(mShopSceneInstance); // 3
+
 	partyViewerInstance = new PartyViewerScene(&mInterface);
 	scenes.push_back(partyViewerInstance); // 4
-	scenes.push_back(new SettingsScene(&mInterface)); // 5
+
+	mSettingsSceneInstance = new SettingsScene(&mInterface);
+	scenes.push_back(mSettingsSceneInstance); // 5
+
+	mClassPickerInstance = new ClassPickerScene(&mInterface);
 	scenes.push_back(new ClassPickerScene(&mInterface)); // 6
+
 	mInventorySceneInstance = new InventoryScene(&mInterface);
 	scenes.push_back(mInventorySceneInstance); // 7
 

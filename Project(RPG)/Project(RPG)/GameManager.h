@@ -17,14 +17,20 @@
 #include "Consumable.h"
 #include "Armour.h"
 #include "InventoryScene.h"
+#include "ClassPickerScene.h"
 class GameManager
 {
 private:
-	//std::vector<Character*> player{ new Character("maleObj") };
+
+	ClassPickerScene* mClassPickerInstance;
 	std::pair<CombatScene*, std::vector<Character*>> combatInstance;
 	PartyViewerScene* partyViewerInstance;
 	InventoryScene* mInventorySceneInstance;
+	SettingsScene* mSettingsSceneInstance;
 	ShopScene* mShopSceneInstance;
+	MainMenuScene* mMainMenuSceneInstance;
+
+
 	bool bRunning= true;
 	int mCScene = 0;
 	SDL_Window* mWnd;
