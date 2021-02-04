@@ -11,7 +11,6 @@ SettingsScene::SettingsScene(Interface* mgr) : Scene(mgr)
 
 void SettingsScene::Load()
 {
-	mgr->FadeInMusic(mBgMusic, -1, mgr->fadeTime);
 }
 
 
@@ -23,7 +22,6 @@ void SettingsScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 		if (settingsCloseBtn->InBounds(mousePos.first, mousePos.second) && settingsCloseBtn->IsActive())
 		{
 			mgr->PlaySFX(button_Click_SFX, 0, 1);
-			mgr->FadeOutMusic(mgr->fadeTime);
 			mgr->LoadPreviousScene();
 		}
 
@@ -86,7 +84,6 @@ void SettingsScene::Setup()
 	confirm_SFX = Mix_LoadWAV("Assets/SFX/confirmSound.wav");
 	back_SFX = Mix_LoadWAV("Assets/SFX/BackSound.wav");
 	button_Click_SFX = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
-	mBgMusic = Mix_LoadMUS("Assets/Music/MenuMusic.mp3");
 
 	if (mgr->GetSettings().bIsFullScreen)
 		checkBox->SetAnim("Checked");

@@ -29,7 +29,7 @@ private:
     Mix_Chunk* confirm_SFX;
     Mix_Chunk* back_SFX;
     Mix_Chunk* button_Click_SFX;
-    Mix_Music* mBgMusic;
+
     UIText currentRes;
     std::vector<ResolutionOption> resOptions;
 protected:
