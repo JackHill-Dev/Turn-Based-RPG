@@ -16,12 +16,15 @@ private:
 	SDL_Window* mWnd = nullptr;
 	Settings* pSettings;
 public:
+	const int fadeTime = 750; // Represents 750 ms (3/4 second) - EH
 	Player* pPlayer;
 	RenderObject* RequestObject(std::string name);			// Requests a renderobject and returns a clone of the instance to the scene
 	Settings& GetSettings() { return *pSettings; }
 	Interface(bool* brunning,std::map<std::string, RenderObject*>* objP, int* currentScene, std::vector<Character*>* currentEnemies, Player* player, Settings* settings); //This is the constructor, we pass in the pointers to the various variables which sets them
 	void Quit() { *running = false;};						// Sets bRunning to false which closes the loop
 	void PlayMusic(Mix_Music* pMusic, int loops);			//Jacks audio manager has been merged into this, these functions will play the music and setting the loop count to -1 will loop indefinitely
+	void FadeInMusic(Mix_Music* pMusic, int loops, int ms); // Fades in the music, loops it like play music but has a delay in ms - EH
+	void FadeOutMusic(int ms); // Fades ALL music. Music stops playing when fade out is completed. Time in ms as before. - EH
 	void PlaySFX(Mix_Chunk* pSfx, int loops, int channel);  //Similar to PlayMusic, takes a pointer to the music file to play as well as how many loops, -1 playing indefinitely
 	void SetMasterVolume(int channel, int musVolume, int sfxVolume);
 	void StopMusic();							//This functions will halt all music, even the indefinite looping ones

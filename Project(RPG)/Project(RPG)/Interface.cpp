@@ -19,6 +19,14 @@ void Interface::PlayMusic(Mix_Music* pMusic, int loops) // overload for testing 
 	Mix_VolumeMusic(10); // this is the volume at which the music is playing, 10 I believe is quite high, the volume range goes from 0-128 -JP
 	Mix_PlayMusic(pMusic, loops);	//Will add and overrite current music with pointer to file, and determine how many times it will repeat
 }
+void Interface::FadeInMusic(Mix_Music* pMusic, int loops, int ms)
+{
+	Mix_FadeInMusic(pMusic, loops, ms);
+}
+void Interface::FadeOutMusic(int ms)
+{
+	Mix_FadeOutMusic(ms);
+}
 void Interface::PlaySFX(Mix_Chunk* pSfx, int loops, int channel)
 {
 	Mix_PlayChannel(channel, pSfx, loops); //This is where we can play sound effects, the different channels allow multiple sound effects to play at once
