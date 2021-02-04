@@ -15,7 +15,10 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"mageObj",new RenderObject("mage")},
 		{"mageSprObj",new RenderObject("magSpr")},
 		{"maleObj", new RenderObject("male")},
+		{"nobleSpriteObj", new RenderObject("nobleSprite")},
 		{"rogSprObj",new RenderObject("rogSpr")},
+		{"scholarSpriteObj", new RenderObject("scholarSprite")},
+		{"villagerSpriteObj", new RenderObject("villagerSprite")},
 		{"warSprObj",new RenderObject("warSpr")},
 		
 		// Portrait Objects 
