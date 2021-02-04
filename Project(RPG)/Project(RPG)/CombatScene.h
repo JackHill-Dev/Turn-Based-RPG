@@ -117,6 +117,14 @@ private:
 	void RemoveUnit(Unit* unit);
     std::vector<Character> chars{};
     std::vector<Card*> playerHand{};
+	std::vector<Mix_Music*> mCombatPlaylist;
+
+	Mix_Chunk* mVictorySFX;
+	Mix_Music* mDefeatNoLoop;
+	Mix_Music* mVictoryMusic;
+	Mix_Music* mCombatMusic2;
+	Mix_Music* mCombatMusic3;
+
 	std::deque<tile*> CalculatePath(tile* start, tile* end);
 	void RemoveCard(std::pair<Card*, RenderObject*>* cd);
 	double GetDistance(tile* start, tile* end) { return std::abs(std::sqrt(std::pow(end->pos.first - start->pos.first, 2) + std::pow(end->pos.second - start->pos.second, 2)))/32; }

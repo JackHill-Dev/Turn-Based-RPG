@@ -15,7 +15,7 @@ std::deque <Unit> team{};
 std::deque <Unit> enemy{};
 std::vector<std::pair<Card*, RenderObject*>> playerhand;
 std::vector<std::pair<Card*, RenderObject*>> enemyHand;
-Mix_Music* combat_music;
+Mix_Music* combat_music1;
 Mix_Chunk* slash_sfx;
 RenderObject* fightSceneTeamCharacter;
 RenderObject* fightSceneEnemyCharacter;
@@ -42,8 +42,19 @@ void CloseCombatScene()
 
 CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 {
-	combat_music = Mix_LoadMUS("Assets/Combat_Music.wav");
+	combat_music1 = Mix_LoadMUS("Assets/Combat_Music.wav");
+	mCombatMusic2 = Mix_LoadMUS("Assets/Music/BattleIntesification.mp3");
+	mCombatMusic3 = Mix_LoadMUS("Assets/Music/Boss.mp3");
+	mVictoryMusic = Mix_LoadMUS("Assets/Music/VictoryWindlessSlopes.mp3");
+	mDefeatNoLoop = Mix_LoadMUS("Assets/Music/Game-over-silence.mp3");
+
+	mCombatPlaylist.push_back(combat_music1);
+	mCombatPlaylist.push_back(mCombatMusic2);
+	mCombatPlaylist.push_back(mCombatMusic3);
+
+
 	slash_sfx = Mix_LoadWAV("Assets/SFX/slash.wav");
+	mVictorySFX = Mix_LoadWAV("Assets/SFX/VictorySfx.wav");
 
 
 	fightSceneBg = AddObject("forestFightSceneBg", centre.first, centre.second, UI);
@@ -57,10 +68,6 @@ CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 	fightSceneEnemyCharacter->SetVisible(false);
 	fightSceneBg->SetVisible(false);
 	
-	
-
-
-	Mix_Volume(1, 15);
 	endTurn = AddObject("quitBtnObj", centre.first, 20, UI);
 	endTurn->scale = std::make_pair(1, 1);
 	pExit = AddObject("exitButtonObj", 600, 600, UI);
@@ -163,6 +170,10 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 			for (auto i : enemy)
 				RemoveUnit(&i);
 
+			//This simulates a victory for now for music testing purposes - EH			
+			mgr->FadeOutMusic(mgr->fadeTime);
+			mgr->PlaySFX(mVictorySFX, 0, 1);
+			//mgr->FadeInMusic(mVictoryMusic, -1, mgr->fadeTime);
 			mgr->LoadPreviousScene();
 		}
 			
@@ -521,7 +532,8 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 void CombatScene::Load(std::vector<Character*> enemyTeam)
 {
 	playerTurn = false;
-	mgr->PlayMusic(combat_music, -1);
+	mgr->FadeInMusic(mCombatMusic2, -1, mgr->fadeTime); // For testing purposes as I don't have the first one. Eventually randomly pick one for variety? -EH
+	//mgr->PlayMusic(combat_music1, -1);
 	int v = 0;
 
 	// TO-DO: Seems to be a bug here - Doesn't actually contain the range when stepping through and counts double party size for some reason - EH
