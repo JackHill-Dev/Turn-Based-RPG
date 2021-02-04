@@ -13,6 +13,18 @@ ClassPickerScene::ClassPickerScene(Interface* mObjMgr) : Scene(mObjMgr)
 	pMageIcon = AddObject("mageSprObj", 960, 360, UI);
 	pMageIcon->SetScale(std::make_pair(2, 2));
 
+	pVillagerIcon = AddObject("villagerSpriteObj", 320, 360, UI);
+	pVillagerIcon->SetScale(std::make_pair(2, 2));
+	pVillagerIcon->SetVisible(false);
+
+	pScholarIcon = AddObject("scholarSpriteObj", 640, 360, UI);
+	pScholarIcon->SetScale(std::make_pair(2, 2));
+	pScholarIcon->SetVisible(false);
+
+	pNobleIcon = AddObject("scholarSpriteObj", 960, 360, UI);
+	pNobleIcon->SetScale(std::make_pair(2, 2));
+	pNobleIcon->SetVisible(false);
+
 	pBackBtn = AddObject("backBtnObj", 140, 230, UI);
 
 	pYesBtn = AddObject("yesTxtBtnObj", 800, 480, UI);
@@ -265,6 +277,7 @@ void ClassPickerScene::SetUpSummaryView()
 	mSceneText.push_back(mFooterInstruction);
 }
 
+
 void ClassPickerScene::SetUpWarriorView()
 {
 	pWarriorIcon->SetPos(std::make_pair(640, 320));
@@ -413,5 +426,223 @@ void ClassPickerScene::SetUpMageView()
 	mSceneText.push_back(mFlavourText1);
 	mSceneText.push_back(mFlavourText2);
 	mSceneText.push_back(mFlavourText3);
+	mSceneText.push_back(mFooterInstruction);
+}
+
+void ClassPickerScene::SetUpBackgroundView()
+{
+	pWarriorIcon->SetVisible(false);
+	pRogueIcon->SetVisible(false);
+	pMageIcon->SetVisible(false);
+	pRejectBtn->SetVisible(false);
+	pYesBtn->SetVisible(false);
+
+	pVillagerIcon->SetVisible(true);
+	pScholarIcon->SetVisible(true);
+	pNobleIcon->SetVisible(true);
+
+	pVillagerIcon->SetPos(std::make_pair(320, 360));
+	pScholarIcon->SetPos(std::make_pair(640, 360));
+	pNobleIcon->SetPos(std::make_pair(960, 360));
+
+	mSceneText.clear();
+
+	mHeader.text = "CHARACTER CREATOR: " + std::to_string(PartyCount + 1);
+	mHeader.pos = std::make_pair<int>(640, 230);
+	mHeader.textColor = SDL_Color{ 0,0,0 };
+	mHeader.SetTextScale(300, 60);
+
+	mHeaderInstruction.text = "CHOOSE YOUR ORIGIN";
+	mHeaderInstruction.textColor = SDL_Color{ 0,0,0 };
+	mHeaderInstruction.pos = std::make_pair<int>(640, 270);
+	mHeaderInstruction.SetTextScale(250, 40);
+
+	mFlavourText1.text = "VILLAGER";
+	mFlavourText1.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText1.pos = std::make_pair<int>(320, 410);
+	mFlavourText1.SetTextScale(100, 30);
+
+	mFlavourText2.text = "SCHOLAR";
+	mFlavourText2.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText2.pos = std::make_pair<int>(640, 410);
+	mFlavourText2.SetTextScale(100, 30);
+
+	mFlavourText3.text = "NOBLE";
+	mFlavourText3.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText3.pos = std::make_pair<int>(960, 410);
+	mFlavourText3.SetTextScale(100, 30);
+
+	mFooterInstruction.text = "PLEASE SELECT YOUR CHOICE WITH THE LEFT MOUSE BUTTON";
+	mFooterInstruction.textColor = SDL_Color{ 0,0,0 };
+	mFooterInstruction.pos = std::make_pair<int>(640, 550);
+	mFooterInstruction.SetTextScale(700, 40);
+
+	mSceneText.push_back(mHeader);
+	mSceneText.push_back(mHeaderInstruction);
+	mSceneText.push_back(mFlavourText1);
+	mSceneText.push_back(mFlavourText2);
+	mSceneText.push_back(mFlavourText3);
+	mSceneText.push_back(mFooterInstruction);
+}
+
+void ClassPickerScene::SetUpVillagerView()
+{
+
+	pVillagerIcon->SetPos(std::make_pair(640, 320));
+
+	pScholarIcon->SetVisible(false);
+	pNobleIcon->SetVisible(false);
+	pRejectBtn->SetVisible(true);
+	pYesBtn->SetVisible(true);
+
+	mSceneText.clear();
+
+	mHeader.text = "CHARACTER CREATOR";
+	mHeader.pos = std::make_pair<int>(640, 230);
+	mHeader.textColor = SDL_Color{ 0,0,0 };
+	mHeader.SetTextScale(300, 60);
+
+	mHeaderInstruction.text = "WILL YOU PICK VILLAGER?";
+	mHeaderInstruction.textColor = SDL_Color{ 0,0,0 };
+	mHeaderInstruction.pos = std::make_pair<int>(640, 270);
+	mHeaderInstruction.SetTextScale(250, 40);
+
+	mFlavourText1.text = "INTELLIGENCE - 2";
+	mFlavourText1.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText1.pos = std::make_pair<int>(640, 400);
+	mFlavourText1.SetTextScale(100, 30);
+
+	mFlavourText2.text = "STRENGTH, AGILITY + 2";
+	mFlavourText2.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText2.pos = std::make_pair<int>(640, 370);
+	mFlavourText2.SetTextScale(100, 30);
+
+	mFlavourText3.text = "STARTING GOLD: 50";
+	mFlavourText3.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText3.pos = std::make_pair<int>(640, 430);
+	mFlavourText3.SetTextScale(100, 30);
+
+	mFlavourText4.text = "A COMMONER LIVES A SIMPLE LIFE WON WITH THEIR OWN HANDS";
+	mFlavourText4.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText4.pos = std::make_pair<int>(640, 430);
+	mFlavourText4.SetTextScale(300, 30);
+
+	mFooterInstruction.text = "PLEASE SELECT YOUR CHOICE WITH THE LEFT MOUSE BUTTON";
+	mFooterInstruction.textColor = SDL_Color{ 0,0,0 };
+	mFooterInstruction.pos = std::make_pair<int>(640, 550);
+	mFooterInstruction.SetTextScale(500, 70);
+
+	mSceneText.push_back(mHeader);
+	mSceneText.push_back(mHeaderInstruction);
+	mSceneText.push_back(mFlavourText1);
+	mSceneText.push_back(mFlavourText2);
+	mSceneText.push_back(mFlavourText3);
+	mSceneText.push_back(mFlavourText4);
+	mSceneText.push_back(mFooterInstruction);
+
+}
+
+void ClassPickerScene::SetUpScholarView()
+{
+	pScholarIcon->SetPos(std::make_pair(640, 320));
+
+	pVillagerIcon->SetVisible(false);
+	pNobleIcon->SetVisible(false);
+	pRejectBtn->SetVisible(true);
+	pYesBtn->SetVisible(true);
+
+	mSceneText.clear();
+
+	mHeader.text = "CHARACTER CREATOR";
+	mHeader.pos = std::make_pair<int>(640, 230);
+	mHeader.textColor = SDL_Color{ 0,0,0 };
+	mHeader.SetTextScale(300, 60);
+
+	mHeaderInstruction.text = "WILL YOU PICK SCHOLAR?";
+	mHeaderInstruction.textColor = SDL_Color{ 0,0,0 };
+	mHeaderInstruction.pos = std::make_pair<int>(640, 270);
+	mHeaderInstruction.SetTextScale(250, 40);
+
+	mFlavourText1.text = "INTELLIGENCE + 1";
+	mFlavourText1.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText1.pos = std::make_pair<int>(640, 400);
+	mFlavourText1.SetTextScale(100, 30);
+
+	mFlavourText2.text = "STARTING GOLD: 100 ";
+	mFlavourText2.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText2.pos = std::make_pair<int>(640, 370);
+	mFlavourText2.SetTextScale(100, 30);
+
+	mFlavourText3.text = "A SCHOLAR ENJOYS A LIFE OF LEARNING AND CREATURE COMFORTS";
+	mFlavourText3.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText3.pos = std::make_pair<int>(640, 430);
+	mFlavourText3.SetTextScale(300, 30);
+
+	mFooterInstruction.text = "PLEASE SELECT YOUR CHOICE WITH THE LEFT MOUSE BUTTON";
+	mFooterInstruction.textColor = SDL_Color{ 0,0,0 };
+	mFooterInstruction.pos = std::make_pair<int>(640, 550);
+	mFooterInstruction.SetTextScale(500, 70);
+
+	mSceneText.push_back(mHeader);
+	mSceneText.push_back(mHeaderInstruction);
+	mSceneText.push_back(mFlavourText1);
+	mSceneText.push_back(mFlavourText2);
+	mSceneText.push_back(mFlavourText3);
+	mSceneText.push_back(mFooterInstruction);
+}
+
+void ClassPickerScene::SetUpNobleView()
+{
+
+	pVillagerIcon->SetPos(std::make_pair(640, 320));
+
+	pScholarIcon->SetVisible(false);
+	pNobleIcon->SetVisible(false);
+	pRejectBtn->SetVisible(true);
+	pYesBtn->SetVisible(true);
+
+	mSceneText.clear();
+
+	mHeader.text = "CHARACTER CREATOR";
+	mHeader.pos = std::make_pair<int>(640, 230);
+	mHeader.textColor = SDL_Color{ 0,0,0 };
+	mHeader.SetTextScale(300, 60);
+
+	mHeaderInstruction.text = "WILL YOU PICK VILLAGER?";
+	mHeaderInstruction.textColor = SDL_Color{ 0,0,0 };
+	mHeaderInstruction.pos = std::make_pair<int>(640, 270);
+	mHeaderInstruction.SetTextScale(250, 40);
+
+	mFlavourText1.text = "STRENGTH, AGILITY + 2 ";
+	mFlavourText1.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText1.pos = std::make_pair<int>(640, 400);
+	mFlavourText1.SetTextScale(100, 30);
+
+	mFlavourText2.text = "INTELLIGENCE - 2";
+	mFlavourText2.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText2.pos = std::make_pair<int>(640, 370);
+	mFlavourText2.SetTextScale(100, 30);
+
+	mFlavourText3.text = "STARTING GOLD: 150";
+	mFlavourText3.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText3.pos = std::make_pair<int>(640, 430);
+	mFlavourText3.SetTextScale(100, 30);
+
+	mFlavourText4.text = "A NOBLE'S LIFE OF LEISURE HAS LED TO A STRONG MIND BUT A WEAK BODY";
+	mFlavourText4.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText4.pos = std::make_pair<int>(640, 430);
+	mFlavourText4.SetTextScale(300, 30);
+
+	mFooterInstruction.text = "PLEASE SELECT YOUR CHOICE WITH THE LEFT MOUSE BUTTON";
+	mFooterInstruction.textColor = SDL_Color{ 0,0,0 };
+	mFooterInstruction.pos = std::make_pair<int>(640, 550);
+	mFooterInstruction.SetTextScale(500, 70);
+
+	mSceneText.push_back(mHeader);
+	mSceneText.push_back(mHeaderInstruction);
+	mSceneText.push_back(mFlavourText1);
+	mSceneText.push_back(mFlavourText2);
+	mSceneText.push_back(mFlavourText3);
+	mSceneText.push_back(mFlavourText4);
 	mSceneText.push_back(mFooterInstruction);
 }

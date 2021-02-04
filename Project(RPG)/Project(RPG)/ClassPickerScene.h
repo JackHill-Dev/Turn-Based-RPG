@@ -13,6 +13,7 @@ private:
 	UIText mFlavourText1;
 	UIText mFlavourText2;
 	UIText mFlavourText3;
+	UIText mFlavourText4;
 	UIText mFooterInstruction;
 
 	RenderObject* pBackBtn;
@@ -21,6 +22,9 @@ private:
 	RenderObject* pWarriorIcon;
 	RenderObject* pRogueIcon;
 	RenderObject* pMageIcon;
+	RenderObject* pVillagerIcon;
+	RenderObject* pScholarIcon;
+	RenderObject* pNobleIcon;
 	RenderObject* pScrollBg;
 
 	Mix_Music* bg_Music;
@@ -54,6 +58,11 @@ public:
 	void SetUpWarriorView();
 	void SetUpRogueView();
 	void SetUpMageView();
+
+	void SetUpBackgroundView();
+	void SetUpVillagerView();
+	void SetUpScholarView();
+	void SetUpNobleView();
 
 };
 
