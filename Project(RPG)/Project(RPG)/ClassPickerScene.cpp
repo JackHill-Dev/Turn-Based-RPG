@@ -21,7 +21,7 @@ ClassPickerScene::ClassPickerScene(Interface* mObjMgr) : Scene(mObjMgr)
 	pScholarIcon->SetScale(std::make_pair(2, 2));
 	pScholarIcon->SetVisible(false);
 
-	pNobleIcon = AddObject("scholarSpriteObj", 960, 360, UI);
+	pNobleIcon = AddObject("nobleSpriteObj", 960, 360, UI);
 	pNobleIcon->SetScale(std::make_pair(2, 2));
 	pNobleIcon->SetVisible(false);
 
@@ -39,7 +39,7 @@ ClassPickerScene::ClassPickerScene(Interface* mObjMgr) : Scene(mObjMgr)
 
 void ClassPickerScene::Init()
 {
-	SetUpSummaryView();
+	SetUpClassView();
 }
 
 void ClassPickerScene::Load()
@@ -79,6 +79,24 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 			OnHover(pMageIcon);
 		}
 		else OnLeave(pMageIcon);
+
+		if (pVillagerIcon->InBounds(mousePos.first, mousePos.second) && !IsFocused)
+		{
+			OnHover(pVillagerIcon);
+		}
+		else OnLeave(pVillagerIcon);
+
+		if (pScholarIcon->InBounds(mousePos.first, mousePos.second) && !IsFocused)
+		{
+			OnHover(pScholarIcon);
+		}
+		else OnLeave(pScholarIcon);
+
+		if (pNobleIcon->InBounds(mousePos.first, mousePos.second) && !IsFocused)
+		{
+			OnHover(pNobleIcon);
+		}
+		else OnLeave(pNobleIcon);
 		
 		if (pBackBtn->InBounds(mousePos.first, mousePos.second))
 		{
@@ -112,7 +130,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 					mCharacters.pop_back();
 					--PartyCount;
 				}
-				SetUpSummaryView();
+				SetUpClassView();
 				IsFocused = false;
 				IsWarriorView = false;
 				IsRogueView = false;
@@ -124,7 +142,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 				{
 					mCharacters.pop_back();
 					--PartyCount;
-					SetUpSummaryView();
+					SetUpClassView();
 				}
 				else
 				{
@@ -143,7 +161,8 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 			IsFocused = true;
 			IsWarriorView = true;
 			OnLeave(pWarriorIcon);
-			SetUpWarriorView();
+			SetUpBackgroundView();
+			//SetUpWarriorView();
 			
 		}
 
@@ -178,26 +197,24 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 			IsWarriorView = false;
 			IsRogueView = false;
 			IsMageView = false;
-			SetUpSummaryView();
+			SetUpClassView();
 		}
 
 		if (pYesBtn->InBounds(mousePos.first, mousePos.second) && pYesBtn->IsVisible())
 		{
 			mgr->PlaySFX(confirm_SFX, 0, 1);
 			++PartyCount;
+
 			if (IsWarriorView)
 			{
-				//mgr->GetPlayer()->AddToParty(new Character("warSprObj", "WarriorObj"));
 				mCharacters.push_back(new Character("warSprObj", "WarriorObj"));
 			}
 			if (IsRogueView)
 			{
-				//mgr->GetPlayer()->AddToParty(new Character("rogSprObj", "RogueObj"));
 				mCharacters.push_back(new Character("rogSprObj", "RogueObj"));
 			}
 			if (IsMageView)
 			{
-				//mgr->GetPlayer()->AddToParty(new Character("mageSprObj", "ClericObj"));
 				mCharacters.push_back(new Character("mageSprObj", "ClericObj"));
 			}
 
@@ -207,7 +224,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 				IsWarriorView = false;
 				IsRogueView = false;
 				IsMageView = false;
-				SetUpSummaryView();
+				SetUpClassView();
 			}
 			else
 			{
@@ -225,13 +242,18 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 
 }
 
-void ClassPickerScene::SetUpSummaryView()
+void ClassPickerScene::SetUpClassView()
 {
 	pWarriorIcon->SetVisible(true);
 	pRogueIcon->SetVisible(true);
 	pMageIcon->SetVisible(true);
 	pRejectBtn->SetVisible(false);
 	pYesBtn->SetVisible(false);
+	pVillagerIcon->SetVisible(false);
+	pScholarIcon->SetVisible(false);
+	pNobleIcon->SetVisible(false);
+
+
 
 	pWarriorIcon->SetPos(std::make_pair(320, 360));
 	pRogueIcon->SetPos(std::make_pair(640, 360));

@@ -33,9 +33,14 @@ private:
 	std::vector<Character*> mCharacters;
 
 	bool IsFocused = false;
+	bool IsClassView = false;
+	bool IsBackgroundView = false;
 	bool IsWarriorView = false;
 	bool IsRogueView = false;
 	bool IsMageView = false;
+	bool IsVillagerView = false;
+	bool IsScholarView = false;
+	bool isNobleView = false;
 
 	int PartyCount = 0;
 	const int maxPartySize = 3;
@@ -54,7 +59,7 @@ public:
 
 	void Update(double dTime, Act act, std::pair<int, int> mousePos) override;
 
-	void SetUpSummaryView();
+	void SetUpClassView();
 	void SetUpWarriorView();
 	void SetUpRogueView();
 	void SetUpMageView();
