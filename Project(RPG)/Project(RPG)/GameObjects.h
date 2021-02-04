@@ -5,8 +5,6 @@
 #include "SpriteSheet.h"
 #include "Animation.h"
 
-
-
 // Define objects with an identifier and a render object that refers to a specific spritesheet.
 const std::map<std::string,RenderObject*> definedObjects
 {
