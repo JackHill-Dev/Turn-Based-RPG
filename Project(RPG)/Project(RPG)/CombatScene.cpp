@@ -171,14 +171,11 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 				RemoveUnit(&i);
 
 			//This simulates a victory for now for music testing purposes - EH			
-			mgr->FadeOutMusic(mgr->fadeTime);
 			mgr->PlaySFX(mVictorySFX, 0, 1);
 			//mgr->FadeInMusic(mVictoryMusic, -1, mgr->fadeTime);
 			mgr->LoadPreviousScene();
 		}
 			
-
-
 		for (auto i : team)
 			if (i.character->GetHealth() <= 0)
 				RemoveUnit(&i);

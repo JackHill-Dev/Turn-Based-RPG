@@ -153,19 +153,15 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 					{
 						case Scenes::Combat:
 							mgr->PlaySFX(button_Click_SFX, 0, 1);
-							mgr->FadeOutMusic(mgr->fadeTime);
 							mgr->LoadCombatScene({ new Character("maleObj", "portrait"), new Character("maleObj", "portrait"), new Character("maleObj", "portrait") });
-
 							break;
 
 						case Scenes::Shops:
 							mgr->PlaySFX(shop_Entry_SFX, 0, 1);
-							mgr->FadeOutMusic(mgr->fadeTime);
 							mgr->LoadScene(node->nodeScene);
 							break;
 
 						default:
-							mgr->FadeOutMusic(mgr->fadeTime);
 							mgr->LoadScene(node->nodeScene);
 							break;
 					}
@@ -182,7 +178,6 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 		{
 			mgr->PlaySFX(button_Click_SFX, 0, 1);			
 			OnLeave(pArmyViewerButton);
-			mgr->FadeOutMusic(mgr->fadeTime);
 			mgr->LoadScene(Scenes::Party);
 		}
 		if (pMenuButton->InBounds(mousePos.first, mousePos.second))

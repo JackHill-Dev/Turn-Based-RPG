@@ -17,20 +17,12 @@ ShopScene::ShopScene(Interface* rng) : Scene(rng)
 
 void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
-	// Uncomment to hear the shop music, currently disabled as it was getting annoying while testing  - JP
-	/*if (!startOnce)
-	{
-		mgr->GetManagers()->AudioMgr->PlayMusic(bg_Music, -1);
-		Mix_VolumeMusic(10);
-		startOnce = true;
-	}*/
 
 	if (act == Act::Click)
 	{
 		if (pExitButton->InBounds(mousePos.first, mousePos.second))
 		{
 			mgr->PlaySFX(leave_SFX, 0, 1);
-			mgr->FadeOutMusic(mgr->fadeTime);
 			mgr->LoadPreviousScene();
 		}
 	}
@@ -149,8 +141,6 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 			
 		}
 		
-
-
 		if (act == Act::RClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
 			if (!(mShop.GetGold() < i->GetCost())) // Can only sell to the shop if the shop can give you the moeny for the item
@@ -166,7 +156,6 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 			}
 		}
 	}
-
 }
 
 void ShopScene::GenerateGrids()
@@ -189,6 +178,7 @@ void ShopScene::DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY
 {
 	int cellAmount = gridWidth * gridHeight;
 	int initialX = offsetX;
+
 	for (int i = 0; i < cellAmount; ++i)
 	{
 		if (offsetX >= 360 + initialX)

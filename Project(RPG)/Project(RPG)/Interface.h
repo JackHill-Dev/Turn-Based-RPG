@@ -24,7 +24,7 @@ public:
 	void Quit() { *running = false;};						// Sets bRunning to false which closes the loop
 	void PlayMusic(Mix_Music* pMusic, int loops);			//Jacks audio manager has been merged into this, these functions will play the music and setting the loop count to -1 will loop indefinitely
 	void FadeInMusic(Mix_Music* pMusic, int loops, int ms); // Fades in the music, loops it like play music but has a delay in ms - EH
-	void FadeOutMusic(int ms); // Fades ALL music. Music stops playing when fade out is completed. Time in ms as before. - EH
+	void FadeOutMusic(int ms); // ONLY USE TO SWAP MUSIC INSIDE A SCENE. This seems to halt execution until fade complete. Fades ALL music. Music stops playing when fade out is completed. Time in ms as before. - EH
 	void PlaySFX(Mix_Chunk* pSfx, int loops, int channel);  //Similar to PlayMusic, takes a pointer to the music file to play as well as how many loops, -1 playing indefinitely
 	void SetMasterVolume(int channel, int musVolume, int sfxVolume);
 	void StopMusic();							//This functions will halt all music, even the indefinite looping ones

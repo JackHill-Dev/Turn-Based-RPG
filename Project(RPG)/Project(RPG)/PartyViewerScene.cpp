@@ -19,7 +19,6 @@ void PartyViewerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 	if (act == Act::Click && mCloseBtn->InBounds(mousePos.first, mousePos.second))
 	{
 		mgr->PlaySFX(button_SFX, 0, 1);
-		mgr->FadeOutMusic(mgr->fadeTime);
 		mgr->LoadScene(Overworld); 	// Go to previous scene that opened the party viewer
 	}
 		
@@ -39,18 +38,20 @@ void PartyViewerScene::Init()
 {
 	mParty = mgr->GetPlayer()->GetParty();
 	GetCharacterPortraits();
+
 	GetCharacterStatistics();
 }
 
 void PartyViewerScene::Load()
 {
+	
+	mParty = mgr->GetPlayer()->GetParty();
+	GetCharacterPortraits();
+
 	if (mgr->GetPreviousScene() != Scenes::InventoryScreen)
 	{
 		mgr->FadeInMusic(mMenuMusic, -1, mgr->fadeTime);
 	}
-
-	mParty = mgr->GetPlayer()->GetParty();
-	GetCharacterPortraits();
 }
 
 void PartyViewerScene::GetCharacterPortraits()

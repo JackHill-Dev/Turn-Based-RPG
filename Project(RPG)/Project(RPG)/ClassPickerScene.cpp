@@ -116,7 +116,6 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 				}
 				else
 				{
-					mgr->FadeOutMusic(mgr->fadeTime);
 					mgr->LoadPreviousScene();
 					IsFocused = false;
 					IsWarriorView = false;
