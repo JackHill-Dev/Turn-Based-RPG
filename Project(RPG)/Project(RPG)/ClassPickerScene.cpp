@@ -18,6 +18,7 @@ ClassPickerScene::ClassPickerScene(Interface* mObjMgr) : Scene(mObjMgr)
 	pYesBtn = AddObject("yesTxtBtnObj", 800, 480, UI);
 	pRejectBtn = AddObject("backTxtBtnObj", 480, 480, UI);
 
+	bg_Music = Mix_LoadMUS("Assets/Music/ClassPicker.mp3");
 	confirm_SFX = Mix_LoadWAV("Assets/SFX/confirmSound.wav");
 	back_SFX = Mix_LoadWAV("Assets/SFX/BackSound.wav");
 
@@ -29,13 +30,12 @@ void ClassPickerScene::Init()
 	SetUpSummaryView();
 }
 
-// Colour the object green 
-/*(mPlayer.SetupParty(
-	{ new Character("maleObj", "WizardObj"), 
-	new Character("maleObj", "ClericObj"),
-	new Character("maleObj", "RogueObj"),
-	new Character("maleObj", "WarriorObj") });
-*/
+void ClassPickerScene::Load()
+{
+	mgr->FadeInMusic(bg_Music, -1, mgr->fadeTime);
+}
+
+
 void ClassPickerScene::OnHover(RenderObject* rObj)
 {
 	rObj->Tint({ 0, 255, 0 });
@@ -116,6 +116,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 				}
 				else
 				{
+					mgr->FadeOutMusic(mgr->fadeTime);
 					mgr->LoadPreviousScene();
 					IsFocused = false;
 					IsWarriorView = false;
@@ -204,6 +205,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 				IsRogueView = false;
 				IsMageView = false;
 				mgr->GetPlayer()->SetupParty(mCharacters);
+				mgr->FadeOutMusic(mgr->fadeTime);
 				mgr->LoadScene(Scenes::Overworld);
 			}
 		}

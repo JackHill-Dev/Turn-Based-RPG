@@ -43,6 +43,7 @@ public:
 	ClassPickerScene(Interface* mObjMgr);
 
 	void Init();
+	void Load();
 
 	void OnHover(RenderObject* rObj);
 	void OnLeave(RenderObject* rObj);
