@@ -11,7 +11,6 @@ void GameManager::Run()
 
 	mInterface.SetMasterVolume(-1, 16, 8);
 
-
 	SDL_Texture* texture = SDL_CreateTexture(mRnd, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, mSettings.w, mSettings.h);
 	SDL_Event ev;
 	unsigned int a = SDL_GetTicks();
@@ -19,6 +18,7 @@ void GameManager::Run()
 	double delta = 0;
 	double deltaTime = 0;
 	int lastSceneIndex = mCScene;
+
 	while ( bRunning )
 	{
 		a = SDL_GetTicks();
@@ -100,6 +100,7 @@ void GameManager::LoadScene()
 	{
 	case Scenes::MainMenu: mMainMenuSceneInstance->Load(); break;
 	case Scenes::ClassPicker: mClassPickerInstance->Load(); break;
+	case Scenes::Overworld: mOverworldInstance->Load(); break;
 	case Scenes::Combat: combatInstance.first->Load(combatInstance.second); break;
 	case Scenes::Shops: mShopSceneInstance->Load(); break;
 	case Scenes::Party:  partyViewerInstance->Load(); break;
@@ -127,13 +128,13 @@ bool GameManager::Init()
 
 	mPlayer.SetGold(1000);
 
-	//mPlayer.SetupParty({ new Character("mageObj", "portrait"), new Character("mageObj", "portrait"), new Character("mageObj", "portrait") });
 	mPlayer.SetDeck({new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Slash"]) });
 	
 	mMainMenuSceneInstance = new MainMenuScene(&mInterface);
-	scenes.push_back(new MainMenuScene(&mInterface));
+	scenes.push_back(new MainMenuScene(&mInterface)); // 0
 
-    scenes.push_back(new OverworldMapScene(&mInterface));
+	mOverworldInstance = new OverworldMapScene(&mInterface);
+    scenes.push_back(mOverworldInstance); // 1
 
 	combatInstance.first = new CombatScene(&mInterface);
 	scenes.push_back(combatInstance.first); // 2
@@ -153,7 +154,6 @@ bool GameManager::Init()
 	mInventorySceneInstance = new InventoryScene(&mInterface);
 	scenes.push_back(mInventorySceneInstance); // 7
 
-	//LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
 	currentScene->Clear(mRnd);
 	currentScene = scenes[0];
 
@@ -298,6 +298,5 @@ void GameManager::CreateCard(DefinedCard* card)
 	cards.insert({ card->name, new Card(card->damage, card->name, card->range, "cardObj" + std::to_string(cards.size()), card->animation) });
 	SDL_SetRenderTarget(mRnd, NULL);
 
-	//SDL_Texture* fontTexture = (SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended(mFont, card.name , SDL_Color{ 0,0,0 }));;
 }
 

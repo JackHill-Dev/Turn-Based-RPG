@@ -29,10 +29,11 @@ private:
 	SettingsScene* mSettingsSceneInstance;
 	ShopScene* mShopSceneInstance;
 	MainMenuScene* mMainMenuSceneInstance;
+	OverworldMapScene* mOverworldInstance;
 
 
 	bool bRunning= true;
-	int mCScene = 0;
+	Scenes mCScene = Scenes::MainMenu;
 	SDL_Window* mWnd;
 	SDL_Renderer* mRnd;
 	SDL_Surface* mSurface;
