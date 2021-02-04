@@ -129,7 +129,6 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"yesTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/Yes.png", 54, 36, 54, 36, false)},
 		{"backTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/Back.png", 71, 36, 71, 36, false)},
 
-
 	}
 };
 
