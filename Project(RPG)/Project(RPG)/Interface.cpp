@@ -2,7 +2,7 @@
 
 
 
-Interface::Interface(bool* brunning, std::map<std::string, RenderObject*>* objP, int* currentScene, std::vector<Character*>* currentEnemies, Player* player, Settings* settings) : objects(objP), currentScene(currentScene), running(brunning), currentEnemies(currentEnemies), pPlayer(player), pSettings(settings)
+Interface::Interface(bool* brunning, std::map<std::string, RenderObject*>* objP, Scenes* currentScene, std::vector<Character*>* currentEnemies, Player* player, Settings* settings) : objects(objP), currentScene(currentScene), running(brunning), currentEnemies(currentEnemies), pPlayer(player), pSettings(settings)
 {
 
 	//this is the constructor where we pass in pointers to the required objects of which we need to alter/retrieve data from
@@ -47,7 +47,7 @@ void Interface::StopMusic() // This stops the music playing regardless of loops 
 	}
 }
 
-void Interface::LoadScene(int scene)
+void Interface::LoadScene(Scenes scene)
 {
 	prevScene = *currentScene; 
 	*currentScene = scene;
@@ -55,7 +55,9 @@ void Interface::LoadScene(int scene)
 
 void Interface::LoadPreviousScene()
 {
-	*currentScene = prevScene; 
+	Scenes origin = *currentScene; // Added this in so we can still keep track of the Scene this was called from - EH
+	*currentScene = prevScene;
+	prevScene = origin;
 }
 
 void Interface::SetWindowSize()
