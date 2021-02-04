@@ -25,9 +25,9 @@ private:
 	RenderObject* mCloseBtn;
 	RenderObject* mInventoryBtn;
 	Mix_Chunk* button_SFX;
+	Mix_Music* mMenuMusic;
 
 	void Init();
-
 	void GetCharacterPortraits();
 	void GetCharacterStatistics();
 

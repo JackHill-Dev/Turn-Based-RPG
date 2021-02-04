@@ -30,6 +30,7 @@ void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 		if (pExitButton->InBounds(mousePos.first, mousePos.second))
 		{
 			mgr->PlaySFX(leave_SFX, 0, 1);
+			mgr->FadeOutMusic(mgr->fadeTime);
 			mgr->LoadPreviousScene();
 		}
 	}
@@ -70,6 +71,7 @@ void ShopScene::Init()
 
 void ShopScene::Load()
 {
+	mgr->FadeInMusic(bg_Music, -1, mgr->fadeTime);
 	mLayers[Game].clear();
 	PlaceItems(mgr->GetPlayer()->GetInventory());
 	PlaceItems(mShop.GetInventory());
