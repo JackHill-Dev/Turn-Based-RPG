@@ -19,7 +19,10 @@ MainMenuScene::MainMenuScene(Interface* rng) : Scene(rng)
 
 void MainMenuScene::Load()
 {
-	mgr->FadeInMusic(mStartMus, -1, mgr->fadeTime);
+	if (mgr->GetPreviousScene() != Scenes::SettingsPage)
+	{
+		mgr->FadeInMusic(mStartMus, -1, mgr->fadeTime);
+	}
 }
 
 void MainMenuScene::Update(double dTime, Act act, std::pair<int, int> mouse)
@@ -41,7 +44,6 @@ void MainMenuScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 		
 		if (settings->InBounds(mouse.first, mouse.second) && settings->IsActive())
 		{
-			mgr->FadeOutMusic(mgr->fadeTime);
 			mgr->PlaySFX(confirm_SFX, 0, 1);
 			mgr->LoadScene(Scenes::SettingsPage);
 		}
