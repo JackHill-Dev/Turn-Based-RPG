@@ -4,8 +4,15 @@
 
 SettingsScene::SettingsScene(Interface* mgr) : Scene(mgr)
 {
+
 	Setup();
+	
 }
+
+void SettingsScene::Load()
+{
+}
+
 
 void SettingsScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
@@ -73,9 +80,11 @@ void SettingsScene::Setup()
 	ApplyBtn = AddObject("ApplyBtnObj", 640, 550, UI);
 	checkBox = AddObject("checkBoxObj", 720, 200, UI);
 	checkBox->SetScale(std::make_pair(0.5, 0.5));
+
 	confirm_SFX = Mix_LoadWAV("Assets/SFX/confirmSound.wav");
 	back_SFX = Mix_LoadWAV("Assets/SFX/BackSound.wav");
 	button_Click_SFX = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
+
 	if (mgr->GetSettings().bIsFullScreen)
 		checkBox->SetAnim("Checked");
 
@@ -139,4 +148,6 @@ void SettingsScene::Collapse(bool collapsed)
 		mSceneText[i].isVisible = !collapsed;
 	}
 }
+
+
 

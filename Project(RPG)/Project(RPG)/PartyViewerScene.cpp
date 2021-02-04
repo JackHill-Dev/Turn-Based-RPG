@@ -8,6 +8,7 @@ PartyViewerScene::PartyViewerScene(Interface* mgr) : Scene(mgr)
 	mCloseBtn = AddObject("CloseBtnObj", 1200, 50, UI);
 	mInventoryBtn = AddObject("inventoryButtonObj", 640, 700, UI);
 	button_SFX = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
+	mMenuMusic = Mix_LoadMUS("Assets/Music/MenuMusic.mp3");
 	Init();
 
 }
@@ -37,13 +38,20 @@ void PartyViewerScene::Init()
 {
 	mParty = mgr->GetPlayer()->GetParty();
 	GetCharacterPortraits();
+
 	GetCharacterStatistics();
 }
 
 void PartyViewerScene::Load()
 {
+	
 	mParty = mgr->GetPlayer()->GetParty();
 	GetCharacterPortraits();
+
+	if (mgr->GetPreviousScene() != Scenes::InventoryScreen)
+	{
+		mgr->FadeInMusic(mMenuMusic, -1, mgr->fadeTime);
+	}
 }
 
 void PartyViewerScene::GetCharacterPortraits()

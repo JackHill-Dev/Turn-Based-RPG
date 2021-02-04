@@ -2,7 +2,7 @@
 
 
 
-Interface::Interface(bool* brunning, std::map<std::string, RenderObject*>* objP, int* currentScene, std::vector<Character*>* currentEnemies, Player* player, Settings* settings) : objects(objP), currentScene(currentScene), running(brunning), currentEnemies(currentEnemies), pPlayer(player), pSettings(settings)
+Interface::Interface(bool* brunning, std::map<std::string, RenderObject*>* objP, Scenes* currentScene, std::vector<Character*>* currentEnemies, Player* player, Settings* settings) : objects(objP), currentScene(currentScene), running(brunning), currentEnemies(currentEnemies), pPlayer(player), pSettings(settings)
 {
 
 	//this is the constructor where we pass in pointers to the required objects of which we need to alter/retrieve data from
@@ -18,6 +18,14 @@ void Interface::PlayMusic(Mix_Music* pMusic, int loops) // overload for testing 
 {
 	Mix_VolumeMusic(10); // this is the volume at which the music is playing, 10 I believe is quite high, the volume range goes from 0-128 -JP
 	Mix_PlayMusic(pMusic, loops);	//Will add and overrite current music with pointer to file, and determine how many times it will repeat
+}
+void Interface::FadeInMusic(Mix_Music* pMusic, int loops, int ms)
+{
+	Mix_FadeInMusic(pMusic, loops, ms);
+}
+void Interface::FadeOutMusic(int ms)
+{
+	Mix_FadeOutMusic(ms);
 }
 void Interface::PlaySFX(Mix_Chunk* pSfx, int loops, int channel)
 {
@@ -39,7 +47,7 @@ void Interface::StopMusic() // This stops the music playing regardless of loops 
 	}
 }
 
-void Interface::LoadScene(int scene)
+void Interface::LoadScene(Scenes scene)
 {
 	prevScene = *currentScene; 
 	*currentScene = scene;
@@ -47,7 +55,9 @@ void Interface::LoadScene(int scene)
 
 void Interface::LoadPreviousScene()
 {
-	*currentScene = prevScene; 
+	Scenes origin = *currentScene; // Added this in so we can still keep track of the Scene this was called from - EH
+	*currentScene = prevScene;
+	prevScene = origin;
 }
 
 void Interface::SetWindowSize()
