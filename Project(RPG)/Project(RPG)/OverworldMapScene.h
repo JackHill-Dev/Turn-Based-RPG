@@ -27,8 +27,8 @@ private:
 	std::vector<std::string> objNames
 	{ 
 		"startNodeObj",
+		"shopNodeObj",
 		"battleNodeObj",
-		"shopNodeObj", 
 		"bossNodeObj" 
 	};
 

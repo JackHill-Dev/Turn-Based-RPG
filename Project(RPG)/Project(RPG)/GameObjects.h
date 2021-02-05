@@ -15,7 +15,10 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"mageObj",new RenderObject("mage")},
 		{"mageSprObj",new RenderObject("magSpr")},
 		{"maleObj", new RenderObject("male")},
+		{"nobleSpriteObj", new RenderObject("nobleSprite")},
 		{"rogSprObj",new RenderObject("rogSpr")},
+		{"scholarSpriteObj", new RenderObject("scholarSprite")},
+		{"villagerSpriteObj", new RenderObject("villagerSprite")},
 		{"warSprObj",new RenderObject("warSpr")},
 		
 		// Portrait Objects 
@@ -95,12 +98,16 @@ const std::map<std::string, SpriteSheet*> definedSheets
 	{
 		// Character Spritesheets
 
-		{"mage", new SpriteSheet("Assets/Sprites/Male/Male 12-1.png",96, 128, 32, 32, false)},
-		{"male", new SpriteSheet("Assets/Sprites/Male/Male 01-1.png",96, 128, 32, 32, false)},
 		{"female", new SpriteSheet("Assets/Sprites/Female 01-1.png", 96, 128, 32, 32, false)},
-		{"rogSpr", new SpriteSheet("Assets/Sprites/ArcherSprite.png", 96, 128, 32, 32, false)},
+		{"mage", new SpriteSheet("Assets/Sprites/Male/Male 12-1.png",96, 128, 32, 32, false)},
 		{"magSpr", new SpriteSheet("Assets/Sprites/MageSprite.png", 96, 128, 32, 32, false)},
+		{"male", new SpriteSheet("Assets/Sprites/Male/Male 01-1.png",96, 128, 32, 32, false)},	
+		{"nobleSprite", new SpriteSheet("Assets/Sprites/Male/Male 06-4.png", 96, 128, 32, 32, false)},
+		{"rogSpr", new SpriteSheet("Assets/Sprites/ArcherSprite.png", 96, 128, 32, 32, false)},
+		{"scholarSprite", new SpriteSheet("Assets/Sprites/Male/Male 08-1.png", 96, 128, 32, 32, false)},
+		{"villagerSprite", new SpriteSheet("Assets/Sprites/Male/Male 10-2.png", 96, 128, 32, 32, false)},		
 		{"warSpr", new SpriteSheet("Assets/Sprites/WarriorSprite.png", 96, 128, 32, 32, false)},
+		
 
 		// Portrait Spritesheets
 

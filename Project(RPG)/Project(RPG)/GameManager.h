@@ -61,7 +61,6 @@ public:
 	
 private:
 	void LoadSettings();
-	void SetupPlayer();
 	bool SetUp();
 	bool CreateWindow();
 	std::vector<Scene*> scenes;

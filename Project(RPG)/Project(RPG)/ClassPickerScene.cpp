@@ -13,10 +13,22 @@ ClassPickerScene::ClassPickerScene(Interface* mObjMgr) : Scene(mObjMgr)
 	pMageIcon = AddObject("mageSprObj", 960, 360, UI);
 	pMageIcon->SetScale(std::make_pair(2, 2));
 
+	pVillagerIcon = AddObject("villagerSpriteObj", 320, 360, UI);
+	pVillagerIcon->SetScale(std::make_pair(2, 2));
+	pVillagerIcon->SetVisible(false);
+
+	pScholarIcon = AddObject("scholarSpriteObj", 640, 360, UI);
+	pScholarIcon->SetScale(std::make_pair(2, 2));
+	pScholarIcon->SetVisible(false);
+
+	pNobleIcon = AddObject("nobleSpriteObj", 960, 360, UI);
+	pNobleIcon->SetScale(std::make_pair(2, 2));
+	pNobleIcon->SetVisible(false);
+
 	pBackBtn = AddObject("backBtnObj", 140, 230, UI);
 
-	pYesBtn = AddObject("yesTxtBtnObj", 800, 480, UI);
-	pRejectBtn = AddObject("backTxtBtnObj", 480, 480, UI);
+	pYesBtn = AddObject("yesTxtBtnObj", 800, 510, UI);
+	pRejectBtn = AddObject("backTxtBtnObj", 480, 510, UI);
 
 	bg_Music = Mix_LoadMUS("Assets/Music/ClassPicker.mp3");
 	confirm_SFX = Mix_LoadWAV("Assets/SFX/confirmSound.wav");
@@ -27,7 +39,7 @@ ClassPickerScene::ClassPickerScene(Interface* mObjMgr) : Scene(mObjMgr)
 
 void ClassPickerScene::Init()
 {
-	SetUpSummaryView();
+	SetUpClassView(CharacterPickerState::ClassView);
 }
 
 void ClassPickerScene::Load()
@@ -50,23 +62,41 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 {
 	if (act == Act::MouseUpdate)
 	{
-		if (pWarriorIcon->InBounds(mousePos.first, mousePos.second) && !IsFocused)
+		if (pWarriorIcon->InBounds(mousePos.first, mousePos.second) && !isFocused)
 		{
 			OnHover(pWarriorIcon);
 		}
 		else OnLeave(pWarriorIcon);
 
-		if (pRogueIcon->InBounds(mousePos.first, mousePos.second) && !IsFocused)
+		if (pRogueIcon->InBounds(mousePos.first, mousePos.second) && !isFocused)
 		{
 			OnHover(pRogueIcon);
 		}
 		else OnLeave(pRogueIcon);
 
-		if (pMageIcon->InBounds(mousePos.first, mousePos.second) && !IsFocused)
+		if (pMageIcon->InBounds(mousePos.first, mousePos.second) && !isFocused)
 		{
 			OnHover(pMageIcon);
 		}
 		else OnLeave(pMageIcon);
+
+		if (pVillagerIcon->InBounds(mousePos.first, mousePos.second) && !isFocused)
+		{
+			OnHover(pVillagerIcon);
+		}
+		else OnLeave(pVillagerIcon);
+
+		if (pScholarIcon->InBounds(mousePos.first, mousePos.second) && !isFocused)
+		{
+			OnHover(pScholarIcon);
+		}
+		else OnLeave(pScholarIcon);
+
+		if (pNobleIcon->InBounds(mousePos.first, mousePos.second) && !isFocused)
+		{
+			OnHover(pNobleIcon);
+		}
+		else OnLeave(pNobleIcon);
 		
 		if (pBackBtn->InBounds(mousePos.first, mousePos.second))
 		{
@@ -85,7 +115,6 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 			OnHover(pYesBtn);
 		}
 		else OnLeave(pYesBtn);
-
 	}
 
 	if (act == Act::Click)
@@ -93,118 +122,165 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 		if (pBackBtn->InBounds(mousePos.first, mousePos.second))
 		{
 			mgr->PlaySFX(back_SFX, 0, 1);
-			if (IsFocused)
+
+			switch (currentState)
 			{
-				if (PartyCount > 0)
-				{
-					mCharacters.pop_back();
-					--PartyCount;
-				}
-				SetUpSummaryView();
-				IsFocused = false;
-				IsWarriorView = false;
-				IsRogueView = false;
-				IsMageView = false;
-			}
-			else
-			{
-				if (PartyCount > 0)
-				{
-					mCharacters.pop_back();
-					--PartyCount;
-					SetUpSummaryView();
-				}
-				else
-				{
-					mgr->LoadPreviousScene();
-					IsFocused = false;
-					IsWarriorView = false;
-					IsRogueView = false;
-					IsMageView = false;
-				}
+				case CharacterPickerState::ClassView:
+					if (PartyCount > 0)
+					{
+						mCharacters.pop_back();
+
+						if (currentPartyGold.size() != 0)
+						{
+							currentPartyGold.pop_back();
+						}
+
+						--PartyCount;
+						SetUpBackgroundView(CharacterPickerState::ClassView);
+					}
+					else
+					{
+						mgr->LoadPreviousScene();
+					}
+					break;
+				case CharacterPickerState::WarriorView:
+					SetUpClassView(CharacterPickerState::WarriorView);
+					break;
+				case CharacterPickerState::RogueView:
+					SetUpClassView(CharacterPickerState::RogueView);
+					break;
+				case CharacterPickerState::MageView:
+					SetUpClassView(CharacterPickerState::MageView);
+					break;
+				case CharacterPickerState::BackgroundView:
+					SetUpClassView(CharacterPickerState::BackgroundView);
+					break;
+				case CharacterPickerState::VillagerView:
+					SetUpBackgroundView(CharacterPickerState::VillagerView);
+					break;
+				case CharacterPickerState::ScholarView:
+					SetUpBackgroundView(CharacterPickerState::ScholarView);
+					break;
+				case CharacterPickerState::NobleView:
+					SetUpBackgroundView(CharacterPickerState::NobleView);
+					break;
 			}
 		}
 
 		if (pWarriorIcon->InBounds(mousePos.first, mousePos.second) && pWarriorIcon->IsVisible())
 		{
 			mgr->PlaySFX(confirm_SFX, 0, 1);
-			IsFocused = true;
-			IsWarriorView = true;
 			OnLeave(pWarriorIcon);
-			SetUpWarriorView();
+			SetUpWarriorView(CharacterPickerState::ClassView);
 			
 		}
 
 		if (pRogueIcon->InBounds(mousePos.first, mousePos.second) && pRogueIcon->IsVisible())
 		{
 			mgr->PlaySFX(confirm_SFX, 0, 1);
-			IsFocused = true;
-			IsRogueView = true;
 			OnLeave(pRogueIcon);
-			SetUpRogueView();		
+			SetUpRogueView(CharacterPickerState::ClassView);
 		}
 
 		if (pMageIcon->InBounds(mousePos.first, mousePos.second) && pMageIcon->IsVisible())
 		{
 			mgr->PlaySFX(confirm_SFX, 0, 1);
-			IsFocused = true;
-			IsMageView = true;
 			OnLeave(pMageIcon);
-			SetUpMageView();			
+			SetUpMageView(CharacterPickerState::ClassView);
+		}
+
+		if (pVillagerIcon->InBounds(mousePos.first, mousePos.second) && pVillagerIcon->IsVisible())
+		{
+			mgr->PlaySFX(confirm_SFX, 0, 1);
+			OnLeave(pVillagerIcon);
+			SetUpVillagerView(CharacterPickerState::BackgroundView);
+		}
+
+		if (pScholarIcon->InBounds(mousePos.first, mousePos.second) && pScholarIcon->IsVisible())
+		{
+			mgr->PlaySFX(confirm_SFX, 0, 1);
+			OnLeave(pScholarIcon);
+			SetUpScholarView(CharacterPickerState::BackgroundView);
+		}
+
+		if (pNobleIcon->InBounds(mousePos.first, mousePos.second) && pNobleIcon->IsVisible())
+		{
+			mgr->PlaySFX(confirm_SFX, 0, 1);
+			OnLeave(pNobleIcon);
+			SetUpNobleView(CharacterPickerState::BackgroundView);
 		}
 
 		if (pRejectBtn->InBounds(mousePos.first, mousePos.second) && pRejectBtn->IsVisible())
 		{
 			mgr->PlaySFX(back_SFX, 0, 1);
 
-			if (PartyCount > 0)
+			switch (currentState)
 			{
-				--PartyCount;
-				mCharacters.pop_back();
+				case CharacterPickerState::WarriorView:
+					SetUpClassView(CharacterPickerState::ClassView);
+					break;
+				case CharacterPickerState::RogueView:
+					SetUpClassView(CharacterPickerState::ClassView);
+					break;
+				case CharacterPickerState::MageView:
+					SetUpClassView(CharacterPickerState::ClassView);
+					break;
+				case CharacterPickerState::VillagerView:
+					SetUpBackgroundView(CharacterPickerState::BackgroundView);
+					break;
+				case CharacterPickerState::ScholarView:
+					SetUpBackgroundView(CharacterPickerState::BackgroundView);
+					break;
+				case CharacterPickerState::NobleView:
+					SetUpBackgroundView(CharacterPickerState::BackgroundView);
+					break;
+				default:
+					std::cout << "Error in state for Reject Button" << std::endl;
 			}
-			IsFocused = false;
-			IsWarriorView = false;
-			IsRogueView = false;
-			IsMageView = false;
-			SetUpSummaryView();
 		}
 
 		if (pYesBtn->InBounds(mousePos.first, mousePos.second) && pYesBtn->IsVisible())
 		{
 			mgr->PlaySFX(confirm_SFX, 0, 1);
-			++PartyCount;
-			if (IsWarriorView)
+
+			switch (currentState)
 			{
-				//mgr->GetPlayer()->AddToParty(new Character("warSprObj", "WarriorObj"));
-				mCharacters.push_back(new Character("warSprObj", "WarriorObj"));
-			}
-			if (IsRogueView)
-			{
-				//mgr->GetPlayer()->AddToParty(new Character("rogSprObj", "RogueObj"));
-				mCharacters.push_back(new Character("rogSprObj", "RogueObj"));
-			}
-			if (IsMageView)
-			{
-				//mgr->GetPlayer()->AddToParty(new Character("mageSprObj", "ClericObj"));
-				mCharacters.push_back(new Character("mageSprObj", "ClericObj"));
+				case CharacterPickerState::WarriorView:
+					mCharacters.push_back(new Character("warSprObj", "WarriorObj"));
+					SetUpBackgroundView(CharacterPickerState::ClassView);
+					break;
+				case CharacterPickerState::RogueView:
+					mCharacters.push_back(new Character("rogSprObj", "RogueObj"));
+					SetUpBackgroundView(CharacterPickerState::ClassView);
+					break;
+				case CharacterPickerState::MageView:
+					mCharacters.push_back(new Character("mageSprObj", "ClericObj"));
+					SetUpBackgroundView(CharacterPickerState::ClassView);
+					break;
+				case CharacterPickerState::VillagerView:
+					++PartyCount;
+					currentPartyGold.push_back(mVillagerGold);
+					SetUpClassView(CharacterPickerState::BackgroundView);
+					break;
+				case CharacterPickerState::ScholarView:
+					++PartyCount;
+					currentPartyGold.push_back(mScholarGold);
+					SetUpClassView(CharacterPickerState::BackgroundView);
+					break;
+				case CharacterPickerState::NobleView:
+					++PartyCount;
+					currentPartyGold.push_back(mNobleGold);
+					SetUpClassView(CharacterPickerState::BackgroundView);
+					break;
+				default:
+					std::cout << "Invalid state in Yes Button!" << std::endl;
 			}
 
-			if (PartyCount < maxPartySize)
-			{							
-				IsFocused = false;
-				IsWarriorView = false;
-				IsRogueView = false;
-				IsMageView = false;
-				SetUpSummaryView();
-			}
-			else
+			if (PartyCount >= maxPartySize)
 			{
-				IsFocused = false;
-				IsWarriorView = false;
-				IsRogueView = false;
-				IsMageView = false;
+				int partyGold = std::accumulate(currentPartyGold.begin(), currentPartyGold.end(), 0);
+				mgr->GetPlayer()->SetGold(partyGold);
 				mgr->GetPlayer()->SetupParty(mCharacters);
-				mgr->FadeOutMusic(mgr->fadeTime);
 				mgr->LoadScene(Scenes::Overworld);
 			}
 		}
@@ -213,13 +289,22 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 
 }
 
-void ClassPickerScene::SetUpSummaryView()
+void ClassPickerScene::SetUpClassView(CharacterPickerState originState)
 {
+	previousState = originState;
+	currentState = CharacterPickerState::ClassView;
+
 	pWarriorIcon->SetVisible(true);
 	pRogueIcon->SetVisible(true);
 	pMageIcon->SetVisible(true);
 	pRejectBtn->SetVisible(false);
 	pYesBtn->SetVisible(false);
+	pVillagerIcon->SetVisible(false);
+	pScholarIcon->SetVisible(false);
+	pNobleIcon->SetVisible(false);
+
+	isFocused = false;
+
 
 	pWarriorIcon->SetPos(std::make_pair(320, 360));
 	pRogueIcon->SetPos(std::make_pair(640, 360));
@@ -265,14 +350,20 @@ void ClassPickerScene::SetUpSummaryView()
 	mSceneText.push_back(mFooterInstruction);
 }
 
-void ClassPickerScene::SetUpWarriorView()
+
+void ClassPickerScene::SetUpWarriorView(CharacterPickerState originState)
 {
+	previousState = originState;
+	currentState = CharacterPickerState::WarriorView;
+
 	pWarriorIcon->SetPos(std::make_pair(640, 320));
 
 	pRogueIcon->SetVisible(false);
 	pMageIcon->SetVisible(false);
 	pRejectBtn->SetVisible(true);
 	pYesBtn->SetVisible(true);
+
+	isFocused = true;
 
 	mSceneText.clear();
 
@@ -304,7 +395,7 @@ void ClassPickerScene::SetUpWarriorView()
 	mFooterInstruction.text = "PLEASE SELECT YOUR CHOICE WITH THE LEFT MOUSE BUTTON";
 	mFooterInstruction.textColor = SDL_Color{ 0,0,0 };
 	mFooterInstruction.pos = std::make_pair<int>(640, 550);
-	mFooterInstruction.SetTextScale(500, 70);
+	mFooterInstruction.SetTextScale(700, 40);
 
 	mSceneText.push_back(mHeader);
 	mSceneText.push_back(mHeaderInstruction);
@@ -316,14 +407,19 @@ void ClassPickerScene::SetUpWarriorView()
 
 }
 
-void ClassPickerScene::SetUpRogueView()
+void ClassPickerScene::SetUpRogueView(CharacterPickerState originState)
 {
+	previousState = originState;
+	currentState = CharacterPickerState::RogueView;
+
 	pRogueIcon->SetPos(std::make_pair(640, 320));
 	
 	pWarriorIcon->SetVisible(false);
 	pMageIcon->SetVisible(false);
 	pRejectBtn->SetVisible(true);
 	pYesBtn->SetVisible(true);
+
+	isFocused = true;
 
 	mSceneText.clear();
 
@@ -355,7 +451,7 @@ void ClassPickerScene::SetUpRogueView()
 	mFooterInstruction.text = "PLEASE SELECT YOUR CHOICE WITH THE LEFT MOUSE BUTTON";
 	mFooterInstruction.textColor = SDL_Color{ 0,0,0 };
 	mFooterInstruction.pos = std::make_pair<int>(640, 550);
-	mFooterInstruction.SetTextScale(500, 70);
+	mFooterInstruction.SetTextScale(700, 40);
 
 	mSceneText.push_back(mHeader);
 	mSceneText.push_back(mHeaderInstruction);
@@ -366,14 +462,19 @@ void ClassPickerScene::SetUpRogueView()
 
 }
 
-void ClassPickerScene::SetUpMageView()
+void ClassPickerScene::SetUpMageView(CharacterPickerState originState)
 {
+	previousState = originState;
+	currentState = CharacterPickerState::MageView;
+
 	pMageIcon->SetPos(std::make_pair(640, 320));
 
 	pWarriorIcon->SetVisible(false);
 	pRogueIcon->SetVisible(false);
 	pRejectBtn->SetVisible(true);
 	pYesBtn->SetVisible(true);
+
+	isFocused = true;
 
 	mSceneText.clear();
 
@@ -406,7 +507,7 @@ void ClassPickerScene::SetUpMageView()
 	mFooterInstruction.text = "PLEASE SELECT YOUR CHOICE WITH THE LEFT MOUSE BUTTON";
 	mFooterInstruction.textColor = SDL_Color{ 0,0,0 };
 	mFooterInstruction.pos = std::make_pair<int>(640, 550);
-	mFooterInstruction.SetTextScale(500, 70);
+	mFooterInstruction.SetTextScale(700, 40);
 
 	mSceneText.push_back(mHeader);
 	mSceneText.push_back(mHeaderInstruction);
@@ -415,3 +516,241 @@ void ClassPickerScene::SetUpMageView()
 	mSceneText.push_back(mFlavourText3);
 	mSceneText.push_back(mFooterInstruction);
 }
+
+void ClassPickerScene::SetUpBackgroundView(CharacterPickerState originState)
+{
+	previousState = originState;
+	currentState = CharacterPickerState::BackgroundView;
+
+	pWarriorIcon->SetVisible(false);
+	pRogueIcon->SetVisible(false);
+	pMageIcon->SetVisible(false);
+	pRejectBtn->SetVisible(false);
+	pYesBtn->SetVisible(false);
+
+	pVillagerIcon->SetVisible(true);
+	pScholarIcon->SetVisible(true);
+	pNobleIcon->SetVisible(true);
+
+	pVillagerIcon->SetPos(std::make_pair(320, 360));
+	pScholarIcon->SetPos(std::make_pair(640, 360));
+	pNobleIcon->SetPos(std::make_pair(960, 360));
+
+	isFocused = false;
+
+	mSceneText.clear();
+
+	mHeader.text = "CHARACTER CREATOR: " + std::to_string(PartyCount + 1);
+	mHeader.pos = std::make_pair<int>(640, 230);
+	mHeader.textColor = SDL_Color{ 0,0,0 };
+	mHeader.SetTextScale(300, 60);
+
+	mHeaderInstruction.text = "CHOOSE YOUR ORIGIN";
+	mHeaderInstruction.textColor = SDL_Color{ 0,0,0 };
+	mHeaderInstruction.pos = std::make_pair<int>(640, 270);
+	mHeaderInstruction.SetTextScale(250, 40);
+
+	mFlavourText1.text = "VILLAGER";
+	mFlavourText1.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText1.pos = std::make_pair<int>(320, 410);
+	mFlavourText1.SetTextScale(100, 30);
+
+	mFlavourText2.text = "SCHOLAR";
+	mFlavourText2.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText2.pos = std::make_pair<int>(640, 410);
+	mFlavourText2.SetTextScale(100, 30);
+
+	mFlavourText3.text = "NOBLE";
+	mFlavourText3.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText3.pos = std::make_pair<int>(960, 410);
+	mFlavourText3.SetTextScale(100, 30);
+
+	mFooterInstruction.text = "PLEASE SELECT YOUR CHOICE WITH THE LEFT MOUSE BUTTON";
+	mFooterInstruction.textColor = SDL_Color{ 0,0,0 };
+	mFooterInstruction.pos = std::make_pair<int>(640, 550);
+	mFooterInstruction.SetTextScale(700, 40);
+
+	mSceneText.push_back(mHeader);
+	mSceneText.push_back(mHeaderInstruction);
+	mSceneText.push_back(mFlavourText1);
+	mSceneText.push_back(mFlavourText2);
+	mSceneText.push_back(mFlavourText3);
+	mSceneText.push_back(mFooterInstruction);
+}
+
+void ClassPickerScene::SetUpVillagerView(CharacterPickerState originState)
+{
+	previousState = originState;
+	currentState = CharacterPickerState::VillagerView;
+
+	pVillagerIcon->SetPos(std::make_pair(640, 320));
+
+	pScholarIcon->SetVisible(false);
+	pNobleIcon->SetVisible(false);
+	pRejectBtn->SetVisible(true);
+	pYesBtn->SetVisible(true);
+
+	isFocused = true;
+
+	mSceneText.clear();
+
+	mHeader.text = "CHARACTER CREATOR";
+	mHeader.pos = std::make_pair<int>(640, 230);
+	mHeader.textColor = SDL_Color{ 0,0,0 };
+	mHeader.SetTextScale(300, 60);
+
+	mHeaderInstruction.text = "WILL YOU PICK VILLAGER?";
+	mHeaderInstruction.textColor = SDL_Color{ 0,0,0 };
+	mHeaderInstruction.pos = std::make_pair<int>(640, 270);
+	mHeaderInstruction.SetTextScale(250, 40);
+
+	mFlavourText1.text = "INTELLIGENCE - 2";
+	mFlavourText1.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText1.pos = std::make_pair<int>(640, 400);
+	mFlavourText1.SetTextScale(100, 30);
+
+	mFlavourText2.text = "STRENGTH AGILITY + 2";
+	mFlavourText2.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText2.pos = std::make_pair<int>(640, 370);
+	mFlavourText2.SetTextScale(100, 30);
+
+	mFlavourText3.text = "STARTING GOLD: 50";
+	mFlavourText3.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText3.pos = std::make_pair<int>(640, 430);
+	mFlavourText3.SetTextScale(100, 30);
+
+	mFlavourText4.text = "A COMMONER LIVES A SIMPLE LIFE WON WITH THEIR OWN HANDS";
+	mFlavourText4.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText4.pos = std::make_pair<int>(640, 460);
+	mFlavourText4.SetTextScale(300, 30);
+
+	mFooterInstruction.text = "PLEASE SELECT YOUR CHOICE WITH THE LEFT MOUSE BUTTON";
+	mFooterInstruction.textColor = SDL_Color{ 0,0,0 };
+	mFooterInstruction.pos = std::make_pair<int>(640, 550);
+	mFooterInstruction.SetTextScale(700, 40);
+
+	mSceneText.push_back(mHeader);
+	mSceneText.push_back(mHeaderInstruction);
+	mSceneText.push_back(mFlavourText1);
+	mSceneText.push_back(mFlavourText2);
+	mSceneText.push_back(mFlavourText3);
+	mSceneText.push_back(mFlavourText4);
+	mSceneText.push_back(mFooterInstruction);
+
+}
+
+void ClassPickerScene::SetUpScholarView(CharacterPickerState originState)
+{
+	previousState = originState;
+	currentState = CharacterPickerState::ScholarView;
+
+	pScholarIcon->SetPos(std::make_pair(640, 320));
+
+	pVillagerIcon->SetVisible(false);
+	pNobleIcon->SetVisible(false);
+	pRejectBtn->SetVisible(true);
+	pYesBtn->SetVisible(true);
+
+	isFocused = true;
+
+	mSceneText.clear();
+
+	mHeader.text = "CHARACTER CREATOR";
+	mHeader.pos = std::make_pair<int>(640, 230);
+	mHeader.textColor = SDL_Color{ 0,0,0 };
+	mHeader.SetTextScale(300, 60);
+
+	mHeaderInstruction.text = "WILL YOU PICK SCHOLAR?";
+	mHeaderInstruction.textColor = SDL_Color{ 0,0,0 };
+	mHeaderInstruction.pos = std::make_pair<int>(640, 270);
+	mHeaderInstruction.SetTextScale(250, 40);
+
+	mFlavourText1.text = "INTELLIGENCE + 1";
+	mFlavourText1.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText1.pos = std::make_pair<int>(640, 400);
+	mFlavourText1.SetTextScale(100, 30);
+
+	mFlavourText2.text = "STARTING GOLD: 100 ";
+	mFlavourText2.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText2.pos = std::make_pair<int>(640, 370);
+	mFlavourText2.SetTextScale(100, 30);
+
+	mFlavourText3.text = "A SCHOLAR ENJOYS A LIFE OF LEARNING AND CREATURE COMFORTS";
+	mFlavourText3.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText3.pos = std::make_pair<int>(640, 430);
+	mFlavourText3.SetTextScale(300, 30);
+
+	mFooterInstruction.text = "PLEASE SELECT YOUR CHOICE WITH THE LEFT MOUSE BUTTON";
+	mFooterInstruction.textColor = SDL_Color{ 0,0,0 };
+	mFooterInstruction.pos = std::make_pair<int>(640, 550);
+	mFooterInstruction.SetTextScale(700, 40);
+
+	mSceneText.push_back(mHeader);
+	mSceneText.push_back(mHeaderInstruction);
+	mSceneText.push_back(mFlavourText1);
+	mSceneText.push_back(mFlavourText2);
+	mSceneText.push_back(mFlavourText3);
+	mSceneText.push_back(mFooterInstruction);
+}
+
+void ClassPickerScene::SetUpNobleView(CharacterPickerState originState)
+{
+	previousState = originState;
+	currentState = CharacterPickerState::NobleView;
+
+	pNobleIcon->SetPos(std::make_pair(640, 320));
+
+	pVillagerIcon->SetVisible(false);
+	pScholarIcon->SetVisible(false);
+	pNobleIcon->SetVisible(true);
+	pRejectBtn->SetVisible(true);
+	pYesBtn->SetVisible(true);
+
+	isFocused = true;
+
+	mSceneText.clear();
+
+	mHeader.text = "CHARACTER CREATOR";
+	mHeader.pos = std::make_pair<int>(640, 230);
+	mHeader.textColor = SDL_Color{ 0,0,0 };
+	mHeader.SetTextScale(300, 60);
+
+	mHeaderInstruction.text = "WILL YOU PICK NOBLE?";
+	mHeaderInstruction.textColor = SDL_Color{ 0,0,0 };
+	mHeaderInstruction.pos = std::make_pair<int>(640, 270);
+	mHeaderInstruction.SetTextScale(250, 40);
+
+	mFlavourText1.text = "STRENGTH AGILITY - 2 ";
+	mFlavourText1.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText1.pos = std::make_pair<int>(640, 400);
+	mFlavourText1.SetTextScale(100, 30);
+
+	mFlavourText2.text = "INTELLIGENCE + 2";
+	mFlavourText2.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText2.pos = std::make_pair<int>(640, 370);
+	mFlavourText2.SetTextScale(100, 30);
+
+	mFlavourText3.text = "STARTING GOLD: 150";
+	mFlavourText3.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText3.pos = std::make_pair<int>(640, 430);
+	mFlavourText3.SetTextScale(100, 30);
+
+	mFlavourText4.text = "A NOBLE'S LIFE OF LEISURE HAS LED TO A STRONG MIND BUT A WEAK BODY";
+	mFlavourText4.textColor = SDL_Color{ 0,0,0 };
+	mFlavourText4.pos = std::make_pair<int>(640, 460);
+	mFlavourText4.SetTextScale(300, 30);
+
+	mFooterInstruction.text = "PLEASE SELECT YOUR CHOICE WITH THE LEFT MOUSE BUTTON";
+	mFooterInstruction.textColor = SDL_Color{ 0,0,0 };
+	mFooterInstruction.pos = std::make_pair<int>(640, 550);
+	mFooterInstruction.SetTextScale(700, 40);
+
+	mSceneText.push_back(mHeader);
+	mSceneText.push_back(mHeaderInstruction);
+	mSceneText.push_back(mFlavourText1);
+	mSceneText.push_back(mFlavourText2);
+	mSceneText.push_back(mFlavourText3);
+	mSceneText.push_back(mFlavourText4);
+	mSceneText.push_back(mFooterInstruction);
+}
+

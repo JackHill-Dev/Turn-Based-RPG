@@ -10,8 +10,6 @@ ShopScene::ShopScene(Interface* rng) : Scene(rng)
 	buySell_SFX = Mix_LoadWAV("Assets/SFX/coin.wav");
 	leave_SFX = Mix_LoadWAV("Assets/SFX/DoorClose.wav");
 
-	mShop.SetGold(2000);
-
 	Init();
 }
 
@@ -42,27 +40,36 @@ void ShopScene::PlaceItems(Inventory& inv)
 void ShopScene::Init()
 {
 	AddObject("ShopBGObj", 1280 / 2, 720 / 2, Background);
-	AddObject("playerPortraitObj", 505, 225, UI); // This needs to load the player's portrait in the future - JP
+	
 	AddObject("merchantPortraitObj", 725, 225, UI);
 	pExitButton = AddObject("exitButtonObj", 620, 600, UI);
-	
+
 	GenerateGrids();
-
-	mPlayerGoldText.text = "Gold: " + std::to_string( mgr->GetPlayer()->GetGold());
-	mPlayerGoldText.pos = std::make_pair(520, 415);
-	mPlayerGoldText.textColor = SDL_Color{ 255, 215, 0 }; // Gold
-
-	mShopGoldText.text = "Gold: " + std::to_string(mShop.GetGold());
-	mShopGoldText.pos = std::make_pair(620, 415);
-	mShopGoldText.textColor = SDL_Color{ 255, 215, 0 }; // Gold
 	
-	mSceneText.push_back(mPlayerGoldText);
-	mSceneText.push_back( mShopGoldText);
-
 }
 
 void ShopScene::Load()
 {
+	AddObject(mgr->GetPlayer()->GetParty().at(0)->GetPortraitName(), 505, 225, UI); // Now loads portrait of 1st in party. These need matching in scale to merchant - EH
+
+	mSceneText.clear();
+
+	mShop.SetGold(-mShop.GetGold());
+	mShop.SetGold(RandomRange(300, 2000));
+
+	mPlayerGoldText.text = "Gold: " + std::to_string(mgr->GetPlayer()->GetGold());
+	mPlayerGoldText.pos = std::make_pair(550, 415);
+	mPlayerGoldText.textColor = SDL_Color{ 255, 215, 0 }; // Gold
+
+	mShopGoldText.text = "Gold: " + std::to_string(mShop.GetGold());
+	mShopGoldText.pos = std::make_pair(680, 415);
+	mShopGoldText.textColor = SDL_Color{ 255, 215, 0 }; // Gold
+
+	mSceneText.push_back(mPlayerGoldText);
+	mSceneText.push_back(mShopGoldText);
+	
+	
+
 	mgr->FadeInMusic(bg_Music, -1, mgr->fadeTime);
 	mLayers[Game].clear();
 	PlaceItems(mgr->GetPlayer()->GetInventory());
