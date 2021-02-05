@@ -123,10 +123,6 @@ bool GameManager::Init()
 	CreateWindow();
 	mInterface.StoreWindow(mWnd);
 	SetUp();
-	SetupPlayer();
-	
-
-	mPlayer.SetGold(1000);
 
 	mPlayer.SetDeck({new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Slash"]) });
 	
@@ -174,17 +170,6 @@ void GameManager::LoadSettings()
 	ifs.close();
 }
 
-void GameManager::SetupPlayer()
-{
-	mPlayer.SetGold(1000);
-	mArmour = Armour("armourObj", 100, 20);
-	mPlayer.GetInventory().AddItem(&mArmour);
-
-	mWizard = Character("maleObj", "WizardObj");
-	mWarrior = Character("maleObj", "WarriorObj");
-
-	//mPlayer.SetupParty({ &mWizard, new Character("maleObj", "ClericObj"), new Character("maleObj", "RogueObj"), &mWarrior });
-}
 
 bool GameManager::SetUp()
 {
