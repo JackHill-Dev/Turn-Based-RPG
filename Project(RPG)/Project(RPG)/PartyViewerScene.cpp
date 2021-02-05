@@ -83,21 +83,21 @@ void PartyViewerScene::GetCharacterStatistics()
 		cc.health = DrawStat("Health", c->GetStats().health.second, SDL_Color{255,0,0}, std::make_pair(offsetX, offsetY));
 		offsetY += 50;
 
-		cc.mana = DrawStat("Mana", c->GetStats().mana.second, SDL_Color{ 0,0,200 }, std::make_pair(offsetX, offsetY));
+		cc.intelligence = DrawStat("Mana", c->GetStats().intelligence.second, SDL_Color{ 0,0,200 }, std::make_pair(offsetX, offsetY));
 
 		offsetY += 50;
 		cc.agility = DrawStat("Agility", c->GetStats().agility.second, SDL_Color{ 0,200,0 }, std::make_pair(offsetX, offsetY));
 
 		offsetY += 50;
-		cc.stamina = DrawStat("Stamina", c->GetStats().stamina.second, SDL_Color{ 50, 143, 23 }, std::make_pair(offsetX, offsetY));
+		cc.strength = DrawStat("Stamina", c->GetStats().strength.second, SDL_Color{ 50, 143, 23 }, std::make_pair(offsetX, offsetY));
 
 		offsetY += 50;
 		cc.movement = DrawStat("Movement", c->GetStats().movement.second, SDL_Color{ 50,50,150 }, std::make_pair(offsetX, offsetY));
 
 		mSceneText.push_back(cc.health);
-		mSceneText.push_back(cc.mana);
+		mSceneText.push_back(cc.intelligence);
 		mSceneText.push_back(cc.agility);
-		mSceneText.push_back(cc.stamina);
+		mSceneText.push_back(cc.strength);
 		mSceneText.push_back(cc.movement);
 
 

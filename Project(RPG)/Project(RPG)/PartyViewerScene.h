@@ -4,9 +4,9 @@
 
 struct CharacterCard
 {
-	UIText stamina;
+	UIText strength;
 	UIText health;
-	UIText mana;
+	UIText intelligence;
 	UIText agility;
 	UIText movement;
 };
