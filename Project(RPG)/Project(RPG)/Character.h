@@ -57,7 +57,7 @@ public:
 	std::string GetObjName() { return objectName; };
 
 
-	void modStat(std::pair<int, int> statToMod, std::pair<int,int> statMod);
+	void modStat(std::pair<int, int>& statToMod, std::pair<int,int> statMod);
 	void LevelUp(int level, std::pair<int, int> characterHealth);
 
 	void SetBackground(UnitBackground background);
@@ -67,7 +67,7 @@ public:
 	void UpdateCharacter();
 
 	bool ModHealth(int mod);
-	void Heal(std::pair<int,int> health, int healValue);
+	void Heal(std::pair<int,int>& health, int healValue);
 	
 	
 	bool moving = false;

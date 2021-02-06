@@ -23,7 +23,7 @@ int Character::GetHealth()
 	return mStats.health.first;
 }
 
-void Character::modStat(std::pair<int, int> statToMod, std::pair<int,int> statMod)
+void Character::modStat(std::pair<int, int>& statToMod, std::pair<int,int> statMod)
 {
 	statToMod.first += statMod.first;
 	statToMod.second += statMod.second;
@@ -107,7 +107,7 @@ bool Character::ModHealth(int mod)
 	return true;
 }
 
-void Character::Heal(std::pair<int, int> health, int healValue)
+void Character::Heal(std::pair<int, int>& health, int healValue)
 {
 	health.first += healValue;
 
