@@ -247,19 +247,28 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 			{
 				case CharacterPickerState::WarriorView:
 					mCharacters.push_back(new Character("warSprObj", "WarriorObj"));
+					mCharacterStats.push_back(mStatDebuff); // Intelligence debuff - EH
+					mCharacterStats.push_back(mStatBuff); // Strength buff - EH
 					SetUpBackgroundView(CharacterPickerState::ClassView);
 					break;
 				case CharacterPickerState::RogueView:
 					mCharacters.push_back(new Character("rogSprObj", "RogueObj"));
+					mCharacterStats.push_back(mStatDebuff); // Strength debuff - EH
+					mCharacterStats.push_back(mStatBuff); // Agility buff - EH
 					SetUpBackgroundView(CharacterPickerState::ClassView);
 					break;
 				case CharacterPickerState::MageView:
 					mCharacters.push_back(new Character("mageSprObj", "ClericObj"));
+					mCharacterStats.push_back(mStatDebuff); // Agility debuff - EH
+					mCharacterStats.push_back(mStatBuff); // Intelligence buff - EH
 					SetUpBackgroundView(CharacterPickerState::ClassView);
 					break;
 				case CharacterPickerState::VillagerView:
 					++PartyCount;
 					currentPartyGold.push_back(mVillagerGold);
+					mCharacterStats.push_back((mStatDebuff)); // Intelligence debuff
+					mCharacterStats.push_back((mStatBuff));	// Strength buff
+					mCharacterStats.push_back((mStatBuff)); // Agility buff
 					SetUpClassView(CharacterPickerState::BackgroundView);
 					break;
 				case CharacterPickerState::ScholarView:
@@ -270,6 +279,9 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 				case CharacterPickerState::NobleView:
 					++PartyCount;
 					currentPartyGold.push_back(mNobleGold);
+					mCharacterStats.push_back(mStatDebuff); // Strength debuff
+					mCharacterStats.push_back(mStatDebuff); // Agility debuff
+					mCharacterStats.push_back(mStatBuff); // Intelligence buff
 					SetUpClassView(CharacterPickerState::BackgroundView);
 					break;
 				default:
@@ -665,11 +677,6 @@ void ClassPickerScene::SetUpScholarView(CharacterPickerState originState)
 	mHeaderInstruction.pos = std::make_pair<int>(640, 270);
 	mHeaderInstruction.SetTextScale(250, 40);
 
-	mFlavourText1.text = "INTELLIGENCE + 1";
-	mFlavourText1.textColor = SDL_Color{ 0,0,0 };
-	mFlavourText1.pos = std::make_pair<int>(640, 400);
-	mFlavourText1.SetTextScale(100, 30);
-
 	mFlavourText2.text = "STARTING GOLD: 100 ";
 	mFlavourText2.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText2.pos = std::make_pair<int>(640, 370);
@@ -677,7 +684,7 @@ void ClassPickerScene::SetUpScholarView(CharacterPickerState originState)
 
 	mFlavourText3.text = "A SCHOLAR ENJOYS A LIFE OF LEARNING AND CREATURE COMFORTS";
 	mFlavourText3.textColor = SDL_Color{ 0,0,0 };
-	mFlavourText3.pos = std::make_pair<int>(640, 430);
+	mFlavourText3.pos = std::make_pair<int>(640, 400);
 	mFlavourText3.SetTextScale(300, 30);
 
 	mFooterInstruction.text = "PLEASE SELECT YOUR CHOICE WITH THE LEFT MOUSE BUTTON";
