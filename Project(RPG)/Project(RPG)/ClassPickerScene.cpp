@@ -270,128 +270,92 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 			switch (currentState)
 			{
 				case CharacterPickerState::WarriorView:
+
 					mCharacters.push_back(new Character("warSprObj", "WarriorObj"));
 					mCharacters[PartyCount]->SetClass(UnitClass::Warrior);
 					mCharacterStats.push_back(mStatDebuff); // Intelligence debuff - EH
 					mCharacterStats.push_back(mStatBuff); // Strength buff - EH
 					SetUpBackgroundView(CharacterPickerState::ClassView);
 					break;
+
 				case CharacterPickerState::RogueView:
+
 					mCharacters.push_back(new Character("rogSprObj", "RogueObj"));
 					mCharacters[PartyCount]->SetClass(UnitClass::Rogue);
 					mCharacterStats.push_back(mStatDebuff); // Strength debuff - EH
 					mCharacterStats.push_back(mStatBuff); // Agility buff - EH
 					SetUpBackgroundView(CharacterPickerState::ClassView);
 					break;
+
 				case CharacterPickerState::MageView:
+
 					mCharacters.push_back(new Character("mageSprObj", "ClericObj"));
 					mCharacters[PartyCount]->SetClass(UnitClass::Mage);
 					mCharacterStats.push_back(mStatDebuff); // Agility debuff - EH
 					mCharacterStats.push_back(mStatBuff); // Intelligence buff - EH
 					SetUpBackgroundView(CharacterPickerState::ClassView);
 					break;
+
 				case CharacterPickerState::VillagerView:
+
 					mCharacters[PartyCount]->SetBackground(UnitBackground::Villager);
 					++PartyCount;
 					currentPartyGold.push_back(mVillagerGold);
 					mCharacterStats.push_back((mStatDebuff)); // Intelligence debuff
 					mCharacterStats.push_back((mStatBuff));	// Strength buff
 					mCharacterStats.push_back((mStatBuff)); // Agility buff
-					SetUpClassView(CharacterPickerState::BackgroundView);
+
+					if (PartyCount < maxPartySize)
+					{
+						SetUpClassView(CharacterPickerState::BackgroundView);
+					}
+					else
+					{
+						GeneratePartyFromChoices();
+					}
+					
 					break;
+
 				case CharacterPickerState::ScholarView:
 					mCharacters[PartyCount]->SetBackground(UnitBackground::Scholar);
 					++PartyCount;
 					currentPartyGold.push_back(mScholarGold);
-					SetUpClassView(CharacterPickerState::BackgroundView);
+
+					if (PartyCount < maxPartySize)
+					{
+						SetUpClassView(CharacterPickerState::BackgroundView);
+					}
+					else
+					{
+						GeneratePartyFromChoices();
+					}
+
 					break;
+
 				case CharacterPickerState::NobleView:
+
 					mCharacters[PartyCount]->SetBackground(UnitBackground::Noble);
 					++PartyCount;
 					currentPartyGold.push_back(mNobleGold);
 					mCharacterStats.push_back(mStatDebuff); // Strength debuff
 					mCharacterStats.push_back(mStatDebuff); // Agility debuff
 					mCharacterStats.push_back(mStatBuff); // Intelligence buff
-					SetUpClassView(CharacterPickerState::BackgroundView);
+
+					if (PartyCount < maxPartySize)
+					{
+						SetUpClassView(CharacterPickerState::BackgroundView);
+					}
+					else
+					{
+						GeneratePartyFromChoices();
+					}
+
 					break;
+
 				default:
 					std::cout << "Invalid state in Yes Button!" << std::endl;
 			}
 
-			if (PartyCount > maxPartySize)
-			{
-				int partyGold = std::accumulate(currentPartyGold.begin(), currentPartyGold.end(), 0);
-				mgr->GetPlayer()->SetGold(partyGold);
-
-				int statCount = 0;
-
-				for (int i = 0; i < maxPartySize; ++i)
-				{
-					switch (mCharacters[i]->GetClass())
-					{
-
-					case UnitClass::Warrior:
-
-						mCharacters[i]->modStat(mCharacters[i]->GetStats().intelligence, mCharacterStats[statCount]);
-						++statCount;
-						mCharacters[i]->modStat(mCharacters[i]->GetStats().strength, mCharacterStats[statCount]);
-						++statCount;
-						break;
-
-					case UnitClass::Rogue:
-
-						mCharacters[i]->modStat(mCharacters[i]->GetStats().strength, mCharacterStats[statCount]);
-						++statCount;
-						mCharacters[i]->modStat(mCharacters[i]->GetStats().agility, mCharacterStats[statCount]);
-						++statCount;
-						break;
-
-					case UnitClass::Mage:
-
-						mCharacters[i]->modStat(mCharacters[i]->GetStats().agility, mCharacterStats[statCount]);
-						++statCount;
-						mCharacters[i]->modStat(mCharacters[i]->GetStats().intelligence, mCharacterStats[statCount]);
-						++statCount;
-						break;
-
-					default:
-						std::cout << "Error in adding class stats!! " << std::endl;
-
-					}
-
-					switch (mCharacters[i]->GetBackground())
-					{
-
-					case UnitBackground::Villager:
-
-						mCharacters[i]->modStat(mCharacters[i]->GetStats().intelligence, mCharacterStats[statCount]);
-						++statCount;
-						mCharacters[i]->modStat(mCharacters[i]->GetStats().strength, mCharacterStats[statCount]);
-						++statCount;
-						mCharacters[i]->modStat(mCharacters[i]->GetStats().agility, mCharacterStats[statCount]);
-						++statCount;
-						break;
-
-					case UnitBackground::Scholar:
-
-						break;
-
-					case UnitBackground::Noble:
-
-						mCharacters[i]->modStat(mCharacters[i]->GetStats().strength, mCharacterStats[statCount]);
-						++statCount;
-						mCharacters[i]->modStat(mCharacters[i]->GetStats().agility, mCharacterStats[statCount]);
-						++statCount;
-						mCharacters[i]->modStat(mCharacters[i]->GetStats().intelligence, mCharacterStats[statCount]);
-						++statCount;
-						break;
-					default:
-						std::cout << "Error in adding background stats!! " << std::endl;
-					}
-				}
-				mgr->GetPlayer()->SetupParty(mCharacters);
-				mgr->LoadScene(Scenes::Overworld);
-			}
 		}
 
 	}
@@ -790,7 +754,6 @@ void ClassPickerScene::SetUpScholarView(CharacterPickerState originState)
 
 	mSceneText.push_back(mHeader);
 	mSceneText.push_back(mHeaderInstruction);
-	mSceneText.push_back(mFlavourText1);
 	mSceneText.push_back(mFlavourText2);
 	mSceneText.push_back(mFlavourText3);
 	mSceneText.push_back(mFooterInstruction);
@@ -855,5 +818,81 @@ void ClassPickerScene::SetUpNobleView(CharacterPickerState originState)
 	mSceneText.push_back(mFlavourText3);
 	mSceneText.push_back(mFlavourText4);
 	mSceneText.push_back(mFooterInstruction);
+}
+
+void ClassPickerScene::GeneratePartyFromChoices()
+{
+	int partyGold = std::accumulate(currentPartyGold.begin(), currentPartyGold.end(), 0);
+	mgr->GetPlayer()->SetGold(partyGold);
+
+	int statCount = 0;
+
+	for (int i = 0; i < maxPartySize; ++i)
+	{
+		switch (mCharacters[i]->GetClass())
+		{
+
+		case UnitClass::Warrior:
+
+			mCharacters[i]->modStat(mCharacters[i]->GetStats().intelligence, mCharacterStats[statCount]);
+			++statCount;
+			mCharacters[i]->modStat(mCharacters[i]->GetStats().strength, mCharacterStats[statCount]);
+			++statCount;
+			break;
+
+		case UnitClass::Rogue:
+
+			mCharacters[i]->modStat(mCharacters[i]->GetStats().strength, mCharacterStats[statCount]);
+			++statCount;
+			mCharacters[i]->modStat(mCharacters[i]->GetStats().agility, mCharacterStats[statCount]);
+			++statCount;
+			break;
+
+		case UnitClass::Mage:
+
+			mCharacters[i]->modStat(mCharacters[i]->GetStats().agility, mCharacterStats[statCount]);
+			++statCount;
+			mCharacters[i]->modStat(mCharacters[i]->GetStats().intelligence, mCharacterStats[statCount]);
+			++statCount;
+			break;
+
+		default:
+			std::cout << "Error in adding class stats!! " << std::endl;
+
+		}
+
+		switch (mCharacters[i]->GetBackground())
+		{
+
+		case UnitBackground::Villager:
+
+			mCharacters[i]->modStat(mCharacters[i]->GetStats().intelligence, mCharacterStats[statCount]);
+			++statCount;
+			mCharacters[i]->modStat(mCharacters[i]->GetStats().strength, mCharacterStats[statCount]);
+			++statCount;
+			mCharacters[i]->modStat(mCharacters[i]->GetStats().agility, mCharacterStats[statCount]);
+			++statCount;
+			break;
+
+		case UnitBackground::Scholar:
+
+			break;
+
+		case UnitBackground::Noble:
+
+			mCharacters[i]->modStat(mCharacters[i]->GetStats().strength, mCharacterStats[statCount]);
+			++statCount;
+			mCharacters[i]->modStat(mCharacters[i]->GetStats().agility, mCharacterStats[statCount]);
+			++statCount;
+			mCharacters[i]->modStat(mCharacters[i]->GetStats().intelligence, mCharacterStats[statCount]);
+			++statCount;
+			break;
+		default:
+			std::cout << "Error in adding background stats!! " << std::endl;
+		}
+	}
+
+	mgr->GetPlayer()->SetupParty(mCharacters);
+	mgr->LoadScene(Scenes::Overworld);
 }
 

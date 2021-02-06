@@ -85,5 +85,7 @@ public:
 	void SetUpScholarView(CharacterPickerState originState);
 	void SetUpNobleView(CharacterPickerState originState);
 
+	void GeneratePartyFromChoices();
+
 };
 
