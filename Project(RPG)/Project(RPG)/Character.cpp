@@ -13,9 +13,27 @@ Character::~Character()
 }	
 
 
+int Character::GetLevel()
+{
+	return mStats.level;
+}
+
 int Character::GetHealth()
 {
 	return mStats.health.first;
+}
+
+void Character::modStat(std::pair<int, int> statToMod, int statMod)
+{
+	statToMod.first += statMod;
+	statToMod.second += statMod;
+}
+
+void Character::LevelUp(int level, std::pair<int, int> characterHealth)
+{
+	++level;
+	characterHealth.first += levelHealth;
+	characterHealth.second += levelHealth;
 }
 
 void Character::SetArmour(Armour* armour)
@@ -65,7 +83,7 @@ void Character::UpdateCharacter()
 		mStats.agility.first += weapon->GetAtkPower();
 		mStats.agility.second += weapon->GetAtkPower();
 	}*/
-	
+
 }
 
 bool Character::ModHealth(int mod)
@@ -78,3 +96,14 @@ bool Character::ModHealth(int mod)
 			return false;
 	return true;
 }
+
+void Character::Heal(std::pair<int, int> health, int healValue)
+{
+	health.first += healValue;
+
+	if (health.first > health.second)
+	{
+		health.first = health.second;
+	}
+}
+
