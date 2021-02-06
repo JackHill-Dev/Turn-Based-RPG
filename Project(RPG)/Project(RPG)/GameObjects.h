@@ -66,7 +66,9 @@ const std::map<std::string,RenderObject*> definedObjects
 
 		{"swordSlashEffectObj", new RenderObject("swordSlashEffect")},
 		{"MagicObj", new RenderObject("Magic")},
-		{"TreeObj", new RenderObject("tree")}
+		{"TreeObj", new RenderObject("tree")},
+		{"defaultItemObj", new RenderObject("defaultItem")},
+		{"toolTipBgObj", new RenderObject("toolTipBg")}
 
 
 	}
@@ -128,6 +130,8 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"backBtn", new SpriteSheet("Assets/Sprites/Buttons/BackButtonNoBg.png", 81, 97, 81, 97, false)},
 		{"yesTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/Yes.png", 54, 36, 54, 36, false)},
 		{"backTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/Back.png", 71, 36, 71, 36, false)},
+		{"defaultItem", new SpriteSheet("Assets/Sprites/helmet.png", 32, 32, 32, 32, false)},
+		{"toolTipBg", new SpriteSheet("Assets/Backgrounds/TooltipBackground.png", 48, 48, 48, 48, false)}
 
 
 	}

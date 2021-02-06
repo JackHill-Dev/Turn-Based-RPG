@@ -1,7 +1,7 @@
 #pragma once
 //#include <string>
 #include "RenderObject.h"
-
+#include <string.h>
 struct InvPos
 {
 	std::pair<int, int> pos = std::make_pair(0,0);
@@ -20,6 +20,7 @@ public:
 	Item() {}
 	Item(std::string name, int cost);
 	~Item();
+	virtual std::string GetDescription() = 0;
 	std::string GetName() const;
 	std::string GetObjName() const;
 	int GetCost() const;

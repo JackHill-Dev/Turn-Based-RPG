@@ -6,3 +6,8 @@ Armour::Armour(std::string name, int cost, int def) : Item(name, cost)
 	mType = ARMOUR;
 	mObjName = "armourObj";
 }
+
+std::string Armour::GetDescription()
+{
+	return "Armour tooltip";
+}

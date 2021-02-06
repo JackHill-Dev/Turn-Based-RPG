@@ -170,7 +170,11 @@ void GameManager::SetupPlayer()
 {
 	mPlayer.SetGold(1000);
 	mArmour = Armour("armourObj", 100, 20);
+	mWeapon = Weapon("swordObj", 200);
+	mSword = Weapon("swordObj", 200);
 	mPlayer.GetInventory().AddItem(&mArmour);
+	mPlayer.GetInventory().AddItem(&mWeapon);
+	mPlayer.GetInventory().AddItem(&mSword);
 
 	mWizard = Character("maleObj", "WizardObj");
 	mWarrior = Character("maleObj", "WarriorObj");

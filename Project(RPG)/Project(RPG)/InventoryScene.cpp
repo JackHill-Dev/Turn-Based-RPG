@@ -8,12 +8,29 @@ InventoryScene::InventoryScene(Interface* mgr) : Scene(mgr)
 	Init();
 }
 
+void InventoryScene::Init()
+{
+	mParty = mgr->GetPlayer()->GetParty();
+	playerInvGrid = DrawGrid(9, 3, 250, 400, 800);
+
+	UIText defaultText;
+	defaultText.text = "This is default tooltip text";
+	mToolTip = ToolTip(AddObject("defaultItemObj", 640, 650, UI),
+		AddObject("toolTipBgObj", 640, 650, UI), defaultText, std::make_pair(640, 650));
+
+	
+
+	//Load();
+}
+
+
 void InventoryScene::Load()
 {
 	mParty = mgr->GetPlayer()->GetParty();
 	mLayers[Game].clear();
 	itemObjects.clear();
-	
+	mSceneText.clear();
+
 	int i = 0;
 	for (Item* item : mgr->GetPlayer()->GetInventory().GetContents())
 	{
@@ -33,16 +50,21 @@ void InventoryScene::Load()
 				c->mWeaponEquipSlot.slotObj->GetPos().first, c->mWeaponEquipSlot.slotObj->GetPos().second, Game)));
 	}
 
+	mToolTip.mDescription.textColor = SDL_Color{ 255,255,255 };
+	mSceneText.push_back(mToolTip.mDescription);
 
 }
 
+
 void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
+	
 	if (act == Act::Click && pCloseBtn->InBounds(mousePos.first, mousePos.second))
 	{
 		mgr->PlaySFX(button_SFX, 0, 1);
 		mgr->LoadPreviousScene();
 	}
+	ItemObject* current = nullptr;
 
 	for (auto i : itemObjects)
 	{
@@ -85,14 +107,47 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 
 		}
 
-		if (act == Act::MouseUpdate && i.obj->InBounds(mousePos.first, mousePos.second))
+		if (act == Act::MouseUpdate)
 		{
-			if (i.obj->bPickedUp)
+			if (i.obj->InBounds(mousePos.first, mousePos.second))
 			{
-				i.obj->SetPos(std::make_pair(mousePos.first, mousePos.second));
+				current = &i;
+				// TODO: Move out of for loop and replace with temp itemObject assignmet
+				/*RenderObject temp = *mgr->RequestObject(i._item->GetObjName());
+				mToolTip.pItemImage->SetTexture(temp.GetSheet());
+				mToolTip.mDescription.text = i._item->GetDescription();*/
+				//mToolTip.pItemImage->SetPos({640, 650});
+				//mSceneText.push_back(mToolTip.mDescription);
+				
+				//mToolTip.Show();
+				if (i.obj->bPickedUp)
+				{
+					i.obj->SetPos(std::make_pair(mousePos.first, mousePos.second));
+					current = nullptr;
+				}
+				
+			}
+			else
+			{
+				mToolTip.Hide();
+				current = nullptr;
+			}
+
+			if (current != nullptr)
+			{
+				temp = *mgr->RequestObject(current->_item->GetObjName());
+				mToolTip.pItemImage->SetTexture(temp.GetSheet());
+				mToolTip.mDescription.text = current->_item->GetDescription();
+				mToolTip.Show();
 			}
 		}
+
+		
 	}
+
+	
+
+
 }
 
 
@@ -115,22 +170,14 @@ void InventoryScene::GetCharacterPortraits()
 	{
 		AddObject(c->GetPortraitName(), offsetX, 180, UI)->SetScale(std::make_pair(0.8,0.8)); // Get all of their portrait render objects and add them to the scene
 
-		c->ArmourEquipSlot.slotObj = AddObject("itemFrameObj", offsetX - 120, 150, Background);
-		c->mWeaponEquipSlot.slotObj = AddObject("itemFrameObj", offsetX - 120, 260, Background);
-
-		
+		c->ArmourEquipSlot.slotObj = AddObject("itemFrameObj", offsetX - 120, 150,	UI);
+		c->mWeaponEquipSlot.slotObj = AddObject("itemFrameObj", offsetX - 120, 260, UI);
 
 		offsetX += 250;
 	}
 }
 
-void InventoryScene::Init()
-{
-	mParty = mgr->GetPlayer()->GetParty();
 
-	playerInvGrid = DrawGrid(9, 3, 250, 400, 800);
-	Load();
-}
 
 void InventoryScene::HandleArmourEquip(ItemObject & i, Character & c)
 {
@@ -144,6 +191,7 @@ void InventoryScene::HandleArmourEquip(ItemObject & i, Character & c)
 			{
 				c.SetArmour(static_cast<Armour*>(i._item)); // then check which character's equipment slot it is and then assign them that piece of equipment
 				i.obj->SetPos(std::make_pair(c.ArmourEquipSlot.slotObj->GetPos().first, c.ArmourEquipSlot.slotObj->GetPos().second));
+			
 				mgr->GetPlayer()->GetInventory().RemoveItem(i._item);
 				i._item->bEquipped = true;
 				i.obj->bPickedUp = false; // Dropped the item

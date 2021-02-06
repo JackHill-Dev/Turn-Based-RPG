@@ -15,3 +15,8 @@ void Weapon::SetAtkPower(int atk)
 {
 	mAttackPower = atk;
 }
+
+std::string Weapon::GetDescription()
+{
+	return "Weapon tooltip";
+}
