@@ -5,9 +5,27 @@
 #include "Armour.h"
 #include "Weapon.h"
 
+enum class UnitBackground
+{
+	NoBackground,
+	Villager,
+	Scholar, 
+	Noble,
+};
+
+enum class UnitClass
+{
+	NoClass,
+	Warrior,
+	Rogue,
+	Mage,
+};
+
 struct Statistics
 {
 	int level;
+	UnitBackground bg;
+	UnitClass cClass;
 	std::pair<int, int> health = { 15,15 }; // current, max
 	std::pair<int, int> intelligence = { 10,10 };
 	std::pair<int, int> agility = { 10,10 };
@@ -33,13 +51,17 @@ public:
 	int GetLevel();
 	int GetHealth();
 	Statistics& GetStats() { return mStats; }
+	UnitBackground& GetBackground(){ return mStats.bg; }
+	UnitClass& GetClass() { return mStats.cClass; }
 	std::string GetPortraitName() { return mPortraitName; }
 	std::string GetObjName() { return objectName; };
 
 
-	void modStat(std::pair<int, int> statToMod, int statMod);
+	void modStat(std::pair<int, int> statToMod, std::pair<int,int> statMod);
 	void LevelUp(int level, std::pair<int, int> characterHealth);
 
+	void SetBackground(UnitBackground background);
+	void SetClass(UnitClass uClass);
 	void SetArmour(Armour* armour);
 	void SetWeapon(Weapon* weapon);
 	void UpdateCharacter();

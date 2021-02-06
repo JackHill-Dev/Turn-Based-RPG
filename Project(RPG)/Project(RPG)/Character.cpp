@@ -23,10 +23,10 @@ int Character::GetHealth()
 	return mStats.health.first;
 }
 
-void Character::modStat(std::pair<int, int> statToMod, int statMod)
+void Character::modStat(std::pair<int, int> statToMod, std::pair<int,int> statMod)
 {
-	statToMod.first += statMod;
-	statToMod.second += statMod;
+	statToMod.first += statMod.first;
+	statToMod.second += statMod.second;
 }
 
 void Character::LevelUp(int level, std::pair<int, int> characterHealth)
@@ -34,6 +34,16 @@ void Character::LevelUp(int level, std::pair<int, int> characterHealth)
 	++level;
 	characterHealth.first += levelHealth;
 	characterHealth.second += levelHealth;
+}
+
+void Character::SetBackground(UnitBackground background)
+{
+	mStats.bg = background;
+}
+
+void Character::SetClass(UnitClass uClass)
+{
+	mStats.cClass = uClass;
 }
 
 void Character::SetArmour(Armour* armour)
