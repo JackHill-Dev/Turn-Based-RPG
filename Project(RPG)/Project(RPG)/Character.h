@@ -4,6 +4,7 @@
 #include "Inventory.h"
 #include "Armour.h"
 #include "Weapon.h"
+
 struct Statistics
 {
 	int level;
@@ -14,16 +15,16 @@ struct Statistics
 	std::pair<int, int> movement = { 5,5 };
 	std::pair<int, int> experience = { 0, 100 }; // current, next level - EH
 };
+
 struct EquipSlot
 {
 	RenderObject* slotObj = nullptr;
 	Item* _item = nullptr;
 };
+
 class Character
 {
 public:
-
-	
 
 	Character() {}
 	Character(std::string objectName, std::string portraitName);
@@ -58,7 +59,6 @@ protected:
 	std::string objectName;
 	RenderObject* object;
 	std::pair<double, double> target;
-
 
 private:
 
