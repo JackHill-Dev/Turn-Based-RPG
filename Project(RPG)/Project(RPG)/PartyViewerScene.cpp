@@ -39,7 +39,7 @@ void PartyViewerScene::Init()
 	mParty = mgr->GetPlayer()->GetParty();
 	GetCharacterPortraits();
 
-	GetCharacterStatistics();
+
 }
 
 void PartyViewerScene::Load()
@@ -47,6 +47,7 @@ void PartyViewerScene::Load()
 	
 	mParty = mgr->GetPlayer()->GetParty();
 	GetCharacterPortraits();
+	GetCharacterStatistics();
 
 	if (mgr->GetPreviousScene() != Scenes::InventoryScreen)
 	{
