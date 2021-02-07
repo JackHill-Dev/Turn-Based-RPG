@@ -226,7 +226,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 						for (auto& i : enemy)
 						{
 							i.character->GetStats().movement.first = i.character->GetStats().movement.second;
-							i.character->GetStats().stamina.first = i.character->GetStats().stamina.second;
+							i.character->GetStats().strength.first = i.character->GetStats().strength.second;
 
 						}
 					}
@@ -287,7 +287,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 								for (auto& i : team)
 									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
 									{
-										if (i.character->GetStats().stamina.first > 5)
+										if (i.character->GetStats().strength.first > 5)
 										{
 											character = &i;
 											character->object->tint = SDL_Color{ 255,255,0 };
@@ -440,7 +440,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
 									{
 										
-										if (i.character->GetStats().stamina.first > 5)
+										if (i.character->GetStats().strength.first > 5)
 										{
 
 											i.object->tint = SDL_Color{ 0, 255, 0 };
@@ -536,7 +536,7 @@ void CombatScene::Load(std::vector<Character*> enemyTeam)
 	// TO-DO: Seems to be a bug here - Doesn't actually contain the range when stepping through and counts double party size for some reason - EH
 	for (auto i : mgr->GetPlayer()->GetParty())
 	{
-		i->GetStats().stamina.first = i->GetStats().stamina.second;
+		i->GetStats().strength.first = i->GetStats().strength.second;
 		Unit unit = Unit(i, &mapp.tiles[v][14], AddObject(i->GetObjName(), 0, 0, Game), AddObject("portrait", 250, 125+150*v, UI));
 		//unit.object->scale = std::make_pair(0.5f, 0.5f);
 		unit.profile->scale = std::make_pair(0.3f, 0.3f);
@@ -586,12 +586,12 @@ void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  Rende
 		std::cout << "AHH";
 	}
 	if (dist <= card->first->Values().range && 
-		stats->stamina.first >= card->first->Values().stamCost && stats->mana.first >= card->first->Values().intCost && stats->agility.first >= card->first->Values().agilCost)
+		stats->strength.first >= card->first->Values().stamCost && stats->intelligence.first >= card->first->Values().intCost && stats->agility.first >= card->first->Values().agilCost)
 	{
 		mgr->PlaySFX(slash_sfx,0, 1);
 		card->first->Cast(caster->character, target->character);
-		caster->character->GetStats().stamina.first -= card->first->Values().stamCost;
-		caster->character->GetStats().mana.first -= card->first->Values().intCost;
+		caster->character->GetStats().strength.first -= card->first->Values().stamCost;
+		caster->character->GetStats().intelligence.first -= card->first->Values().intCost;
 		caster->character->GetStats().agility.first -= card->first->Values().agilCost;
 
 		AddObject(card->first->GetEffect(), centre.first, centre.second, Effects);
@@ -674,7 +674,7 @@ void CombatScene::RunAi()
 
 			for (auto &c : enemyHand)
 			{
-				if (stats->stamina.first >= c.first->Values().stamCost && stats->mana.first >= c.first->Values().intCost && stats->agility.first >= c.first->Values().agilCost)
+				if (stats->strength.first >= c.first->Values().stamCost && stats->intelligence.first >= c.first->Values().intCost && stats->agility.first >= c.first->Values().agilCost)
 					validCards.push_back(c);
 			}
 
@@ -783,7 +783,7 @@ void CombatScene::RunAi()
 
 		for (auto i : team)
 		{
-			i.character->GetStats().stamina.first = i.character->GetStats().stamina.second;
+			i.character->GetStats().strength.first = i.character->GetStats().strength.second;
 			i.character->GetStats().movement.first = i.character->GetStats().movement.second;
 		}
 		playerTurn = true;

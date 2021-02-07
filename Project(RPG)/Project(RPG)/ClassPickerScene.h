@@ -45,6 +45,7 @@ private:
 	Mix_Chunk* back_SFX;
 	std::vector<Character*> mCharacters;
 	std::vector<int> currentPartyGold;
+	std::vector<std::pair<int, int>> mCharacterStats;
 
 	CharacterPickerState currentState;
 	CharacterPickerState previousState;
@@ -53,6 +54,8 @@ private:
 
 	int PartyCount = 0;
 
+	const std::pair<int, int> mStatBuff = {2, 2};
+	const std::pair<int, int> mStatDebuff = {-1, -1};
 	const int mVillagerGold = 50;
 	const int mScholarGold = 100;
 	const int mNobleGold = 150;
@@ -81,6 +84,8 @@ public:
 	void SetUpVillagerView(CharacterPickerState originState);
 	void SetUpScholarView(CharacterPickerState originState);
 	void SetUpNobleView(CharacterPickerState originState);
+
+	void GeneratePartyFromChoices();
 
 };
 
