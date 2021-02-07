@@ -280,8 +280,8 @@ const std::map<std::string, std::vector<Animation>> definedAnimations
 
 const std::map<std::string, DefinedCard> definedCards
 {
-	{"magicCard",{25, 5, 0, 5, 0, "Magic", "Slash the enemy for 5 damage, costs 10 strength", "malePortrait" ,"MagicObj"}},
-	{"slashCard",{1, 10, 0, 10, 0, "Slash", "Slash the enemy for 5 damage, costs 10 strength", "SlashCard" ,"swordSlashEffectObj"}},	
+	{"magicCard",{25, 5, 5, 0, 0, "Magic", "Magically assail the enemy for 5 damage, costs 5 intelligence", "malePortrait" ,"MagicObj"}},
+	{"slashCard",{1, 10, 0, 10, 0, "Slash", "Slash the enemy for 10 damage, costs 10 strength", "SlashCard" ,"swordSlashEffectObj"}},	
 };
 
 
