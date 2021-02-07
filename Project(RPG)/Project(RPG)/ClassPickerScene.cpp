@@ -128,6 +128,8 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 				case CharacterPickerState::ClassView:
 						if (PartyCount > 0)
 						{
+							--PartyCount;
+
 							if (mCharacterStats.size() != 0)
 							{
 								switch (mCharacters[PartyCount]->GetBackground())
@@ -149,6 +151,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 
 									default:
 										std::cout << "Error when trying to clear stats from class view!! " << std::endl;
+										break;
 								}
 							}
 							mCharacters.pop_back();
@@ -158,7 +161,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 								currentPartyGold.pop_back();
 							}
 
-							--PartyCount;
+
 							SetUpBackgroundView(CharacterPickerState::ClassView);
 						}
 						else
