@@ -101,11 +101,11 @@ void SettingsScene::SetupResOptions()
 	currentRes.pos = std::make_pair(640, 305);
 	currentRes.text = std::to_string( mgr->GetSettings().w) + " X " + std::to_string( mgr->GetSettings().h);
 
-	UIText fullScreen;
-	fullScreen.pos = std::make_pair(600, 205);
-	fullScreen.textColor = SDL_Color{ 0,0,0 };
-	fullScreen.text = "Fullscreen";
-	mSceneText.push_back(&fullScreen);
+	
+	fullScreenTxt.pos = std::make_pair(600, 205);
+	fullScreenTxt.textColor = SDL_Color{ 0,0,0 };
+	fullScreenTxt.text = "Fullscreen";
+	mSceneText.push_back(&fullScreenTxt);
 
 	mSceneText.push_back(&currentRes);
 
