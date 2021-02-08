@@ -61,5 +61,5 @@ void Interface::SetFullScreen()
 	if (pSettings->bIsFullScreen)
 		SDL_SetWindowFullscreen(mWnd, SDL_WINDOW_FULLSCREEN); 
 	else
-		SDL_SetWindowFullscreen(mWnd, 0);
+		SDL_SetWindowFullscreen(mWnd, 0); // Go back to windowed mode
 }

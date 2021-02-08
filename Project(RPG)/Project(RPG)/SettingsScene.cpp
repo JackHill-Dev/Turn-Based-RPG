@@ -68,6 +68,7 @@ void SettingsScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 
 void SettingsScene::Setup()
 {
+	AddObject("settingsBgObj", 635, 360, Background);
 	settingsCloseBtn = AddObject("CloseBtnObj",50, 50, UI);
 	dropdownCollapsed = AddObject("resCollapsedObj", 640, 300, UI);
 	ApplyBtn = AddObject("ApplyBtnObj", 640, 550, UI);

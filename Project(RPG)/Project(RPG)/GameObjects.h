@@ -48,7 +48,7 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"menuButtonObj", new RenderObject("menuButton")},
 		{"exitButtonObj", new RenderObject("exitButton")},
 		{"settingsBtnObj", new RenderObject("settingsBtn")},
-		{"settingsOverlayObj", new RenderObject("settingsOverlay")},
+		{"settingsBgObj", new RenderObject("settingsBg")},
 		{"resCollapsedObj", new RenderObject("resCollapsed")},
 		{"resUnCollapsedObj", new RenderObject("resUnCollapsed")},
 		{"OptionsBackgroundObj", new RenderObject("OptionsBackground")},
@@ -131,6 +131,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"yesTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/Yes.png", 54, 36, 54, 36, false)},
 		{"backTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/Back.png", 71, 36, 71, 36, false)},
 		{"defaultItem", new SpriteSheet("Assets/Sprites/helmet.png", 32, 32, 32, 32, false)},
+		{"settingsBg", new SpriteSheet("Assets/Backgrounds/Blank_Map_1280x720_Blurred.png", 1280, 720, 1280, 720, false)},
 		{"toolTipBg", new SpriteSheet("Assets/Backgrounds/TooltipBackground.png", 48, 48, 48, 48, false)}
 
 
