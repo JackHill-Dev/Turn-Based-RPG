@@ -57,7 +57,7 @@ void SettingsScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 		{
 			if (resOptions[i].obj->InBounds(mousePos.first, mousePos.second) && resOptions[i].obj->IsActive())
 			{
-				mSceneText[4].text = resOptions[i].ResOption.text; //  This changes the text of the collapsed dropdown
+				mSceneText[4]->text = resOptions[i].ResOption.text; //  This changes the text of the collapsed dropdown
 				mgr->GetSettings().w = resOptions[i].w;
 				mgr->GetSettings().h = resOptions[i].h;
 
@@ -95,7 +95,7 @@ void SettingsScene::SetupResOptions()
 		resOptions[i].obj->SetActive(false);
 		resOptions[i].ResOption.isVisible = false;
 		resOptions[i].ResOption.pos = std::make_pair(640, offsetY + 5); //resOptions[i].obj->GetPos();
-		mSceneText.push_back(resOptions[i].ResOption);
+		mSceneText.push_back(&resOptions[i].ResOption);
 		offsetY += 32;
 	}
 	currentRes.pos = std::make_pair(640, 305);
@@ -105,9 +105,9 @@ void SettingsScene::SetupResOptions()
 	fullScreen.pos = std::make_pair(600, 205);
 	fullScreen.textColor = SDL_Color{ 0,0,0 };
 	fullScreen.text = "Fullscreen";
-	mSceneText.push_back(fullScreen);
+	mSceneText.push_back(&fullScreen);
 
-	mSceneText.push_back(currentRes);
+	mSceneText.push_back(&currentRes);
 
 	
 }
@@ -136,7 +136,7 @@ void SettingsScene::Collapse(bool collapsed)
 	{
 		resOptions[i].obj->SetVisible(!collapsed);
 		resOptions[i].obj->SetActive(collapsed);
-		mSceneText[i].isVisible = !collapsed;
+		mSceneText[i]->isVisible = !collapsed;
 	}
 }
 

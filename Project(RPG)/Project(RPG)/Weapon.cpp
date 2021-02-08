@@ -18,5 +18,8 @@ void Weapon::SetAtkPower(int atk)
 
 std::string Weapon::GetDescription()
 {
-	return "Weapon tooltip";
+	std::ostringstream desc; 
+	desc << "Atk Power: " << mAttackPower << std::endl;
+	desc << "Cost: " << mCost;
+	return desc.str();
 }

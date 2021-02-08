@@ -16,8 +16,9 @@ void InventoryScene::Init()
 	UIText defaultText;
 	defaultText.text = "This is default tooltip text";
 	mToolTip = ToolTip(AddObject("defaultItemObj", 640, 650, UI),
-		AddObject("toolTipBgObj", 640, 650, UI), defaultText, std::make_pair(640, 650));
-
+		AddObject("toolTipBgObj", 640, 650, UI), defaultText, std::make_pair(640, 600));
+	mToolTip.mDescription.scale = { 140, 100 };
+	mToolTip.mDescription.bWrapped = true;
 	
 
 	//Load();
@@ -51,7 +52,7 @@ void InventoryScene::Load()
 	}
 
 	mToolTip.mDescription.textColor = SDL_Color{ 255,255,255 };
-	mSceneText.push_back(mToolTip.mDescription);
+	mSceneText.push_back(&mToolTip.mDescription);
 
 }
 
@@ -66,86 +67,96 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 	}
 	ItemObject* current = nullptr;
 
-	for (auto i : itemObjects)
+
+	if (act == Act::Click)
 	{
-		if (act == Act::Click && i.obj->InBounds(mousePos.first, mousePos.second))
-		{
-			if (i.obj->bPickedUp)
-			{
-				for (auto c : mParty)
-				{
-					HandleArmourEquip(i, *c);
-					HandleWeaponEquip(i, *c);
-
-					if ((c->ArmourEquipSlot._item == i._item || c->mWeaponEquipSlot._item == i._item) && !i._item->bEquipped)
-					{
-						switch (i._item->GetType())
-						{
-						case ItemType::ARMOUR:
-							c->SetArmour(nullptr);
-							c->UpdateCharacter();
-							mgr->GetPlayer()->GetInventory().AddItem(i._item);
-							break;
-						case ItemType::WEAPON:
-							c->SetWeapon(nullptr);
-							c->UpdateCharacter();
-							mgr->GetPlayer()->GetInventory().AddItem(i._item);
-						default:
-							std::cout << "\nUnknown item type";
-							break;
-						}
-
-					}
-				}
-
-			}
-			else
-			{
-				i.obj->bPickedUp = true; // Pickup the item
-				i._item->bEquipped = false; // Make sure the item isn't equipped by a character
-			}
-
-		}
-
-		if (act == Act::MouseUpdate)
+		for (auto& i : itemObjects)
 		{
 			if (i.obj->InBounds(mousePos.first, mousePos.second))
 			{
-				current = &i;
-				// TODO: Move out of for loop and replace with temp itemObject assignmet
-				/*RenderObject temp = *mgr->RequestObject(i._item->GetObjName());
-				mToolTip.pItemImage->SetTexture(temp.GetSheet());
-				mToolTip.mDescription.text = i._item->GetDescription();*/
-				//mToolTip.pItemImage->SetPos({640, 650});
-				//mSceneText.push_back(mToolTip.mDescription);
-				
-				//mToolTip.Show();
+
+				if (i.obj->bPickedUp)
+				{
+					for (auto c : mParty)
+					{
+						HandleArmourEquip(i, *c);
+						HandleWeaponEquip(i, *c);
+
+						if ((c->ArmourEquipSlot._item == i._item || c->mWeaponEquipSlot._item == i._item) && !i._item->bEquipped)
+						{
+							switch (i._item->GetType())
+							{
+							case ItemType::ARMOUR:
+								c->SetArmour(nullptr);
+								c->UpdateCharacter();
+								mgr->GetPlayer()->GetInventory().AddItem(i._item);
+								break;
+							case ItemType::WEAPON:
+								c->SetWeapon(nullptr);
+								c->UpdateCharacter();
+								mgr->GetPlayer()->GetInventory().AddItem(i._item);
+							default:
+								std::cout << "\nUnknown item type";
+								break;
+							}
+
+						}
+					}
+
+				}
+				else
+				{
+					i.obj->bPickedUp = true; // Pickup the item
+					i._item->bEquipped = false; // Make sure the item isn't equipped by a character
+				}
+			}
+
+		}
+	}
+
+	if (act == Act::MouseUpdate)
+	{
+		for (auto& i : itemObjects)
+		{
+			if (i.obj->InBounds(mousePos.first, mousePos.second))
+			{
 				if (i.obj->bPickedUp)
 				{
 					i.obj->SetPos(std::make_pair(mousePos.first, mousePos.second));
 					current = nullptr;
 				}
-				
+
+				current = &i;
+
+				break; 
+
 			}
 			else
 			{
-				mToolTip.Hide();
 				current = nullptr;
-			}
-
-			if (current != nullptr)
-			{
-				temp = *mgr->RequestObject(current->_item->GetObjName());
-				mToolTip.pItemImage->SetTexture(temp.GetSheet());
-				mToolTip.mDescription.text = current->_item->GetDescription();
-				mToolTip.Show();
 			}
 		}
 
+		if (current != nullptr)
+		{
+			mToolTip.pItemImage->SetTexture(current->obj->GetSheet());
+			mToolTip.mDescription.text = current->_item->GetDescription();
+			if (!bSetPos)
+			{
+				mToolTip.SetPos(mousePos);
+				bSetPos = true;
+			}
+			mToolTip.Show();
+			
+		}
+		else
+		{
+			mToolTip.Hide();
+			current = nullptr;
+			bSetPos = false;
 		
+		}
 	}
-
-	
 
 
 }

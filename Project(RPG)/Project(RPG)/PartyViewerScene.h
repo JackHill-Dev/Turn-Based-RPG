@@ -4,11 +4,11 @@
 
 struct CharacterCard
 {
-	UIText stamina;
-	UIText health;
-	UIText mana;
-	UIText agility;
-	UIText movement;
+	UIText* stamina;
+	UIText* health;
+	UIText* mana;
+	UIText* agility;
+	UIText* movement;
 };
 
 
@@ -31,7 +31,7 @@ private:
 	void GetCharacterPortraits();
 	void GetCharacterStatistics();
 
-	UIText DrawStat(std::string statName, int stat, SDL_Color textColor, std::pair<int,int> pos);
+	UIText* DrawStat(std::string statName, int stat, SDL_Color textColor, std::pair<int,int> pos);
 	std::vector<Character*> mParty;
 
 

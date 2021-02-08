@@ -63,8 +63,8 @@ void ShopScene::Init()
 	mShopGoldText.pos = std::make_pair(620, 415);
 	mShopGoldText.textColor = SDL_Color{ 255, 215, 0 }; // Gold
 	
-	mSceneText.push_back(mPlayerGoldText);
-	mSceneText.push_back( mShopGoldText);
+	mSceneText.push_back(&mPlayerGoldText);
+	mSceneText.push_back(& mShopGoldText);
 
 }
 
@@ -123,8 +123,8 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 				mgr->GetPlayer()->GetInventory().AddItem(i);// Add bought item to player's inventory
 				mgr->PlaySFX(buySell_SFX, 0, 1);
 				i->GetRenderObject()->SetPos(i->inventoryPos.pos);
-				mSceneText[0].text = "Gold: " + std::to_string(mgr->GetPlayer()->GetGold());; // Display player gold
-				mSceneText[1].text = "Gold: " + std::to_string(mShop.GetGold());;	// Display shop gold
+				mSceneText[0]->text = "Gold: " + std::to_string(mgr->GetPlayer()->GetGold());; // Display player gold
+				mSceneText[1]->text = "Gold: " + std::to_string(mShop.GetGold());;	// Display shop gold
 			}
 
 		}
@@ -159,8 +159,8 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 				mgr->PlaySFX(buySell_SFX, 0, 1); // Play buy sfx on channel 1 and don't loop
 				i->GetRenderObject()->SetPos(i->inventoryPos.pos); // Update the render object position 
 				// Update the gold text for both player and shop
-				mSceneText[0].text = "Gold: " + std::to_string(mgr->GetPlayer()->GetGold());;
-				mSceneText[1].text = "Gold: " + std::to_string(mShop.GetGold());;
+				mSceneText[0]->text = "Gold: " + std::to_string(mgr->GetPlayer()->GetGold());;
+				mSceneText[1]->text = "Gold: " + std::to_string(mShop.GetGold());;
 			}
 		}
 	}

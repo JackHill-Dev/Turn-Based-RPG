@@ -34,5 +34,6 @@ private:
 	// temp
 	RenderObject* hoveredObject = nullptr;
 	RenderObject temp;
+	bool bSetPos = false;
 };
 

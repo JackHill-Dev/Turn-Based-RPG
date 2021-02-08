@@ -20,11 +20,12 @@ struct EquipSlot
 class Character
 {
 public:
-	int GetHealth();
-	Statistics& GetStats() { return mStats; }
+
 	Character() {}
 	Character(std::string objectName, std::string portraitName);
 	~Character();
+	int GetHealth();
+	Statistics& GetStats() { return mStats; }
 	std::string GetPortraitName() { return mPortraitName; }
 	std::string GetObjName() { return objectName; };
 	void SetArmour(Armour* armour);
@@ -38,8 +39,7 @@ protected:
 	Statistics mStats;
 	std::string mPortraitName;
 	std::string objectName;
-	RenderObject* object;
-	
+
 	std::pair<double, double> target;
 private:
 

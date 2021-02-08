@@ -1,5 +1,4 @@
 #include "Armour.h"
-
 Armour::Armour(std::string name, int cost, int def) : Item(name, cost)
 {
 	defence = def;
@@ -9,5 +8,9 @@ Armour::Armour(std::string name, int cost, int def) : Item(name, cost)
 
 std::string Armour::GetDescription()
 {
-	return "Armour tooltip";
+	std::ostringstream desc;
+	desc << "Defence: " << defence << std::endl;
+	desc << "Cost: " << mCost;
+
+	return desc.str();
 }
