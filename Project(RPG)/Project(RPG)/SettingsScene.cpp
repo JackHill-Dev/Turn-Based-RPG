@@ -95,7 +95,7 @@ void SettingsScene::SetupResOptions()
 		resOptions[i].obj->SetVisible(false);
 		resOptions[i].obj->SetActive(false);
 		resOptions[i].ResOption.isVisible = false;
-		resOptions[i].ResOption.pos = std::make_pair(640, offsetY + 5); //resOptions[i].obj->GetPos();
+		resOptions[i].ResOption.pos = std::make_pair(640, offsetY); //resOptions[i].obj->GetPos();
 		mSceneText.push_back(&resOptions[i].ResOption);
 		offsetY += 32;
 	}

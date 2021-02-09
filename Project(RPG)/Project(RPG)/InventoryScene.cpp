@@ -31,14 +31,14 @@ void InventoryScene::Load()
 	mLayers[Game].clear();
 	itemObjects.clear();
 	mSceneText.clear();
-
+	GetCharacterPortraits();
 	int i = 0;
 	for (Item* item : mgr->GetPlayer()->GetInventory().GetContents())
 	{
 		itemObjects.push_back(ItemObject(item, AddObject(item->GetObjName(), playerInvGrid[i]->GetPos().first, playerInvGrid[i]->GetPos().second, Game)));
 		++i;
 	}
-	GetCharacterPortraits();
+	
 	// if a character has an equip slot filled then draw them to the screen and add them the the scene's item objects
 	for (auto c : mParty)
 	{
@@ -139,10 +139,8 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 			mToolTip.pItemImage->SetTexture(current->obj->GetSheet());
 			mToolTip.mDescription.text = current->_item->GetDescription();
 
-			
 			mToolTip.SetPos({ current->obj->GetPos().first - 120, current->obj->GetPos().second });
 
-			
 			mToolTip.Show();
 
 		}
@@ -150,9 +148,6 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 		{
 			mToolTip.Hide();
 			current = nullptr;
-
-			
-
 		}
 	}
 
@@ -177,10 +172,10 @@ void InventoryScene::GetCharacterPortraits()
 	// Get all party memebers from player
 	for (Character* c : mgr->GetPlayer()->GetParty())
 	{
-		AddObject(c->GetPortraitName(), offsetX, 180, UI)->SetScale(std::make_pair(0.8,0.8)); // Get all of their portrait render objects and add them to the scene
+		AddObject(c->GetPortraitName(), offsetX, 180, Background)->SetScale(std::make_pair(0.8,0.8)); // Get all of their portrait render objects and add them to the scene
 
-		c->ArmourEquipSlot.slotObj = AddObject("itemFrameObj", offsetX - 120, 150,	UI);
-		c->mWeaponEquipSlot.slotObj = AddObject("itemFrameObj", offsetX - 120, 260, UI);
+		c->ArmourEquipSlot.slotObj = AddObject("itemFrameObj", offsetX - 120, 150,	Game);
+		c->mWeaponEquipSlot.slotObj = AddObject("itemFrameObj", offsetX - 120, 260, Game);
 
 		offsetX += 250;
 	}
