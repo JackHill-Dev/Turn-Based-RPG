@@ -4,11 +4,11 @@
 
 struct CharacterCard
 {
-	UIText strength;
-	UIText health;
-	UIText intelligence;
-	UIText agility;
-	UIText movement;
+	UIText* strength;
+	UIText* health;
+	UIText* intelligence;
+	UIText* agility;
+	UIText* movement;
 };
 
 

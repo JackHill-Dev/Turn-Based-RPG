@@ -50,6 +50,7 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"ShopBGObj",new RenderObject("shopBg")},
 		{"tileObj", new RenderObject("tile")},		
 		{"TreeObj", new RenderObject("tree")},
+		{"settingsBgObj", new RenderObject("settingsBg")},
 			
 		// Button Objects
 
@@ -159,7 +160,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"yesTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/Yes.png", 54, 36, 54, 36, false)},
 		{"defaultItem", new SpriteSheet("Assets/Sprites/helmet.png", 32, 32, 32, 32, false)},
 		{"settingsBg", new SpriteSheet("Assets/Backgrounds/Blank_Map_1280x720_Blurred.png", 1280, 720, 1280, 720, false)},
-		{"toolTipBg", new SpriteSheet("Assets/Backgrounds/TooltipBackground.png", 48, 48, 48, 48, false)}
+		{"toolTipBg", new SpriteSheet("Assets/Backgrounds/TooltipBackground.png", 48, 48, 48, 48, false)},
 
 		// Node Spritesheets
 
