@@ -71,9 +71,11 @@ public:
 
 	std::string assignRandomNodeSprite(int num);
 	Scenes assignSceneByString(std::string& nodeSceneString);
+	void MutateNodePos(Node node);
 
 	void OnHover(RenderObject* rObj);
 	void OnLeave(RenderObject* rObj);
+
 };
 
 
