@@ -12,11 +12,7 @@ struct Statistics
 	std::pair<int, int> stamina = { 10,10 };
 	std::pair<int, int> movement = { 5,5 };
 };
-struct EquipSlot
-{
-	RenderObject* slotObj = nullptr;
-	Item* _item = nullptr;
-};
+
 class Character
 {
 public:
@@ -32,13 +28,13 @@ public:
 	void UpdateCharacter();
 	bool ModHealth(int mod);
 	bool moving = false;
-	EquipSlot ArmourEquipSlot;
-	EquipSlot mWeaponEquipSlot;
+	Armour* ArmourEquipSlot;
+	Weapon* mWeaponEquipSlot;
 protected:
 	Statistics mStats;
 	std::string mPortraitName;
 	std::string objectName;
-	RenderObject* object;
+	
 	
 	std::pair<double, double> target;
 private:

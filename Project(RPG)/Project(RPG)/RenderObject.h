@@ -22,7 +22,6 @@ protected:
 	Animation* mCurrentAnim;
 
 public:
-	bool bPickedUp = false;
 	std::pair<float, float> sceneScale = std::make_pair(1, 1);
 	std::pair<float, float> scale;
 	void Untint();

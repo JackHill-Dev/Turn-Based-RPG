@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "Card.h"
 #include <deque>
+#include "ProgressBar.h"
 class CombatScene :
     public Scene
 {
@@ -21,7 +22,7 @@ public:
 
     struct Unit
     {
-		std::deque<tile*> currentPath;
+		std::vector<tile*> currentPath;
 		RenderObject* object;
 		RenderObject* profile;
         Character* character;
@@ -32,7 +33,7 @@ public:
 			object->SetPos(occupiedTile->pos);
 			occupiedTile->availiable = false;
 		}
-		bool SetTarget(std::deque<tile*> path)
+		bool SetTarget(std::vector<tile*> path)
 		{
 			occupiedTile->availiable = true;
 			occupiedTile = path.back();
@@ -117,8 +118,9 @@ private:
 	void RemoveUnit(Unit* unit);
     std::vector<Character> chars{};
     std::vector<Card*> playerHand{};
-	std::deque<tile*> CalculatePath(tile* start, tile* end);
-	void RemoveCard(std::pair<Card*, RenderObject*>* cd);
+
+	std::vector<tile*> CalculatePath(tile* start, tile* end);
+	void RemoveCard(std::pair<Card*, RenderObject*>* cd);;
 	double GetDistance(tile* start, tile* end) { return std::abs(std::sqrt(std::pow(end->pos.first - start->pos.first, 2) + std::pow(end->pos.second - start->pos.second, 2)))/32; }
 };
 

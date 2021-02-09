@@ -24,10 +24,11 @@ class Card
 	RenderObject* obj = nullptr;
 	std::string objectName;
 	std::string effect;
+	double effectLength;
 public:
-	std::string GetEffect() { return effect; }
+	std::pair<std::string,double> GetEffect() { return std::make_pair(effect, effectLength); }
 	values Values() { return cardValues; }
-	Card(int damage, std::string name, int range, std::string objectName, std::string effect);
+	Card(int damage, std::string name, int range, std::string objectName, std::string effect, double effectLength);
 	void Cast(Character* caster, Character* target);
 	RenderObject* getObj();
 	void Assign(RenderObject* object);
