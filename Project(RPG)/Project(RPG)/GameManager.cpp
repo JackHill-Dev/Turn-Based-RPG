@@ -170,7 +170,7 @@ void GameManager::SetupPlayer()
 {
 	mPlayer.SetGold(1000);
 	mArmour = Armour("armourObj", 100, 20);
-	mPlayer.AddItem(&mArmour);
+	mPlayer.GetInventory().AddItem(&mArmour);
 
 	mWizard = Character("maleObj", "WizardObj");
 	mWarrior = Character("maleObj", "WarriorObj");
@@ -245,7 +245,7 @@ SDL_Texture* GameManager::LoadTexture(std::string path)
 
 void GameManager::CreateCard(DefinedCard* card)
 {
-	auto mFont = TTF_OpenFont("Assets/Fonts/ThaleahFat.ttf", 32);
+
 	int imageWidth = 225;
 	int imageHeight = 225;
 
@@ -273,49 +273,6 @@ void GameManager::CreateCard(DefinedCard* card)
 	SDL_RenderCopy(mRnd, sheets["card"]->GetTexture(), NULL, NULL);
 
 
-	rect.w = 191;
-	rect.h = 76;
-	rect.x = 20;
-	rect.y = 222;
-	SDL_RenderCopy(mRnd,SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, card->description.c_str(), SDL_Color{0,0,0}, rect.w)), NULL, &rect);
-	
-	
-	rect.x = 24;
-	rect.y = 10;
-	rect.w = 188;
-	rect.h = 22;
-	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, card->name.c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
-	
-	rect.x = 20;
-	rect.y = 184;
-	rect.w = 39;
-	rect.h = 27;
-
-	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->range).c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
-	
-	rect.x = 73;
-	rect.y = 184;
-	rect.w = 39;
-	rect.h = 27;
-
-	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->staminaCost).c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
-
-	rect.x = 123;
-	rect.y = 184;
-	rect.w = 39;
-	rect.h = 27;
-
-	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->staminaCost).c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
-	
-	rect.x = 173;
-	rect.y = 184;
-	rect.w = 39;
-	rect.h = 27;
-
-	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->staminaCost).c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
-	
-	
-	
 	rect.x = 10;
 	rect.y = 2;
 	rect.w = 100;
@@ -330,7 +287,7 @@ void GameManager::CreateCard(DefinedCard* card)
 
 	objects["cardObj" + std::to_string(cards.size())]->SetTexture(sheets["cardSheet_" + std::to_string(cards.size())]);
 
-	cards.insert({ card->name, new Card(card->damage, card->name, card->range, "cardObj" + std::to_string(cards.size()), card->animation, card->animationLength) });
+	cards.insert({ card->name, new Card(card->damage, card->name, card->range, "cardObj" + std::to_string(cards.size()), card->animation) });
 	SDL_SetRenderTarget(mRnd, NULL);
 
 	//SDL_Texture* fontTexture = (SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended(mFont, card.name , SDL_Color{ 0,0,0 }));;

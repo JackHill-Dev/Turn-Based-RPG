@@ -9,15 +9,21 @@ public:
 	Player();
 	~Player();
 	std::deque<Card*> deck;
-	std::deque<Item*> inventory;
+	int GetGold();
+	Inventory& GetInventory();
 	std::vector<Character*>& GetParty() { return mPartyMembers; }
-	int mGold;
+	void SetInventory(Inventory inv);
+	void SellItem(Item* item);
+	void SetGold(int amount);
 	void AddToParty(Character* character);
 	void SetupParty(std::vector<Character*> characters);
 	void SetDeck(std::deque<Card*> newDeck)
 	{
 		deck = newDeck;
 	}
+private:
+	Inventory mInventory;
 	std::vector<Character*> mPartyMembers;
+	int mGold;
 };
 

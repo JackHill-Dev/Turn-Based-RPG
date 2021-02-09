@@ -33,13 +33,13 @@ void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 			mgr->LoadPreviousScene();
 		}
 	}
-	ManagePlayerInventory(mgr->GetPlayer()->inventory, act, mousePos);
+	ManagePlayerInventory(mgr->GetPlayer()->GetInventory(), act, mousePos);
 	ManageShopInventory(mShop.GetInventory(), act, mousePos);
 }
 
-void ShopScene::PlaceItems(std::deque<Item*>& inv)
+void ShopScene::PlaceItems(Inventory& inv)
 {
-	for (auto i : inv)
+	for (auto i : inv.GetContents())
 	{
 		// Display item to screen and set its render object to the correct image
 		i->SetRenderObject(AddObject(i->GetObjName(), i->inventoryPos.pos.first, i->inventoryPos.pos.second, Game)); 
@@ -55,7 +55,7 @@ void ShopScene::Init()
 	
 	GenerateGrids();
 
-	mPlayerGoldText.text = "Gold: " + std::to_string( mgr->GetPlayer()->mGold);
+	mPlayerGoldText.text = "Gold: " + std::to_string( mgr->GetPlayer()->GetGold());
 	mPlayerGoldText.pos = std::make_pair(520, 415);
 	mPlayerGoldText.textColor = SDL_Color{ 255, 215, 0 }; // Gold
 
@@ -71,7 +71,7 @@ void ShopScene::Init()
 void ShopScene::Load()
 {
 	mLayers[Game].clear();
-	PlaceItems(mgr->GetPlayer()->inventory);
+	PlaceItems(mgr->GetPlayer()->GetInventory());
 	PlaceItems(mShop.GetInventory());
 }
 
@@ -116,14 +116,14 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 		
 		if (act == Act::RClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
-			if (!(mgr->GetPlayer()->mGold < i->GetCost())) // If player can't afford item they can't buy it
+			if (!(mgr->GetPlayer()->GetGold() < i->GetCost())) // If player can't afford item they can't buy it
 			{
 				mShop.BuyItem(i);
-				mgr->GetPlayer()->mGold-=i->GetCost();	// Remove cost of item from player's gold
-				mgr->GetPlayer()->inventory.push_back(i);// Add bought item to player's inventory
+				mgr->GetPlayer()->SetGold(-i->GetCost());	// Remove cost of item from player's gold
+				mgr->GetPlayer()->GetInventory().AddItem(i);// Add bought item to player's inventory
 				mgr->PlaySFX(buySell_SFX, 0, 1);
 				i->GetRenderObject()->SetPos(i->inventoryPos.pos);
-				mSceneText[0].text = "Gold: " + std::to_string(mgr->GetPlayer()->mGold);; // Display player gold
+				mSceneText[0].text = "Gold: " + std::to_string(mgr->GetPlayer()->GetGold());; // Display player gold
 				mSceneText[1].text = "Gold: " + std::to_string(mShop.GetGold());;	// Display shop gold
 			}
 
@@ -153,16 +153,13 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 		{
 			if (!(mShop.GetGold() < i->GetCost())) // Can only sell to the shop if the shop can give you the moeny for the item
 			{
-
-				mgr->GetPlayer()->mGold += i->GetCost();
-				mgr->GetPlayer()->inventory.erase(std::find(mgr->GetPlayer()->inventory.begin(), mgr->GetPlayer()->inventory.end(), i));// Remove item from player's inventory and add to its gold
-						 
+				mgr->GetPlayer()->SellItem(i);	 // Remove item from player's inventory and add to its gold
 				mShop.SetGold(-i->GetCost());	 // Remove cost of sold item from shop gold
 				mShop.GetInventory().AddItem(i); // Add sold item to shop inventory
 				mgr->PlaySFX(buySell_SFX, 0, 1); // Play buy sfx on channel 1 and don't loop
 				i->GetRenderObject()->SetPos(i->inventoryPos.pos); // Update the render object position 
 				// Update the gold text for both player and shop
-				mSceneText[0].text = "Gold: " + std::to_string(mgr->GetPlayer()->mGold);;
+				mSceneText[0].text = "Gold: " + std::to_string(mgr->GetPlayer()->GetGold());;
 				mSceneText[1].text = "Gold: " + std::to_string(mShop.GetGold());;
 			}
 		}
@@ -181,7 +178,7 @@ void ShopScene::GenerateGrids()
 	DrawGrid(4, 5, 80, 110); // Draw item frames for player inventory
 	DrawGrid(4, 5, 880, 110); // Draw item frames for shop inventory
 
-	PlaceItems(mgr->GetPlayer()->inventory);
+	PlaceItems(mgr->GetPlayer()->GetInventory());
 	PlaceItems(mShop.GetInventory());
 }
 

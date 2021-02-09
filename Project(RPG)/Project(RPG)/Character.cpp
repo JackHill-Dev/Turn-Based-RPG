@@ -20,43 +20,28 @@ int Character::GetHealth()
 
 void Character::SetArmour(Armour* armour)
 {
-	
+	ArmourEquipSlot._item = armour;
 	if (armour != nullptr)
 	{
 		mStats.health.first += armour->defence;
 		mStats.health.second += armour->defence;
 	}
-	else
-	{
-		mStats.health.first -= ArmourEquipSlot->defence;
-		mStats.health.second -= ArmourEquipSlot->defence;
-	}
-	ArmourEquipSlot = armour;
 
 }
 
 void Character::SetWeapon(Weapon* weapon)
 {
-	
+	mWeaponEquipSlot._item = weapon;
 	if (weapon != nullptr)
 	{
 		mStats.agility.first += weapon->GetAtkPower();
 		mStats.agility.second += weapon->GetAtkPower();
 	}
-
-	else
-	{
-		mStats.agility.first -= mWeaponEquipSlot->GetAtkPower();
-		mStats.agility.second -= mWeaponEquipSlot->GetAtkPower();
-	}
-
-
-	mWeaponEquipSlot = weapon;
 }
 
 void Character::UpdateCharacter()
 {
-	/*Armour* armour = static_cast<Armour*>(ArmourEquipSlot._item);
+	Armour* armour = static_cast<Armour*>(ArmourEquipSlot._item);
 	Weapon* weapon = static_cast<Weapon*>(mWeaponEquipSlot._item);
 	if (ArmourEquipSlot._item == nullptr)
 	{
@@ -66,7 +51,7 @@ void Character::UpdateCharacter()
 	if (mWeaponEquipSlot._item == nullptr)
 	{
 		mStats.agility = std::make_pair(10, 10);
-	}*/
+	}
 
 	/*if(ArmourEquipSlot._item != nullptr)
 	{
