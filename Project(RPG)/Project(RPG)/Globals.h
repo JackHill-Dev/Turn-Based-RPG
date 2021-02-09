@@ -49,9 +49,10 @@ struct Settings
 struct DefinedCard
 {
 public:
-	DefinedCard(int range, int damage, int intelligenceCost, int staminaCost, int agilityCost, std::string name, std::string description, std::string picture,std::string animation) 
-				: range(range), damage(damage), intelligenceCost(intelligenceCost), staminaCost(staminaCost), agilityCost(agilityCost), name(name), description(description), picture(picture), animation(animation) {};
+	DefinedCard(int range, int damage, int intelligenceCost, int staminaCost, int agilityCost, std::string name, std::string description, std::string picture,std::string animation, double animationLength) 
+				: range(range), damage(damage), intelligenceCost(intelligenceCost), staminaCost(staminaCost), agilityCost(agilityCost), name(name), description(description), picture(picture), animation(animation), animationLength(animationLength) {};
 
 	int range, damage, intelligenceCost, staminaCost, agilityCost;
+	double animationLength;
 	std::string name, description, picture, animation;
 };

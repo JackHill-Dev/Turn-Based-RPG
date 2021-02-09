@@ -1,4 +1,9 @@
 #include "GameManager.h"
+#include "CombatScene.h"
+#include "ShopScene.h";
+#include "PartyViewerScene.h"
+#include "SettingsScene.h"
+#include "ClassPickerScene.h"
 #include "json.hpp"
 #include <fstream>;
 #include <istream>
@@ -11,6 +16,7 @@ void GameManager::Run()
 
 	mInterface.SetMasterVolume(-1, 16, 8);
 
+
 	SDL_Texture* texture = SDL_CreateTexture(mRnd, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, mSettings.w, mSettings.h);
 	SDL_Event ev;
 	unsigned int a = SDL_GetTicks();
@@ -18,7 +24,6 @@ void GameManager::Run()
 	double delta = 0;
 	double deltaTime = 0;
 	int lastSceneIndex = mCScene;
-
 	while ( bRunning )
 	{
 		a = SDL_GetTicks();
@@ -98,13 +103,9 @@ void GameManager::LoadScene()
 {
 	switch (mCScene)
 	{
-	case Scenes::MainMenu: mMainMenuSceneInstance->Load(); break;
-	case Scenes::ClassPicker: mClassPickerInstance->Load(); break;
-	case Scenes::Overworld: mOverworldInstance->Load(); break;
 	case Scenes::Combat: combatInstance.first->Load(combatInstance.second); break;
 	case Scenes::Shops: mShopSceneInstance->Load(); break;
 	case Scenes::Party:  partyViewerInstance->Load(); break;
-	case Scenes::SettingsPage: mSettingsSceneInstance->Load(); break;
 	case Scenes::InventoryScreen : mInventorySceneInstance->Load(); break;
 	}
 
@@ -123,33 +124,28 @@ bool GameManager::Init()
 	CreateWindow();
 	mInterface.StoreWindow(mWnd);
 	SetUp();
-
-	mPlayer.SetDeck({new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Slash"]) });
 	
-	mMainMenuSceneInstance = new MainMenuScene(&mInterface);
-	scenes.push_back(new MainMenuScene(&mInterface)); // 0
+	
 
-	mOverworldInstance = new OverworldMapScene(&mInterface);
-    scenes.push_back(mOverworldInstance); // 1
+	mPlayer.SetGold(1000);
 
+	//mPlayer.SetupParty({ new Character("mageObj", "portrait"), new Character("mageObj", "portrait"), new Character("mageObj", "portrait") });
+	mPlayer.SetDeck({new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Slash"]) });
+
+	scenes.push_back(new MainMenuScene(&mInterface));
+    scenes.push_back(new OverworldMapScene(&mInterface));
 	combatInstance.first = new CombatScene(&mInterface);
 	scenes.push_back(combatInstance.first); // 2
-
 	mShopSceneInstance = new ShopScene(&mInterface);
 	scenes.push_back(mShopSceneInstance); // 3
-
 	partyViewerInstance = new PartyViewerScene(&mInterface);
 	scenes.push_back(partyViewerInstance); // 4
-
-	mSettingsSceneInstance = new SettingsScene(&mInterface);
-	scenes.push_back(mSettingsSceneInstance); // 5
-
-	mClassPickerInstance = new ClassPickerScene(&mInterface);
+	scenes.push_back(new SettingsScene(&mInterface)); // 5
 	scenes.push_back(new ClassPickerScene(&mInterface)); // 6
-
 	mInventorySceneInstance = new InventoryScene(&mInterface);
 	scenes.push_back(mInventorySceneInstance); // 7
 
+	//LoadCombatScene({ new Character("maleObj"),new Character("maleObj"), new Character("maleObj") , new Character("maleObj") }, { new Character("maleObj") });
 	currentScene->Clear(mRnd);
 	currentScene = scenes[0];
 
@@ -169,6 +165,7 @@ void GameManager::LoadSettings()
 	}
 	ifs.close();
 }
+
 
 
 bool GameManager::SetUp()
@@ -231,14 +228,14 @@ SDL_Texture* GameManager::LoadTexture(std::string path)
 	SDL_Surface* img = IMG_Load((path.c_str()));
 	//if (IMG_GetError)
 	//	throw std::invalid_argument("could not load image at: " + path);
-	std::cout << IMG_GetError() << std::endl;
+	std::cout << IMG_GetError();
 	return SDL_CreateTextureFromSurface(mRnd, img);
 }
 
 
 void GameManager::CreateCard(DefinedCard* card)
 {
-
+	auto mFont = TTF_OpenFont("Assets/Fonts/ThaleahFat.ttf", 32);
 	int imageWidth = 225;
 	int imageHeight = 225;
 
@@ -266,6 +263,49 @@ void GameManager::CreateCard(DefinedCard* card)
 	SDL_RenderCopy(mRnd, sheets["card"]->GetTexture(), NULL, NULL);
 
 
+	rect.w = 191;
+	rect.h = 76;
+	rect.x = 20;
+	rect.y = 222;
+	SDL_RenderCopy(mRnd,SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, card->description.c_str(), SDL_Color{0,0,0}, rect.w)), NULL, &rect);
+	
+	
+	rect.x = 24;
+	rect.y = 10;
+	rect.w = 188;
+	rect.h = 22;
+	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, card->name.c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
+	
+	rect.x = 20;
+	rect.y = 184;
+	rect.w = 39;
+	rect.h = 27;
+
+	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->range).c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
+	
+	rect.x = 73;
+	rect.y = 184;
+	rect.w = 39;
+	rect.h = 27;
+
+	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->staminaCost).c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
+
+	rect.x = 123;
+	rect.y = 184;
+	rect.w = 39;
+	rect.h = 27;
+
+	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->staminaCost).c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
+	
+	rect.x = 173;
+	rect.y = 184;
+	rect.w = 39;
+	rect.h = 27;
+
+	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->staminaCost).c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
+	
+	
+	
 	rect.x = 10;
 	rect.y = 2;
 	rect.w = 100;
@@ -280,8 +320,9 @@ void GameManager::CreateCard(DefinedCard* card)
 
 	objects["cardObj" + std::to_string(cards.size())]->SetTexture(sheets["cardSheet_" + std::to_string(cards.size())]);
 
-	cards.insert({ card->name, new Card(card->damage, card->name, card->range, "cardObj" + std::to_string(cards.size()), card->animation) });
+	cards.insert({ card->name, new Card(card->damage, card->name, card->range, "cardObj" + std::to_string(cards.size()), card->animation, card->animationLength) });
 	SDL_SetRenderTarget(mRnd, NULL);
 
+	//SDL_Texture* fontTexture = (SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended(mFont, card.name , SDL_Color{ 0,0,0 }));;
 }
 
