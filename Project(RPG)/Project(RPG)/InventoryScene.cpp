@@ -118,43 +118,41 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 	{
 		for (auto& i : itemObjects)
 		{
-			if (i.obj->InBounds(mousePos.first, mousePos.second))
-			{
+			
 				if (i.obj->bPickedUp)
 				{
 					i.obj->SetPos(std::make_pair(mousePos.first, mousePos.second));
 					current = nullptr;
 				}
 
-				current = &i;
+				if (i.obj->InBounds(mousePos.first, mousePos.second))
+				{
+					current = &i;
+					
+				}
+				
 
-				break; 
-
-			}
-			else
-			{
-				current = nullptr;
-			}
 		}
 
 		if (current != nullptr)
 		{
 			mToolTip.pItemImage->SetTexture(current->obj->GetSheet());
 			mToolTip.mDescription.text = current->_item->GetDescription();
-			if (!bSetPos)
-			{
-				mToolTip.SetPos(mousePos);
-				bSetPos = true;
-			}
-			mToolTip.Show();
+
 			
+			mToolTip.SetPos({ current->obj->GetPos().first - 120, current->obj->GetPos().second });
+
+			
+			mToolTip.Show();
+
 		}
 		else
 		{
 			mToolTip.Hide();
 			current = nullptr;
-			bSetPos = false;
-		
+
+			
+
 		}
 	}
 
