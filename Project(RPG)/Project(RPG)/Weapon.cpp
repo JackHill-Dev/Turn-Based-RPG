@@ -15,3 +15,11 @@ void Weapon::SetAtkPower(int atk)
 {
 	mAttackPower = atk;
 }
+
+std::string Weapon::GetDescription()
+{
+	std::ostringstream desc; 
+	desc << "Atk Power: " << mAttackPower << std::endl;
+	desc << "Cost: " << mCost;
+	return desc.str();
+}

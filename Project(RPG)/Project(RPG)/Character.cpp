@@ -13,9 +13,37 @@ Character::~Character()
 }	
 
 
+int Character::GetLevel()
+{
+	return mStats.level;
+}
+
 int Character::GetHealth()
 {
 	return mStats.health.first;
+}
+
+void Character::modStat(std::pair<int, int>& statToMod, std::pair<int,int> statMod)
+{
+	statToMod.first += statMod.first;
+	statToMod.second += statMod.second;
+}
+
+void Character::LevelUp(int level, std::pair<int, int> characterHealth)
+{
+	++level;
+	characterHealth.first += levelHealth;
+	characterHealth.second += levelHealth;
+}
+
+void Character::SetBackground(UnitBackground background)
+{
+	mStats.bg = background;
+}
+
+void Character::SetClass(UnitClass uClass)
+{
+	mStats.cClass = uClass;
 }
 
 void Character::SetArmour(Armour* armour)
@@ -58,6 +86,7 @@ void Character::UpdateCharacter()
 {
 	/*Armour* armour = static_cast<Armour*>(ArmourEquipSlot._item);
 	Weapon* weapon = static_cast<Weapon*>(mWeaponEquipSlot._item);
+
 	if (ArmourEquipSlot._item == nullptr)
 	{
 		mStats.movement = std::make_pair(5, 5);
@@ -68,18 +97,6 @@ void Character::UpdateCharacter()
 		mStats.agility = std::make_pair(10, 10);
 	}*/
 
-	/*if(ArmourEquipSlot._item != nullptr)
-	{
-			mStats.movement = std::make_pair(4, 4);
-			mStats.health.first += armour->defence;
-			mStats.health.second += armour->defence;
-	}
-
-	if (mWeaponEquipSlot.slotObj != nullptr)
-	{
-		mStats.agility.first += weapon->GetAtkPower();
-		mStats.agility.second += weapon->GetAtkPower();
-	}*/
 	
 }
 
@@ -93,3 +110,14 @@ bool Character::ModHealth(int mod)
 			return false;
 	return true;
 }
+
+void Character::Heal(std::pair<int, int>& health, int healValue)
+{
+	health.first += healValue;
+
+	if (health.first > health.second)
+	{
+		health.first = health.second;
+	}
+}
+

@@ -3,6 +3,19 @@
 #include "Scene.h"
 #include "Actions.h"
 #include <SDL.h>
+#include <numeric>
+
+enum CharacterPickerState
+{
+	ClassView = 0,
+	WarriorView = 1,
+	RogueView = 2,
+	MageView = 3,
+	BackgroundView = 4,
+	VillagerView = 5,
+	ScholarView = 6,
+	NobleView = 7,
+};
 
 class ClassPickerScene : public Scene
 {
@@ -13,6 +26,7 @@ private:
 	UIText mFlavourText1;
 	UIText mFlavourText2;
 	UIText mFlavourText3;
+	UIText mFlavourText4;
 	UIText mFooterInstruction;
 
 	RenderObject* pBackBtn;
@@ -21,19 +35,30 @@ private:
 	RenderObject* pWarriorIcon;
 	RenderObject* pRogueIcon;
 	RenderObject* pMageIcon;
+	RenderObject* pVillagerIcon;
+	RenderObject* pScholarIcon;
+	RenderObject* pNobleIcon;
 	RenderObject* pScrollBg;
 
 	Mix_Music* bg_Music;
 	Mix_Chunk* confirm_SFX;
 	Mix_Chunk* back_SFX;
 	std::vector<Character*> mCharacters;
+	std::vector<int> currentPartyGold;
+	std::vector<std::pair<int, int>> mCharacterStats;
 
-	bool IsFocused = false;
-	bool IsWarriorView = false;
-	bool IsRogueView = false;
-	bool IsMageView = false;
+	CharacterPickerState currentState;
+	CharacterPickerState previousState;
+
+	bool isFocused = false;
 
 	int PartyCount = 0;
+
+	const std::pair<int, int> mStatBuff = {2, 2};
+	const std::pair<int, int> mStatDebuff = {-1, -1};
+	const int mVillagerGold = 50;
+	const int mScholarGold = 100;
+	const int mNobleGold = 150;
 	const int maxPartySize = 3;
 
 protected:
@@ -43,16 +68,24 @@ public:
 	ClassPickerScene(Interface* mObjMgr);
 
 	void Init();
+	void Load();
 
 	void OnHover(RenderObject* rObj);
 	void OnLeave(RenderObject* rObj);
 
 	void Update(double dTime, Act act, std::pair<int, int> mousePos) override;
 
-	void SetUpSummaryView();
-	void SetUpWarriorView();
-	void SetUpRogueView();
-	void SetUpMageView();
+	void SetUpClassView(CharacterPickerState originState);
+	void SetUpWarriorView(CharacterPickerState originState);
+	void SetUpRogueView(CharacterPickerState originState);
+	void SetUpMageView(CharacterPickerState originState);
+
+	void SetUpBackgroundView(CharacterPickerState originState);
+	void SetUpVillagerView(CharacterPickerState originState);
+	void SetUpScholarView(CharacterPickerState originState);
+	void SetUpNobleView(CharacterPickerState originState);
+
+	void GeneratePartyFromChoices();
 
 };
 

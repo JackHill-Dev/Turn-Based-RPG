@@ -7,6 +7,9 @@ public:
     Consumable() {}
     Consumable(std::string name, int cost);
     void OnConsume();
+
+    std::string GetDescription() override;
+
 private:
 
 

@@ -1,6 +1,5 @@
 #include "OverworldMapScene.h"
 #include "GameManager.h"
-#include <deque>
 #include <set>
 
 
@@ -20,14 +19,16 @@ OverworldMapScene::OverworldMapScene(Interface* mObjMgr) : Scene(mObjMgr)
 	pOverworld = AddObject("overworldObj", 640, 360, Map);
 	pArmyViewerButton = AddObject("armyViewerButtonObj", 730, 700, UI);
 	pMenuButton = AddObject("menuButtonObj", 440, 700, UI);
-	mBackgroundMus = Mix_LoadMUS("Assets/Music/Tavern+Loop+One+-+320bit.mp3");
+	mBackgroundMus = Mix_LoadMUS("Assets/Music/Overworld.mp3");
 	
 	Init();
-	Load();
+	LoadNodes();
 }
 
-void OverworldMapScene::Load()
+void OverworldMapScene::LoadNodes()
 {
+
+
 	int maxVals = maxRows * maxNodes;
 	int valCount = 0;
 	int nodeIndex = 0;
@@ -100,16 +101,31 @@ void OverworldMapScene::Load()
 		}
 	}
 	currentNode = mNodes[0];
+	currentNode->pNodeObject->tint = SDL_Color{ 139,0, 139 };
+	for (auto node : currentNode->adjacentTiles)
+	{
+		if (node != currentNode)
+		{
+			node->pNodeObject->tint = SDL_Color{ 65, 105, 225 };
+		}
+	}
 }
 
 void OverworldMapScene::Init()
 {
-	//mgr->PlayMusic(mBackgroundMus, -1);
-
 	confirm_SFX = Mix_LoadWAV("Assets/SFX/confirmSound.wav");
 	back_SFX = Mix_LoadWAV("Assets/SFX/BackSound.wav");
 	button_Click_SFX = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
 	shop_Entry_SFX = Mix_LoadWAV("Assets/SFX/DoorOpen.wav");
+}
+void OverworldMapScene::Load()
+{
+	currentNode->pNodeObject->tint = SDL_Color{ 139,0, 139 };
+
+	if (mgr->GetPreviousScene() != Scenes::SettingsPage)
+	{
+		mgr->FadeInMusic(mBackgroundMus, -1, mgr->fadeTime);
+	}
 }
 void OverworldMapScene::OnHover(RenderObject* rObj)
 {
@@ -160,7 +176,7 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 
 		if (pArmyViewerButton->InBounds(mousePos.first, mousePos.second))
 		{
-			mgr->PlaySFX(button_Click_SFX, 0, 1);
+			mgr->PlaySFX(button_Click_SFX, 0, 1);			
 			OnLeave(pArmyViewerButton);
 			mgr->LoadScene(Scenes::Party);
 		}
