@@ -8,7 +8,6 @@ PartyViewerScene::PartyViewerScene(Interface* mgr) : Scene(mgr)
 	mCloseBtn = AddObject("CloseBtnObj", 1200, 50, UI);
 	mInventoryBtn = AddObject("inventoryButtonObj", 640, 700, UI);
 	button_SFX = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
-	mMenuMusic = Mix_LoadMUS("Assets/Music/MenuMusic.mp3");
 	Init();
 
 }
@@ -38,21 +37,13 @@ void PartyViewerScene::Init()
 {
 	mParty = mgr->GetPlayer()->GetParty();
 	GetCharacterPortraits();
-
-
+	GetCharacterStatistics();
 }
 
 void PartyViewerScene::Load()
 {
-	mLayers[Game].clear();
 	mParty = mgr->GetPlayer()->GetParty();
 	GetCharacterPortraits();
-	GetCharacterStatistics();
-
-	if (mgr->GetPreviousScene() != Scenes::InventoryScreen)
-	{
-		mgr->FadeInMusic(mMenuMusic, -1, mgr->fadeTime);
-	}
 }
 
 void PartyViewerScene::GetCharacterPortraits()
@@ -62,7 +53,7 @@ void PartyViewerScene::GetCharacterPortraits()
 	// Get all party memebers from player
 	for (Character* c : mParty)
 	{
-		AddObject(c->GetPortraitName(), offsetX, 180, Game); // Get all of their portrait render objects and add them to the scene
+		AddObject(c->GetPortraitName(), offsetX, 180, UI); // Get all of their portrait render objects and add them to the scene
 		offsetX += 250;							
 	}
 	offsetX = 250;
@@ -84,21 +75,21 @@ void PartyViewerScene::GetCharacterStatistics()
 		cc.health = DrawStat("Health", c->GetStats().health.second, SDL_Color{255,0,0}, std::make_pair(offsetX, offsetY));
 		offsetY += 50;
 
-		cc.intelligence = DrawStat("Mana", c->GetStats().intelligence.second, SDL_Color{ 0,0,200 }, std::make_pair(offsetX, offsetY));
+		cc.mana = DrawStat("Mana", c->GetStats().mana.second, SDL_Color{ 0,0,200 }, std::make_pair(offsetX, offsetY));
 
 		offsetY += 50;
 		cc.agility = DrawStat("Agility", c->GetStats().agility.second, SDL_Color{ 0,200,0 }, std::make_pair(offsetX, offsetY));
 
 		offsetY += 50;
-		cc.strength = DrawStat("Stamina", c->GetStats().strength.second, SDL_Color{ 50, 143, 23 }, std::make_pair(offsetX, offsetY));
+		cc.stamina = DrawStat("Stamina", c->GetStats().stamina.second, SDL_Color{ 50, 143, 23 }, std::make_pair(offsetX, offsetY));
 
 		offsetY += 50;
 		cc.movement = DrawStat("Movement", c->GetStats().movement.second, SDL_Color{ 50,50,150 }, std::make_pair(offsetX, offsetY));
 
 		mSceneText.push_back(cc.health);
-		mSceneText.push_back(cc.intelligence);
+		mSceneText.push_back(cc.mana);
 		mSceneText.push_back(cc.agility);
-		mSceneText.push_back(cc.strength);
+		mSceneText.push_back(cc.stamina);
 		mSceneText.push_back(cc.movement);
 
 
@@ -107,9 +98,9 @@ void PartyViewerScene::GetCharacterStatistics()
 	}
 }
 
-UIText* PartyViewerScene::DrawStat(std::string statName, int stat, SDL_Color textColor, std::pair<int, int> pos)
+UIText PartyViewerScene::DrawStat(std::string statName, int stat, SDL_Color textColor, std::pair<int, int> pos)
 {
 	std::string statTxt = statName + ": " + std::to_string(stat);
-	return new UIText{statTxt, pos,std::make_pair(70,50), textColor};
+	return UIText{statTxt, pos,std::make_pair(70,50), textColor};
 }
 

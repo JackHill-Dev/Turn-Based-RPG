@@ -10,19 +10,9 @@ MainMenuScene::MainMenuScene(Interface* rng) : Scene(rng)
 	// Get Background object
 	AddObject("mainMenuBGObj", 1280 / 2, 720 / 2, Background);
 
-	mStartMus = Mix_LoadMUS("Assets/Music/GameStart.mp3");
+
 	confirm_SFX = Mix_LoadWAV("Assets/SFX/confirmSound.wav");
 	back_SFX = Mix_LoadWAV("Assets/SFX/BackSound.wav");
-
-	mgr->FadeInMusic(mStartMus, -1, mgr->fadeTime); // Cheeky solution as this one starts as current scene without using load scene method - EH
-}
-
-void MainMenuScene::Load()
-{
-	if (mgr->GetPreviousScene() != Scenes::SettingsPage)
-	{
-		mgr->FadeInMusic(mStartMus, -1, mgr->fadeTime);
-	}
 }
 
 void MainMenuScene::Update(double dTime, Act act, std::pair<int, int> mouse)
@@ -50,8 +40,6 @@ void MainMenuScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 	}
 
 }
-
-
 
 
 

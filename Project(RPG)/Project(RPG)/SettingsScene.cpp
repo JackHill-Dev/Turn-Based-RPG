@@ -4,15 +4,8 @@
 
 SettingsScene::SettingsScene(Interface* mgr) : Scene(mgr)
 {
-
 	Setup();
-	
 }
-
-void SettingsScene::Load()
-{
-}
-
 
 void SettingsScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
@@ -64,7 +57,7 @@ void SettingsScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 		{
 			if (resOptions[i].obj->InBounds(mousePos.first, mousePos.second) && resOptions[i].obj->IsActive())
 			{
-				mSceneText[4]->text = resOptions[i].ResOption.text; //  This changes the text of the collapsed dropdown
+				mSceneText[4].text = resOptions[i].ResOption.text; //  This changes the text of the collapsed dropdown
 				mgr->GetSettings().w = resOptions[i].w;
 				mgr->GetSettings().h = resOptions[i].h;
 
@@ -75,17 +68,14 @@ void SettingsScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 
 void SettingsScene::Setup()
 {
-	AddObject("settingsBgObj", 635, 360, Background);
 	settingsCloseBtn = AddObject("CloseBtnObj",50, 50, UI);
 	dropdownCollapsed = AddObject("resCollapsedObj", 640, 300, UI);
 	ApplyBtn = AddObject("ApplyBtnObj", 640, 550, UI);
 	checkBox = AddObject("checkBoxObj", 720, 200, UI);
 	checkBox->SetScale(std::make_pair(0.5, 0.5));
-
 	confirm_SFX = Mix_LoadWAV("Assets/SFX/confirmSound.wav");
 	back_SFX = Mix_LoadWAV("Assets/SFX/BackSound.wav");
 	button_Click_SFX = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
-
 	if (mgr->GetSettings().bIsFullScreen)
 		checkBox->SetAnim("Checked");
 
@@ -104,20 +94,20 @@ void SettingsScene::SetupResOptions()
 		resOptions[i].obj->SetVisible(false);
 		resOptions[i].obj->SetActive(false);
 		resOptions[i].ResOption.isVisible = false;
-		resOptions[i].ResOption.pos = std::make_pair(640, offsetY); //resOptions[i].obj->GetPos();
-		mSceneText.push_back(&resOptions[i].ResOption);
+		resOptions[i].ResOption.pos = std::make_pair(640, offsetY + 5); //resOptions[i].obj->GetPos();
+		mSceneText.push_back(resOptions[i].ResOption);
 		offsetY += 32;
 	}
 	currentRes.pos = std::make_pair(640, 305);
 	currentRes.text = std::to_string( mgr->GetSettings().w) + " X " + std::to_string( mgr->GetSettings().h);
 
-	
-	fullScreenTxt.pos = std::make_pair(600, 205);
-	fullScreenTxt.textColor = SDL_Color{ 0,0,0 };
-	fullScreenTxt.text = "Fullscreen";
-	mSceneText.push_back(&fullScreenTxt);
+	UIText fullScreen;
+	fullScreen.pos = std::make_pair(600, 205);
+	fullScreen.textColor = SDL_Color{ 0,0,0 };
+	fullScreen.text = "Fullscreen";
+	mSceneText.push_back(fullScreen);
 
-	mSceneText.push_back(&currentRes);
+	mSceneText.push_back(currentRes);
 
 	
 }
@@ -146,9 +136,7 @@ void SettingsScene::Collapse(bool collapsed)
 	{
 		resOptions[i].obj->SetVisible(!collapsed);
 		resOptions[i].obj->SetActive(collapsed);
-		mSceneText[i]->isVisible = !collapsed;
+		mSceneText[i].isVisible = !collapsed;
 	}
 }
-
-
 

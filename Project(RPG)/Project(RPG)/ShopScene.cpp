@@ -10,11 +10,20 @@ ShopScene::ShopScene(Interface* rng) : Scene(rng)
 	buySell_SFX = Mix_LoadWAV("Assets/SFX/coin.wav");
 	leave_SFX = Mix_LoadWAV("Assets/SFX/DoorClose.wav");
 
+	mShop.SetGold(2000);
+
 	Init();
 }
 
 void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
+	// Uncomment to hear the shop music, currently disabled as it was getting annoying while testing  - JP
+	/*if (!startOnce)
+	{
+		mgr->GetManagers()->AudioMgr->PlayMusic(bg_Music, -1);
+		Mix_VolumeMusic(10);
+		startOnce = true;
+	}*/
 
 	if (act == Act::Click)
 	{
@@ -24,13 +33,13 @@ void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 			mgr->LoadPreviousScene();
 		}
 	}
-	ManagePlayerInventory(mgr->GetPlayer()->GetInventory(), act, mousePos);
+	ManagePlayerInventory(mgr->GetPlayer()->inventory, act, mousePos);
 	ManageShopInventory(mShop.GetInventory(), act, mousePos);
 }
 
-void ShopScene::PlaceItems(Inventory& inv)
+void ShopScene::PlaceItems(std::deque<Item*>& inv)
 {
-	for (auto i : inv.GetContents())
+	for (auto i : inv)
 	{
 		// Display item to screen and set its render object to the correct image
 		i->SetRenderObject(AddObject(i->GetObjName(), i->inventoryPos.pos.first, i->inventoryPos.pos.second, Game)); 
@@ -40,38 +49,29 @@ void ShopScene::PlaceItems(Inventory& inv)
 void ShopScene::Init()
 {
 	AddObject("ShopBGObj", 1280 / 2, 720 / 2, Background);
-	
+	AddObject("playerPortraitObj", 505, 225, UI); // This needs to load the player's portrait in the future - JP
 	AddObject("merchantPortraitObj", 725, 225, UI);
 	pExitButton = AddObject("exitButtonObj", 620, 600, UI);
-
-	GenerateGrids();
 	
+	GenerateGrids();
+
+	mPlayerGoldText.text = "Gold: " + std::to_string( mgr->GetPlayer()->mGold);
+	mPlayerGoldText.pos = std::make_pair(520, 415);
+	mPlayerGoldText.textColor = SDL_Color{ 255, 215, 0 }; // Gold
+
+	mShopGoldText.text = "Gold: " + std::to_string(mShop.GetGold());
+	mShopGoldText.pos = std::make_pair(620, 415);
+	mShopGoldText.textColor = SDL_Color{ 255, 215, 0 }; // Gold
+	
+	mSceneText.push_back(mPlayerGoldText);
+	mSceneText.push_back( mShopGoldText);
+
 }
 
 void ShopScene::Load()
 {
-	AddObject(mgr->GetPlayer()->GetParty().at(0)->GetPortraitName(), 505, 225, UI); // Now loads portrait of 1st in party. These need matching in scale to merchant - EH
-
-	mSceneText.clear();
-
-	mShop.SetGold(-mShop.GetGold());
-	mShop.SetGold(RandomRange(300, 2000));
-
-	mPlayerGoldText.text = "Gold: " + std::to_string(mgr->GetPlayer()->GetGold());
-	mPlayerGoldText.pos = std::make_pair(550, 415);
-	mPlayerGoldText.textColor = SDL_Color{ 255, 215, 0 }; // Gold
-
-	mShopGoldText.text = "Gold: " + std::to_string(mShop.GetGold());
-	mShopGoldText.pos = std::make_pair(680, 415);
-	mShopGoldText.textColor = SDL_Color{ 255, 215, 0 }; // Gold
-	
-	mSceneText.push_back(&mPlayerGoldText);
-	mSceneText.push_back(& mShopGoldText);
-
-
-	mgr->FadeInMusic(bg_Music, -1, mgr->fadeTime);
 	mLayers[Game].clear();
-	PlaceItems(mgr->GetPlayer()->GetInventory());
+	PlaceItems(mgr->GetPlayer()->inventory);
 	PlaceItems(mShop.GetInventory());
 }
 
@@ -116,15 +116,15 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 		
 		if (act == Act::RClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
-			if (!(mgr->GetPlayer()->GetGold() < i->GetCost())) // If player can't afford item they can't buy it
+			if (!(mgr->GetPlayer()->mGold < i->GetCost())) // If player can't afford item they can't buy it
 			{
 				mShop.BuyItem(i);
-				mgr->GetPlayer()->SetGold(-i->GetCost());	// Remove cost of item from player's gold
-				mgr->GetPlayer()->GetInventory().AddItem(i);// Add bought item to player's inventory
+				mgr->GetPlayer()->mGold-=i->GetCost();	// Remove cost of item from player's gold
+				mgr->GetPlayer()->inventory.push_back(i);// Add bought item to player's inventory
 				mgr->PlaySFX(buySell_SFX, 0, 1);
 				i->GetRenderObject()->SetPos(i->inventoryPos.pos);
-				mSceneText[0]->text = "Gold: " + std::to_string(mgr->GetPlayer()->GetGold());; // Display player gold
-				mSceneText[1]->text = "Gold: " + std::to_string(mShop.GetGold());;	// Display shop gold
+				mSceneText[0].text = "Gold: " + std::to_string(mgr->GetPlayer()->mGold);; // Display player gold
+				mSceneText[1].text = "Gold: " + std::to_string(mShop.GetGold());;	// Display shop gold
 			}
 
 		}
@@ -147,21 +147,27 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 			
 		}
 		
+
+
 		if (act == Act::RClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
 			if (!(mShop.GetGold() < i->GetCost())) // Can only sell to the shop if the shop can give you the moeny for the item
 			{
-				mgr->GetPlayer()->SellItem(i);	 // Remove item from player's inventory and add to its gold
+
+				mgr->GetPlayer()->mGold += i->GetCost();
+				mgr->GetPlayer()->inventory.erase(std::find(mgr->GetPlayer()->inventory.begin(), mgr->GetPlayer()->inventory.end(), i));// Remove item from player's inventory and add to its gold
+						 
 				mShop.SetGold(-i->GetCost());	 // Remove cost of sold item from shop gold
 				mShop.GetInventory().AddItem(i); // Add sold item to shop inventory
 				mgr->PlaySFX(buySell_SFX, 0, 1); // Play buy sfx on channel 1 and don't loop
 				i->GetRenderObject()->SetPos(i->inventoryPos.pos); // Update the render object position 
 				// Update the gold text for both player and shop
-				mSceneText[0]->text = "Gold: " + std::to_string(mgr->GetPlayer()->GetGold());;
-				mSceneText[1]->text = "Gold: " + std::to_string(mShop.GetGold());;
+				mSceneText[0].text = "Gold: " + std::to_string(mgr->GetPlayer()->mGold);;
+				mSceneText[1].text = "Gold: " + std::to_string(mShop.GetGold());;
 			}
 		}
 	}
+
 }
 
 void ShopScene::GenerateGrids()
@@ -175,7 +181,7 @@ void ShopScene::GenerateGrids()
 	DrawGrid(4, 5, 80, 110); // Draw item frames for player inventory
 	DrawGrid(4, 5, 880, 110); // Draw item frames for shop inventory
 
-	PlaceItems(mgr->GetPlayer()->GetInventory());
+	PlaceItems(mgr->GetPlayer()->inventory);
 	PlaceItems(mShop.GetInventory());
 }
 
@@ -184,7 +190,6 @@ void ShopScene::DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY
 {
 	int cellAmount = gridWidth * gridHeight;
 	int initialX = offsetX;
-
 	for (int i = 0; i < cellAmount; ++i)
 	{
 		if (offsetX >= 360 + initialX)

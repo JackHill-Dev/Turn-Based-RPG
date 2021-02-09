@@ -1,8 +1,7 @@
 #pragma once
 //#include <string>
 #include "RenderObject.h"
-#include <string>
-#include <sstream>
+
 struct InvPos
 {
 	std::pair<int, int> pos = std::make_pair(0,0);
@@ -21,7 +20,6 @@ public:
 	Item() {}
 	Item(std::string name, int cost);
 	~Item();
-	virtual std::string GetDescription() = 0;
 	std::string GetName() const;
 	std::string GetObjName() const;
 	int GetCost() const;
@@ -37,12 +35,11 @@ public:
 protected:
 	std::string mName;
 	std::string mObjName;
-	int mCost;
 	ItemType mType = UNDEFINED;
 private:
 	RenderObject* mRenderObject;
 
-	
+	int mCost;
 	
 	
 	

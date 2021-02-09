@@ -105,6 +105,9 @@
     <ClCompile Include="InventoryScene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="BackgroundPickerScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
     <ClCompile Include="ClassPickerScene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
@@ -189,6 +192,9 @@
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="InventoryScene.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="BackgroundPickerScene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="ClassPickerScene.h">
