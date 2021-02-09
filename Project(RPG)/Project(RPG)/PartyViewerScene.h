@@ -4,11 +4,11 @@
 
 struct CharacterCard
 {
-	UIText stamina;
-	UIText health;
-	UIText mana;
-	UIText agility;
-	UIText movement;
+	UIText* strength;
+	UIText* health;
+	UIText* intelligence;
+	UIText* agility;
+	UIText* movement;
 };
 
 
@@ -25,13 +25,13 @@ private:
 	RenderObject* mCloseBtn;
 	RenderObject* mInventoryBtn;
 	Mix_Chunk* button_SFX;
+	Mix_Music* mMenuMusic;
 
 	void Init();
-
 	void GetCharacterPortraits();
 	void GetCharacterStatistics();
 
-	UIText DrawStat(std::string statName, int stat, SDL_Color textColor, std::pair<int,int> pos);
+	UIText* DrawStat(std::string statName, int stat, SDL_Color textColor, std::pair<int,int> pos);
 	std::vector<Character*> mParty;
 
 

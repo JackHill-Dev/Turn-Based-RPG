@@ -15,7 +15,7 @@ std::deque <Unit> team{};
 std::deque <Unit> enemy{};
 std::vector<std::pair<Card*, RenderObject*>> playerhand;
 std::vector<std::pair<Card*, RenderObject*>> enemyHand;
-Mix_Music* combat_music;
+Mix_Music* combat_music1;
 Mix_Chunk* slash_sfx;
 RenderObject* fightSceneTeamCharacter;
 RenderObject* fightSceneEnemyCharacter;
@@ -42,8 +42,19 @@ void CloseCombatScene()
 
 CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 {
-	combat_music = Mix_LoadMUS("Assets/Combat_Music.wav");
+	combat_music1 = Mix_LoadMUS("Assets/Combat_Music.wav");
+	mCombatMusic2 = Mix_LoadMUS("Assets/Music/BattleIntesification.mp3");
+	mCombatMusic3 = Mix_LoadMUS("Assets/Music/Boss.mp3");
+	mVictoryMusic = Mix_LoadMUS("Assets/Music/VictoryWindlessSlopes.mp3");
+	mDefeatNoLoop = Mix_LoadMUS("Assets/Music/Game-over-silence.mp3");
+
+	mCombatPlaylist.push_back(combat_music1);
+	mCombatPlaylist.push_back(mCombatMusic2);
+	mCombatPlaylist.push_back(mCombatMusic3);
+
+
 	slash_sfx = Mix_LoadWAV("Assets/SFX/slash.wav");
+	mVictorySFX = Mix_LoadWAV("Assets/SFX/VictorySfx.wav");
 
 
 	fightSceneBg = AddObject("forestFightSceneBg", centre.first, centre.second, UI);
@@ -57,10 +68,6 @@ CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 	fightSceneEnemyCharacter->SetVisible(false);
 	fightSceneBg->SetVisible(false);
 	
-	
-
-
-	Mix_Volume(1, 15);
 	endTurn = AddObject("quitBtnObj", centre.first, 20, UI);
 	endTurn->scale = std::make_pair(1, 1);
 	pExit = AddObject("exitButtonObj", 600, 600, UI);
@@ -163,11 +170,12 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 			for (auto i : enemy)
 				RemoveUnit(&i);
 
+			//This simulates a victory for now for music testing purposes - EH			
+			mgr->PlaySFX(mVictorySFX, 0, 1);
+			//mgr->FadeInMusic(mVictoryMusic, -1, mgr->fadeTime);
 			mgr->LoadPreviousScene();
 		}
 			
-
-
 		for (auto i : team)
 			if (i.character->GetHealth() <= 0)
 				RemoveUnit(&i);
@@ -218,7 +226,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 						for (auto& i : enemy)
 						{
 							i.character->GetStats().movement.first = i.character->GetStats().movement.second;
-							i.character->GetStats().stamina.first = i.character->GetStats().stamina.second;
+							i.character->GetStats().strength.first = i.character->GetStats().strength.second;
 
 						}
 					}
@@ -279,7 +287,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 								for (auto& i : team)
 									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
 									{
-										if (i.character->GetStats().stamina.first > 5)
+										if (i.character->GetStats().strength.first > 5)
 										{
 											character = &i;
 											character->object->tint = SDL_Color{ 255,255,0 };
@@ -432,7 +440,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
 									{
 										
-										if (i.character->GetStats().stamina.first > 5)
+										if (i.character->GetStats().strength.first > 5)
 										{
 
 											i.object->tint = SDL_Color{ 0, 255, 0 };
@@ -521,13 +529,14 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 void CombatScene::Load(std::vector<Character*> enemyTeam)
 {
 	playerTurn = false;
-	mgr->PlayMusic(combat_music, -1);
+	mgr->FadeInMusic(mCombatMusic2, -1, mgr->fadeTime); // For testing purposes as I don't have the first one. Eventually randomly pick one for variety? -EH
+	//mgr->PlayMusic(combat_music1, -1);
 	int v = 0;
 
 	// TO-DO: Seems to be a bug here - Doesn't actually contain the range when stepping through and counts double party size for some reason - EH
 	for (auto i : mgr->GetPlayer()->GetParty())
 	{
-		i->GetStats().stamina.first = i->GetStats().stamina.second;
+		i->GetStats().strength.first = i->GetStats().strength.second;
 		Unit unit = Unit(i, &mapp.tiles[v][14], AddObject(i->GetObjName(), 0, 0, Game), AddObject("portrait", 250, 125+150*v, UI));
 		//unit.object->scale = std::make_pair(0.5f, 0.5f);
 		unit.profile->scale = std::make_pair(0.3f, 0.3f);
@@ -577,12 +586,12 @@ void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  Rende
 		std::cout << "AHH";
 	}
 	if (dist <= card->first->Values().range && 
-		stats->stamina.first >= card->first->Values().stamCost && stats->mana.first >= card->first->Values().intCost && stats->agility.first >= card->first->Values().agilCost)
+		stats->strength.first >= card->first->Values().stamCost && stats->intelligence.first >= card->first->Values().intCost && stats->agility.first >= card->first->Values().agilCost)
 	{
 		mgr->PlaySFX(slash_sfx,0, 1);
 		card->first->Cast(caster->character, target->character);
-		caster->character->GetStats().stamina.first -= card->first->Values().stamCost;
-		caster->character->GetStats().mana.first -= card->first->Values().intCost;
+		caster->character->GetStats().strength.first -= card->first->Values().stamCost;
+		caster->character->GetStats().intelligence.first -= card->first->Values().intCost;
 		caster->character->GetStats().agility.first -= card->first->Values().agilCost;
 
 		AddObject(card->first->GetEffect(), centre.first, centre.second, Effects);
@@ -665,7 +674,7 @@ void CombatScene::RunAi()
 
 			for (auto &c : enemyHand)
 			{
-				if (stats->stamina.first >= c.first->Values().stamCost && stats->mana.first >= c.first->Values().intCost && stats->agility.first >= c.first->Values().agilCost)
+				if (stats->strength.first >= c.first->Values().stamCost && stats->intelligence.first >= c.first->Values().intCost && stats->agility.first >= c.first->Values().agilCost)
 					validCards.push_back(c);
 			}
 
@@ -774,7 +783,7 @@ void CombatScene::RunAi()
 
 		for (auto i : team)
 		{
-			i.character->GetStats().stamina.first = i.character->GetStats().stamina.second;
+			i.character->GetStats().strength.first = i.character->GetStats().strength.second;
 			i.character->GetStats().movement.first = i.character->GetStats().movement.second;
 		}
 		playerTurn = true;

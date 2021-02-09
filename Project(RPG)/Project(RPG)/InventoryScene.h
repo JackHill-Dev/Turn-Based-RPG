@@ -6,6 +6,7 @@ struct ItemObject
 	Item* _item;
 	RenderObject* obj;
 
+	ItemObject() {}
 	ItemObject(Item* i, RenderObject* r) : _item(i), obj(r) {}
 };
 
@@ -26,9 +27,13 @@ private:
 private:
 	RenderObject* pCloseBtn;
 	Mix_Chunk* button_SFX;
-
+	ToolTip mToolTip;
 	std::vector<RenderObject*> playerInvGrid;
 	std::vector<ItemObject> itemObjects;
 	std::vector<Character*> mParty;
+	// temp
+	RenderObject* hoveredObject = nullptr;
+	RenderObject temp;
+	bool bSetPos = false;
 };
 

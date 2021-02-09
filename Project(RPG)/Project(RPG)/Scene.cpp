@@ -14,6 +14,15 @@ Scene::Scene(Interface* objmg)
 	
 }
 
+Scene::~Scene()
+{
+	for (UIText* t : mSceneText)
+	{
+		t = nullptr;
+		delete t;
+	}
+}
+
 
 void Scene::SceneUpdate(double dTime, Act act, std::pair<int, int> mousePos)
 {
@@ -72,16 +81,19 @@ void Scene::Draw(SDL_Renderer* rnd)
 
 	for (auto t : mSceneText)
 	{
-		rect.w = t.scale.first;
-		rect.h = t.scale.second;
-
-		rect.x = t.pos.first - rect.w/2;
-		rect.y = t.pos.second - rect.h/2;
+		rect.w = t->scale.first;
+		rect.h = t->scale.second;
+				  
+		rect.x = t->pos.first - rect.w/2;
+		rect.y = t->pos.second - rect.h/2;
 	
-		
-		SDL_Texture* fontTexture = SDL_CreateTextureFromSurface(rnd, TTF_RenderText_Blended(mFont, t.text.c_str(), t.textColor));;
+		SDL_Texture* fontTexture = nullptr;
+		if (!t->bWrapped)
+			fontTexture = SDL_CreateTextureFromSurface(rnd, TTF_RenderText_Blended(mFont, t->text.c_str(), t->textColor));
+		else
+			fontTexture = SDL_CreateTextureFromSurface(rnd, TTF_RenderText_Blended_Wrapped(mFont, t->text.c_str(), t->textColor, 200));
 
-	    if(t.isVisible)
+	    if(t->isVisible)
 			SDL_RenderCopy(rnd, fontTexture, nullptr, &rect);
 	}
 

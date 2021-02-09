@@ -17,16 +17,23 @@
 #include "Consumable.h"
 #include "Armour.h"
 #include "InventoryScene.h"
+#include "ClassPickerScene.h"
 class GameManager
 {
 private:
-	//std::vector<Character*> player{ new Character("maleObj") };
+
+	ClassPickerScene* mClassPickerInstance;
 	std::pair<CombatScene*, std::vector<Character*>> combatInstance;
 	PartyViewerScene* partyViewerInstance;
 	InventoryScene* mInventorySceneInstance;
+	SettingsScene* mSettingsSceneInstance;
 	ShopScene* mShopSceneInstance;
+	MainMenuScene* mMainMenuSceneInstance;
+	OverworldMapScene* mOverworldInstance;
+
+
 	bool bRunning= true;
-	int mCScene = 0;
+	Scenes mCScene = Scenes::MainMenu;
 	SDL_Window* mWnd;
 	SDL_Renderer* mRnd;
 	SDL_Surface* mSurface;
@@ -54,7 +61,6 @@ public:
 	
 private:
 	void LoadSettings();
-	void SetupPlayer();
 	bool SetUp();
 	bool CreateWindow();
 	std::vector<Scene*> scenes;
@@ -64,6 +70,8 @@ private:
 	// temp
 	Consumable mPotion;
 	Armour mArmour;
+	Weapon mWeapon;
+	Weapon mSword;
 	Character mWizard;
 	Character mWarrior;
 };
