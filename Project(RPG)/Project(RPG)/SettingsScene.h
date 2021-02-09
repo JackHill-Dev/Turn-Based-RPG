@@ -31,6 +31,7 @@ private:
     Mix_Chunk* button_Click_SFX;
 
     UIText currentRes;
+    UIText fullScreenTxt;
     std::vector<ResolutionOption> resOptions;
 protected:
     void Update(double dTime, Act act, std::pair<int, int> mousePos) override;

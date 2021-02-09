@@ -88,6 +88,9 @@ const std::map<std::string,RenderObject*> definedObjects
 
 		{"MagicObj", new RenderObject("Magic")},
 		{"swordSlashEffectObj", new RenderObject("swordSlashEffect")},
+		{"defaultItemObj", new RenderObject("defaultItem")},
+		{"toolTipBgObj", new RenderObject("toolTipBg")}
+
 
 	}
 };
@@ -154,6 +157,9 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"settingsBtn", new SpriteSheet("Assets/Sprites/Buttons/SettingsBtn.png",	128, 64, 128, 64, false)},
 		{"startBtn", new SpriteSheet("Assets/Sprites/Buttons/StartBtn-02.png",128, 64, 128, 64, false)},
 		{"yesTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/Yes.png", 54, 36, 54, 36, false)},
+		{"defaultItem", new SpriteSheet("Assets/Sprites/helmet.png", 32, 32, 32, 32, false)},
+		{"settingsBg", new SpriteSheet("Assets/Backgrounds/Blank_Map_1280x720_Blurred.png", 1280, 720, 1280, 720, false)},
+		{"toolTipBg", new SpriteSheet("Assets/Backgrounds/TooltipBackground.png", 48, 48, 48, 48, false)}
 
 		// Node Spritesheets
 

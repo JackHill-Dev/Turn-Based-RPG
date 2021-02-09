@@ -70,6 +70,8 @@ private:
 	// temp
 	Consumable mPotion;
 	Armour mArmour;
+	Weapon mWeapon;
+	Weapon mSword;
 	Character mWizard;
 	Character mWarrior;
 };

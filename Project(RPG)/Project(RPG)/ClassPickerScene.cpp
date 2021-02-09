@@ -418,12 +418,12 @@ void ClassPickerScene::SetUpClassView(CharacterPickerState originState)
 	mFooterInstruction.pos = std::make_pair<int>(640, 550);
 	mFooterInstruction.SetTextScale(700, 40);
 
-	mSceneText.push_back(mHeader);
-	mSceneText.push_back(mHeaderInstruction);
-	mSceneText.push_back(mFlavourText1);
-	mSceneText.push_back(mFlavourText2);
-	mSceneText.push_back(mFlavourText3);
-	mSceneText.push_back(mFooterInstruction);
+	mSceneText.push_back(&mHeader);
+	mSceneText.push_back(&mHeaderInstruction);
+	mSceneText.push_back(&mFlavourText1);
+	mSceneText.push_back(&mFlavourText2);
+	mSceneText.push_back(&mFlavourText3);
+	mSceneText.push_back(&mFooterInstruction);
 }
 
 void ClassPickerScene::SetUpWarriorView(CharacterPickerState originState)
@@ -472,12 +472,12 @@ void ClassPickerScene::SetUpWarriorView(CharacterPickerState originState)
 	mFooterInstruction.pos = std::make_pair<int>(640, 550);
 	mFooterInstruction.SetTextScale(700, 40);
 
-	mSceneText.push_back(mHeader);
-	mSceneText.push_back(mHeaderInstruction);
-	mSceneText.push_back(mFlavourText1);
-	mSceneText.push_back(mFlavourText2);
-	mSceneText.push_back(mFlavourText3);
-	mSceneText.push_back(mFooterInstruction);
+	mSceneText.push_back(&mHeader);
+	mSceneText.push_back(&mHeaderInstruction);
+	mSceneText.push_back(&mFlavourText1);
+	mSceneText.push_back(&mFlavourText2);
+	mSceneText.push_back(&mFlavourText3);
+	mSceneText.push_back(&mFooterInstruction);
 
 
 }
@@ -528,12 +528,12 @@ void ClassPickerScene::SetUpRogueView(CharacterPickerState originState)
 	mFooterInstruction.pos = std::make_pair<int>(640, 550);
 	mFooterInstruction.SetTextScale(700, 40);
 
-	mSceneText.push_back(mHeader);
-	mSceneText.push_back(mHeaderInstruction);
-	mSceneText.push_back(mFlavourText1);
-	mSceneText.push_back(mFlavourText2);
-	mSceneText.push_back(mFlavourText3);
-	mSceneText.push_back(mFooterInstruction);
+	mSceneText.push_back(&mHeader);
+	mSceneText.push_back(&mHeaderInstruction);
+	mSceneText.push_back(&mFlavourText1);
+	mSceneText.push_back(&mFlavourText2);
+	mSceneText.push_back(&mFlavourText3);
+	mSceneText.push_back(&mFooterInstruction);
 
 }
 
@@ -584,12 +584,12 @@ void ClassPickerScene::SetUpMageView(CharacterPickerState originState)
 	mFooterInstruction.pos = std::make_pair<int>(640, 550);
 	mFooterInstruction.SetTextScale(700, 40);
 
-	mSceneText.push_back(mHeader);
-	mSceneText.push_back(mHeaderInstruction);
-	mSceneText.push_back(mFlavourText1);
-	mSceneText.push_back(mFlavourText2);
-	mSceneText.push_back(mFlavourText3);
-	mSceneText.push_back(mFooterInstruction);
+	mSceneText.push_back(&mHeader);
+	mSceneText.push_back(&mHeaderInstruction);
+	mSceneText.push_back(&mFlavourText1);
+	mSceneText.push_back(&mFlavourText2);
+	mSceneText.push_back(&mFlavourText3);
+	mSceneText.push_back(&mFooterInstruction);
 }
 
 void ClassPickerScene::SetUpBackgroundView(CharacterPickerState originState)

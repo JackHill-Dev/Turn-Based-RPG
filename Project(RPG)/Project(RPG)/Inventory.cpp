@@ -9,6 +9,7 @@ Inventory::~Inventory()
 {
 	for (Item* i : mItems)
 	{
+		i = nullptr;
 		delete i;
 	}
 }
