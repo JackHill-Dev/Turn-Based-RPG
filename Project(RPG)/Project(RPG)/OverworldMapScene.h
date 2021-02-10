@@ -34,12 +34,12 @@ private:
 
 	std::vector<std::pair<int, int>> GoodNodePos
 	{
-		std::make_pair(120,450), std::make_pair(240,250), std::make_pair(360,250), std::make_pair(480,200), std::make_pair(600,250), std::make_pair(720,300), std::make_pair(840,150), std::make_pair(960,500), std::make_pair(1080,500), std::make_pair(1200,500),
-		std::make_pair(120,500), std::make_pair(240,300), std::make_pair(360,300), std::make_pair(480,250), std::make_pair(600,350), std::make_pair(720,450), std::make_pair(840,200), std::make_pair(960,550), std::make_pair(1080,550), std::make_pair(1200,550),
-		std::make_pair(120,550), std::make_pair(240,350), std::make_pair(360,350), std::make_pair(480,300), std::make_pair(600,450), std::make_pair(720,500), std::make_pair(840,50), std::make_pair(960,600), std::make_pair(1080,600), std::make_pair(1200,600),
-		std::make_pair(120,600), std::make_pair(240,400), std::make_pair(360,500), std::make_pair(480,400), std::make_pair(600,550), std::make_pair(720,550), std::make_pair(840,550), std::make_pair(960,650), std::make_pair(1080,650), std::make_pair(1200,650),
-		std::make_pair(120,650), std::make_pair(240,600), std::make_pair(360,550), std::make_pair(480,500), std::make_pair(600,600), std::make_pair(720,600), std::make_pair(840,650), std::make_pair(1200,600), std::make_pair(1080,700), std::make_pair(1200,700),
-		std::make_pair(120,700), std::make_pair(240,700), std::make_pair(360,600), std::make_pair(480,550), std::make_pair(1100,650), std::make_pair(720,650), std::make_pair(100,600), std::make_pair(990,550), std::make_pair(700,700), std::make_pair(800,700),
+		std::make_pair(120,440), std::make_pair(240,240), std::make_pair(340,230), std::make_pair(460,190), std::make_pair(580,260), std::make_pair(700,290), std::make_pair(820,150), std::make_pair(940,490), std::make_pair(1060,490), std::make_pair(1180,505),
+		std::make_pair(140,500), std::make_pair(220,310), std::make_pair(350,300), std::make_pair(470,250), std::make_pair(590,350), std::make_pair(710,450), std::make_pair(830,200), std::make_pair(955,535), std::make_pair(1070,545), std::make_pair(1190,555),
+		std::make_pair(80,540), std::make_pair(260,360), std::make_pair(360,340), std::make_pair(480,300), std::make_pair(600,450), std::make_pair(720,500), std::make_pair(840,50), std::make_pair(960,610), std::make_pair(1080,605), std::make_pair(1200,600),
+		std::make_pair(100,610), std::make_pair(230,390), std::make_pair(370,510), std::make_pair(490,430), std::make_pair(630,550), std::make_pair(730,550), std::make_pair(850,550), std::make_pair(970,650), std::make_pair(1090,650), std::make_pair(1210,640),
+		std::make_pair(110,650), std::make_pair(250,590), std::make_pair(380,550), std::make_pair(500,500), std::make_pair(620,610), std::make_pair(740,600), std::make_pair(860,670), std::make_pair(1240,570), std::make_pair(1110,705), std::make_pair(1220,690),
+		std::make_pair(130,690), std::make_pair(270,700), std::make_pair(390,600), std::make_pair(510,560), std::make_pair(1100,660), std::make_pair(760,650), std::make_pair(100,600), std::make_pair(990,550), std::make_pair(690,695), std::make_pair(800,700),
 	};
 
 	Node* currentNode = nullptr;

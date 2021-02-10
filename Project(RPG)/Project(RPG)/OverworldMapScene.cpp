@@ -51,6 +51,11 @@ void OverworldMapScene::LoadNodes()
 	}
 
 	std::copy(uniqueCoords.begin(), uniqueCoords.end(), std::back_inserter(validCoords));
+	//for (auto cord : validCoords)
+	//{
+	//	std::cout << cord.first << " -X\tY: ";
+	//	std::cout << cord.second << std::endl;
+	//}
 
 	for (int rowCount = 0; rowCount < maxRows; ++rowCount)
 	{
