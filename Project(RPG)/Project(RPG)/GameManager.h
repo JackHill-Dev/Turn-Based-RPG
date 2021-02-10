@@ -14,23 +14,27 @@
 
 #include "Player.h"
 #include "CombatScene.h"
+#include "ClassPickerScene.h"
 #include "Consumable.h"
 #include "Armour.h"
 #include "InventoryScene.h"
-#include "ClassPickerScene.h"
+#include "json.hpp"
+#include <fstream>;
+#include <istream>
+
 class GameManager
 {
+
 private:
 
-	ClassPickerScene* mClassPickerInstance;
 	std::pair<CombatScene*, std::vector<Character*>> combatInstance;
 	PartyViewerScene* partyViewerInstance;
 	InventoryScene* mInventorySceneInstance;
-	SettingsScene* mSettingsSceneInstance;
 	ShopScene* mShopSceneInstance;
 	MainMenuScene* mMainMenuSceneInstance;
 	OverworldMapScene* mOverworldInstance;
-
+	SettingsScene* mSettingsSceneInstance;
+	ClassPickerScene* mClassPickerInstance;
 
 	bool bRunning= true;
 	Scenes mCScene = Scenes::MainMenu;
@@ -42,25 +46,26 @@ private:
 	std::map<std::string, RenderObject*> objects; // This is where the RenderObject types are stored 
 	std::map<std::string, SpriteSheet*> sheets; // This is where the spritesheets are stored
 	std::map<std::string, Card*> cards;
-	//Interface mInterface{&bRunning, &objects, &mPlayer,&mCScene };
 
-
-	Interface mInterface{&bRunning, &objects,&mCScene, &combatInstance.second, &mPlayer, &mSettings};
-
+	Interface mInterface{&bRunning, &objects, &mCScene, &combatInstance.second, &mPlayer, &mSettings};
 
 	SDL_Texture* LoadTexture(std::string path); //Moved it here for now
 	void CreateCard(DefinedCard* card);
 	void LoadScene();
 	
 public:
+
 	GameManager() {}
+
 	bool Init();
 
 	void Run();
 	void Quit();	
 	
 private:
+
 	void LoadSettings();
+	
 	bool SetUp();
 	bool CreateWindow();
 	std::vector<Scene*> scenes;

@@ -50,6 +50,7 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"ShopBGObj",new RenderObject("shopBg")},
 		{"tileObj", new RenderObject("tile")},		
 		{"TreeObj", new RenderObject("tree")},
+		{"settingsBgObj", new RenderObject("settingsBg")},
 			
 		// Button Objects
 
@@ -88,6 +89,9 @@ const std::map<std::string,RenderObject*> definedObjects
 
 		{"MagicObj", new RenderObject("Magic")},
 		{"swordSlashEffectObj", new RenderObject("swordSlashEffect")},
+		{"defaultItemObj", new RenderObject("defaultItem")},
+		{"toolTipBgObj", new RenderObject("toolTipBg")}
+
 
 	}
 };
@@ -154,6 +158,9 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"settingsBtn", new SpriteSheet("Assets/Sprites/Buttons/SettingsBtn.png",	128, 64, 128, 64, false)},
 		{"startBtn", new SpriteSheet("Assets/Sprites/Buttons/StartBtn-02.png",128, 64, 128, 64, false)},
 		{"yesTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/Yes.png", 54, 36, 54, 36, false)},
+		{"defaultItem", new SpriteSheet("Assets/Sprites/helmet.png", 32, 32, 32, 32, false)},
+		{"settingsBg", new SpriteSheet("Assets/Backgrounds/Blank_Map_1280x720_Blurred.png", 1280, 720, 1280, 720, false)},
+		{"toolTipBg", new SpriteSheet("Assets/Backgrounds/TooltipBackground.png", 48, 48, 48, 48, false)},
 
 		// Node Spritesheets
 
@@ -280,8 +287,8 @@ const std::map<std::string, std::vector<Animation>> definedAnimations
 
 const std::map<std::string, DefinedCard> definedCards
 {
-	{"magicCard",{25, 5, 5, 0, 0, "Magic", "Magically assail the enemy for 5 damage, costs 5 intelligence", "malePortrait" ,"MagicObj"}},
-	{"slashCard",{1, 10, 0, 10, 0, "Slash", "Slash the enemy for 10 damage, costs 10 strength", "SlashCard" ,"swordSlashEffectObj"}},	
+	{"magicCard",{25, 5, 5, 0, 0, "Magic", "Magically assail the enemy for 5 damage, costs 5 intelligence", "malePortrait" ,"MagicObj", 1.0}},
+	{"slashCard",{1, 10, 0, 10, 0, "Slash", "Slash the enemy for 10 damage, costs 10 strength", "SlashCard" ,"swordSlashEffectObj", 0.5}},	
 };
 
 

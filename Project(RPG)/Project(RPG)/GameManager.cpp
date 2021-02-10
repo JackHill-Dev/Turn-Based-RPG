@@ -1,7 +1,5 @@
 #include "GameManager.h"
-#include "json.hpp"
-#include <fstream>;
-#include <istream>
+
 using Json = nlohmann::json;
 void GameManager::Run()
 {
@@ -11,6 +9,7 @@ void GameManager::Run()
 
 	mInterface.SetMasterVolume(-1, 16, 8);
 
+
 	SDL_Texture* texture = SDL_CreateTexture(mRnd, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, mSettings.w, mSettings.h);
 	SDL_Event ev;
 	unsigned int a = SDL_GetTicks();
@@ -18,7 +17,6 @@ void GameManager::Run()
 	double delta = 0;
 	double deltaTime = 0;
 	int lastSceneIndex = mCScene;
-
 	while ( bRunning )
 	{
 		a = SDL_GetTicks();
@@ -62,9 +60,6 @@ void GameManager::Run()
 					SDL_GetMouseState(&x, &y);
 					act = Act::MouseUpdate;
 					break;
-
-				
-
 				
 				}
 		
@@ -84,7 +79,7 @@ void GameManager::Run()
 
 		//SDL_Delay(16);
 	}
-	Mix_Quit();
+	Mix_CloseAudio(); // Shuts down and cleans up the whole mixer API. Ensures all music and sfx are disposed of. Mix_Quit doesn't necessarily handle everything. - EH
 	SDL_DestroyRenderer(mRnd);
 	SDL_DestroyWindow(mWnd);
 	//TTF_CloseFont(font);
@@ -98,14 +93,14 @@ void GameManager::LoadScene()
 {
 	switch (mCScene)
 	{
-	case Scenes::MainMenu: mMainMenuSceneInstance->Load(); break;
-	case Scenes::ClassPicker: mClassPickerInstance->Load(); break;
-	case Scenes::Overworld: mOverworldInstance->Load(); break;
-	case Scenes::Combat: combatInstance.first->Load(combatInstance.second); break;
-	case Scenes::Shops: mShopSceneInstance->Load(); break;
-	case Scenes::Party:  partyViewerInstance->Load(); break;
-	case Scenes::SettingsPage: mSettingsSceneInstance->Load(); break;
-	case Scenes::InventoryScreen : mInventorySceneInstance->Load(); break;
+		case Scenes::MainMenu: mMainMenuSceneInstance->Load(); break;
+		case Scenes::ClassPicker: mClassPickerInstance->Load(); break;
+		case Scenes::Overworld: mOverworldInstance->Load(); break;
+		case Scenes::Combat: combatInstance.first->Load(combatInstance.second); break;
+		case Scenes::Shops: mShopSceneInstance->Load(); break;
+		case Scenes::Party:  partyViewerInstance->Load(); break;
+		case Scenes::SettingsPage: mSettingsSceneInstance->Load(); break;
+		case Scenes::InventoryScreen : mInventorySceneInstance->Load(); break;
 	}
 
 
@@ -125,12 +120,12 @@ bool GameManager::Init()
 	SetUp();
 
 	mPlayer.SetDeck({new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Slash"]) });
-	
+
 	mMainMenuSceneInstance = new MainMenuScene(&mInterface);
-	scenes.push_back(new MainMenuScene(&mInterface)); // 0
+	scenes.push_back(mMainMenuSceneInstance); // 0
 
 	mOverworldInstance = new OverworldMapScene(&mInterface);
-    scenes.push_back(mOverworldInstance); // 1
+	scenes.push_back(mOverworldInstance); // 1
 
 	combatInstance.first = new CombatScene(&mInterface);
 	scenes.push_back(combatInstance.first); // 2
@@ -145,7 +140,7 @@ bool GameManager::Init()
 	scenes.push_back(mSettingsSceneInstance); // 5
 
 	mClassPickerInstance = new ClassPickerScene(&mInterface);
-	scenes.push_back(new ClassPickerScene(&mInterface)); // 6
+	scenes.push_back(mClassPickerInstance); // 6
 
 	mInventorySceneInstance = new InventoryScene(&mInterface);
 	scenes.push_back(mInventorySceneInstance); // 7
@@ -169,6 +164,7 @@ void GameManager::LoadSettings()
 	}
 	ifs.close();
 }
+
 
 
 bool GameManager::SetUp()
@@ -238,7 +234,7 @@ SDL_Texture* GameManager::LoadTexture(std::string path)
 
 void GameManager::CreateCard(DefinedCard* card)
 {
-
+	auto mFont = TTF_OpenFont("Assets/Fonts/ThaleahFat.ttf", 32);
 	int imageWidth = 225;
 	int imageHeight = 225;
 
@@ -266,6 +262,49 @@ void GameManager::CreateCard(DefinedCard* card)
 	SDL_RenderCopy(mRnd, sheets["card"]->GetTexture(), NULL, NULL);
 
 
+	rect.w = 191;
+	rect.h = 76;
+	rect.x = 20;
+	rect.y = 222;
+	SDL_RenderCopy(mRnd,SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, card->description.c_str(), SDL_Color{0,0,0}, rect.w)), NULL, &rect);
+	
+	
+	rect.x = 24;
+	rect.y = 10;
+	rect.w = 188;
+	rect.h = 22;
+	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, card->name.c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
+	
+	rect.x = 20;
+	rect.y = 184;
+	rect.w = 39;
+	rect.h = 27;
+
+	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->range).c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
+	
+	rect.x = 73;
+	rect.y = 184;
+	rect.w = 39;
+	rect.h = 27;
+
+	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->staminaCost).c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
+
+	rect.x = 123;
+	rect.y = 184;
+	rect.w = 39;
+	rect.h = 27;
+
+	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->staminaCost).c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
+	
+	rect.x = 173;
+	rect.y = 184;
+	rect.w = 39;
+	rect.h = 27;
+
+	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->staminaCost).c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
+	
+	
+	
 	rect.x = 10;
 	rect.y = 2;
 	rect.w = 100;
@@ -280,8 +319,9 @@ void GameManager::CreateCard(DefinedCard* card)
 
 	objects["cardObj" + std::to_string(cards.size())]->SetTexture(sheets["cardSheet_" + std::to_string(cards.size())]);
 
-	cards.insert({ card->name, new Card(card->damage, card->name, card->range, "cardObj" + std::to_string(cards.size()), card->animation) });
+	cards.insert({ card->name, new Card(card->damage, card->name, card->range, "cardObj" + std::to_string(cards.size()), card->animation, card->animationLength) });
 	SDL_SetRenderTarget(mRnd, NULL);
 
+	//SDL_Texture* fontTexture = (SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended(mFont, card.name , SDL_Color{ 0,0,0 }));;
 }
 

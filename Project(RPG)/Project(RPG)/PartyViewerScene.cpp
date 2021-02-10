@@ -44,7 +44,7 @@ void PartyViewerScene::Init()
 
 void PartyViewerScene::Load()
 {
-	
+	mLayers[Game].clear();
 	mParty = mgr->GetPlayer()->GetParty();
 	GetCharacterPortraits();
 	GetCharacterStatistics();
@@ -62,7 +62,7 @@ void PartyViewerScene::GetCharacterPortraits()
 	// Get all party memebers from player
 	for (Character* c : mParty)
 	{
-		AddObject(c->GetPortraitName(), offsetX, 180, UI); // Get all of their portrait render objects and add them to the scene
+		AddObject(c->GetPortraitName(), offsetX, 180, Game); // Get all of their portrait render objects and add them to the scene
 		offsetX += 250;							
 	}
 	offsetX = 250;
@@ -107,9 +107,9 @@ void PartyViewerScene::GetCharacterStatistics()
 	}
 }
 
-UIText PartyViewerScene::DrawStat(std::string statName, int stat, SDL_Color textColor, std::pair<int, int> pos)
+UIText* PartyViewerScene::DrawStat(std::string statName, int stat, SDL_Color textColor, std::pair<int, int> pos)
 {
 	std::string statTxt = statName + ": " + std::to_string(stat);
-	return UIText{statTxt, pos,std::make_pair(70,50), textColor};
+	return new UIText{statTxt, pos,std::make_pair(70,50), textColor};
 }
 

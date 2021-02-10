@@ -79,7 +79,6 @@ protected:
 	Statistics mStats;
 	std::string mPortraitName;
 	std::string objectName;
-	RenderObject* object;
 	std::pair<double, double> target;
 
 private:

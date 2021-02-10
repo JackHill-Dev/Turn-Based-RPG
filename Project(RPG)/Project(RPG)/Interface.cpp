@@ -65,3 +65,11 @@ void Interface::SetWindowSize()
 	SDL_SetWindowSize(mWnd, pSettings->w, pSettings->h);
 	SDL_SetWindowPosition(mWnd, SDL_WINDOWPOS_CENTERED_MASK, SDL_WINDOWPOS_CENTERED_MASK);
 }
+
+void Interface::SetFullScreen()
+{
+	if (pSettings->bIsFullScreen)
+		SDL_SetWindowFullscreen(mWnd, SDL_WINDOW_FULLSCREEN); 
+	else
+		SDL_SetWindowFullscreen(mWnd, 0); // Go back to windowed mode
+}
