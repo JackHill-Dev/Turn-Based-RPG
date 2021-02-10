@@ -51,6 +51,11 @@ void OverworldMapScene::LoadNodes()
 	}
 
 	std::copy(uniqueCoords.begin(), uniqueCoords.end(), std::back_inserter(validCoords));
+	//for (auto cord : validCoords)
+	//{
+	//	std::cout << cord.first << " -X\tY: ";
+	//	std::cout << cord.second << std::endl;
+	//}
 
 	for (int rowCount = 0; rowCount < maxRows; ++rowCount)
 	{
@@ -62,7 +67,6 @@ void OverworldMapScene::LoadNodes()
 			newRow.nodes.push_back
 			(new Node(AddObject(assignRandomNodeSprite(rowCount), validCoords[nodeIndex].first,
 							   validCoords[nodeIndex].second, Layer::UI), Scenes::NoSceneYet));
-
 			newRow.nodes[nodeCount]->nodeScene = assignSceneByString(newRow.nodes[nodeCount]->pNodeObject->path);
 			++nodeIndex;
 		}
@@ -242,5 +246,18 @@ Scenes OverworldMapScene::assignSceneByString(std::string& nodeSceneString)
 	{
 		return Scenes::NoSceneYet;
 	}
+}
+
+void OverworldMapScene::MutateNodePos(Node node)
+{
+	float mutator = 25;
+	std::pair<float, float> oldPos = node.pNodeObject->GetPos();
+	oldPos.first += RandomNumberGenerator(-mutator, mutator); // Mutate x
+	if (oldPos.first >= 1280)
+		oldPos.first -= mutator;
+	oldPos.second += RandomNumberGenerator(-mutator, mutator); // Mutate Y
+	if (oldPos.second >= 720)
+		oldPos.second -= mutator;
+	node.pNodeObject->SetPos(oldPos);
 }
 
