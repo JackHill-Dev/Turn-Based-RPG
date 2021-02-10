@@ -118,12 +118,7 @@ bool GameManager::Init()
 	CreateWindow();
 	mInterface.StoreWindow(mWnd);
 	SetUp();
-	
-	
 
-	mPlayer.SetGold(1000);
-
-	//mPlayer.SetupParty({ new Character("mageObj", "portrait"), new Character("mageObj", "portrait"), new Character("mageObj", "portrait") });
 	mPlayer.SetDeck({new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Slash"]) });
 
 	mMainMenuSceneInstance = new MainMenuScene(&mInterface);
