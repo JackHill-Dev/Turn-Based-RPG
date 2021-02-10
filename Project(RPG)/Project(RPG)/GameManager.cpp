@@ -89,7 +89,7 @@ void GameManager::Run()
 
 		//SDL_Delay(16);
 	}
-	Mix_Quit();
+	Mix_CloseAudio(); // Shuts down and cleans up the whole mixer API. Ensures all music and sfx are disposed of. Mix_Quit doesn't necessarily handle everything. - EH
 	SDL_DestroyRenderer(mRnd);
 	SDL_DestroyWindow(mWnd);
 	//TTF_CloseFont(font);
