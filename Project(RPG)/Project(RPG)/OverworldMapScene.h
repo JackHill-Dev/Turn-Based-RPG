@@ -2,6 +2,7 @@
 #include "Character.h"
 #include "Scene.h"
 #include "Actions.h"
+#include <set>
 #include <SDL.h>
 
 struct Node
@@ -16,8 +17,6 @@ struct Row
 {
 	std::vector<Node*> nodes;
 };
-
-	
 
 class OverworldMapScene : public Scene
 {
@@ -55,6 +54,10 @@ private:
 	Mix_Chunk* back_SFX;
 	Mix_Chunk* shop_Entry_SFX;
 
+	SDL_Color RoyalBlue = SDL_Color{ 65, 105, 225 };
+	SDL_Color DarkMagenta = SDL_Color{ 139,0, 139 };
+	SDL_Color Lime = SDL_Color{ 0,255, 0 };
+
 	const int maxRows = 4;
 	const int maxNodes = 3;
 
@@ -63,6 +66,7 @@ protected:
 public:
 
 	OverworldMapScene(Interface* mObjMgr);
+
 	void Init();
 	void Load();
 	void LoadNodes();
@@ -71,7 +75,6 @@ public:
 
 	std::string assignRandomNodeSprite(int num);
 	Scenes assignSceneByString(std::string& nodeSceneString);
-	void MutateNodePos(Node node);
 
 	void OnHover(RenderObject* rObj);
 	void OnLeave(RenderObject* rObj);
