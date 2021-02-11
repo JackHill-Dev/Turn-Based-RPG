@@ -22,6 +22,7 @@ public:
 
     struct Unit
     {
+		ProgressBar healthBar;
 		std::vector<tile*> currentPath;
 		RenderObject* object;
 		RenderObject* profile;

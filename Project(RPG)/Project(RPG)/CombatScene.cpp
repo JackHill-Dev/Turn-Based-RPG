@@ -1,6 +1,13 @@
 #include "CombatScene.h"
 #include <deque>
 
+
+
+
+
+
+const int gridTileLength = 10;
+
 double fightScene = 0;
 RenderObject* endTurn;
 RenderObject* pExit;
@@ -24,7 +31,7 @@ std::pair<Card*, RenderObject*> hoveredCard;
 ProgressBar healthbar;
 struct map
 {
-	tile tiles[10][10];
+	tile tiles[gridTileLength][gridTileLength];
 };
 
 map mapp;
@@ -44,8 +51,6 @@ CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 {
 	combat_music = Mix_LoadMUS("Assets/Combat_Music.wav");
 	slash_sfx = Mix_LoadWAV("Assets/SFX/slash.wav");
-
-
 	fightSceneBg = AddObject("forestFightSceneBg", centre.first, centre.second, UI);
 	fightSceneTeamCharacter = AddObject("maleObj", centre.first - 50, centre.second, UI);
 	fightSceneTeamCharacter->SetAnim("WalkRight");
@@ -56,20 +61,17 @@ CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 	fightSceneTeamCharacter->SetVisible(false);
 	fightSceneEnemyCharacter->SetVisible(false);
 	fightSceneBg->SetVisible(false);
-	//AddObje
-
-
-
-	Mix_Volume(1, 15);
 	endTurn = AddObject("quitBtnObj", centre.first, 20, UI);
 	endTurn->scale = std::make_pair(1, 1);
-	//pExit = AddObject("exitButtonObj", 600, 600, UI);
 	AddObject("forestBGObj", 640, 360, Background);
-	//reload = AddObject("quitBtnObj", 1100, 500, UI);
 
-	for (double i = 0; i < 10; i++)
+
+	
+
+
+	for (double i = 0; i < gridTileLength; i++)
 	{
-		for (double x = 0; x < 10; x++)
+		for (double x = 0; x < gridTileLength; x++)
 		{
 
 			mapp.tiles[(int)i][(int)x].square = (AddObject("tileObj", (i - 4.5)*32 + centre.first, x*32 - 5 *32 + centre.second - 32, Background));
@@ -85,9 +87,9 @@ CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 			}
 		}
 	}
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < gridTileLength; i++)
 	{
-		for (int x = 0; x < 10; x++)
+		for (int x = 0; x < gridTileLength; x++)
 		{
 
 			if (x > 0)
@@ -95,7 +97,7 @@ CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 				mapp.tiles[i][x].down =(&mapp.tiles[i][x - 1]);
 				mapp.tiles[i][x].adjacentTiles.push_back(mapp.tiles[i][x].down);
 			}
-			if (x < 14)
+			if (x < gridTileLength-1)
 			{
 				mapp.tiles[i][x].up =(&mapp.tiles[i][x + 1]);
 				mapp.tiles[i][x].adjacentTiles.push_back(mapp.tiles[i][x].up);
@@ -105,38 +107,16 @@ CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 				mapp.tiles[i][x].left = (&mapp.tiles[i - 1][x]);
 				mapp.tiles[i][x].adjacentTiles.push_back(mapp.tiles[i][x].left);
 			}
-			if (i < 14)
+			if (i < gridTileLength-1)
 			{
 				mapp.tiles[i][x].right = (&mapp.tiles[i + 1][x]);
 				mapp.tiles[i][x].adjacentTiles.push_back(mapp.tiles[i][x].right);
 			}
 
-			
-			
-			
-			
-
-			/*mapp.tiles[i][x].adjacentTiles.push_back(&mapp.tiles[i + 1][x+1]);
-			mapp.tiles[i][x].adjacentTiles.push_back(&mapp.tiles[i - 1][x - 1]);
-			mapp.tiles[i][x].adjacentTiles.push_back(&mapp.tiles[i + 1][x +1 ]);
-			mapp.tiles[i][x].adjacentTiles.push_back(&mapp.tiles[i + 1][x -1]);*/
-
 		}
 	}
-
-
-
-
-	
-
-
 } 
 
-
-void RemoveCard(std::pair<Card*, RenderObject*>* cd)
-{
-
-}
 
 void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 {
@@ -257,8 +237,8 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 							{
 							case(Selection::Ground):
 
-								for (int i = 0; i < 10; i++)
-									for (int x = 0; x < 10; x++)
+								for (int i = 0; i < gridTileLength; i++)
+									for (int x = 0; x < gridTileLength; x++)
 										if (mapp.tiles[i][x].square->InBounds(mouse.first, mouse.second) && &mapp.tiles[i][x] != character->occupiedTile)
 										{
 											auto path = CalculatePath(character->occupiedTile, &mapp.tiles[i][x]);
@@ -459,8 +439,8 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 								break;
 							case(Selection::Ground):
 								bool found = false;
-								for (int i = 0; i < 10; i++)
-									for (int t = 0; t < 10; t++)
+								for (int i = 0; i < gridTileLength; i++)
+									for (int t = 0; t < gridTileLength; t++)
 										if (!found && mapp.tiles[i][t].square->InBounds(mouse.first, mouse.second) )
 										{
 											auto path = CalculatePath(character->occupiedTile, &mapp.tiles[i][t]);
@@ -529,6 +509,13 @@ void CombatScene::Load(std::vector<Character*> enemyTeam)
 	{
 		i->GetStats().strength.first = i->GetStats().strength.second;
 		Unit unit = Unit(i, &mapp.tiles[v][9], AddObject(i->GetObjName(), 0, 0, Game), AddObject("portrait", 250, 125+150*v, UI));
+
+
+		unit.healthBar.SetObjects(AddObject("barBgObj", 250, 125 + 70 + 150 * v, UI), AddObject("barFillObj", 250, 125 + 70 + 150 * v, UI));
+		unit.healthBar.Scale(std::make_pair(0.6, 0.6));
+		unit.healthBar.OnChange((unit.character->GetStats().health.second - unit.character->GetStats().health.first)/ unit.character->GetStats().health.second * 100);
+
+
 		//unit.object->scale = std::make_pair(0.5f, 0.5f);
 		unit.profile->scale = std::make_pair(0.3f, 0.3f);
 		team.push_back(unit);
@@ -539,6 +526,11 @@ void CombatScene::Load(std::vector<Character*> enemyTeam)
 	for(auto i : enemyTeam)
 	{
 		Unit unit = Unit(i, &mapp.tiles[9-v][0], AddObject(i->GetObjName(), 0, 0, Game),AddObject("portrait", 1000, 125+150*v, UI));
+
+
+
+		unit.healthBar.SetObjects(AddObject("barBgObj", 1000, 125 + 70 + 150 * v, UI), AddObject("barFillObj", 1000, 125 + 70 + 150 * v, UI));
+		unit.healthBar.Scale(std::make_pair(0.6, 0.6));
 		unit.profile->scale = std::make_pair(0.3f, 0.3f);
 		enemy.push_back(unit);
 		v++;
@@ -584,6 +576,8 @@ void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  Rende
 		AddObject(card->first->GetEffect().first, centre.first, centre.second, Effects);
 		//PlayFightAnimation();
 		fightScene = card->first->GetEffect().second;
+
+
 
 		if (playerTurn)
 		{
@@ -788,29 +782,36 @@ void CombatScene::RunAi()
 
 
 
-struct pathNode
-{
-	pathNode(tile* node) : node(node)
-	{
-
-	}
-	tile* node;
-	int hcost = 1000;
-	int gcost = 1000;
-	int fcost = 1000;
-	pathNode* prev = nullptr;
-};
-
 
 
 std::vector<tile*> CombatScene::CalculatePath(tile* start, tile* end)
 {
+	struct pathNode
+	{
+		pathNode(tile* node) : node(node)
+		{
+
+		}
+		tile* node;
+		int hcost = 1000;
+		int gcost = 1000;
+		int fcost = 1000;
+		pathNode* prev = nullptr;
+	};
+
 	std::vector<pathNode*> map;
 
 
 
-	for(auto i : mapp.tiles)
-		map.push_back(new pathNode(i));
+
+
+
+
+	for(int i = 0; i < gridTileLength; i++)
+		for (int t = 0; t < gridTileLength; t++)
+			map.push_back(new pathNode(&mapp.tiles[i][t]));
+
+
 
 	std::vector<pathNode*> open;
 	std::vector<pathNode*> closed;
@@ -823,20 +824,23 @@ std::vector<tile*> CombatScene::CalculatePath(tile* start, tile* end)
 	current->hcost = 0;
 	current->gcost = 0;
 	open.push_back(current);
-	while (!open.empty() && !(current->node!= end))
+	while (!open.empty() && !(current->node== end))
 	{
 		open.erase(std::find(open.begin(), open.end(), current));
 		closed.push_back(current);
 
-		for (auto i : current->node->adjacentTiles)
+		for (auto &i : current->node->adjacentTiles)
 		{
 			auto it = std::find_if(closed.begin(), closed.end(), [i](pathNode* nod) {return i == nod->node; });
-			if (it == closed.end() && i->availiable)
+			if (it == closed.end() && (i->availiable || i == end))
 			{
 				it = std::find_if(open.begin(), open.end(), [i](pathNode* nod) {return i == nod->node; });
 				if (it == open.end())
 				{
-					open.push_back(map[std::find_if(map.begin(), map.end(), [i](pathNode* nod) {return i == nod->node; }) - map.begin()]);
+					auto p = std::find_if(map.begin(), map.end(), [i](pathNode* nod) {return i == nod->node; });
+					if (p == map.end())
+						std::cerr << "tile not found";
+					open.push_back(*p);
 					it = open.end() - 1;
 				}
 				auto node = open[it - open.begin()];
@@ -864,6 +868,10 @@ std::vector<tile*> CombatScene::CalculatePath(tile* start, tile* end)
 		path.push_back(current->prev->node);
 		current = current->prev;
 	}
+	std::reverse(path.begin(), path.end());
+	if (!end->availiable)
+		path.erase(path.end() - 1);
+	
 	return path;
 }
 
