@@ -1,6 +1,8 @@
 #pragma once
 #include <SDL.h>
 #include <SDL_mixer.h>
+#include <fstream>;
+#include <istream>
 #include "Globals.h"
 #include "Scene.h"
 #include "Actions.h"
@@ -19,8 +21,8 @@
 #include "Armour.h"
 #include "InventoryScene.h"
 #include "json.hpp"
-#include <fstream>;
-#include <istream>
+#include "OverworldMapScene.h"
+
 
 class GameManager
 {
