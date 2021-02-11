@@ -1,9 +1,4 @@
 #include "OverworldMapScene.h"
-#include "GameManager.h"
-#include <set>
-
-
-
 
 static std::random_device rd;
 static std::mt19937 random_number_engine(rd());
@@ -27,8 +22,6 @@ OverworldMapScene::OverworldMapScene(Interface* mObjMgr) : Scene(mObjMgr)
 
 void OverworldMapScene::LoadNodes()
 {
-
-
 	int maxVals = maxRows * maxNodes;
 	int valCount = 0;
 	int nodeIndex = 0;
@@ -37,7 +30,8 @@ void OverworldMapScene::LoadNodes()
 	std::vector<std::pair<int, int>> validCoords;
 	std::pair<int, int> oldCoords = std::make_pair<int,int>(0,0);
 	
-
+	// Makes use of std::set which prevents duplicate values. Retrieves a random coordinate pair from a lookup table and tries to insert it
+	// If it is successfully added and the size of the set increases, increment the count until there's a pair for every node - EH
 	while (valCount < maxVals)
 	{
 		int oldSetSize = uniqueCoords.size();
@@ -50,13 +44,17 @@ void OverworldMapScene::LoadNodes()
 		}
 	}
 
+	// Copy into a vector so we can access by index - EH
 	std::copy(uniqueCoords.begin(), uniqueCoords.end(), std::back_inserter(validCoords));
-	//for (auto cord : validCoords)
-	//{
-	//	std::cout << cord.first << " -X\tY: ";
-	//	std::cout << cord.second << std::endl;
-	//}
 
+	// For debugging purposes. Keep in for testing to allow all of us to track node positions during testing - EH
+	for (auto cord : validCoords)
+	{
+		std::cout << cord.first << " :X\tY: ";
+		std::cout << cord.second << std::endl;
+	}
+
+	// Generates a group of  x amount of nodes collected into x amount of rows - EH
 	for (int rowCount = 0; rowCount < maxRows; ++rowCount)
 	{
 		Row newRow;
@@ -65,7 +63,7 @@ void OverworldMapScene::LoadNodes()
 		for (int nodeCount = 0; nodeCount < maxNodes; ++nodeCount)
 		{
 			newRow.nodes.push_back
-			(new Node(AddObject(assignRandomNodeSprite(rowCount), validCoords[nodeIndex].first,
+			(new Node(AddObject(assignRandomNodeSprite(rowCount + nodeCount), validCoords[nodeIndex].first,
 							   validCoords[nodeIndex].second, Layer::UI), Scenes::NoSceneYet));
 			newRow.nodes[nodeCount]->nodeScene = assignSceneByString(newRow.nodes[nodeCount]->pNodeObject->path);
 			++nodeIndex;
@@ -79,18 +77,23 @@ void OverworldMapScene::LoadNodes()
 	{
 		for (int rowNode = 0; rowNode < rows[rowNum].nodes.size(); ++rowNode)
 		{
+			// Adjacent Node above - EH
 			if (rowNum > 0)
 			{
 				rows[rowNum].nodes[rowNode]->adjacentTiles.push_back(rows[rowNum-1].nodes[rowNode]);
 			}
+			// Adjacent Node below - EH
 			if (rowNum < rows.size()-1)
 			{
 				rows[rowNum].nodes[rowNode]->adjacentTiles.push_back(rows[rowNum+1].nodes[rowNode]);
 			}
+
+			// Adjacent Node behind - EH
 			if (rowNode > 0)
 			{
 				rows[rowNum].nodes[rowNode]->adjacentTiles.push_back(rows[rowNum].nodes[rowNode-1]);
 			}
+			// Adjacent Node in front - EH
 			if (rowNode < rows[rowNum].nodes.size() - 1)
 			{
 				rows[rowNum].nodes[rowNode]->adjacentTiles.push_back(rows[rowNum].nodes[rowNode + 1]);
@@ -104,13 +107,17 @@ void OverworldMapScene::LoadNodes()
 			mNodes.push_back(rowNode);
 		}
 	}
+
+	// Set current node and the colour for it - EH
 	currentNode = mNodes[0];
-	currentNode->pNodeObject->tint = SDL_Color{ 139,0, 139 };
+	currentNode->pNodeObject->tint = DarkMagenta;
+
+	// Tint ndoes adjacent to current - EH
 	for (auto node : currentNode->adjacentTiles)
 	{
 		if (node != currentNode)
 		{
-			node->pNodeObject->tint = SDL_Color{ 65, 105, 225 };
+			node->pNodeObject->tint = RoyalBlue;
 		}
 	}
 }
@@ -122,27 +129,32 @@ void OverworldMapScene::Init()
 	button_Click_SFX = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
 	shop_Entry_SFX = Mix_LoadWAV("Assets/SFX/DoorOpen.wav");
 }
+
+// Mainly for music transitions, can be used to update any state changes to overworld from scenes transitioning to it - EH
 void OverworldMapScene::Load()
 {
-	currentNode->pNodeObject->tint = SDL_Color{ 139,0, 139 };
+	currentNode->pNodeObject->tint = DarkMagenta;
 
 	if (mgr->GetPreviousScene() != Scenes::SettingsPage)
 	{
 		mgr->FadeInMusic(mBackgroundMus, -1, mgr->fadeTime);
 	}
 }
+
 void OverworldMapScene::OnHover(RenderObject* rObj)
 {
-	rObj->tint = SDL_Color{ 0,255, 0 };
+	rObj->tint = Lime;
 }
+
 void OverworldMapScene::OnLeave(RenderObject* rObj)
 {
 	rObj->Untint();
 }
 
+// Handles mouse events such as hovering and navigation between scenes - EH
 void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePos)
 {
-	currentNode->pNodeObject->tint = SDL_Color{ 139,0, 139 };
+	currentNode->pNodeObject->tint = DarkMagenta;
 	
 	if (act == Act::Click)
 	{
@@ -215,11 +227,12 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 	{
 		if (node != currentNode)
 		{
-			node->pNodeObject->tint = SDL_Color{ 65, 105, 225 };
+			node->pNodeObject->tint = RoyalBlue;
 		}
 	}
 }
 
+// Forces the first four to be different nodes and guarantees the first node is a start node, then it's random from there - EH
 std::string OverworldMapScene::assignRandomNodeSprite(int num)
 {
 	if (num <=3)
@@ -232,6 +245,7 @@ std::string OverworldMapScene::assignRandomNodeSprite(int num)
 	}
 }
 
+// Assigns a scene to the appropriate node based on the spritesheet name - EH
 Scenes OverworldMapScene::assignSceneByString(std::string& nodeSceneString)
 {
 	if (nodeSceneString == "battleNode")
@@ -247,17 +261,3 @@ Scenes OverworldMapScene::assignSceneByString(std::string& nodeSceneString)
 		return Scenes::NoSceneYet;
 	}
 }
-
-void OverworldMapScene::MutateNodePos(Node node)
-{
-	float mutator = 25;
-	std::pair<float, float> oldPos = node.pNodeObject->GetPos();
-	oldPos.first += RandomNumberGenerator(-mutator, mutator); // Mutate x
-	if (oldPos.first >= 1280)
-		oldPos.first -= mutator;
-	oldPos.second += RandomNumberGenerator(-mutator, mutator); // Mutate Y
-	if (oldPos.second >= 720)
-		oldPos.second -= mutator;
-	node.pNodeObject->SetPos(oldPos);
-}
-
