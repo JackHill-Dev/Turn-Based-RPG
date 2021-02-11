@@ -50,7 +50,7 @@ void ClassPickerScene::Load()
 
 void ClassPickerScene::OnHover(RenderObject* rObj)
 {
-	rObj->Tint({ 0, 255, 0 });
+	rObj->Tint(Lime);
 }
 
 void ClassPickerScene::OnLeave(RenderObject* rObj)
@@ -58,6 +58,7 @@ void ClassPickerScene::OnLeave(RenderObject* rObj)
 	rObj->Untint();
 }
 
+// Handles mouse events such as hovering and navigation between scenes. 
 void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
 	if (act == Act::MouseUpdate)
@@ -125,13 +126,15 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 
 			switch (currentState)
 			{
+				// If you want to choose previous character's background - EH
 				case CharacterPickerState::ClassView:
 						if (PartyCount > 0)
 						{
 							--PartyCount;
 
 							if (mCharacterStats.size() != 0)
-							{
+							{	
+								// Revert stat changes stored in mCharacter stats from previous background choice - EH
 								switch (mCharacters[PartyCount]->GetBackground())
 								{
 									case UnitBackground::Villager:
@@ -156,6 +159,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 							}
 							mCharacters.pop_back();
 
+							// Clears gold from previous background choice - EH
 							if (currentPartyGold.size() != 0)
 							{
 								currentPartyGold.pop_back();
@@ -164,12 +168,14 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 
 							SetUpBackgroundView(CharacterPickerState::ClassView);
 						}
+						// If you have picked no characters and want to return to the main menu - EH
 						else
 						{
 							mgr->LoadPreviousScene();
 						}
 					break;
 
+					// Going back to the relevant summary view from a given focus view - EH
 				case CharacterPickerState::WarriorView:
 					SetUpClassView(CharacterPickerState::WarriorView);
 					break;
@@ -237,6 +243,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 			SetUpNobleView(CharacterPickerState::BackgroundView);
 		}
 
+		// Reject button is "BACK" on focus view. Lets you go back to summary view related to given focus view - EH
 		if (pRejectBtn->InBounds(mousePos.first, mousePos.second) && pRejectBtn->IsVisible())
 		{
 			mgr->PlaySFX(back_SFX, 0, 1);
@@ -266,6 +273,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 			}
 		}
 
+		// Handles choice confirmation, adding stats, gold and party members to temp vectors until maxPartySize is reached. Then generates the party, gold stats etc from the confirmed choices - EH
 		if (pYesBtn->InBounds(mousePos.first, mousePos.second) && pYesBtn->IsVisible())
 		{
 			mgr->PlaySFX(confirm_SFX, 0, 1);
@@ -823,13 +831,16 @@ void ClassPickerScene::SetUpNobleView(CharacterPickerState originState)
 	mSceneText.push_back(&mFooterInstruction);
 }
 
+// Sets up the party once party size reaches maxPartySize - EH
 void ClassPickerScene::GeneratePartyFromChoices()
 {
+	// Collects all the gold from choices - EH
 	int partyGold = std::accumulate(currentPartyGold.begin(), currentPartyGold.end(), 0);
 	mgr->GetPlayer()->SetGold(partyGold);
 
 	int statCount = 0;
 
+	// Modifies stats of the correct party member in the characters vector. Stat count is used as an index and is incremented in accordance to how many stats the choice modifies - EH
 	for (int i = 0; i < maxPartySize; ++i)
 	{
 		switch (mCharacters[i]->GetClass())
@@ -864,6 +875,7 @@ void ClassPickerScene::GeneratePartyFromChoices()
 
 		}
 
+		// Modifies stats of the correct party member in the characters vector. Stat count is used as an index and is incremented in accordance to how many stats the choice modifies. Scholar currently doesn't modify stats - EH
 		switch (mCharacters[i]->GetBackground())
 		{
 
@@ -895,6 +907,7 @@ void ClassPickerScene::GeneratePartyFromChoices()
 		}
 	}
 
+	// Assigns the fully modified characters vector to the one stored in the player to be used in-game - EH
 	mgr->GetPlayer()->SetupParty(mCharacters);
 	mgr->LoadScene(Scenes::Overworld);
 }

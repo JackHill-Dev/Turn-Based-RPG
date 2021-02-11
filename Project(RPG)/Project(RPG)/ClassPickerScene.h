@@ -5,6 +5,7 @@
 #include <SDL.h>
 #include <numeric>
 
+// Enum which facilitates the basic FSM(Finite State Machine) pattern -EH
 enum CharacterPickerState
 {
 	ClassView = 0,
@@ -19,6 +20,7 @@ enum CharacterPickerState
 
 class ClassPickerScene : public Scene
 {
+
 private:
 
 	UIText mHeader;
@@ -50,10 +52,13 @@ private:
 	CharacterPickerState currentState;
 	CharacterPickerState previousState;
 
+	SDL_Color Lime = SDL_Color{ 0, 255, 0 };
+
 	bool isFocused = false;
 
 	int PartyCount = 0;
 
+	// Allows these factors to be consistent and easily changed during playtesting and polish phase - EH
 	const std::pair<int, int> mStatBuff = {2, 2};
 	const std::pair<int, int> mStatDebuff = {-1, -1};
 	const int mVillagerGold = 50;
