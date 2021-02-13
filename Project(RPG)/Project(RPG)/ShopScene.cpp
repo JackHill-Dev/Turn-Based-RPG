@@ -44,6 +44,16 @@ void ShopScene::Init()
 	AddObject("merchantPortraitObj", 725, 225, UI);
 	pExitButton = AddObject("exitButtonObj", 620, 600, UI);
 
+
+	UIText defaultText;
+	defaultText.text = "This is default tooltip text";
+	mTooltip = ToolTip(AddObject("defaultItemObj", 640, 650, UI),
+		AddObject("toolTipBgObj", 640, 650, UI), defaultText, std::make_pair(640, 600));
+	mTooltip.mDescription.scale = { 140, 100 };
+	mTooltip.mDescription.bWrapped = true;
+
+
+
 	GenerateGrids();
 	
 }
@@ -67,7 +77,7 @@ void ShopScene::Load()
 	
 	mSceneText.push_back(&mPlayerGoldText);
 	mSceneText.push_back(& mShopGoldText);
-
+	mSceneText.push_back(&mTooltip.mDescription);
 
 	mgr->FadeInMusic(bg_Music, -1, mgr->fadeTime);
 	mLayers[Game].clear();
@@ -101,18 +111,25 @@ void ShopScene::SetupShopInv()
 
 void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int> mousePos)
 {
-
-	for (Item* i : inv.GetContents())
+	//Item* current = nullptr;
+	// check if mouse is hovering over it
+	if (act == Act::MouseUpdate)
 	{
-		// check if mouse is hovering over it
-		if (act == Act::MouseUpdate )
+		for (auto i : inv.GetContents())
 		{
 			if (i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
-				i->OnHover();
+				current = i;
 			else
+			{
 				i->OnLeave();
-
+			}
 		}
+		
+	}
+	HandleTooltip();
+	for (Item* i : inv.GetContents())
+	{
+		
 		
 		if (act == Act::RClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
@@ -134,18 +151,31 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 
 void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, int> mousePos)
 {
+	//Item* current = nullptr; 
+	if (act == Act::MouseUpdate)
+	{
+		for (Item* i : inv.GetContents())
+		{
+			if (i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
+			{
+				current = &i;
+			}
+			else
+			{
+				i->OnLeave();
+			}
+			
+		}
+
+	}
+
+	HandleTooltip();
+
 	// for each item in player's inventory on screen
 	for (Item* i : inv.GetContents())
 	{
 		// check if mouse is hovering over it
-		if (act == Act::MouseUpdate)
-		{
-			if (i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
-				i->OnHover();
-			else
-				i->OnLeave();
-			
-		}
+		
 		
 		if (act == Act::RClick && i->GetRenderObject()->InBounds(mousePos.first, mousePos.second))
 		{
@@ -194,6 +224,24 @@ void ShopScene::DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY
 		}
 		AddObject("itemFrameObj", offsetX, offsetY, Background);
 		offsetX += 90;
+	}
+}
+
+void ShopScene::HandleTooltip()
+{
+	if (current != nullptr)
+	{
+		current->OnHover();
+		mTooltip.pItemImage->SetTexture(current->GetRenderObject()->GetSheet());
+		mTooltip.mDescription.text = current->GetDescription();
+
+		mTooltip.Show();
+	}
+	else
+	{
+		mTooltip.Hide();
+
+		//current = nullptr;
 	}
 }
 
