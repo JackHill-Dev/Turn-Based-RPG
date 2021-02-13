@@ -8,14 +8,7 @@
 #include "Armour.h"
 #include "Consumable.h"
 
-struct ItemObjects
-{
-	Item* _item;
-	RenderObject* obj;
 
-	ItemObjects() {}
-	ItemObjects(Item* i, RenderObject* r) : _item(i), obj(r) {}
-};
 
 class ShopScene :
     public Scene
@@ -35,7 +28,7 @@ private:
 	void ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, int> mousePos);
 	void GenerateGrids();
 	void DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY);
-	void HandleTooltip(ItemObjects* hovered);
+	void HandleTooltip(ItemObject* hovered);
 
 	Shop mShop;
 	UIText mPlayerGoldText;
@@ -47,13 +40,15 @@ private:
 	RenderObject* pExitButton;
 	ToolTip mTooltip;
 	ToolTip playerToolTip;
-	ItemObjects* playerItemHovered;
-	ItemObjects* shopItemHovered;
+	ItemObject* playerItemHovered;
+	ItemObject* shopItemHovered;
 	bool startOnce = false;
 
 	//Temp
 	int RandomRange(int min, int max);	
-	std::vector<ItemObjects> playerInv;
-	std::vector<ItemObjects> shopInv;
+	std::vector<ItemObject> playerInv;
+	std::vector<ItemObject> shopInv;
+
+	
 };
 

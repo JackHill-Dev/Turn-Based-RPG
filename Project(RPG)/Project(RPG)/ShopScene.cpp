@@ -33,14 +33,14 @@ void ShopScene::PlaceItems(Inventory& inv)
 	for (auto i : mgr->GetPlayer()->GetInventory().GetContents())
 	{
 		// Display item to screen and set its render object to the correct image
-		playerInv.push_back(ItemObjects(i, AddObject(i->GetObjName(), i->inventoryPos.pos.first, i->inventoryPos.pos.second, Game)));
+		playerInv.push_back(ItemObject(i, AddObject(i->GetObjName(), i->inventoryPos.pos.first, i->inventoryPos.pos.second, Game)));
 		
 	}
 
 	for (auto i : mShop.GetInventory().GetContents())
 	{
 		// Display item to screen and set its render object to the correct image
-		shopInv.push_back(ItemObjects(i, AddObject(i->GetObjName(), i->inventoryPos.pos.first, i->inventoryPos.pos.second, Game)));
+		shopInv.push_back(ItemObject(i, AddObject(i->GetObjName(), i->inventoryPos.pos.first, i->inventoryPos.pos.second, Game)));
 
 	}
 }
@@ -158,7 +158,7 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 		//HandleTooltip(shopItemHovered);
 	}
 	
-	for (ItemObjects i : shopInv)
+	for (ItemObject i : shopInv)
 	{
 		
 		
@@ -168,7 +168,7 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 			{
 				mShop.BuyItem(i._item);
 				playerInv.push_back(i);
-				shopInv.erase(std::remove_if(shopInv.begin(), shopInv.end(), [&i](ItemObjects item_) {return item_._item == i._item; }));
+				shopInv.erase(std::remove_if(shopInv.begin(), shopInv.end(), [&i](ItemObject item_) {return item_._item == i._item; }));
 				mgr->GetPlayer()->SetGold(-i._item->GetCost());	// Remove cost of item from player's gold
 				mgr->GetPlayer()->GetInventory().AddItem(i._item);// Add bought item to player's inventory
 				mgr->PlaySFX(buySell_SFX, 0, 1);
@@ -214,7 +214,7 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 	
 
 	// for each item in player's inventory on screen
-	for (ItemObjects i : playerInv)
+	for (ItemObject i : playerInv)
 	{
 		// check if mouse is hovering over it
 		
@@ -225,7 +225,7 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 			{
 				mgr->GetPlayer()->SellItem(i._item);	 // Remove item from player's inventory and add to its gold
 				shopInv.push_back(i);
-				playerInv.erase(std::remove_if(playerInv.begin(), playerInv.end(), [&i](ItemObjects nI) { return nI._item == i._item; })); // remove from local container as well
+				playerInv.erase(std::remove_if(playerInv.begin(), playerInv.end(), [&i](ItemObject nI) { return nI._item == i._item; })); // remove from local container as well
 				mShop.SetGold(-i._item->GetCost());	 // Remove cost of sold item from shop gold
 				mShop.GetInventory().AddItem(i._item); // Add sold item to shop inventory
 				mgr->PlaySFX(buySell_SFX, 0, 1); // Play buy sfx on channel 1 and don't loop
@@ -271,7 +271,7 @@ void ShopScene::DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY
 	}
 }
 
-void ShopScene::HandleTooltip(ItemObjects* hovered)
+void ShopScene::HandleTooltip(ItemObject* hovered)
 {
 	if (hovered != nullptr)
 	{

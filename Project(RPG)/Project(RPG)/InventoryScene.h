@@ -1,15 +1,6 @@
 #pragma once
 #include "Scene.h"
 
-struct ItemObject
-{
-	Item* _item;
-	RenderObject* obj;
-
-	ItemObject() {}
-	ItemObject(Item* i, RenderObject* r) : _item(i), obj(r) {}
-};
-
 class InventoryScene :
     public Scene
 {
