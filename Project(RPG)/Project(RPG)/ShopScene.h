@@ -35,7 +35,7 @@ private:
 	void ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, int> mousePos);
 	void GenerateGrids();
 	void DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY);
-	void HandleTooltip();
+	void HandleTooltip(ItemObjects* hovered);
 
 	Shop mShop;
 	UIText mPlayerGoldText;
@@ -46,7 +46,9 @@ private:
 	Mix_Chunk* leave_SFX;
 	RenderObject* pExitButton;
 	ToolTip mTooltip;
-	Item* current = nullptr;
+	ToolTip playerToolTip;
+	ItemObjects* playerItemHovered;
+	ItemObjects* shopItemHovered;
 	bool startOnce = false;
 
 	//Temp
