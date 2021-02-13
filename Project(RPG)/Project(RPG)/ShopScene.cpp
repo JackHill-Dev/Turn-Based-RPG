@@ -13,6 +13,30 @@ ShopScene::ShopScene(Interface* rng) : Scene(rng)
 	Init();
 }
 
+ShopScene::~ShopScene()
+{
+	bg_Music = nullptr;
+	delete bg_Music;
+
+	buySell_SFX = nullptr;
+	delete buySell_SFX;
+
+	button_Click_SFX = nullptr;
+	delete button_Click_SFX;
+
+	leave_SFX = nullptr;
+	delete leave_SFX;
+
+	pExitButton = nullptr;
+	delete pExitButton;
+
+	playerItemHovered = nullptr;
+	delete playerItemHovered;
+
+	shopItemHovered = nullptr;
+	delete shopItemHovered;
+}
+
 void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
 

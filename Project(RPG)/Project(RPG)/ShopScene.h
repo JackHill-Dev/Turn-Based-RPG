@@ -15,6 +15,7 @@ class ShopScene :
 {
 public:
 	ShopScene(Interface* rng);
+	~ShopScene();
 	void Init();
 	void Load();
 protected:

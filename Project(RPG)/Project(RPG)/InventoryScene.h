@@ -6,6 +6,7 @@ class InventoryScene :
 {
 public:
 	InventoryScene(Interface* mgr);
+	~InventoryScene();
 	void Load();
 protected:
 	void Update(double dTime, Act act, std::pair<int, int> mousePos) override;
@@ -22,9 +23,6 @@ private:
 	std::vector<RenderObject*> playerInvGrid;
 	std::vector<ItemObject> itemObjects;
 	std::vector<Character*> mParty;
-	// temp
-	RenderObject* hoveredObject = nullptr;
-	RenderObject temp;
-	bool bSetPos = false;
+
 };
 
