@@ -15,6 +15,7 @@ WinLoseStateScene::WinLoseStateScene(Interface* mObjMgr) : Scene(mgr)
 
 	Victory_Sfx = Mix_LoadWAV("Assets/SFX/VictorySfx.wav");
 	Button_Sfx = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
+
 }
 
 void WinLoseStateScene::Init()
@@ -33,14 +34,25 @@ void WinLoseStateScene::Load()
 		names.push_back(member->GetClassName(member->GetClass()));
 	}
 
+	pCharacters.clear();
+
 	pLeftSprite = AddObject(party[0]->GetObjName(), 320, 360, UI);
 	pLeftSprite->SetScale(std::make_pair(2, 2));
+	firstCharacter->pCharacter = party[0];
+	firstCharacter->rObj = pLeftSprite;
+	pCharacters.push_back(firstCharacter);
 
 	pCentreSprite = AddObject(party[1]->GetObjName(), 640, 360, UI);
 	pCentreSprite->SetScale(std::make_pair(2, 2));
+	SecondCharacter->pCharacter = party[1];
+	SecondCharacter->rObj = pCentreSprite;
+	pCharacters.push_back(SecondCharacter);
 
 	pRightSprite = AddObject(party[2]->GetObjName(), 960, 360, UI);
 	pRightSprite->SetScale(std::make_pair(2, 2));
+	ThirdCharacter->pCharacter = party[2];
+	ThirdCharacter->rObj = pRightSprite;
+	pCharacters.push_back(ThirdCharacter);
 
 	if (std::any_of(party.begin(), party.end(), [party](Character* pCharacter) 
 		{
@@ -99,36 +111,28 @@ void WinLoseStateScene::OnLeave(RenderObject* rObj)
 	rObj->Untint();
 }
 
-void WinLoseStateScene::AddExperience()
-{
-}
-
 void WinLoseStateScene::SetUpWinState()
 {
-	std::vector<Character*> party = mgr->GetPlayer()->GetParty();
-	int dividedXp = mgr->GetPlayer()->GetXpPool() / party.size();
+	int dividedXp = mgr->GetPlayer()->GetXpPool() / pCharacters.size();
 
-	for (auto member : party)
+	for (auto character : pCharacters)
 	{
-		member->modStat(member->GetStats().experience, {dividedXp, 0});
+		character->pCharacter->modStat(character->pCharacter->GetStats().experience, {dividedXp, 0});
+
+		if (character->pCharacter->GetStats().experience.second <= character->pCharacter->GetStats().experience.first)
+		{
+			character->rObj->tint = Gold;
+			character->pCharacter->hasLevelled = true;
+		}
+
+		if (character->pCharacter->GetDeadStatus() == true && character->pCharacter->hasLevelled != false)
+		{
+			character->rObj->tint = DimGray;
+		}
+
 	}
 
 	mgr->GetPlayer()->ClearXpPool();
-
-	if (party[0]->GetDeadStatus() == true)
-	{
-		pLeftSprite->tint = DimGray;
-	}
-
-	if (party[1]->GetDeadStatus() == true)
-	{
-		pCentreSprite->tint = DimGray;
-	}
-
-	if (party[2]->GetDeadStatus() == true)
-	{
-		pLeftSprite->tint = DimGray;
-	}
 
 	pMenuButton->SetVisible(false);
 	pQuitButton->SetVisible(false);
@@ -219,3 +223,9 @@ void WinLoseStateScene::SetUpLoseState()
 	mSceneText.push_back(&mFooterInstruction);
 
 }
+
+void WinLoseStateScene::SetUpLevelUpState(PlayerCharacter* pc)
+{
+}
+
+

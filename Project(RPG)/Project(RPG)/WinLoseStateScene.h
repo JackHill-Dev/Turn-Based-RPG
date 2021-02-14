@@ -5,6 +5,12 @@
 #include <SDL.h>
 
 
+struct PlayerCharacter
+{
+	RenderObject* rObj;
+	Character* pCharacter;
+};
+
 class WinLoseStateScene : public Scene
 {
 private:
@@ -40,6 +46,7 @@ private:
 	SDL_Color DimGray = SDL_Color{ 105,105,105 };
 
 	std::vector<std::string> names;
+	std::vector<PlayerCharacter*> pCharacters;
 	
 
 
@@ -57,7 +64,6 @@ public:
 	void OnHover(RenderObject* rObj);
 	void OnLeave(RenderObject* rObj);
 
-	void AddExperience();
 	void SetUpWinState();
 	void SetUpLoseState();
 
