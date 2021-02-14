@@ -101,6 +101,8 @@ void GameManager::LoadScene()
 		case Scenes::Party:  partyViewerInstance->Load(); break;
 		case Scenes::SettingsPage: mSettingsSceneInstance->Load(); break;
 		case Scenes::InventoryScreen : mInventorySceneInstance->Load(); break;
+		case Scenes::WinLoseStateScreen: mWinLoseStateSceneInstance->Load(); break;
+		default: std::cout << "Error loading scene!" << std::endl;
 	}
 
 
@@ -144,6 +146,9 @@ bool GameManager::Init()
 
 	mInventorySceneInstance = new InventoryScene(&mInterface);
 	scenes.push_back(mInventorySceneInstance); // 7
+
+	mWinLoseStateSceneInstance = new WinLoseStateScene(&mInterface);
+	scenes.push_back(mWinLoseStateSceneInstance); // 9
 
 	currentScene->Clear(mRnd);
 	currentScene = scenes[0];

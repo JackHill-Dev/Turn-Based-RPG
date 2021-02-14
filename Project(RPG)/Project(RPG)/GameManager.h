@@ -22,6 +22,7 @@
 #include "InventoryScene.h"
 #include "json.hpp"
 #include "OverworldMapScene.h"
+#include "WinLoseStateScene.h"
 
 
 class GameManager
@@ -37,6 +38,7 @@ private:
 	OverworldMapScene* mOverworldInstance;
 	SettingsScene* mSettingsSceneInstance;
 	ClassPickerScene* mClassPickerInstance;
+	WinLoseStateScene* mWinLoseStateSceneInstance;
 
 	bool bRunning= true;
 	Scenes mCScene = Scenes::MainMenu;

@@ -36,6 +36,7 @@ enum Scenes
 	SettingsPage = 5,
 	ClassPicker = 6,
 	InventoryScreen = 7,
+	WinLoseStateScreen = 9,
 	NoSceneYet = 10 
 };
 
