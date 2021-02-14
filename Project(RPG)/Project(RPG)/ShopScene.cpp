@@ -127,21 +127,24 @@ void ShopScene::Load()
 
 void ShopScene::SetupShopInv()
 {
+	std::vector<std::string> weaponStrings{"dagger", "shortSword", "longSword" };
+	std::vector<std::string> ArmourStrings{"clothArmour", "leatherArmour", "chainArmour" };
 	for (int f = 0; f < 20; ++f)
 	{
 
 		int i = RandomRange(0, 99);
+		int j = RandomRange(0, 2);
 		if (i >= 0 && i <= 24)
 		{
-			mShop.GetInventory().AddItem(new Weapon("Sword", 50));
+			mShop.GetInventory().AddItem(mgr->RequestItem(weaponStrings[RandomRange(0,2)]));
 		}
 		else if (i > 24 && i <= 49)
 		{
-			mShop.GetInventory().AddItem(new Armour("Armor", 150));
+			mShop.GetInventory().AddItem(mgr->RequestItem(ArmourStrings[j]));
 		}
 		else
 		{
-			mShop.GetInventory().AddItem(new Consumable("Potion", 25));
+			mShop.GetInventory().AddItem(mgr->RequestItem("healthPotion"));
 		}
 	}
 

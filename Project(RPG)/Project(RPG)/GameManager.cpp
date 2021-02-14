@@ -242,8 +242,8 @@ bool GameManager::SetUp()
 		if (objects[i.first]->GetSheet()->fillScreen)
 		{
 
-			float xDif = 1+ (1280 - objects[i.first]->GetSheet()->GetCellSize().first)/ objects[i.first]->GetSheet()->GetCellSize().first;
-			float yDif = 1 + (720 - objects[i.first]->GetSheet()->GetCellSize().second) / objects[i.first]->GetSheet()->GetCellSize().second;
+			float xDif = 1+ (mSettings.w - objects[i.first]->GetSheet()->GetCellSize().first)/ objects[i.first]->GetSheet()->GetCellSize().first;
+			float yDif = 1 + (mSettings.h - objects[i.first]->GetSheet()->GetCellSize().second) / objects[i.first]->GetSheet()->GetCellSize().second;
 			objects[i.first]->SetScale(std::make_pair(xDif,yDif));
 		}
 		//objects[i.first]->Init(mgrs);
@@ -253,6 +253,12 @@ bool GameManager::SetUp()
 	{
 		CreateCard(&i.second);
 	}
+
+	for (auto i : definedItems)
+	{
+		mItems[i.first] = i.second;
+	}
+
 	return true;
 }
 
