@@ -6,21 +6,126 @@
 
 
 
+const int gridTileLength = 10;
 
+double fightScene = 0;
+RenderObject* endTurn;
+RenderObject* pExit;
+bool playerTurn = false; // Is it the players turn
+std::deque<RenderObject*> hovered;
+typedef CombatScene::tile tile;
+typedef CombatScene::Unit Unit;
+Unit* character = nullptr;
+Unit* target;
+std::pair<Card*, RenderObject*>* selectedCard = nullptr;
+std::deque <Unit> team{};
+std::deque <Unit> enemy{};
+std::vector<std::pair<Card*, RenderObject*>> playerhand;
+std::vector<std::pair<Card*, RenderObject*>> enemyHand;
+Mix_Music* combat_music;
+Mix_Chunk* slash_sfx;
+RenderObject* fightSceneTeamCharacter;
+RenderObject* fightSceneEnemyCharacter;
+RenderObject* fightSceneBg;
+std::pair<Card*, RenderObject*> hoveredCard;
+ProgressBar healthbar;
+struct map
+{
+	tile tiles[gridTileLength][gridTileLength];
+};
 
+map mapp;
+
+std::vector<Card*> deck;
+
+std::pair<double, double> centre = { 640,360 };
+enum Selection{Team,Enemy,Ground, UICard, Any};
+Selection current = Any;
+
+void CloseCombatScene()
+{
+
+}
 
 CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 {
+	combat_music = Mix_LoadMUS("Assets/Combat_Music.wav");
+	slash_sfx = Mix_LoadWAV("Assets/SFX/slash.wav");
+	fightSceneBg = AddObject("forestFightSceneBg", centre.first, centre.second, UI);
+	fightSceneTeamCharacter = AddObject("maleObj", centre.first - 50, centre.second, UI);
+	fightSceneTeamCharacter->SetAnim("WalkRight");
+	fightSceneEnemyCharacter = AddObject("maleObj", centre.first + 50, centre.second, UI);
+	fightSceneEnemyCharacter->SetAnim("WalkLeft");
+	fightSceneTeamCharacter->scale = std::make_pair(3, 3);
+	fightSceneEnemyCharacter->scale = std::make_pair(3, 3);
+	fightSceneTeamCharacter->SetVisible(false);
+	fightSceneEnemyCharacter->SetVisible(false);
+	fightSceneBg->SetVisible(false);
+	endTurn = AddObject("quitBtnObj", centre.first, 20, UI);
+	endTurn->scale = std::make_pair(1, 1);
+	AddObject("forestBGObj", 640, 360, Background);
+
+
 	
+
+
+	for (double i = 0; i < gridTileLength; i++)
+	{
+		for (double x = 0; x < gridTileLength; x++)
+		{
+
+			mapp.tiles[(int)i][(int)x].square = (AddObject("tileObj", (i - 4.5)*32 + centre.first, x*32 - 5 *32 + centre.second - 32, Background));
+			mapp.tiles[(int)i][(int)x].pos = std::make_pair((i  - 4.5) * 32 + centre.first, x * 32 - 5 * 32 + centre.second - 32);
+			mapp.tiles[(int)i][(int)x].square->SetAnim("Grass");
+
+
+			if (std::rand() % 10 == 4)
+			{
+				auto tree = AddObject("TreeObj", mapp.tiles[(int)i][(int)x].pos.first, mapp.tiles[(int)i][(int)x].pos.second, Game);
+				mapp.tiles[(int)i][(int)x].availiable = false;
+				tree->SetScale(std::make_pair(0.25f, 0.25f));
+			}
+		}
+	}
+	for (int i = 0; i < gridTileLength; i++)
+	{
+		for (int x = 0; x < gridTileLength; x++)
+		{
+
+			if (x > 0)
+			{
+				mapp.tiles[i][x].down =(&mapp.tiles[i][x - 1]);
+				mapp.tiles[i][x].adjacentTiles.push_back(mapp.tiles[i][x].down);
+			}
+			if (x < gridTileLength-1)
+			{
+				mapp.tiles[i][x].up =(&mapp.tiles[i][x + 1]);
+				mapp.tiles[i][x].adjacentTiles.push_back(mapp.tiles[i][x].up);
+			}
+			if (i > 0)
+			{
+				mapp.tiles[i][x].left = (&mapp.tiles[i - 1][x]);
+				mapp.tiles[i][x].adjacentTiles.push_back(mapp.tiles[i][x].left);
+			}
+			if (i < gridTileLength-1)
+			{
+				mapp.tiles[i][x].right = (&mapp.tiles[i + 1][x]);
+				mapp.tiles[i][x].adjacentTiles.push_back(mapp.tiles[i][x].right);
+			}
+
+		}
+	}
 } 
+
 
 void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 {
    
 	if (fightScene <= 0)
 	{
-	
-		
+		fightSceneEnemyCharacter->SetVisible(false);
+		fightSceneTeamCharacter->SetVisible(false);
+		fightSceneBg->SetVisible(false);
 
 
 		for (auto e : mLayers[Effects])
@@ -134,9 +239,9 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 
 								for (int i = 0; i < gridTileLength; i++)
 									for (int x = 0; x < gridTileLength; x++)
-										if (mapp[i][x].square->InBounds(mouse.first, mouse.second) && &mapp[i][x] != character->occupiedTile)
+										if (mapp.tiles[i][x].square->InBounds(mouse.first, mouse.second) && &mapp.tiles[i][x] != character->occupiedTile)
 										{
-											auto path = CalculatePath(character->occupiedTile, &mapp[i][x]);
+											auto path = CalculatePath(character->occupiedTile, &mapp.tiles[i][x]);
 											int distance = path.size();
 											if (distance <= character->character->GetStats().movement.first)
 											{
@@ -336,9 +441,9 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 								bool found = false;
 								for (int i = 0; i < gridTileLength; i++)
 									for (int t = 0; t < gridTileLength; t++)
-										if (!found && mapp[i][t].square->InBounds(mouse.first, mouse.second) )
+										if (!found && mapp.tiles[i][t].square->InBounds(mouse.first, mouse.second) )
 										{
-											auto path = CalculatePath(character->occupiedTile, &mapp[i][t]);
+											auto path = CalculatePath(character->occupiedTile, &mapp.tiles[i][t]);
 											int distance = path.size();
 											
 
@@ -393,91 +498,17 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 
 }
 
-void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
+void CombatScene::Load(std::vector<Character*> enemyTeam)
 {
 	playerTurn = false;
 	mgr->PlayMusic(combat_music, -1);
 	int v = 0;
-	enemyHand.clear();
-	playerhand.clear();
-	enemy.clear(); team.clear();
-	for (auto &layer : mLayers)
-	{
-		for (auto obj : layer)
-			delete obj;
-		layer.clear();
-	}
 
-	srand(seed);
-
-
-
-
-	combat_music = Mix_LoadMUS("Assets/Combat_Music.wav");
-	slash_sfx = Mix_LoadWAV("Assets/SFX/slash.wav");
-	endTurn = AddObject("quitBtnObj", centre.first, 20, UI);
-	endTurn->scale = std::make_pair(1, 1);
-	AddObject("forestBGObj", 640, 360, Background);
-
-
-
-
-
-	for (double i = 0; i < gridTileLength; i++)
-	{
-		for (double x = 0; x < gridTileLength; x++)
-		{
-
-			mapp[(int)i][(int)x].square = (AddObject("tileObj", (i - 4.5) * 32 + centre.first, x * 32 - 5 * 32 + centre.second - 32, Background));
-			mapp[(int)i][(int)x].pos = std::make_pair((i - 4.5) * 32 + centre.first, x * 32 - 5 * 32 + centre.second - 32);
-			mapp[(int)i][(int)x].square->SetAnim("Grass");
-
-
-			if (std::rand() % 10 == 4)
-			{
-				auto tree = AddObject("TreeObj", mapp[(int)i][(int)x].pos.first, mapp[(int)i][(int)x].pos.second, Game);
-				mapp[(int)i][(int)x].availiable = false;
-				tree->SetScale(std::make_pair(0.25f, 0.25f));
-			}
-		}
-	}
-	for (int i = 0; i < gridTileLength; i++)
-	{
-		for (int x = 0; x < gridTileLength; x++)
-		{
-
-			if (x > 0)
-			{
-				mapp[i][x].down = (&mapp[i][x - 1]);
-				mapp[i][x].adjacentTiles.push_back(mapp[i][x].down);
-			}
-			if (x < gridTileLength - 1)
-			{
-				mapp[i][x].up = (&mapp[i][x + 1]);
-				mapp[i][x].adjacentTiles.push_back(mapp[i][x].up);
-			}
-			if (i > 0)
-			{
-				mapp[i][x].left = (&mapp[i - 1][x]);
-				mapp[i][x].adjacentTiles.push_back(mapp[i][x].left);
-			}
-			if (i < gridTileLength - 1)
-			{
-				mapp[i][x].right = (&mapp[i + 1][x]);
-				mapp[i][x].adjacentTiles.push_back(mapp[i][x].right);
-			}
-
-		}
-	}
-
-
-
-
-	
+	// TO-DO: Seems to be a bug here - Doesn't actually contain the range when stepping through and counts double party size for some reason - EH
 	for (auto i : mgr->GetPlayer()->GetParty())
 	{
 		i->GetStats().strength.first = i->GetStats().strength.second;
-		Unit unit = Unit(i, &mapp[v][9], AddObject(i->GetObjName(), 0, 0, Game), AddObject("portrait", 250, 125+150*v, UI));
+		Unit unit = Unit(i, &mapp.tiles[v][9], AddObject(i->GetObjName(), 0, 0, Game), AddObject("portrait", 250, 125+150*v, UI));
 
 
 		unit.healthBar.SetObjects(AddObject("barBgObj", 250, 125 + 70 + 150 * v, UI), AddObject("barFillObj", 250, 125 + 70 + 150 * v, UI));
@@ -494,7 +525,7 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 
 	for(auto i : enemyTeam)
 	{
-		Unit unit = Unit(i, &mapp[9-v][0], AddObject(i->GetObjName(), 0, 0, Game),AddObject("portrait", 1000, 125+150*v, UI));
+		Unit unit = Unit(i, &mapp.tiles[9-v][0], AddObject(i->GetObjName(), 0, 0, Game),AddObject("portrait", 1000, 125+150*v, UI));
 
 
 
@@ -512,7 +543,7 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 	//}
 	for (int i = 0; i < 5; i++)
 	{
-		enemyHand.push_back(std::make_pair(new Card(5, "Slash", 1, "cardObj", "swordSlashEffectObj", 0.5, 5,0,0), nullptr));
+		enemyHand.push_back(std::make_pair(new Card(5, "Slash", 1, "cardObj", "swordSlashEffectObj", 0.5), nullptr));
 		
 	}
 	
@@ -534,7 +565,7 @@ void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  Rende
 	target->object->Untint();
 	caster->object->Untint();
 	if (dist <= card->first->Values().range && 
-		stats->strength.first >= card->first->Values().stamCost)
+		stats->strength.first >= card->first->Values().stamCost && stats->intelligence.first >= card->first->Values().intCost && stats->agility.first >= card->first->Values().agilCost)
 	{
 		mgr->PlaySFX(slash_sfx,0, 1);
 		card->first->Cast(caster->character, target->character);
@@ -615,6 +646,9 @@ void CombatScene::RemoveUnit(Unit* unit)
 	
 	//delete unit.character;
 }
+
+
+
 void CombatScene::RunAi()
 {
 
@@ -746,7 +780,11 @@ void CombatScene::RunAi()
 		
 }
 
-std::vector<CombatScene::tile*> CombatScene::CalculatePath(tile* start, tile* end)
+
+
+
+
+std::vector<tile*> CombatScene::CalculatePath(tile* start, tile* end)
 {
 	struct pathNode
 	{
@@ -771,7 +809,7 @@ std::vector<CombatScene::tile*> CombatScene::CalculatePath(tile* start, tile* en
 
 	for(int i = 0; i < gridTileLength; i++)
 		for (int t = 0; t < gridTileLength; t++)
-			map.push_back(new pathNode(&mapp[i][t]));
+			map.push_back(new pathNode(&mapp.tiles[i][t]));
 
 
 

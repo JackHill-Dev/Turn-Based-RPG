@@ -2,7 +2,7 @@
 
 
 
-Interface::Interface(int* seed,bool* brunning, std::map<std::string, RenderObject*>* objP, Scenes* currentScene, std::vector<Character*>* currentEnemies, Player* player, Settings* settings) : seed(seed),objects(objP), currentScene(currentScene), running(brunning), currentEnemies(currentEnemies), pPlayer(player), pSettings(settings)
+Interface::Interface(bool* brunning, std::map<std::string, RenderObject*>* objP, Scenes* currentScene, std::vector<Character*>* currentEnemies, Player* player, Settings* settings) : objects(objP), currentScene(currentScene), running(brunning), currentEnemies(currentEnemies), pPlayer(player), pSettings(settings)
 {
 
 	//this is the constructor where we pass in pointers to the required objects of which we need to alter/retrieve data from

@@ -110,7 +110,7 @@ public:
 		}
 		
     };
-	void Load(std::vector<Character*> enemyTeam, int seed);
+	void Load(std::vector<Character*> enemy);
     CombatScene(Interface* objmg);
     void Update(double dTime, Act act,std::pair<int, int> mouse) override;
 private:
@@ -124,37 +124,5 @@ private:
 	std::vector<tile*> CalculatePath(tile* start, tile* end);
 	void RemoveCard(std::pair<Card*, RenderObject*>* cd);;
 	double GetDistance(tile* start, tile* end) { return std::abs(std::sqrt(std::pow(end->pos.first - start->pos.first, 2) + std::pow(end->pos.second - start->pos.second, 2)))/32; }
-	const int gridTileLength = 10;
-
-	double fightScene = 0;
-	RenderObject* endTurn;
-	RenderObject* pExit;
-	bool playerTurn = false; // Is it the players turn
-	std::deque<RenderObject*> hovered;
-	typedef CombatScene::tile tile;
-	typedef CombatScene::Unit Unit;
-	Unit* character = nullptr;
-	Unit* target;
-	std::pair<Card*, RenderObject*>* selectedCard = nullptr;
-	std::deque <Unit> team{};
-	std::deque <Unit> enemy{};
-	std::vector<std::pair<Card*, RenderObject*>> playerhand;
-	std::vector<std::pair<Card*, RenderObject*>> enemyHand;
-	Mix_Music* combat_music;
-	Mix_Chunk* slash_sfx;
-	RenderObject* fightSceneTeamCharacter;
-	RenderObject* fightSceneEnemyCharacter;
-	RenderObject* fightSceneBg;
-	std::pair<Card*, RenderObject*> hoveredCard;
-	ProgressBar healthbar;
-
-
-
-	std::vector<Card*> deck;
-
-	std::pair<double, double> centre = { 640,360 };
-	enum Selection { Team, Enemy, Ground, UICard, Any };
-	Selection current = Any;
-	tile mapp[10][10]; 
 };
 

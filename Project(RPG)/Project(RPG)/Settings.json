@@ -3,8 +3,8 @@
   "master-volume": 64
  },
  "Display": {
-  "Height": 1080,
-  "Width": 1920,
+  "Height": 720,
+  "Width": 1270,
   "fullscreen": false
  }
 }

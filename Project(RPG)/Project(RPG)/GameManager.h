@@ -22,13 +22,13 @@
 #include "InventoryScene.h"
 #include "json.hpp"
 #include "OverworldMapScene.h"
-#include "BossScene.h"
+
 
 class GameManager
 {
 
 private:
-	int loadedSeed = 0;
+
 	std::pair<CombatScene*, std::vector<Character*>> combatInstance;
 	PartyViewerScene* partyViewerInstance;
 	InventoryScene* mInventorySceneInstance;
@@ -37,7 +37,7 @@ private:
 	OverworldMapScene* mOverworldInstance;
 	SettingsScene* mSettingsSceneInstance;
 	ClassPickerScene* mClassPickerInstance;
-	BossScene* mBossSceneInstance;
+
 	bool bRunning= true;
 	Scenes mCScene = Scenes::MainMenu;
 	SDL_Window* mWnd;
@@ -49,7 +49,7 @@ private:
 	std::map<std::string, SpriteSheet*> sheets; // This is where the spritesheets are stored
 	std::map<std::string, Card*> cards;
 
-	Interface mInterface{&loadedSeed,&bRunning, &objects, &mCScene, &combatInstance.second, &mPlayer, &mSettings};
+	Interface mInterface{&bRunning, &objects, &mCScene, &combatInstance.second, &mPlayer, &mSettings};
 
 	SDL_Texture* LoadTexture(std::string path); //Moved it here for now
 	void CreateCard(DefinedCard* card);

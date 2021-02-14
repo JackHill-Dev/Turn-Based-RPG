@@ -27,7 +27,7 @@ class Card
 public:
 	std::pair<std::string, double> GetEffect() { return effect; }
 	values Values() { return cardValues; }
-	Card(int damage, std::string name, int range, std::string objectName, std::string effect, double effectLength, int stamcost, int intcost, int agilcost);
+	Card(int damage, std::string name, int range, std::string objectName, std::string effect, double effectLength);
 	void Cast(Character* caster, Character* target);
 	RenderObject* getObj();
 	void Assign(RenderObject* object);

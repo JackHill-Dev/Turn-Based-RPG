@@ -12,12 +12,16 @@ void InventoryScene::Init()
 {
 	mParty = mgr->GetPlayer()->GetParty();
 	playerInvGrid = DrawGrid(9, 3, 250, 400, 800);
+
 	UIText defaultText;
 	defaultText.text = "This is default tooltip text";
 	mToolTip = ToolTip(AddObject("defaultItemObj", 640, 650, UI),
 		AddObject("toolTipBgObj", 640, 650, UI), defaultText, std::make_pair(640, 600));
 	mToolTip.mDescription.scale = { 140, 100 };
 	mToolTip.mDescription.bWrapped = true;
+	
+
+	//Load();
 }
 
 

@@ -1,11 +1,7 @@
 #include "Character.h"
 
-Character::Character(std::string objectName, std::string portraitName, std::pair<int, int> health, std::pair<int, int> strength, std::pair<int, int> intelligence, std::pair<int, int> agility)
+Character::Character(std::string objectName, std::string portraitName)
 {
-	mStats.health = health;
-	mStats.strength = strength;
-	mStats.agility = agility;
-	mStats.intelligence = intelligence;
 	this->objectName = objectName;
 	mPortraitName = portraitName;
 }

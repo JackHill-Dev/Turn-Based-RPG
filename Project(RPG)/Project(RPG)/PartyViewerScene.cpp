@@ -3,7 +3,7 @@
 PartyViewerScene::PartyViewerScene(Interface* mgr) : Scene(mgr)
 {
 	// Add background to scene
-	AddObject("ShopBGObj", 640, 360, Background);
+	AddObject("mainMenuBGObj", 640, 360, Background);
 	// Add close button to scene
 	mCloseBtn = AddObject("CloseBtnObj", 1200, 50, UI);
 	mInventoryBtn = AddObject("inventoryButtonObj", 640, 700, UI);
