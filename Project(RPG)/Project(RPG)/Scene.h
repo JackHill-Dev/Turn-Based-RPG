@@ -26,6 +26,15 @@ struct UIText
 	}
 };
 
+struct ItemObject
+{
+	Item* _item;
+	RenderObject* obj;
+
+	ItemObject() {}
+	ItemObject(Item* i, RenderObject* r) : _item(i), obj(r) {}
+};
+
 struct ToolTip
 {
 	ToolTip() {}

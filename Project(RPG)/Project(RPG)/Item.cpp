@@ -47,5 +47,5 @@ void Item::OnHover()
 
 void Item::OnLeave()
 {
-	mRenderObject->tint = SDL_Color{ 255, 255 , 255 }; // White
+	mRenderObject->tint = SDL_Color{ 255, 0 , 0 }; // White
 }

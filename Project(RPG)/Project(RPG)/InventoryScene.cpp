@@ -8,6 +8,21 @@ InventoryScene::InventoryScene(Interface* mgr) : Scene(mgr)
 	Init();
 }
 
+InventoryScene::~InventoryScene()
+{
+	pCloseBtn = nullptr;
+	delete pCloseBtn;
+
+	button_SFX = nullptr;
+	delete button_SFX;
+
+	for (auto r : playerInvGrid)
+	{
+		r = nullptr;
+		delete r;
+	}
+}
+
 void InventoryScene::Init()
 {
 	mParty = mgr->GetPlayer()->GetParty();
