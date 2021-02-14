@@ -140,7 +140,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"itemFrame", new SpriteSheet("Assets/Backgrounds/ItemFrame.png",85, 105, 85, 105, false)},
 		{"mainMenuBG", new SpriteSheet("Assets/Backgrounds/MainMenuBG_720.png",1280, 720, 1280, 720, false)},
 		{"OptionsBackground", new SpriteSheet("Assets/Sprites/Buttons/OptionsBackground.png",	240, 32, 240, 32, false)},
-		{"overworld", new SpriteSheet("Assets/Backgrounds/background.png", 2048, 1536, 2048, 1536, true)},
+		{"overworld", new SpriteSheet("Assets/Backgrounds/map.png", 2048, 1536, 2048, 1536, true)},
 		{"scrollBg", new SpriteSheet("Assets/Backgrounds/ResizedScroll.png", 1280, 720, 1280, 720, false)},
 		{"shopBg", new SpriteSheet("Assets/Backgrounds/ShopBg.png",1280, 720, 1280, 720, false)},		
 		{"tile", new SpriteSheet("Assets/grass-tile.png", 32, 32, 32, 32, false)},		

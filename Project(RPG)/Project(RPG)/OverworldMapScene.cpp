@@ -51,7 +51,7 @@ void OverworldMapScene::SaveFile()
 	j["Saves"]["Save"]["Characters"] = characters;
 	j["Saves"]["Save"]["CurrentNode"] = currentNode;
 
-		file << j;
+	file << j;
 	
 
 
