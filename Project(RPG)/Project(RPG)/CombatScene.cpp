@@ -135,6 +135,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 		mLayers[Effects].clear();
 
 
+		// Win Condition - EH
 		if (enemy.size() <= 0)
 		{
 		
@@ -143,17 +144,36 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 			for (auto i : enemy)
 				RemoveUnit(&i);
 
-			mgr->LoadPreviousScene();
+			mgr->LoadScene(Scenes::WinLoseStateScreen);
+			//mgr->LoadPreviousScene();
 		}
 			
 
 
 		for (auto i : team)
+		{
 			if (i.character->GetHealth() <= 0)
+			{
+				i.character->Die();
 				RemoveUnit(&i);
+			}
+		}
+				
 		for (auto i : enemy)
+		{
 			if (i.character->GetHealth() <= 0)
+			{
+				mgr->GetPlayer()->AddToXpPool(i.character->GetStats().experience.first);
 				RemoveUnit(&i);
+			}
+		}
+
+		// Lose Condition - EH
+		if (team.size() <= 0)
+		{
+			mgr->LoadScene(Scenes::WinLoseStateScreen);
+		}
+
 		bool scenebusy = false;
 		if (playerTurn)
 		{
@@ -527,7 +547,8 @@ void CombatScene::Load(std::vector<Character*> enemyTeam)
 	{
 		Unit unit = Unit(i, &mapp.tiles[9-v][0], AddObject(i->GetObjName(), 0, 0, Game),AddObject("portrait", 1000, 125+150*v, UI));
 
-
+		// Arbitrary experience to grant to player from defeating said unit in combat. - EH
+		i->GetStats().experience.first = 100;
 
 		unit.healthBar.SetObjects(AddObject("barBgObj", 1000, 125 + 70 + 150 * v, UI), AddObject("barFillObj", 1000, 125 + 70 + 150 * v, UI));
 		unit.healthBar.Scale(std::make_pair(0.6, 0.6));
