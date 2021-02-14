@@ -1,126 +1,292 @@
 #include "OverworldMapScene.h"
+#include "json.hpp"
+#include <fstream>
 
+using jsonf = nlohmann::json;
 static std::random_device rd;
 static std::mt19937 random_number_engine(rd());
+RenderObject* saveButton;
+int seed = 15;
+
+struct new_Node
+{
+	new_Node(RenderObject* obj, bool shop, int seed) :obj(obj), shop(shop), seed(seed)
+	{
+
+	}
+	std::vector<new_Node*> adjacentNodes;
+	RenderObject* obj;
+	bool shop = false;
+	int seed = 0;
+};
+
+new_Node* boss = nullptr;
+std::vector<new_Node> map;
 
 int RandomNumberGenerator(int min, int max)
 {
 	std::uniform_int_distribution<int> distribution(min, max);
 	return distribution(random_number_engine);
 }
+void OverworldMapScene::SaveFile()
+{
+	
 
+	
+
+	std::ofstream file("Savedata.Json");
+
+	nlohmann::json characters;
+
+
+	for (auto i : mgr->GetPlayer()->GetParty())
+	{
+		characters.push_back({ {"Portrait", i->GetPortraitName()}, {"Object", i->GetObjName()}, { "Health", i->GetStats().health},{"Strength", i->GetStats().strength},{"Intelligence", i->GetStats().intelligence},{"Agility", i->GetStats().agility} });
+	}
+
+		
+	nlohmann::json j;
+	j["Saves"]["Save"]["Seed"] = mgr->GetSeed();
+	j["Saves"]["Save"]["Gold"] = mgr->GetPlayer()->GetGold();
+	j["Saves"]["Save"]["Characters"] = characters;
+	j["Saves"]["Save"]["CurrentNode"] = currentNode;
+
+		file << j;
+	
+
+
+
+
+}
 OverworldMapScene::OverworldMapScene(Interface* mObjMgr) : Scene(mObjMgr)
 {
+	
 	pOverworld = AddObject("overworldObj", 640, 360, Map);
 	pArmyViewerButton = AddObject("armyViewerButtonObj", 730, 700, UI);
 	pMenuButton = AddObject("menuButtonObj", 440, 700, UI);
+	//saveButton = AddObject("menuButtonObj", 440, 600, UI);
 	mBackgroundMus = Mix_LoadMUS("Assets/Music/Overworld.mp3");
 	
 	Init();
-	LoadNodes();
+	//LoadNodes();
 }
-
+double uniform() {
+	return (double)rand() / RAND_MAX;
+}
 void OverworldMapScene::LoadNodes()
 {
-	int maxVals = maxRows * maxNodes;
-	int valCount = 0;
-	int nodeIndex = 0;
-	std::vector<Row> rows;
-	std::set<std::pair<int, int>> uniqueCoords;
-	std::vector<std::pair<int, int>> validCoords;
-	std::pair<int, int> oldCoords = std::make_pair<int,int>(0,0);
+
+	for (auto i : mLayers[Game])
+		delete i;
+	mLayers[Game].clear();
+	map.clear();
+
 	
-	// Makes use of std::set which prevents duplicate values. Retrieves a random coordinate pair from a lookup table and tries to insert it
-	// If it is successfully added and the size of the set increases, increment the count until there's a pair for every node - EH
-	while (valCount < maxVals)
+	seed = mgr->GetSeed();
+	if(seed == 0)
+	for (int i = 1; i < 4; i++)
 	{
-		int oldSetSize = uniqueCoords.size();
-
-		uniqueCoords.insert(GoodNodePos[RandomNumberGenerator(0, 49)]);
-
-		if (uniqueCoords.size() > oldSetSize)
-		{
-			++valCount;
-		}
+		seed += std::pow((rand() % 100),i);
 	}
+	std::pair<int, int> center = std::make_pair(640, 360);
+	int squaresize = 350;
 
-	// Copy into a vector so we can access by index - EH
-	std::copy(uniqueCoords.begin(), uniqueCoords.end(), std::back_inserter(validCoords));
+	srand(seed);
+	SaveFile();
 
-	// For debugging purposes. Keep in for testing to allow all of us to track node positions during testing - EH
-	for (auto cord : validCoords)
+	const double PI = 3.14159265358979732384626433832795;
+	double m_radius = 300;
+
+	
+
+	std::vector< std::pair<double, double>> points;
+	points.push_back(center);
+	for (int i = 0; i < 300; i++)
 	{
-		std::cout << cord.first << " :X\tY: ";
-		std::cout << cord.second << std::endl;
-	}
 
-	// Generates a group of  x amount of nodes collected into x amount of rows - EH
-	for (int rowCount = 0; rowCount < maxRows; ++rowCount)
-	{
-		Row newRow;
+		double theta = 2 * 3.14159265358979323846264 * uniform();
+		double r = sqrt(uniform());
+		std::pair<double, double> point = std::make_pair(
+			center.first + r * m_radius * cos(theta),
+			center.second + r * m_radius * sin(theta));
 
 		
-		for (int nodeCount = 0; nodeCount < maxNodes; ++nodeCount)
-		{
-			newRow.nodes.push_back
-			(new Node(AddObject(assignRandomNodeSprite(rowCount + nodeCount), validCoords[nodeIndex].first,
-							   validCoords[nodeIndex].second, Layer::UI), Scenes::NoSceneYet));
-			newRow.nodes[nodeCount]->nodeScene = assignSceneByString(newRow.nodes[nodeCount]->pNodeObject->path);
-			++nodeIndex;
-		}
-		rows.push_back(newRow);
+		bool allow = true;
 
-	}
+		for (auto p : points)
+			if (!(std::abs(p.first - point.first) > 15 && std::abs(p.second - point.second) > 10))
+				allow = false;
+				
+			if(allow)
+				points.push_back(point);
+		
 
-	//Generating Links
-	for (int rowNum = 0; rowNum < rows.size(); ++rowNum)
+	};
+
+	int i = 0;
+
+
+	
+
+	points.erase(points.begin());
+
+	int shopamount = 0;
+
+	for (auto i : points)
 	{
-		for (int rowNode = 0; rowNode < rows[rowNum].nodes.size(); ++rowNode)
+		bool shop = false;
+		if (rand() % 6 == 5 && shopamount < 5)
 		{
-			// Adjacent Node above - EH
-			if (rowNum > 0)
-			{
-				rows[rowNum].nodes[rowNode]->adjacentTiles.push_back(rows[rowNum-1].nodes[rowNode]);
-			}
-			// Adjacent Node below - EH
-			if (rowNum < rows.size()-1)
-			{
-				rows[rowNum].nodes[rowNode]->adjacentTiles.push_back(rows[rowNum+1].nodes[rowNode]);
-			}
-
-			// Adjacent Node behind - EH
-			if (rowNode > 0)
-			{
-				rows[rowNum].nodes[rowNode]->adjacentTiles.push_back(rows[rowNum].nodes[rowNode-1]);
-			}
-			// Adjacent Node in front - EH
-			if (rowNode < rows[rowNum].nodes.size() - 1)
-			{
-				rows[rowNum].nodes[rowNode]->adjacentTiles.push_back(rows[rowNum].nodes[rowNode + 1]);
-			}
+			shopamount++;
+			shop = true;
+			map.push_back(new_Node(AddObject("shopNodeObj", i.first, i.second, Game), shop, std::rand() % 100 + 10));
 		}
+		else
+			map.push_back(new_Node(AddObject("nodeObj", i.first, i.second, Game), shop, std::rand() % 100 + 10));
 	}
-	for (auto row : rows)
+
+
+	map.push_back(new_Node(AddObject("battleNodeObj", center.first, center.second, Game), false, 0));
+	boss = &map.back();
+	for (auto &i : map)
 	{
-		for (auto rowNode : row.nodes)
+		int adjacentCount = 3;
+
+		while (i.adjacentNodes.size() < adjacentCount)
 		{
-			mNodes.push_back(rowNode);
+			int lowestDistance = INT_MAX;
+			new_Node* node = nullptr;
+			for (auto& n : map)
+			{
+				auto ind = std::find_if(i.adjacentNodes.begin(), i.adjacentNodes.end(), [n](new_Node* nod) {return n.obj == nod->obj; });
+				int range = std::abs(i.obj->GetPos().first - n.obj->GetPos().first) + std::abs(i.obj->GetPos().second - n.obj->GetPos().second);
+				if (i.obj != n.obj && range < lowestDistance && ind == i.adjacentNodes.end())
+				{
+					node = &n;
+					lowestDistance = range;
+				}
+
+			
+			}
+
+
+			if (node == nullptr)
+			{
+				std::cout << "ERROR cant find node!";
+				break;
+			}
+			else
+			{
+				i.adjacentNodes.push_back(node);
+				node->adjacentNodes.push_back(&i);
+			}
 		}
+
 	}
 
-	// Set current node and the colour for it - EH
-	currentNode = mNodes[0];
-	currentNode->pNodeObject->tint = DarkMagenta;
 
-	// Tint ndoes adjacent to current - EH
-	for (auto node : currentNode->adjacentTiles)
+		
+	}
+
+
+void OverworldMapScene::LoadNodes(int loadedseed) 
 	{
-		if (node != currentNode)
+	seed = loadedseed;
+		for (auto i : mLayers[Game])
+			delete i;
+		mLayers[Game].clear();
+
+
+		std::pair<int, int> center = std::make_pair(640, 360);
+		int squaresize = 350;
+
+		srand(seed);
+
+
+		const double PI = 3.14159265358979732384626433832795;
+		double m_radius = 350;
+
+
+
+		std::vector< std::pair<double, double>> points;
+
+
+		points.push_back(center);
+		for (int i = 0; i < 300; i++)
 		{
-			node->pNodeObject->tint = RoyalBlue;
+
+			double theta = 2 * 3.14159265358979323846264 * uniform();
+			double r = sqrt(uniform());
+			std::pair<double, double> point = std::make_pair(
+				center.first + r * m_radius * cos(theta),
+				center.second + r * m_radius * sin(theta));
+
+
+			bool allow = true;
+
+			for (auto p : points)
+				if (!(std::abs(p.first - point.first) > 15 && std::abs(p.second - point.second) > 15))
+					allow = false;
+
+			if (allow)
+				points.push_back(point);
+
+
+		};
+
+		int i = 0;
+
+
+
+
+		
+
+		
+
+		for (auto i : points)
+			map.push_back(new_Node(AddObject("nodeObj", i.first, i.second, Game), false, std::rand() % 100 + 10));
+
+		for (auto& i : map)
+		{
+			int adjacentCount = 3;
+
+			while (i.adjacentNodes.size() < adjacentCount)
+			{
+				int lowestDistance = INT_MAX;
+				new_Node* node = nullptr;
+				for (auto& n : map)
+				{
+					auto ind = std::find_if(i.adjacentNodes.begin(), i.adjacentNodes.end(), [n](new_Node* nod) {return n.obj == nod->obj; });
+					int range = std::abs(i.obj->GetPos().first - n.obj->GetPos().first) + std::abs(i.obj->GetPos().second - n.obj->GetPos().second);
+					if (i.obj != n.obj && range < lowestDistance && ind == i.adjacentNodes.end())
+					{
+						node = &n;
+						lowestDistance = range;
+					}
+
+
+				}
+
+
+				if (node == nullptr)
+				{
+					std::cout << "ERROR cant find node!";
+					break;
+				}
+				else
+				{
+					i.adjacentNodes.push_back(node);
+					node->adjacentNodes.push_back(&i);
+				}
+			}
+
 		}
+
+
+
 	}
-}
+	
+
 
 void OverworldMapScene::Init()
 {
@@ -133,12 +299,22 @@ void OverworldMapScene::Init()
 // Mainly for music transitions, can be used to update any state changes to overworld from scenes transitioning to it - EH
 void OverworldMapScene::Load()
 {
-	currentNode->pNodeObject->tint = DarkMagenta;
+	//currentNode->pNodeObject->tint = DarkMagenta;
 
+	SaveFile();
+	
 	if (mgr->GetPreviousScene() != Scenes::SettingsPage)
 	{
 		mgr->FadeInMusic(mBackgroundMus, -1, mgr->fadeTime);
 	}
+
+	LoadNodes();
+	
+	currentNode = mgr->GetPlayer()->currentNode;
+	for (auto i : map[currentNode].adjacentNodes)
+		i->obj->tint = { 0,0,255 };
+	map[currentNode].obj->tint = { 255,0,0 };
+	
 }
 
 void OverworldMapScene::OnHover(RenderObject* rObj)
@@ -151,84 +327,104 @@ void OverworldMapScene::OnLeave(RenderObject* rObj)
 	rObj->Untint();
 }
 
+
+bool IsCombat()
+{
+	srand(time(NULL));
+	int v = rand() % 10;
+	return  v > 6;
+}
+
 // Handles mouse events such as hovering and navigation between scenes - EH
 void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePos)
 {
-	currentNode->pNodeObject->tint = DarkMagenta;
-	
-	if (act == Act::Click)
-	{
-		for (auto node : currentNode->adjacentTiles)
-		{
-			if (node->pNodeObject->InBounds(mousePos.first, mousePos.second))
-			{
-				currentNode = node;
-				if (node->nodeScene != Scenes::NoSceneYet)
-				{
-					switch (node->nodeScene)
-					{
-						case Scenes::Combat:
-							mgr->PlaySFX(button_Click_SFX, 0, 1);
-							mgr->LoadCombatScene({ new Character("maleObj", "portrait"), new Character("maleObj", "portrait"), new Character("maleObj", "portrait") });
-							break;
-
-						case Scenes::Shops:
-							mgr->PlaySFX(shop_Entry_SFX, 0, 1);
-							mgr->LoadScene(node->nodeScene);
-							break;
-
-						default:
-							mgr->LoadScene(node->nodeScene);
-							break;
-					}
-				}
-				else
-				{
-					mgr->PlaySFX(button_Click_SFX, 0, 1);
-				}				
-			}
-			node->pNodeObject->Untint();
-		}
-
-		if (pArmyViewerButton->InBounds(mousePos.first, mousePos.second))
-		{
-			mgr->PlaySFX(button_Click_SFX, 0, 1);			
-			OnLeave(pArmyViewerButton);
-			mgr->LoadScene(Scenes::Party);
-		}
-		if (pMenuButton->InBounds(mousePos.first, mousePos.second))
-		{
-			mgr->PlaySFX(button_Click_SFX, 0, 1);
-			OnLeave(pMenuButton);
-			mgr->LoadScene(Scenes::SettingsPage);
-		}
-		
-	}
 	if (act == Act::MouseUpdate)
 	{
-		if (pMenuButton->InBounds(mousePos.first, mousePos.second))
-		{
-			OnHover(pMenuButton);
+
+
+
+		int t = 0;
+		
+			for (auto &i : map)
+			{
+				if (t != currentNode)
+				{
+					bool found = (std::find_if(map[currentNode].adjacentNodes.begin(), map[currentNode].adjacentNodes.end(), [i](new_Node* node) {return i.obj == node->obj; }) != map[currentNode].adjacentNodes.end());
+					if(!found)
+					i.obj->Untint();
+				}
+				t++;
+			}
+			t = 0;
+
+			if (pMenuButton->InBounds(mousePos.first, mousePos.second))
+				SaveFile();
+			
+			
+
 		}
-		else
-		{
-			OnLeave(pMenuButton);
-		}
-		if(pArmyViewerButton->InBounds(mousePos.first, mousePos.second))
-		{
-			OnHover(pArmyViewerButton);
-		}
-		else
-		{
-			OnLeave(pArmyViewerButton);
-		}
-	}
-	for (auto node : currentNode->adjacentTiles)
+
+	else if (act == Act::Click)
 	{
-		if (node != currentNode)
-		{
-			node->pNodeObject->tint = RoyalBlue;
-		}
+		if (pMenuButton->InBounds(mousePos.first, mousePos.second))
+			mgr->LoadScene(Scenes::MainMenu);
+		else
+			if (pArmyViewerButton->InBounds(mousePos.first, mousePos.second))
+				mgr->LoadScene(Scenes::InventoryScreen);
+			else
+			{
+
+				int t = 0;
+				for (auto &i : map)
+				{
+
+
+					if (t != currentNode)
+					{
+						bool found = (std::find_if(map[currentNode].adjacentNodes.begin(), map[currentNode].adjacentNodes.end(), [i](new_Node* node) {return i.obj == node->obj; }) != map[currentNode].adjacentNodes.end());
+						if (!found)
+							i.obj->Untint();
+					}
+
+
+
+
+					if (i.obj->InBounds(mousePos.first, mousePos.second))
+					{
+
+						if (std::find_if(map[currentNode].adjacentNodes.begin(), map[currentNode].adjacentNodes.end(), [i](new_Node* node) {return i.obj == node->obj; }) != map[currentNode].adjacentNodes.end())
+						{
+							map[currentNode].obj->Untint();
+							for (auto a : map[currentNode].adjacentNodes)
+								a->obj->Untint();
+							currentNode = t;
+							mgr->GetPlayer()->currentNode = currentNode;
+							map[currentNode].obj->tint = { 255,0,0 };
+							for (auto a : i.adjacentNodes)
+								a->obj->tint = { 0,0,255 };
+							if (&i == boss)
+							{
+								mgr->LoadScene(Scenes::Boss);
+							}
+							else
+							if (i.shop)
+							{
+								mgr->LoadScene(Scenes::Shops);
+							}
+							else
+								if (IsCombat())
+								{
+
+
+
+									mgr->LoadCombatScene({ new Character("maleObj", "portrait", std::make_pair(5,5), std::make_pair(10,10), std::make_pair(10,10), std::make_pair(10,10)) });
+								}
+						}
+					}
+
+					t++;
+				}
+			}
 	}
 }
 
