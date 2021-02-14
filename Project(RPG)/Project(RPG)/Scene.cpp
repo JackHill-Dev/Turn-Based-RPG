@@ -47,7 +47,7 @@ void Scene::Draw(SDL_Renderer* rnd)
 	int w, h;
 
 	SDL_GetRendererOutputSize(rnd, &w, &h);
-	float resolutionScaleX = 1 + ((float)w - 1280) / 1280;
+	float resolutionScaleX = 1 + ((float)w - 1280) / 1280; 
 	float resolutionScaleY = 1 + ((float)h - 720) / 720;
 	
 	std::for_each(mLayers.begin(), mLayers.end(), [rnd, &rect, &crop, resolutionScaleX, resolutionScaleY](std::vector<RenderObject*> layer) {

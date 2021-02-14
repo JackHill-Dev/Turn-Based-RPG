@@ -94,13 +94,14 @@ void GameManager::LoadScene()
 	switch (mCScene)
 	{
 		case Scenes::MainMenu: mMainMenuSceneInstance->Load(); break;
-		case Scenes::ClassPicker: mClassPickerInstance->Load(); break;
+		case Scenes::ClassPicker: loadedSeed = std::rand()%100; mClassPickerInstance->Load(); break;
 		case Scenes::Overworld: mOverworldInstance->Load(); break;
-		case Scenes::Combat: combatInstance.first->Load(combatInstance.second); break;
+		case Scenes::Combat: combatInstance.first->Load(combatInstance.second, 15); break;
 		case Scenes::Shops: mShopSceneInstance->Load(); break;
 		case Scenes::Party:  partyViewerInstance->Load(); break;
 		case Scenes::SettingsPage: mSettingsSceneInstance->Load(); break;
 		case Scenes::InventoryScreen : mInventorySceneInstance->Load(); break;
+		case Scenes::Boss: mBossSceneInstance->Load(); break;
 	}
 
 
@@ -114,6 +115,7 @@ bool GameManager::CreateWindow()
 }
 bool GameManager::Init()
 {
+	srand(time(NULL));
 	LoadSettings();
 	CreateWindow();
 	mInterface.StoreWindow(mWnd);
@@ -145,6 +147,9 @@ bool GameManager::Init()
 	mInventorySceneInstance = new InventoryScene(&mInterface);
 	scenes.push_back(mInventorySceneInstance); // 7
 
+	mBossSceneInstance = new BossScene(&mInterface);
+	scenes.push_back(mBossSceneInstance); // 8
+
 	currentScene->Clear(mRnd);
 	currentScene = scenes[0];
 
@@ -163,6 +168,36 @@ void GameManager::LoadSettings()
 
 	}
 	ifs.close();
+
+
+	std::ifstream is("Savedata.json");
+	
+
+
+
+
+	nlohmann::json loaded = nlohmann::json::parse(is, nullptr, false, false);
+	if(loaded.find("Saves")!= loaded.end())
+	if (loaded["Saves"].find("Save") != loaded["Saves"].end())
+	{
+
+		loadedSeed = loaded["Saves"]["Save"]["Seed"].get<int>();
+		mPlayer.SetGold(loaded["Saves"]["Save"]["Gold"].get<int>());
+		mPlayer.currentNode = loaded["Saves"]["Save"]["CurrentNode"].get<int>();
+
+		for (auto i : loaded["Saves"]["Save"]["Characters"])
+		{
+			Character* character = new Character(i["Object"].get<std::string>(), i["Portrait"].get<std::string>(), i["Health"].get<std::pair<int,int>>(), i["Strength"].get<std::pair<int, int>>(), i["Intelligence"].get<std::pair<int, int>>(), i["Agility"].get<std::pair<int, int>>());
+			mPlayer.AddToParty(character);
+		
+			
+		}
+
+
+
+	}
+	else
+		loadedSeed = 0;
 }
 
 
@@ -287,21 +322,21 @@ void GameManager::CreateCard(DefinedCard* card)
 	rect.w = 39;
 	rect.h = 27;
 
-	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->staminaCost).c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
+	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->staminaCost).c_str(), SDL_Color{ 255,0,0 }, rect.w)), NULL, &rect);
 
 	rect.x = 123;
 	rect.y = 184;
 	rect.w = 39;
 	rect.h = 27;
 
-	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->staminaCost).c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
+	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->intelligenceCost).c_str(), SDL_Color{ 0,0,255 }, rect.w)), NULL, &rect);
 	
 	rect.x = 173;
 	rect.y = 184;
 	rect.w = 39;
 	rect.h = 27;
 
-	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->staminaCost).c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
+	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->agilityCost).c_str(), SDL_Color{ 0,255,0 }, rect.w)), NULL, &rect);
 	
 	
 	
@@ -319,7 +354,7 @@ void GameManager::CreateCard(DefinedCard* card)
 
 	objects["cardObj" + std::to_string(cards.size())]->SetTexture(sheets["cardSheet_" + std::to_string(cards.size())]);
 
-	cards.insert({ card->name, new Card(card->damage, card->name, card->range, "cardObj" + std::to_string(cards.size()), card->animation, card->animationLength) });
+	cards.insert({ card->name, new Card(card->damage, card->name, card->range, "cardObj" + std::to_string(cards.size()), card->animation, card->animationLength, card->staminaCost, card->intelligenceCost, card->agilityCost) });
 	SDL_SetRenderTarget(mRnd, NULL);
 
 	//SDL_Texture* fontTexture = (SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended(mFont, card.name , SDL_Color{ 0,0,0 }));;
