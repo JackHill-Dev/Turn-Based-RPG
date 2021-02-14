@@ -53,13 +53,14 @@ public:
 	Statistics& GetStats() { return mStats; }
 	UnitBackground& GetBackground(){ return mStats.bg; }
 	UnitClass& GetClass() { return mStats.cClass; }
+	std::string GetClassName(UnitClass uClass);
 	std::string GetPortraitName() { return mPortraitName; }
-	std::string GetObjName() { return objectName; };
-
+	std::string GetObjName() { return objectName; }
+	bool GetDeadStatus() { return isDead; }
 
 	void modStat(std::pair<int, int>& statToMod, std::pair<int,int> statMod);
 	void LevelUp(int level, std::pair<int, int> characterHealth);
-
+	void AddToXpPool(int xp);
 	void SetBackground(UnitBackground background);
 	void SetClass(UnitClass uClass);
 	void SetArmour(Armour* armour);
@@ -68,8 +69,9 @@ public:
 
 	bool ModHealth(int mod);
 	void Heal(std::pair<int,int>& health, int healValue);
+	void Die();
 	
-	
+
 	bool moving = false;
 	EquipSlot ArmourEquipSlot;
 	EquipSlot mWeaponEquipSlot;
@@ -84,6 +86,6 @@ protected:
 private:
 
 	const int levelHealth = 10;
-
+	bool isDead = false;
 };
 
