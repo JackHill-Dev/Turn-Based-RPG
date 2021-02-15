@@ -23,7 +23,7 @@ enum class UnitClass
 
 struct Statistics
 {
-	int level;
+	int level = 1;
 	UnitBackground bg;
 	UnitClass cClass;
 	std::pair<int, int> health = { 15,15 }; // current, max

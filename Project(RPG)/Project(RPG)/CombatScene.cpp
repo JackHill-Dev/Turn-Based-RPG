@@ -1,14 +1,6 @@
 #include "CombatScene.h"
 #include <deque>
 
-
-
-
-
-
-
-
-
 CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 {
 	
