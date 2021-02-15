@@ -45,6 +45,7 @@ private:
 	Mix_Chunk* Victory_Sfx = nullptr;
 	Mix_Chunk* Defeat_Sfx = nullptr;
 	Mix_Chunk* Button_Sfx = nullptr;
+	Mix_Chunk* Error_Sfx = nullptr;
 
 	SDL_Color Lime = SDL_Color{ 0, 255, 0 };
 	SDL_Color DimGray = SDL_Color{ 105,105,105 };
@@ -53,6 +54,7 @@ private:
 	PlayerCharacter* firstCharacter = nullptr;
 	PlayerCharacter* SecondCharacter = nullptr;
 	PlayerCharacter* ThirdCharacter = nullptr;
+	PlayerCharacter* pTargetCharacter = nullptr;
 
 	std::vector<std::string> names;
 	std::vector<RenderObject*> pAllButtons;
@@ -60,6 +62,9 @@ private:
 	std::vector<PlayerCharacter*> pCharacters;
 
 	int statPoints = 0;
+	int strPoints = 0;
+	int agiPoints = 0;
+	int intPoints = 0;
 	
 protected:
 

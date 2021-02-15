@@ -156,7 +156,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 				}))
 		{
 			mgr->PlaySFX(Error_Sfx, 0, 1);
-			mFooterInstruction.text = "PLEASE LEVEL UP ALL CHARACTERS";
+			mSceneText[8]->text = "PLEASE LEVEL UP ALL CHARACTERS";
 		}
 		else
 		{
@@ -179,24 +179,67 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 
 		if (StrengthButton->InBounds(mousePos.first, mousePos.second) && statPoints != 0)
 		{
-
+			--statPoints;
+			++strPoints;
+			mSceneText[2]->text = "STAT POINTS: " + std::to_string(statPoints);
+			mSceneText[3]->text = "STRENGTH:\t" + std::to_string(pTargetCharacter->pCharacter->GetStats().strength.second + strPoints);
+		}
+		else
+		{
+			mgr->PlaySFX(Error_Sfx, 0, 1);
+			mSceneText[6]->text = "INSUFFICIENT STAT POINTS. PLEASE RESET FOR REALLOCATION";
 		}
 
 		if (AgilityButton->InBounds(mousePos.first, mousePos.second) && statPoints != 0)
 		{
-
+			--statPoints;
+			++agiPoints;
+			mSceneText[2]->text = "STAT POINTS: " + std::to_string(statPoints);
+			mSceneText[4]->text = "AGILITY:\t" + std::to_string(pTargetCharacter->pCharacter->GetStats().agility.second + agiPoints);
+		}
+		else
+		{
+			mgr->PlaySFX(Error_Sfx, 0, 1);
+			mSceneText[6]->text = "INSUFFICIENT STAT POINTS. PLEASE RESET FOR REALLOCATION";
 		}
 
 		if (IntelligenceButton->InBounds(mousePos.first, mousePos.second) && statPoints != 0)
 		{
-
+			--statPoints;
+			++intPoints;
+			mSceneText[2]->text = "STAT POINTS: " + std::to_string(statPoints);
+			mSceneText[5]->text = "INTELLIGENCE:\t" + std::to_string(pTargetCharacter->pCharacter->GetStats().intelligence.second + intPoints);
+		}
+		else
+		{
+			mgr->PlaySFX(Error_Sfx, 0, 1);
+			mSceneText[6]->text = "INSUFFICIENT STAT POINTS. PLEASE RESET FOR REALLOCATION";
 		}
 
+		if (pRejectButton->InBounds(mousePos.first, mousePos.second))
+		{
+			statPoints = 2;
+			strPoints = 0;
+			agiPoints = 0;
+			intPoints = 0;
+			mSceneText[2]->text = "STAT POINTS: " + std::to_string(statPoints);
+			mSceneText[3]->text = "STRENGTH:\t" + std::to_string(pTargetCharacter->pCharacter->GetStats().strength.second + strPoints);
+			mSceneText[4]->text = "AGILITY:\t" + std::to_string(pTargetCharacter->pCharacter->GetStats().agility.second + agiPoints);
+			mSceneText[5]->text = "INTELLIGENCE:\t" + std::to_string(pTargetCharacter->pCharacter->GetStats().intelligence.second + intPoints);
+		}
 		if (pConfirmButton->InBounds(mousePos.first, mousePos.second) && statPoints == 0)
 		{
+			pTargetCharacter->pCharacter->modStat(pTargetCharacter->pCharacter->GetStats().strength, { strPoints, strPoints });
+			pTargetCharacter->pCharacter->modStat(pTargetCharacter->pCharacter->GetStats().agility, { agiPoints, agiPoints });
+			pTargetCharacter->pCharacter->modStat(pTargetCharacter->pCharacter->GetStats().intelligence, { intPoints, intPoints });
+			pTargetCharacter->pCharacter->hasLevelled = false;
 			SetUpWinState();
 		}
-
+		else
+		{
+			mgr->PlaySFX(Error_Sfx, 0, 1);
+			mSceneText[6]->text = "PLEASE ASSIGN ALL STAT POINTS";
+		}
 
 	}
 }
@@ -365,7 +408,7 @@ void WinLoseStateScene::SetUpLoseState()
 
 void WinLoseStateScene::SetUpLevelUpState(PlayerCharacter* pc)
 {
-
+	pTargetCharacter = pc;
 	statPoints = 2;
 
 	for (auto character : pCharacters)
@@ -402,17 +445,17 @@ void WinLoseStateScene::SetUpLevelUpState(PlayerCharacter* pc)
 	mFlavourText1.pos = std::make_pair<int>(320, 310);
 	mFlavourText1.SetTextScale(100, 30);
 
-	mFlavourText2.text = "STRENGTH:\t" + std::to_string(pc->pCharacter->GetStats().strength.second);
+	mFlavourText2.text = "STRENGTH:\t" + std::to_string(pc->pCharacter->GetStats().strength.second + strPoints);
 	mFlavourText2.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText2.pos = std::make_pair<int>(640, 440);
 	mFlavourText2.SetTextScale(100, 30);
 
-	mFlavourText3.text = "AGILITY:\t" + std::to_string(pc->pCharacter->GetStats().agility.second);
+	mFlavourText3.text = "AGILITY:\t" + std::to_string(pc->pCharacter->GetStats().agility.second + agiPoints);
 	mFlavourText3.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText3.pos = std::make_pair<int>(640, 470);
 	mFlavourText3.SetTextScale(100, 30);
 
-	mFlavourText4.text = "INTELLIGENCE:\t" + std::to_string(pc->pCharacter->GetStats().intelligence.second);
+	mFlavourText4.text = "INTELLIGENCE:\t" + std::to_string(pc->pCharacter->GetStats().intelligence.second + intPoints);
 	mFlavourText4.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText4.pos = std::make_pair<int>(640, 500);
 	mFlavourText4.SetTextScale(100, 30);
