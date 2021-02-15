@@ -32,7 +32,6 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 				RemoveUnit(&i);
 
 			mgr->LoadScene(Scenes::WinLoseStateScreen);
-			//mgr->LoadPreviousScene();
 		}
 			
 
