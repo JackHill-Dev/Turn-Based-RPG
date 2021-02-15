@@ -5,22 +5,17 @@
 #include "Actions.h"
 #include "Animation.h"
 
-
 class RenderObject
 {
 
 private:
-	
-	
 	std::string mName;
 	bool mVisible;
 	bool bIsActive = true;
 	SpriteSheet* mSheet;
 protected:
-	
 	std::pair<float, float> mPos;
 	Animation* mCurrentAnim;
-
 public:
 	bool bPickedUp = false;
 	std::pair<float, float> sceneScale = std::make_pair(1, 1);

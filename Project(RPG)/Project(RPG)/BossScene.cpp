@@ -482,6 +482,11 @@ void BossScene::Load()
 	Unit boss = Unit(new Character("", "", std::make_pair(30,30), std::make_pair(25,25), std::make_pair(25,25), std::make_pair(25,25)), &mapp[4][3], AddObject("daemonBoss", 500, 500, Game), AddObject("daemonBoss", 500, 500, Game));
 	boss.object->scale = { 2,2 };
 	enemy.push_back(boss);
+	for (int i = 0; i < 5; i++)
+	{
+		enemyHand.push_back(std::make_pair(new Card(5, "Slash", 1, "cardObj", "swordSlashEffectObj", 0.5, 5, 0, 0), nullptr));
+
+	}
 
 }
 void BossScene::PlayFightAnimation()
@@ -682,24 +687,17 @@ void BossScene::RunAi()
 		playerhand.clear();
 
 
-		while (playerhand.size() < 5)
+		std::vector<Card*> temp;
+
+		std::sample(mgr->GetPlayer()->deck.begin(), mgr->GetPlayer()->deck.end(), std::back_inserter(temp), 5, std::mt19937{ std::random_device{}() });
+
+		for (int i = 0; i < temp.size(); ++i)
 		{
+			float x = 100 * (i - 2.0);
 
-			auto cd = mgr->GetPlayer()->deck[std::rand() % mgr->GetPlayer()->deck.size()];
-
-			auto found = std::find_if(playerhand.begin(), playerhand.end(), [cd](std::pair<Card*, RenderObject*> obj) {
-				return obj.first == cd;
-				});
-
-			if (found == playerhand.end())
-			{
-
-				float x = 100 * (playerhand.size() - 2.0);
-
-				float xpos = centre.first + x;
-				playerhand.push_back(std::make_pair(cd, AddObject(cd->GetObjName(), xpos, 650, UI)));
-				playerhand.back().second->scale = std::make_pair(0.42f, 0.42f);
-			}
+			float xpos = centre.first + x;
+			playerhand.push_back(std::make_pair(temp[i], AddObject(temp[i]->GetObjName(), xpos, 650, UI)));
+			playerhand.back().second->scale = std::make_pair(0.42f, 0.42f);
 		}
 
 		for (auto i : team)
