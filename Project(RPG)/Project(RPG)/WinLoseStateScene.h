@@ -66,6 +66,7 @@ private:
 	int strPoints = 0;
 	int agiPoints = 0;
 	int intPoints = 0;
+	int dividedXp = 0;
 	
 protected:
 
@@ -82,7 +83,7 @@ public:
 
 	void SetUpWinState();
 	void SetUpLoseState();
-	void SetUpLevelUpState(PlayerCharacter* pc);
+	void SetUpLevelUpState(PlayerCharacter* &pc);
 
 };
 
