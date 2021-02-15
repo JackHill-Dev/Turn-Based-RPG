@@ -472,7 +472,7 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 
 
 
-
+	srand(time(NULL));
 	
 	for (auto i : mgr->GetPlayer()->GetParty())
 	{

@@ -266,10 +266,12 @@ SDL_Texture* GameManager::LoadTexture(std::string path)
 {
 
 	SDL_Surface* img = IMG_Load((path.c_str()));
+	auto e = SDL_CreateTextureFromSurface(mRnd, img);
+	SDL_FreeSurface(img);
 	//if (IMG_GetError)
 	//	throw std::invalid_argument("could not load image at: " + path);
 	std::cout << IMG_GetError() << std::endl;
-	return SDL_CreateTextureFromSurface(mRnd, img);
+	return e;
 }
 
 
@@ -363,6 +365,8 @@ void GameManager::CreateCard(DefinedCard* card)
 	cards.insert({ card->name, new Card(card->damage, card->name, card->range, "cardObj" + std::to_string(cards.size()), card->animation, card->animationLength, card->staminaCost, card->intelligenceCost, card->agilityCost) });
 	SDL_SetRenderTarget(mRnd, NULL);
 
+
+	
 	//SDL_Texture* fontTexture = (SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended(mFont, card.name , SDL_Color{ 0,0,0 }));;
 }
 
