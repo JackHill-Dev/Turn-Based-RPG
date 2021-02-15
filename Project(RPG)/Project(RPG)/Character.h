@@ -60,7 +60,6 @@ public:
 
 	void modStat(std::pair<int, int>& statToMod, std::pair<int,int> statMod);
 	void LevelUp(int level, std::pair<int, int> characterHealth);
-	void AddToXpPool(int xp);
 	void SetBackground(UnitBackground background);
 	void SetClass(UnitClass uClass);
 	void SetArmour(Armour* armour);
@@ -71,7 +70,7 @@ public:
 	void Heal(std::pair<int,int>& health, int healValue);
 	void Die();
 	
-
+	bool hasLevelled = false;
 	bool moving = false;
 	EquipSlot ArmourEquipSlot;
 	EquipSlot mWeaponEquipSlot;
