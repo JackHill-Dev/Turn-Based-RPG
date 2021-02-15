@@ -22,14 +22,14 @@
 #include "InventoryScene.h"
 #include "json.hpp"
 #include "OverworldMapScene.h"
+#include "BossScene.h"
 #include "WinLoseStateScene.h"
-
 
 class GameManager
 {
 
 private:
-
+	int loadedSeed = 0;
 	std::pair<CombatScene*, std::vector<Character*>> combatInstance;
 	PartyViewerScene* partyViewerInstance;
 	InventoryScene* mInventorySceneInstance;
@@ -38,6 +38,7 @@ private:
 	OverworldMapScene* mOverworldInstance;
 	SettingsScene* mSettingsSceneInstance;
 	ClassPickerScene* mClassPickerInstance;
+	BossScene* mBossSceneInstance;
 	WinLoseStateScene* mWinLoseStateSceneInstance;
 
 	bool bRunning= true;
@@ -50,8 +51,9 @@ private:
 	std::map<std::string, RenderObject*> objects; // This is where the RenderObject types are stored 
 	std::map<std::string, SpriteSheet*> sheets; // This is where the spritesheets are stored
 	std::map<std::string, Card*> cards;
+	std::map<std::string, Item*> mItems;
 
-	Interface mInterface{&bRunning, &objects, &mCScene, &combatInstance.second, &mPlayer, &mSettings};
+	Interface mInterface{&loadedSeed,&bRunning, &objects, &mCScene, &combatInstance.second, &mPlayer, &mSettings, &mItems};
 
 	SDL_Texture* LoadTexture(std::string path); //Moved it here for now
 	void CreateCard(DefinedCard* card);
@@ -76,11 +78,6 @@ private:
 	Scene* currentScene;
 	Settings mSettings;
 
-	// temp
-	Consumable mPotion;
-	Armour mArmour;
-	Character mWizard;
-	Character mWarrior;
 };
 
 

@@ -1,4 +1,4 @@
-#include "CombatScene.h"
+#include "BossScene.h"
 #include <deque>
 
 
@@ -9,18 +9,18 @@
 
 
 
-CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
+BossScene::BossScene(Interface* objmg) : Scene(objmg)
 {
-	
-} 
 
-void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
+}
+
+void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 {
-   
+
 	if (fightScene <= 0)
 	{
-	
-		
+
+
 
 
 		for (auto e : mLayers[Effects])
@@ -30,45 +30,16 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 		mLayers[Effects].clear();
 
 
-		// Win Condition - EH
-		if (enemy.size() <= 0)
-		{
-		
-			for(auto i : team)
-				RemoveUnit(&i);
-			for (auto i : enemy)
-				RemoveUnit(&i);
 
-			mgr->LoadScene(Scenes::WinLoseStateScreen);
-			//mgr->LoadPreviousScene();
-		}
-			
+
 
 
 		for (auto i : team)
-		{
 			if (i.character->GetHealth() <= 0)
-			{
-				i.character->Die();
 				RemoveUnit(&i);
-			}
-		}
-				
 		for (auto i : enemy)
-		{
 			if (i.character->GetHealth() <= 0)
-			{
-				mgr->GetPlayer()->AddToXpPool(i.character->GetStats().experience.first);
 				RemoveUnit(&i);
-			}
-		}
-
-		// Lose Condition - EH
-		if (team.size() <= 0)
-		{
-			mgr->LoadScene(Scenes::WinLoseStateScreen);
-		}
-
 		bool scenebusy = false;
 		if (playerTurn)
 		{
@@ -100,7 +71,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 						}
 					}
 					hovered.clear();
-					
+
 					if (endTurn->InBounds(mouse.first, mouse.second))
 					{
 						for (int i = 0; i < playerhand.size(); ++i)
@@ -130,7 +101,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 									found = true;
 									i.second->tint = SDL_Color{ 255,255,0 };
 									hovered.push_back(i.second);
-									
+
 									//hovered->tint = SDL_Color{ 255,255,0 };
 									current = Selection::Team;
 								}
@@ -161,7 +132,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 											if (distance <= character->character->GetStats().movement.first)
 											{
 												character->SetTarget(path);
-												
+
 												character->character->GetStats().movement.first -= distance;
 											}
 										}
@@ -180,7 +151,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 											character->object->tint = SDL_Color{ 255,255,0 };
 											current = Selection::Enemy;
 										}
-										
+
 									}
 								if (character == nullptr)
 								{
@@ -194,7 +165,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
 									{
 										target = &i;
-										
+
 									}
 								if (target == nullptr)
 								{
@@ -206,7 +177,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 								}
 								else
 								{
-									Cast(character, target,selectedCard);
+									Cast(character, target, selectedCard);
 									target = nullptr;
 									character = nullptr;
 									selectedCard = nullptr;
@@ -241,11 +212,11 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 								float xpos = centre.first + x;
 								playerhand[i].second->SetPos(std::make_pair(xpos, 650));
 							}
-						
+
 						}
 						if (!hovered.empty())
 						{
-							for (auto &i : hovered)
+							for (auto& i : hovered)
 							{
 								if (character != nullptr && character->object != nullptr && character->object == i)
 								{
@@ -280,19 +251,19 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 										hoveredCard.second->SetPos({ hoveredCard.second->GetPos().first, 650 });
 										hoveredCard.first = nullptr;
 										hoveredCard.second = nullptr;
-										
+
 									}
 									found = true;
 									//i.second->tint = SDL_Color{ 0,255,0 };
 									hovered.push_back(i.second);
 									hoveredCard = i;
-									
+
 
 									int offset = -60;
 
 									for (int c = 0; c < playerhand.size(); ++c)
 									{
-										float x = 100 * (c - ((float)playerhand.size() / 2 - 0.5f) );
+										float x = 100 * (c - ((float)playerhand.size() / 2 - 0.5f));
 
 										float xpos = centre.first + x;
 										if (playerhand[c] == i)
@@ -303,10 +274,10 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 										}
 										else
 											playerhand[c].second->SetPos(std::make_pair(xpos + offset, 650));
-										
+
 									}
 
-									
+
 								}
 
 							if (!found)
@@ -326,7 +297,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 								for (auto& i : team)
 									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
 									{
-										
+
 										if (i.character->GetStats().strength.first > 5)
 										{
 
@@ -337,7 +308,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 
 
 										hovered.push_back(i.object);
-										
+
 									}
 
 								break;
@@ -348,7 +319,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 									{
 										i.object->tint = SDL_Color{ 0, 255, 0 };
 										hovered.push_back(i.object);
-										
+
 									}
 
 								break;
@@ -356,23 +327,23 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 								bool found = false;
 								for (int i = 0; i < gridTileLength; i++)
 									for (int t = 0; t < gridTileLength; t++)
-										if (!found && mapp[i][t].square->InBounds(mouse.first, mouse.second) )
+										if (!found && mapp[i][t].square->InBounds(mouse.first, mouse.second))
 										{
 											auto path = CalculatePath(character->occupiedTile, &mapp[i][t]);
 											int distance = path.size();
-											
+
 
 											found = true;
-											
+
 
 
 											for (int x = 0; x < path.size(); x++)
 											{
-												if(path[x] != character->occupiedTile && path[x]->availiable && x < character->character->GetStats().movement.first)
+												if (path[x] != character->occupiedTile && path[x]->availiable && x < character->character->GetStats().movement.first)
 													path[x]->square->tint = SDL_Color{ 0,255,0 };
 												else
 													path[x]->square->tint = SDL_Color{ 255,0,0 };
-												
+
 
 
 
@@ -408,12 +379,12 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 		}
 	}
 	else
-		fightScene -= (dTime/1000);
-	
+		fightScene -= (dTime / 1000);
+
 
 }
 
-void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
+void BossScene::Load()
 {
 	playerTurn = false;
 	mgr->PlayMusic(combat_music, -1);
@@ -421,14 +392,12 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 	enemyHand.clear();
 	playerhand.clear();
 	enemy.clear(); team.clear();
-	for (auto &layer : mLayers)
+	for (auto& layer : mLayers)
 	{
 		for (auto obj : layer)
 			delete obj;
 		layer.clear();
 	}
-
-	srand(seed);
 
 
 
@@ -448,17 +417,10 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 		for (double x = 0; x < gridTileLength; x++)
 		{
 
-			mapp[(int)i][(int)x].square = (AddObject("tileObj", (i - 4.5) * 32 + centre.first, x * 32 - 5 * 32 + centre.second - 32, Background));
+			mapp[(int)i][(int)x].square = (AddObject("stoneTileObj", (i - 4.5) * 32 + centre.first, x * 32 - 5 * 32 + centre.second - 32, Background));
 			mapp[(int)i][(int)x].pos = std::make_pair((i - 4.5) * 32 + centre.first, x * 32 - 5 * 32 + centre.second - 32);
-			mapp[(int)i][(int)x].square->SetAnim("Grass");
 
 
-			if (std::rand() % 10 == 4)
-			{
-				auto tree = AddObject("TreeObj", mapp[(int)i][(int)x].pos.first, mapp[(int)i][(int)x].pos.second, Game);
-				mapp[(int)i][(int)x].availiable = false;
-				tree->SetScale(std::make_pair(0.25f, 0.25f));
-			}
 		}
 	}
 	for (int i = 0; i < gridTileLength; i++)
@@ -493,16 +455,16 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 
 
 
-	
+
 	for (auto i : mgr->GetPlayer()->GetParty())
 	{
 		i->GetStats().strength.first = i->GetStats().strength.second;
-		Unit unit = Unit(i, &mapp[v][9], AddObject(i->GetObjName(), 0, 0, Game), AddObject("portrait", 250, 125+150*v, UI));
+		Unit unit = Unit(i, &mapp[v][9], AddObject(i->GetObjName(), 0, 0, Game), AddObject("portrait", 250, 125 + 150 * v, UI));
 
 
 		unit.healthBar.SetObjects(AddObject("barBgObj", 250, 125 + 70 + 150 * v, UI), AddObject("barFillObj", 250, 125 + 70 + 150 * v, UI));
 		unit.healthBar.Scale(std::make_pair(0.6, 0.6));
-		unit.healthBar.OnChange((unit.character->GetStats().health.second - unit.character->GetStats().health.first)/ unit.character->GetStats().health.second * 100);
+		unit.healthBar.OnChange((unit.character->GetStats().health.second - unit.character->GetStats().health.first) / unit.character->GetStats().health.second * 100);
 
 
 		//unit.object->scale = std::make_pair(0.5f, 0.5f);
@@ -512,52 +474,36 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 	}
 	v = 0;
 
-	for(auto i : enemyTeam)
-	{
-		Unit unit = Unit(i, &mapp[9-v][0], AddObject(i->GetObjName(), 0, 0, Game),AddObject("portrait", 1000, 125+150*v, UI));
 
-		// Arbitrary experience to grant to player from defeating said unit in combat. - EH
-		i->GetStats().experience.first = 100;
 
-		unit.healthBar.SetObjects(AddObject("barBgObj", 1000, 125 + 70 + 150 * v, UI), AddObject("barFillObj", 1000, 125 + 70 + 150 * v, UI));
-		unit.healthBar.Scale(std::make_pair(0.6, 0.6));
-		unit.profile->scale = std::make_pair(0.3f, 0.3f);
-		enemy.push_back(unit);
-		v++;
-	}
 
-	//for (int i = 0; i < 5; i++)
-	//{
-	//	playerhand.push_back(std::make_pair(new Card(5, "Slash", 1, "cardObj"), AddObject("cardObj0", centre.first - 200 + 100 * i - 15, 650, UI)));
-	//	playerhand.back().second->scale = std::make_pair( 0.4f, 0.4f);
-	//}
-	for (int i = 0; i < 5; i++)
-	{
-		enemyHand.push_back(std::make_pair(new Card(5, "Slash", 1, "cardObj", "swordSlashEffectObj", 0.5, 5,0,0), nullptr));
-		
-	}
-	
+
+
+	Unit boss = Unit(new Character("", "", std::make_pair(30,30), std::make_pair(25,25), std::make_pair(25,25), std::make_pair(25,25)), &mapp[4][3], AddObject("daemonBoss", 500, 500, Game), AddObject("daemonBoss", 500, 500, Game));
+	boss.object->scale = { 2,2 };
+	enemy.push_back(boss);
+
 }
-void CombatScene::PlayFightAnimation()
+void BossScene::PlayFightAnimation()
 {
 	fightSceneTeamCharacter->SetVisible(true);
 	fightSceneEnemyCharacter->SetVisible(true);
 	fightSceneBg->SetVisible(true);
 	fightScene = 0.5f;
-	
+
 
 }
-void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  RenderObject*>* card)
+void BossScene::Cast(Unit* caster, Unit* target, const std::pair<Card*, RenderObject*>* card)
 {
 	auto d = card->first->GetEffect();
 	auto stats = &caster->character->GetStats();
 	auto dist = GetDistance(caster->occupiedTile, target->occupiedTile);
 	target->object->Untint();
 	caster->object->Untint();
-	if (dist <= card->first->Values().range && 
+	if (dist <= card->first->Values().range &&
 		stats->strength.first >= card->first->Values().stamCost)
 	{
-		mgr->PlaySFX(slash_sfx,0, 1);
+		mgr->PlaySFX(slash_sfx, 0, 1);
 		card->first->Cast(caster->character, target->character);
 		caster->character->GetStats().strength.first -= card->first->Values().stamCost;
 		caster->character->GetStats().intelligence.first -= card->first->Values().intCost;
@@ -605,49 +551,49 @@ void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  Rende
 			);
 		}
 
-		
+
 	}
 }
 
-void CombatScene::RemoveUnit(Unit* unit)
+void BossScene::RemoveUnit(Unit* unit)
 {
-		auto p = std::find(mLayers[Game].begin(), mLayers[Game].end(), unit->object);
-		mLayers[Game].erase(p);
-		mLayers[UI].erase(std::find(mLayers[UI].begin(), mLayers[UI].end(), unit->profile));
-		delete unit->object;
-		delete unit->profile;
-		unit->occupiedTile->availiable = true;
-		auto i = std::find_if(team.begin(), team.end(), [unit](Unit u) {
+	auto p = std::find(mLayers[Game].begin(), mLayers[Game].end(), unit->object);
+	mLayers[Game].erase(p);
+	mLayers[UI].erase(std::find(mLayers[UI].begin(), mLayers[UI].end(), unit->profile));
+	delete unit->object;
+	delete unit->profile;
+	unit->occupiedTile->availiable = true;
+	auto i = std::find_if(team.begin(), team.end(), [unit](Unit u) {
+		return (u.character == unit->character);
+		});
+	if (i != team.end())
+	{
+		team.erase(i);
+	}
+	else
+	{
+		i = std::find_if(enemy.begin(), enemy.end(), [unit](Unit u) {
 			return (u.character == unit->character);
 			});
-		if (i != team.end())
-		{
-			team.erase(i);
-		}
-		else
-		{
-			i = std::find_if(enemy.begin(), enemy.end(), [unit](Unit u) {
-				return (u.character == unit->character);
-				});
-			if (i == enemy.end())
-				std::cout << "Error, enemy not found error 01";
-			enemy.erase(i);
-		}
-	
+		if (i == enemy.end())
+			std::cout << "Error, enemy not found error 01";
+		enemy.erase(i);
+	}
+
 	//delete unit.character;
 }
-void CombatScene::RunAi()
+void BossScene::RunAi()
 {
 
 	bool validAction = false;
-	for (auto &i : enemy)
+	for (auto& i : enemy)
 	{
 		auto stats = &i.character->GetStats();
 		if (!validAction)
 		{
-			std::deque<std::pair<Card*,RenderObject*>> validCards;
+			std::deque<std::pair<Card*, RenderObject*>> validCards;
 
-			for (auto &c : enemyHand)
+			for (auto& c : enemyHand)
 			{
 				if (stats->strength.first >= c.first->Values().stamCost && stats->intelligence.first >= c.first->Values().intCost && stats->agility.first >= c.first->Values().agilCost)
 					validCards.push_back(c);
@@ -657,15 +603,15 @@ void CombatScene::RunAi()
 			{
 				for (auto e : team)
 				{
-					if(!validAction)
-					for (auto c : validCards)
-					{
-						if (GetDistance(i.occupiedTile, e.occupiedTile) <= c.first->Values().range && !validAction)
+					if (!validAction)
+						for (auto c : validCards)
 						{
-							validAction = true;
-							Cast(&i, &e, &c);
+							if (GetDistance(i.occupiedTile, e.occupiedTile) <= c.first->Values().range && !validAction)
+							{
+								validAction = true;
+								Cast(&i, &e, &c);
+							}
 						}
-					}
 
 					if (!validAction)
 					{
@@ -674,7 +620,7 @@ void CombatScene::RunAi()
 							for (auto e : team)
 							{
 								auto path = CalculatePath(i.occupiedTile, e.occupiedTile);
-								if (path.size() <= stats->movement.first && GetDistance(path.back(),e.occupiedTile) <= c.first->Values().range)
+								if (path.size() <= stats->movement.first && GetDistance(path.back(), e.occupiedTile) <= c.first->Values().range)
 								{
 									i.SetTarget(path);
 									validAction = true;
@@ -720,21 +666,21 @@ void CombatScene::RunAi()
 			}
 		}
 
-		
-			
+
+
 	}
 
 
 	if (!validAction)
 	{
-		
+
 		for (int i = 0; i < playerhand.size(); ++i)
 		{
 			mLayers[UI].erase(std::find(mLayers[UI].begin(), mLayers[UI].end(), playerhand[i].second));
-			
+
 		}
 		playerhand.clear();
-		
+
 
 		while (playerhand.size() < 5)
 		{
@@ -762,12 +708,12 @@ void CombatScene::RunAi()
 			i.character->GetStats().movement.first = i.character->GetStats().movement.second;
 		}
 		playerTurn = true;
-	
+
 	}
-		
+
 }
 
-std::vector<CombatScene::tile*> CombatScene::CalculatePath(tile* start, tile* end)
+std::vector<BossScene::tile*> BossScene::CalculatePath(tile* start, tile* end)
 {
 	struct pathNode
 	{
@@ -790,7 +736,7 @@ std::vector<CombatScene::tile*> CombatScene::CalculatePath(tile* start, tile* en
 
 
 
-	for(int i = 0; i < gridTileLength; i++)
+	for (int i = 0; i < gridTileLength; i++)
 		for (int t = 0; t < gridTileLength; t++)
 			map.push_back(new pathNode(&mapp[i][t]));
 
@@ -807,12 +753,12 @@ std::vector<CombatScene::tile*> CombatScene::CalculatePath(tile* start, tile* en
 	current->hcost = 0;
 	current->gcost = 0;
 	open.push_back(current);
-	while (!open.empty() && !(current->node== end))
+	while (!open.empty() && !(current->node == end))
 	{
 		open.erase(std::find(open.begin(), open.end(), current));
 		closed.push_back(current);
 
-		for (auto &i : current->node->adjacentTiles)
+		for (auto& i : current->node->adjacentTiles)
 		{
 			auto it = std::find_if(closed.begin(), closed.end(), [i](pathNode* nod) {return i == nod->node; });
 			if (it == closed.end() && (i->availiable || i == end))
@@ -854,7 +800,7 @@ std::vector<CombatScene::tile*> CombatScene::CalculatePath(tile* start, tile* en
 	std::reverse(path.begin(), path.end());
 	if (!end->availiable)
 		path.erase(path.end() - 1);
-	
+
 	return path;
 }
 

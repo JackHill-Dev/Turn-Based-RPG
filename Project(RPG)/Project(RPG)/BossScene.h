@@ -3,31 +3,31 @@
 #include "Card.h"
 #include <deque>
 #include "ProgressBar.h"
-class CombatScene :
-    public Scene
+class BossScene :
+	public Scene
 {
 public:
-    struct tile
-    {
-        RenderObject* square = NULL;
-        std::pair<float, float> pos;
-        bool availiable = true;
-        tile* up;
-        tile* down;
-        tile* right;
-        tile* left;
-        std::vector<tile*> adjacentTiles;
-        
-    };
+	struct tile
+	{
+		RenderObject* square = NULL;
+		std::pair<float, float> pos;
+		bool availiable = true;
+		tile* up;
+		tile* down;
+		tile* right;
+		tile* left;
+		std::vector<tile*> adjacentTiles;
 
-    struct Unit
-    {
+	};
+
+	struct Unit
+	{
 		ProgressBar healthBar;
 		std::vector<tile*> currentPath;
 		RenderObject* object;
 		RenderObject* profile;
-        Character* character;
-        bool busy = false;
+		Character* character;
+		bool busy = false;
 		tile* occupiedTile;
 		Unit(Character* character, tile* tile, RenderObject* object, RenderObject* profile) : object(object), character(character), occupiedTile(tile), profile(profile)
 		{
@@ -108,22 +108,22 @@ public:
 				object->SetAnim("LookUp");
 			}
 		}
-		
-    };
-	void Load(std::vector<Character*> enemyTeam, int seed);
-    CombatScene(Interface* objmg);
-    void Update(double dTime, Act act,std::pair<int, int> mouse) override;
+
+	};
+	void Load();
+	BossScene(Interface* objmg);
+	void Update(double dTime, Act act, std::pair<int, int> mouse) override;
 private:
 	void PlayFightAnimation();
 	void RunAi();
 	void Cast(Unit* caster, Unit* target, const std::pair<Card*, RenderObject*>* card);
 	void RemoveUnit(Unit* unit);
-    std::vector<Character> chars{};
-    std::vector<Card*> playerHand{};
+	std::vector<Character> chars{};
+	std::vector<Card*> playerHand{};
 
 	std::vector<tile*> CalculatePath(tile* start, tile* end);
 	void RemoveCard(std::pair<Card*, RenderObject*>* cd);;
-	double GetDistance(tile* start, tile* end) { return std::abs(std::sqrt(std::pow(end->pos.first - start->pos.first, 2) + std::pow(end->pos.second - start->pos.second, 2)))/32; }
+	double GetDistance(tile* start, tile* end) { return std::abs(std::sqrt(std::pow(end->pos.first - start->pos.first, 2) + std::pow(end->pos.second - start->pos.second, 2))) / 32; }
 	const int gridTileLength = 10;
 
 	double fightScene = 0;
@@ -131,8 +131,8 @@ private:
 	RenderObject* pExit;
 	bool playerTurn = false; // Is it the players turn
 	std::deque<RenderObject*> hovered;
-	typedef CombatScene::tile tile;
-	typedef CombatScene::Unit Unit;
+	typedef BossScene::tile tile;
+	typedef BossScene::Unit Unit;
 	Unit* character = nullptr;
 	Unit* target;
 	std::pair<Card*, RenderObject*>* selectedCard = nullptr;
@@ -148,13 +148,12 @@ private:
 	std::pair<Card*, RenderObject*> hoveredCard;
 	ProgressBar healthbar;
 
-
-
 	std::vector<Card*> deck;
 
 	std::pair<double, double> centre = { 640,360 };
 	enum Selection { Team, Enemy, Ground, UICard, Any };
 	Selection current = Any;
-	tile mapp[10][10]; 
+
+	tile mapp[10][10];
 };
 

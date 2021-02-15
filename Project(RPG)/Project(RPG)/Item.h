@@ -13,7 +13,8 @@ enum ItemType
 {
 	UNDEFINED = 0,
 	ARMOUR,
-	WEAPON
+	WEAPON,
+	CONSUMABLE
 };
 class Item
 {
@@ -21,6 +22,7 @@ public:
 	Item() {}
 	Item(std::string name, int cost);
 	~Item();
+	virtual Item* Clone() = 0; 
 	virtual std::string GetDescription() = 0;
 	std::string GetName() const;
 	std::string GetObjName() const;

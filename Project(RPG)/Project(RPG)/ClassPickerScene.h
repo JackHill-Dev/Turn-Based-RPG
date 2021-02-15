@@ -64,7 +64,7 @@ private:
 	const int mVillagerGold = 50;
 	const int mScholarGold = 100;
 	const int mNobleGold = 150;
-	const int maxPartySize = 3;
+	const int maxPartySize = 1;
 
 protected:
 

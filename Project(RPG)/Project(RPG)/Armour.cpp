@@ -1,16 +1,19 @@
 #include "Armour.h"
-Armour::Armour(std::string name, int cost, int def) : Item(name, cost)
+Armour::Armour(std::string name, std::string spriteName,  int def,int cost) : Item(name, cost)
 {
-	defence = def;
 	mType = ARMOUR;
-	mObjName = "armourObj";
+	mName = name;
+	defence = def;
+	mObjName = spriteName;
 }
 
 std::string Armour::GetDescription()
 {
 	std::ostringstream desc;
+	desc << "Name: " << mName << std::endl;
 	desc << "Defence: " << defence << std::endl;
 	desc << "Cost: " << mCost;
 
 	return desc.str();
 }
+

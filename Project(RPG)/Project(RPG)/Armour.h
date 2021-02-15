@@ -5,10 +5,13 @@ class Armour :
 {
 public:
     Armour() {}
-    Armour(std::string name, int cost, int def = 10);
+    Armour(std::string name, std::string spriteName, int def, int cost);
     int defence = 10;
 
     std::string GetDescription() override;
+
+
+    Item* Clone() override { return new Armour(*this); }
 
 private:
  

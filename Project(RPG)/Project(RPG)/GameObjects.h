@@ -4,7 +4,10 @@
 #include "RenderObject.h"
 #include "SpriteSheet.h"
 #include "Animation.h"
-
+#include "Item.h"
+#include "Armour.h"
+#include "Weapon.h"
+#include "Consumable.h"
 // Define objects with an identifier and a render object that refers to a specific spritesheet.
 const std::map<std::string,RenderObject*> definedObjects
 {
@@ -20,6 +23,7 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"scholarSpriteObj", new RenderObject("scholarSprite")},
 		{"villagerSpriteObj", new RenderObject("villagerSprite")},
 		{"warSprObj",new RenderObject("warSpr")},
+		{"daemonBoss", new RenderObject("daemonSpr")},
 		
 		// Portrait Objects 
 
@@ -34,8 +38,13 @@ const std::map<std::string,RenderObject*> definedObjects
 		// Item Objects
 
 		{"armourObj",new RenderObject("armour")},
+		{"clothArmourObj",new RenderObject("clothArmour")},
+		{"leatherArmourObj",new RenderObject("leatherArmour")},
+		{"chainArmourObj",new RenderObject("chainArmour")},
 		{"potionObj",new RenderObject("potion")},
-		{"swordObj",new RenderObject("sword")},
+		{"daggerObj",new RenderObject("dagger")},
+		{"shortSwordObj",new RenderObject("shortSword")},
+		{"longSwordObj",new RenderObject("longSword")},
 
 		// Background Objects
 
@@ -48,7 +57,8 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"overworldObj", new RenderObject("overworld")},
 		{"scrollBgObj", new RenderObject("scrollBg")},
 		{"ShopBGObj",new RenderObject("shopBg")},
-		{"tileObj", new RenderObject("tile")},		
+		{"tileObj", new RenderObject("tile")},	
+		{"stoneTileObj", new RenderObject("stone-tile")},
 		{"TreeObj", new RenderObject("tree")},
 		{"settingsBgObj", new RenderObject("settingsBg")},
 			
@@ -72,7 +82,7 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"battleNodeObj", new RenderObject("battleNode")},
 		{"bossNodeObj", new RenderObject("bossNode")},
 		{"shopNodeObj", new RenderObject("shopNode")},
-		{"startNodeObj", new RenderObject("startNode")},
+		{"nodeObj", new RenderObject("startNode")},
 
 		// Card Objects
 
@@ -111,7 +121,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"scholarSprite", new SpriteSheet("Assets/Sprites/Male/Male 08-1.png", 96, 128, 32, 32, false)},
 		{"villagerSprite", new SpriteSheet("Assets/Sprites/Male/Male 10-2.png", 96, 128, 32, 32, false)},		
 		{"warSpr", new SpriteSheet("Assets/Sprites/WarriorSprite.png", 96, 128, 32, 32, false)},
-		
+		{"daemonSpr", new SpriteSheet("Assets/Sprites/Daemon.png",385, 875, 75, 75, false)},
 
 		// Portrait Spritesheets
 
@@ -126,8 +136,14 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		// Item Spritesheets
 
 		{"armour", new SpriteSheet("Assets/Sprites/armour.png",76, 72, 76, 72, false)},
+		{"leatherArmour", new SpriteSheet("Assets/Sprites/Items/leatherArmour.png",64, 64, 64, 64, false)},
+		{"chainArmour", new SpriteSheet("Assets/Sprites/Items/plateArmour.png",64, 64, 64, 64, false)},
+		{"clothArmour", new SpriteSheet("Assets/Sprites/Items/clothArmour.png",64, 64, 64, 64, false)},
 		{"potion", new SpriteSheet("Assets/Sprites/potion.png",48, 48, 48, 48, false)},
-		{"sword", new SpriteSheet("Assets/Sprites/sword-art.png",160, 256, 32, 32, false)},
+		{"dagger", new SpriteSheet("Assets/Sprites/Items/dagger.png",64, 64, 64, 64, false)},
+		{"shortSword", new SpriteSheet("Assets/Sprites/Items/shortSword.png",64, 64, 64, 64, false)},
+		{"longSword", new SpriteSheet("Assets/Sprites/Items/longSword.png",64, 64, 64, 64, false)},
+
 		
 
 		// Background Spritesheets
@@ -138,10 +154,11 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"itemFrame", new SpriteSheet("Assets/Backgrounds/ItemFrame.png",85, 105, 85, 105, false)},
 		{"mainMenuBG", new SpriteSheet("Assets/Backgrounds/MainMenuBG_720.png",1280, 720, 1280, 720, false)},
 		{"OptionsBackground", new SpriteSheet("Assets/Sprites/Buttons/OptionsBackground.png",	240, 32, 240, 32, false)},
-		{"overworld", new SpriteSheet("Assets/Backgrounds/Blank_Map_1280x720.png", 1280, 720, 1280, 720, false)},
+		{"overworld", new SpriteSheet("Assets/Backgrounds/map.png", 2048, 1536, 2048, 1536, true)},
 		{"scrollBg", new SpriteSheet("Assets/Backgrounds/ResizedScroll.png", 1280, 720, 1280, 720, false)},
 		{"shopBg", new SpriteSheet("Assets/Backgrounds/ShopBg.png",1280, 720, 1280, 720, false)},		
 		{"tile", new SpriteSheet("Assets/grass-tile.png", 32, 32, 32, 32, false)},		
+		{"stone-tile", new SpriteSheet("Assets/stone-tile.png", 32, 32, 32, 32, false)},
 		{"tree", new SpriteSheet("Assets/Sprites/baum.png", 128,128,128,128,false)},
 		
 		// Button Spritesheets		
@@ -249,8 +266,8 @@ const std::map<std::string, std::vector<Animation>> definedAnimations
 					Animation("WalkDown", {std::make_pair(0,3), std::make_pair(1,3), std::make_pair(2,3)}),
 				}
 		},
-		
-		{"warSpr", 
+
+		{"warSpr",
 			{
 				Animation("LookUp", {std::make_pair(0,0)}),
 				Animation("LookLeft", {std::make_pair(0,1)}),
@@ -263,32 +280,49 @@ const std::map<std::string, std::vector<Animation>> definedAnimations
 				Animation("WalkDown", {std::make_pair(0,3), std::make_pair(1,3), std::make_pair(2,3)}),
 			}
 		},
-	
-		// UI Animations
-		
-		{"checkBox", {Animation("Checked", {std::make_pair(1,0)})}},
-		{"startBtn", {Animation("Hover", {std::make_pair(1,0)})}},
-		
-		// Background Animations
 
-		{"tile",
-			{
-				Animation("Grass", {std::make_pair(0,0)})
-			}
-		},
-		
-		// Effects Animations
+	// UI Animations
 
-		{"Magic", {Animation("default", {std::make_pair(0,0), std::make_pair(1,0),std::make_pair(2,0),std::make_pair(3,0),std::make_pair(4,0),std::make_pair(5,0),std::make_pair(6,0)})}},
-		{"swordSlashEffect", {Animation("default", {std::make_pair(0,0), std::make_pair(1,0),std::make_pair(2,0),std::make_pair(3,0),std::make_pair(4,0),std::make_pair(5,0),std::make_pair(6,0)})}},
+	{"checkBox", {Animation("Checked", {std::make_pair(1,0)})}},
+	{"startBtn", {Animation("Hover", {std::make_pair(1,0)})}},
+
+	// Background Animations
+
+	{"tile",
+		{
+			Animation("Grass", {std::make_pair(0,0)})
+		}
+	},
+
+	// Effects Animations
+
+	{"Magic", {Animation("default", {std::make_pair(0,0), std::make_pair(1,0),std::make_pair(2,0),std::make_pair(3,0),std::make_pair(4,0),std::make_pair(5,0),std::make_pair(6,0)})}},
+	{"swordSlashEffect", {Animation("default", {std::make_pair(0,0), std::make_pair(1,0),std::make_pair(2,0),std::make_pair(3,0),std::make_pair(4,0),std::make_pair(5,0),std::make_pair(6,0)})}},
+
+	{"daemonSpr", {Animation("default", {std::make_pair(4,0)})}},
 		
 	}
 };
 
 const std::map<std::string, DefinedCard> definedCards
 {
-	{"magicCard",{25, 5, 5, 0, 0, "Magic", "Magically assail the enemy for 5 damage, costs 5 intelligence", "malePortrait" ,"MagicObj", 1.0}},
-	{"slashCard",{1, 10, 0, 10, 0, "Slash", "Slash the enemy for 10 damage, costs 10 strength", "SlashCard" ,"swordSlashEffectObj", 0.5}},	
+	{"magicCard",{25, 5, 0, 5, 0, "Magic", "Magically assail the enemy for 5 damage, costs 5 intelligence", "malePortrait" ,"MagicObj", 1.0}},
+	{"slashCard",{1.5, 5, 5, 0, 0, "Slash", "Slash the enemy for 10 damage, costs 10 strength", "SlashCard" ,"swordSlashEffectObj", 0.5}},	
+};
+
+const std::map<std::string, Item*> definedItems
+{
+	// Weapons
+	{"dagger",new Weapon("Dagger", "daggerObj", 30, 100)}, // name, spriteName, atk power, cost
+	{"shortSword", new Weapon("Short sword", "shortSwordObj", 40, 150)},
+	{"longSword", new Weapon("Long Sword", "longSwordObj", 50, 200)}, 
+	// Armour
+	{"clothArmour", new Armour("Cloth Armour", "clothArmourObj", 10, 50 )}, // name, spriteName, def, cost
+	{"leatherArmour", new Armour("Leather Armour", "leatherArmourObj", 20, 150 )} ,
+	{"chainArmour",  new Armour("Chainmail Armour", "chainArmourObj", 30, 250 )} ,
+
+	// Consumables
+	{"healthPotion",  new Consumable("Health potion", "potionObj", 25)}
 };
 
 

@@ -6,6 +6,7 @@
 class Player
 {
 public:
+	int currentNode = 0;
 	Player();
 	~Player();
 	std::deque<Card*> deck;

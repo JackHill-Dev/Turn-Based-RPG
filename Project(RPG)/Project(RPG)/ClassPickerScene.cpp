@@ -44,7 +44,9 @@ void ClassPickerScene::Init()
 
 void ClassPickerScene::Load()
 {
+	mgr->GetPlayer()->GetParty().clear();
 	mgr->FadeInMusic(bg_Music, -1, mgr->fadeTime);
+	
 }
 
 
@@ -282,7 +284,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 			{
 				case CharacterPickerState::WarriorView:
 
-					mCharacters.push_back(new Character("warSprObj", "WarriorObj"));
+					mCharacters.push_back(new Character("warSprObj", "WarriorObj", std::make_pair(10,10), std::make_pair(15, 15), std::make_pair(10, 10), std::make_pair(10, 10)));
 					mCharacters[PartyCount]->SetClass(UnitClass::Warrior);
 					mCharacterStats.push_back(mStatDebuff); // Intelligence debuff - EH
 					mCharacterStats.push_back(mStatBuff); // Strength buff - EH
@@ -291,7 +293,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 
 				case CharacterPickerState::RogueView:
 
-					mCharacters.push_back(new Character("rogSprObj", "RogueObj"));
+					mCharacters.push_back(new Character("rogSprObj", "RogueObj", std::make_pair(10, 10), std::make_pair(15, 15), std::make_pair(10, 10), std::make_pair(10, 10)));
 					mCharacters[PartyCount]->SetClass(UnitClass::Rogue);
 					mCharacterStats.push_back(mStatDebuff); // Strength debuff - EH
 					mCharacterStats.push_back(mStatBuff); // Agility buff - EH
@@ -300,7 +302,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 
 				case CharacterPickerState::MageView:
 
-					mCharacters.push_back(new Character("mageSprObj", "ClericObj"));
+					mCharacters.push_back(new Character("mageSprObj", "ClericObj", std::make_pair(10, 10), std::make_pair(15, 15), std::make_pair(10, 10), std::make_pair(10, 10)));
 					mCharacters[PartyCount]->SetClass(UnitClass::Mage);
 					mCharacterStats.push_back(mStatDebuff); // Agility debuff - EH
 					mCharacterStats.push_back(mStatBuff); // Intelligence buff - EH

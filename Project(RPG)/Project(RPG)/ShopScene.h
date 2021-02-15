@@ -8,11 +8,14 @@
 #include "Armour.h"
 #include "Consumable.h"
 
+
+
 class ShopScene :
     public Scene
 {
 public:
 	ShopScene(Interface* rng);
+	~ShopScene();
 	void Init();
 	void Load();
 protected:
@@ -26,7 +29,8 @@ private:
 	void ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, int> mousePos);
 	void GenerateGrids();
 	void DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY);
-	
+	void HandleTooltip(ItemObject* hovered);
+
 	Shop mShop;
 	UIText mPlayerGoldText;
 	UIText mShopGoldText;
@@ -35,10 +39,17 @@ private:
 	Mix_Chunk* button_Click_SFX;
 	Mix_Chunk* leave_SFX;
 	RenderObject* pExitButton;
+	ToolTip mTooltip;
+	ToolTip playerToolTip;
+	ItemObject* playerItemHovered;
+	ItemObject* shopItemHovered;
 	bool startOnce = false;
 
 	//Temp
 	int RandomRange(int min, int max);	
+	std::vector<ItemObject> playerInv;
+	std::vector<ItemObject> shopInv;
 
+	
 };
 
