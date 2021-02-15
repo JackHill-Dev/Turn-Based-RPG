@@ -370,7 +370,7 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 			mgr->LoadScene(Scenes::MainMenu);
 		else
 			if (pArmyViewerButton->InBounds(mousePos.first, mousePos.second))
-				mgr->LoadScene(Scenes::InventoryScreen);
+				mgr->LoadScene(Scenes::Party);
 			else
 			{
 
@@ -417,7 +417,7 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 
 
 
-									mgr->LoadCombatScene({ new Character("maleObj", "portrait", std::make_pair(5,5), std::make_pair(10,10), std::make_pair(10,10), std::make_pair(10,10)) });
+									mgr->LoadCombatScene({ new Character("maleObj", "portrait", std::make_pair(5,5), std::make_pair(10,10), std::make_pair(10,10), std::make_pair(10,10)), new Character("maleObj", "portrait", std::make_pair(5,5), std::make_pair(10,10), std::make_pair(10,10), std::make_pair(10,10)), new Character("maleObj", "portrait", std::make_pair(5,5), std::make_pair(10,10), std::make_pair(10,10), std::make_pair(10,10)) });
 								}
 						}
 					}
