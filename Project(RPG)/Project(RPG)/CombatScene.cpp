@@ -12,9 +12,6 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 	if (fightScene <= 0)
 	{
 	
-		
-
-
 		for (auto e : mLayers[Effects])
 		{
 			delete(e);
@@ -24,10 +21,10 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 
 		// Win Condition - EH
 		if (enemy.size() <= 0)
-		{
-		
+		{		
 			for(auto i : team)
 				RemoveUnit(&i);
+
 			for (auto i : enemy)
 				RemoveUnit(&i);
 
@@ -42,6 +39,17 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 			{
 				i.character->Die();
 				RemoveUnit(&i);
+
+				// Lose Condition - EH
+				if (team.size() <= 0)
+				{
+					for (auto i : enemy)
+						RemoveUnit(&i);
+
+					for (auto i : team)
+						RemoveUnit(&i);
+					mgr->LoadScene(Scenes::WinLoseStateScreen);
+				}
 			}
 		}
 				
@@ -54,11 +62,8 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 			}
 		}
 
-		// Lose Condition - EH
-		if (team.size() <= 0)
-		{
-			mgr->LoadScene(Scenes::WinLoseStateScreen);
-		}
+		
+		
 
 		bool scenebusy = false;
 		if (playerTurn)
