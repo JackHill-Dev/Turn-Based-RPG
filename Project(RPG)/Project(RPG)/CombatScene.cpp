@@ -99,6 +99,8 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 					
 					if (endTurn->InBounds(mouse.first, mouse.second))
 					{
+						endTurn->Untint();
+
 						for (int i = 0; i < playerhand.size(); ++i)
 						{
 							mLayers[UI].erase(std::find(mLayers[UI].begin(), mLayers[UI].end(), playerhand[i].second));
@@ -106,6 +108,12 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 						}
 						playerhand.clear();
 						playerTurn = false;
+
+						for (auto& i : team)
+						{
+							i.object->Untint();
+						}
+
 						for (auto& i : enemy)
 						{
 							i.character->GetStats().movement.first = i.character->GetStats().movement.second;
@@ -216,6 +224,16 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 				else
 					if (act == Act::MouseUpdate)
 					{
+
+						if (endTurn->InBounds(mouse.first, mouse.second))
+						{
+							endTurn->Tint({ 0,255,0 });
+						}
+						else
+						{
+							endTurn->Untint();
+						}
+
 						if (hoveredCard.first != nullptr)
 						{
 							hoveredCard.second->scale = std::make_pair(0.42f, 0.42f);
@@ -431,7 +449,7 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 
 	combat_music = Mix_LoadMUS("Assets/Combat_Music.wav");
 	slash_sfx = Mix_LoadWAV("Assets/SFX/slash.wav");
-	endTurn = AddObject("quitBtnObj", centre.first, 20, UI);
+	endTurn = AddObject("EndTurnButtonObj", centre.first, 30, UI);
 	endTurn->scale = std::make_pair(1, 1);
 	AddObject("forestBGObj", 640, 360, Background);
 

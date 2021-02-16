@@ -15,17 +15,39 @@ PartyViewerScene::PartyViewerScene(Interface* mgr) : Scene(mgr)
 
 void PartyViewerScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
+	if (act == Act::MouseUpdate)
+	{
+		if (mInventoryBtn->InBounds(mousePos.first, mousePos.second))
+		{
+			mInventoryBtn->Tint({ 0,255,0 });
+		}
+		else
+		{
+			mInventoryBtn->Untint();
+		}
+		if (mCloseBtn->InBounds(mousePos.first, mousePos.second))
+		{
+			mCloseBtn->Tint({ 0,255,0 });
+		}
+		else
+		{
+			mCloseBtn->Untint();
+		}
+	}
+
 	// Check if close button has been pressed 
 	if (act == Act::Click && mCloseBtn->InBounds(mousePos.first, mousePos.second))
 	{
 		mgr->PlaySFX(button_SFX, 0, 1);
 		mgr->LoadScene(Overworld); 	// Go to previous scene that opened the party viewer
+		mCloseBtn->Untint();
 	}
 		
 	if (act == Act::Click && mInventoryBtn->InBounds(mousePos.first, mousePos.second))
 	{
 		mgr->PlaySFX(button_SFX, 0, 1);
 		mgr->LoadScene(Scenes::InventoryScreen); // Inventory screen
+		mInventoryBtn->Untint();
 	}
 	
 	mSceneText.clear();
@@ -38,8 +60,6 @@ void PartyViewerScene::Init()
 {
 	mParty = mgr->GetPlayer()->GetParty();
 	GetCharacterPortraits();
-
-
 }
 
 void PartyViewerScene::Load()
