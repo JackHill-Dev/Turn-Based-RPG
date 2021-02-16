@@ -16,9 +16,6 @@ private:
 	//const int mCellCount;
 	std::pair<int, int> textureSize;
 	std::map<std::string,Animation> anims;
-	
-
-
 public:
 	const bool fillScreen;
 	bool SetTexture(SDL_Texture* texture);

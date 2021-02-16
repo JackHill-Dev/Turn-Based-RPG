@@ -4,10 +4,8 @@
 #include "SpriteSheet.h"
 #include "Actions.h"
 #include "Animation.h"
-
 class RenderObject
 {
-
 private:
 	std::string mName;
 	bool mVisible;

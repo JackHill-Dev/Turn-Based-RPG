@@ -121,6 +121,11 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 							i.character->GetStats().strength.first = i.character->GetStats().strength.second;
 
 						}
+						for (int i = 0; i < 5; i++)
+						{
+							enemyHand.push_back(std::make_pair(new Card(5, "Slash", 1, "cardObj", "swordSlashEffectObj", 0.5, 5, 0, 0), nullptr));
+
+						}
 					}
 					else
 						if (current == Selection::Any)
