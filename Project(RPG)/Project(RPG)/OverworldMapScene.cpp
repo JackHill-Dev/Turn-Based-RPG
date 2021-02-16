@@ -30,20 +30,14 @@ int RandomNumberGenerator(int min, int max)
 }
 void OverworldMapScene::SaveFile()
 {
-	
-
-	
-
 	std::ofstream file("Savedata.Json");
 
 	nlohmann::json characters;
-
 
 	for (auto i : mgr->GetPlayer()->GetParty())
 	{
 		characters.push_back({ {"Portrait", i->GetPortraitName()}, {"Object", i->GetObjName()}, { "Health", i->GetStats().health},{"Strength", i->GetStats().strength},{"Intelligence", i->GetStats().intelligence},{"Agility", i->GetStats().agility} });
 	}
-
 		
 	nlohmann::json j;
 	j["Saves"]["Save"]["Seed"] = mgr->GetSeed();
@@ -52,15 +46,9 @@ void OverworldMapScene::SaveFile()
 	j["Saves"]["Save"]["CurrentNode"] = currentNode;
 
 	file << j;
-	
-
-
-
-
 }
 OverworldMapScene::OverworldMapScene(Interface* mObjMgr) : Scene(mObjMgr)
 {
-	
 	pOverworld = AddObject("overworldObj", 640, 360, Map);
 	pArmyViewerButton = AddObject("armyViewerButtonObj", 730, 700, UI);
 	pMenuButton = AddObject("menuButtonObj", 440, 700, UI);
@@ -70,24 +58,28 @@ OverworldMapScene::OverworldMapScene(Interface* mObjMgr) : Scene(mObjMgr)
 	Init();
 	//LoadNodes();
 }
-double uniform() {
+double uniform() 
+{
 	return (double)rand() / RAND_MAX;
 }
 void OverworldMapScene::LoadNodes()
 {
-
 	for (auto i : mLayers[Game])
+	{
 		delete i;
+	}
+
 	mLayers[Game].clear();
 	map.clear();
-
 	
 	seed = mgr->GetSeed();
+
 	if(seed == 0)
 	for (int i = 1; i < 4; i++)
 	{
 		seed += std::pow((rand() % 100),i);
 	}
+
 	std::pair<int, int> center = std::make_pair(640, 360);
 	int squaresize = 350;
 
@@ -97,19 +89,17 @@ void OverworldMapScene::LoadNodes()
 	const double PI = 3.14159265358979732384626433832795;
 	double m_radius = 300;
 
-	
-
 	std::vector< std::pair<double, double>> points;
 	points.push_back(center);
+
 	for (int i = 0; i < 300; i++)
 	{
-
 		double theta = 2 * 3.14159265358979323846264 * uniform();
 		double r = sqrt(uniform());
+
 		std::pair<double, double> point = std::make_pair(
 			center.first + r * m_radius * cos(theta),
 			center.second + r * m_radius * sin(theta));
-
 		
 		bool allow = true;
 
@@ -118,15 +108,10 @@ void OverworldMapScene::LoadNodes()
 				allow = false;
 				
 			if(allow)
-				points.push_back(point);
-		
-
+				points.push_back(point);		
 	};
 
-	int i = 0;
-
-
-	
+	int i = 0;	
 
 	points.erase(points.begin());
 
@@ -142,12 +127,14 @@ void OverworldMapScene::LoadNodes()
 			map.push_back(new_Node(AddObject("shopNodeObj", i.first, i.second, Game), shop, std::rand() % 100 + 10));
 		}
 		else
+		{
 			map.push_back(new_Node(AddObject("nodeObj", i.first, i.second, Game), shop, std::rand() % 100 + 10));
+		}
 	}
-
 
 	map.push_back(new_Node(AddObject("battleNodeObj", center.first, center.second, Game), false, 0));
 	boss = &map.back();
+
 	for (auto &i : map)
 	{
 		int adjacentCount = 3;
@@ -156,19 +143,18 @@ void OverworldMapScene::LoadNodes()
 		{
 			int lowestDistance = INT_MAX;
 			new_Node* node = nullptr;
+
 			for (auto& n : map)
 			{
 				auto ind = std::find_if(i.adjacentNodes.begin(), i.adjacentNodes.end(), [n](new_Node* nod) {return n.obj == nod->obj; });
 				int range = std::abs(i.obj->GetPos().first - n.obj->GetPos().first) + std::abs(i.obj->GetPos().second - n.obj->GetPos().second);
+
 				if (i.obj != n.obj && range < lowestDistance && ind == i.adjacentNodes.end())
 				{
 					node = &n;
 					lowestDistance = range;
-				}
-
-			
+				}			
 			}
-
 
 			if (node == nullptr)
 			{
@@ -181,110 +167,100 @@ void OverworldMapScene::LoadNodes()
 				node->adjacentNodes.push_back(&i);
 			}
 		}
-
-	}
-
-
-		
-	}
+	}		
+}
 
 
 void OverworldMapScene::LoadNodes(int loadedseed) 
-	{
+{
 	seed = loadedseed;
-		for (auto i : mLayers[Game])
-			delete i;
-		mLayers[Game].clear();
 
+	for (auto i : mLayers[Game])
+	{
+		delete i;
+	}
 
-		std::pair<int, int> center = std::make_pair(640, 360);
-		int squaresize = 350;
+	mLayers[Game].clear();
 
-		srand(seed);
+	std::pair<int, int> center = std::make_pair(640, 360);
+	int squaresize = 350;
 
+	srand(seed);
 
-		const double PI = 3.14159265358979732384626433832795;
-		double m_radius = 350;
+	const double PI = 3.14159265358979732384626433832795;
+	double m_radius = 350;
 
+	std::vector< std::pair<double, double>> points;
 
+	points.push_back(center);
+	for (int i = 0; i < 300; i++)
+	{
+		double theta = 2 * 3.14159265358979323846264 * uniform();
+		double r = sqrt(uniform());
 
-		std::vector< std::pair<double, double>> points;
+		std::pair<double, double> point = std::make_pair(
+			center.first + r * m_radius * cos(theta),
+			center.second + r * m_radius * sin(theta));
 
+		bool allow = true;
 
-		points.push_back(center);
-		for (int i = 0; i < 300; i++)
+		for (auto p : points)
 		{
-
-			double theta = 2 * 3.14159265358979323846264 * uniform();
-			double r = sqrt(uniform());
-			std::pair<double, double> point = std::make_pair(
-				center.first + r * m_radius * cos(theta),
-				center.second + r * m_radius * sin(theta));
-
-
-			bool allow = true;
-
-			for (auto p : points)
-				if (!(std::abs(p.first - point.first) > 15 && std::abs(p.second - point.second) > 15))
-					allow = false;
-
-			if (allow)
-				points.push_back(point);
-
-
-		};
-
-		int i = 0;
-
-
-
-
-		
-
-		
-
-		for (auto i : points)
-			map.push_back(new_Node(AddObject("nodeObj", i.first, i.second, Game), false, std::rand() % 100 + 10));
-
-		for (auto& i : map)
-		{
-			int adjacentCount = 3;
-
-			while (i.adjacentNodes.size() < adjacentCount)
+			if (!(std::abs(p.first - point.first) > 15 && std::abs(p.second - point.second) > 15))
 			{
-				int lowestDistance = INT_MAX;
-				new_Node* node = nullptr;
-				for (auto& n : map)
-				{
-					auto ind = std::find_if(i.adjacentNodes.begin(), i.adjacentNodes.end(), [n](new_Node* nod) {return n.obj == nod->obj; });
-					int range = std::abs(i.obj->GetPos().first - n.obj->GetPos().first) + std::abs(i.obj->GetPos().second - n.obj->GetPos().second);
-					if (i.obj != n.obj && range < lowestDistance && ind == i.adjacentNodes.end())
-					{
-						node = &n;
-						lowestDistance = range;
-					}
-
-
-				}
-
-
-				if (node == nullptr)
-				{
-					std::cout << "ERROR cant find node!";
-					break;
-				}
-				else
-				{
-					i.adjacentNodes.push_back(node);
-					node->adjacentNodes.push_back(&i);
-				}
+				allow = false;
 			}
-
 		}
 
+		if (allow)
+		{
+			points.push_back(point);
+		}
 
+	};
 
+	int i = 0;
+
+	for (auto i : points)
+	{
+		map.push_back(new_Node(AddObject("nodeObj", i.first, i.second, Game), false, std::rand() % 100 + 10));
 	}
+
+	for (auto& i : map)
+	{
+		int adjacentCount = 3;
+
+		while (i.adjacentNodes.size() < adjacentCount)
+		{
+			int lowestDistance = INT_MAX;
+			new_Node* node = nullptr;
+
+			for (auto& n : map)
+			{
+				auto ind = std::find_if(i.adjacentNodes.begin(), i.adjacentNodes.end(), [n](new_Node* nod) {return n.obj == nod->obj; });
+				int range = std::abs(i.obj->GetPos().first - n.obj->GetPos().first) + std::abs(i.obj->GetPos().second - n.obj->GetPos().second);
+
+				if (i.obj != n.obj && range < lowestDistance && ind == i.adjacentNodes.end())
+				{
+					node = &n;
+					lowestDistance = range;
+				}
+
+			}
+
+			if (node == nullptr)
+			{
+				std::cout << "ERROR cant find node!";
+				break;
+			}
+			else
+			{
+				i.adjacentNodes.push_back(node);
+				node->adjacentNodes.push_back(&i);
+			}
+		}
+	}
+}
 	
 
 
@@ -340,9 +316,6 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 {
 	if (act == Act::MouseUpdate)
 	{
-
-
-
 		int t = 0;
 		
 			for (auto &i : map)
@@ -358,27 +331,42 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 			t = 0;
 
 			if (pMenuButton->InBounds(mousePos.first, mousePos.second))
-				SaveFile();
-			
-			
-
-		}
+			{
+				OnHover(pMenuButton);
+			}
+			else
+			{
+				OnLeave(pMenuButton);
+			}
+			if (pArmyViewerButton->InBounds(mousePos.first, mousePos.second))
+			{
+				OnHover(pArmyViewerButton);
+			}
+			else
+			{
+				OnLeave(pArmyViewerButton);
+			}
+	}
 
 	else if (act == Act::Click)
 	{
 		if (pMenuButton->InBounds(mousePos.first, mousePos.second))
+		{
+			mgr->PlaySFX(button_Click_SFX, 0, 1);
 			mgr->LoadScene(Scenes::MainMenu);
+		}
 		else
 			if (pArmyViewerButton->InBounds(mousePos.first, mousePos.second))
+			{
+				mgr->PlaySFX(button_Click_SFX, 0, 1);
 				mgr->LoadScene(Scenes::Party);
+			}
 			else
 			{
 
 				int t = 0;
 				for (auto &i : map)
 				{
-
-
 					if (t != currentNode)
 					{
 						bool found = (std::find_if(map[currentNode].adjacentNodes.begin(), map[currentNode].adjacentNodes.end(), [i](new_Node* node) {return i.obj == node->obj; }) != map[currentNode].adjacentNodes.end());
@@ -386,12 +374,8 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 							i.obj->Untint();
 					}
 
-
-
-
 					if (i.obj->InBounds(mousePos.first, mousePos.second))
 					{
-
 						if (std::find_if(map[currentNode].adjacentNodes.begin(), map[currentNode].adjacentNodes.end(), [i](new_Node* node) {return i.obj == node->obj; }) != map[currentNode].adjacentNodes.end())
 						{
 							map[currentNode].obj->Untint();
@@ -404,24 +388,26 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 								a->obj->tint = { 0,0,255 };
 							if (&i == boss)
 							{
+								mgr->PlaySFX(button_Click_SFX, 0, 1);
 								mgr->LoadScene(Scenes::Boss);
 							}
 							else
 							if (i.shop)
 							{
+								mgr->PlaySFX(shop_Entry_SFX, 0, 1);
 								mgr->LoadScene(Scenes::Shops);
 							}
 							else
+							{
 								if (IsCombat())
 								{
-
-
-
+									
 									mgr->LoadCombatScene({ new Character("maleObj", "portrait", std::make_pair(5,5), std::make_pair(10,10), std::make_pair(10,10), std::make_pair(10,10)), new Character("maleObj", "portrait", std::make_pair(5,5), std::make_pair(10,10), std::make_pair(10,10), std::make_pair(10,10)), new Character("maleObj", "portrait", std::make_pair(5,5), std::make_pair(10,10), std::make_pair(10,10), std::make_pair(10,10)) });
 								}
+								mgr->PlaySFX(button_Click_SFX, 0, 1);
+							}
 						}
 					}
-
 					t++;
 				}
 			}

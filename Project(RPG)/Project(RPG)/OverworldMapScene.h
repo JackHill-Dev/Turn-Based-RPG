@@ -34,8 +34,7 @@ private:
 	std::vector<std::vector<std::pair<int, int>>> nodepositions
 	{
 		{},{},{},{},{}
-	}
-		;
+	};
 
 	int currentNode = 0;
 
