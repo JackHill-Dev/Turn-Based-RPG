@@ -31,6 +31,8 @@ std::pair<float, float> SpriteSheet::GetCellSize()
 }
 Animation* SpriteSheet::GetAnim(std::string name)
 {
+	if(anims.find(name) == anims.end())
+		return &anims["default"];
 	if (&anims[name] == nullptr)
 		return &anims["default"];
 	return &anims[name];

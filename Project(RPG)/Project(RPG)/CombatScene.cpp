@@ -170,6 +170,11 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 								}
 								break;
 							case(Selection::Enemy):
+								for (auto& i: team)
+								{
+									if(i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second) && &i != character)
+									target = &i;
+								}
 								for (auto& i : enemy)
 									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
 									{
@@ -307,7 +312,17 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
 									{
 										
-										if (i.character->GetStats().strength.first > 5)
+										if (i.character->GetStats().strength.first >= selectedCard->first->Values().stamCost
+											
+											&& i.character->GetStats().intelligence.first >= selectedCard->first->Values().intCost &&
+
+
+											i.character->GetStats().agility.first >= selectedCard->first->Values().agilCost
+
+											
+											
+											
+											)
 										{
 
 											i.object->tint = SDL_Color{ 0, 255, 0 };
@@ -329,6 +344,13 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 										i.object->tint = SDL_Color{ 0, 255, 0 };
 										hovered.push_back(i.object);
 										
+									}
+								for (auto& i : team)
+									if (i.object->InBounds(mouse.first, mouse.second) && &i != character)
+									{
+										i.object->tint = SDL_Color{ 0, 255, 0 };
+										hovered.push_back(i.object);
+
 									}
 
 								break;
@@ -530,7 +552,7 @@ void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  Rende
 	target->object->Untint();
 	caster->object->Untint();
 	if (dist <= card->first->Values().range && 
-		stats->strength.first >= card->first->Values().stamCost)
+		stats->strength.first >= card->first->Values().stamCost && stats->intelligence.first >= card->first->Values().intCost && stats->agility.first >= card->first->Values().agilCost)
 	{
 		mgr->PlaySFX(slash_sfx,0, 1);
 		card->first->Cast(caster->character, target->character);
@@ -733,6 +755,8 @@ void CombatScene::RunAi()
 		for (auto i : team)
 		{
 			i.character->GetStats().strength.first = i.character->GetStats().strength.second;
+			i.character->GetStats().intelligence.first = i.character->GetStats().intelligence.second;
+			i.character->GetStats().agility.first = i.character->GetStats().agility.second;
 			i.character->GetStats().movement.first = i.character->GetStats().movement.second;
 		}
 		playerTurn = true;

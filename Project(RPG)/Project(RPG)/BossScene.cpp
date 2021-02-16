@@ -30,7 +30,8 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 		mLayers[Effects].clear();
 
 
-
+		if (team.size() <= 0)
+			mgr->LoadScene(MainMenu);
 
 
 
