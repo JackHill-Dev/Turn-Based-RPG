@@ -7,7 +7,6 @@ static std::random_device rd;
 static std::mt19937 random_number_engine(rd());
 RenderObject* saveButton;
 int seed = 15;
-
 struct new_Node
 {
 	new_Node(RenderObject* obj, bool shop, int seed) :obj(obj), shop(shop), seed(seed)
@@ -19,7 +18,6 @@ struct new_Node
 	bool shop = false;
 	int seed = 0;
 };
-
 new_Node* boss = nullptr;
 std::vector<new_Node> map;
 
@@ -35,7 +33,6 @@ void OverworldMapScene::SaveFile()
 	
 
 	std::ofstream file("Savedata.Json");
-	
 
 	nlohmann::json characters;
 
@@ -188,8 +185,6 @@ void OverworldMapScene::LoadNodes()
 
 		
 	}
-
-
 void OverworldMapScene::LoadNodes(int loadedseed) 
 	{
 	seed = loadedseed;
@@ -286,9 +281,6 @@ void OverworldMapScene::LoadNodes(int loadedseed)
 
 
 	}
-	
-
-
 void OverworldMapScene::Init()
 {
 	confirm_SFX = Mix_LoadWAV("Assets/SFX/confirmSound.wav");
@@ -328,14 +320,12 @@ void OverworldMapScene::OnLeave(RenderObject* rObj)
 	rObj->Untint();
 }
 
-
 bool IsCombat()
 {
 	srand(time(NULL));
 	int v = rand() % 10;
 	return  v > 6;
 }
-
 // Handles mouse events such as hovering and navigation between scenes - EH
 void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePos)
 {
@@ -416,14 +406,9 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 								if (IsCombat())
 								{
 
-									std::vector<Character*> enemy;
 
-									int number = std::rand() % 4 + 1;
 
-									for (int i = 0; i < number; ++i)
-										enemy.push_back(new Character("maleObj", "portrait", std::make_pair(5, 5), std::make_pair(10, 10), std::make_pair(10, 10), std::make_pair(10, 10)));
-
-									mgr->LoadCombatScene(enemy);
+									mgr->LoadCombatScene({ new Character("maleObj", "portrait", std::make_pair(5,5), std::make_pair(10,10), std::make_pair(10,10), std::make_pair(10,10)) });
 								}
 						}
 					}
@@ -433,7 +418,6 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 			}
 	}
 }
-
 // Forces the first four to be different nodes and guarantees the first node is a start node, then it's random from there - EH
 std::string OverworldMapScene::assignRandomNodeSprite(int num)
 {
