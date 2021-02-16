@@ -16,6 +16,9 @@ public:
 	void SetInventory(Inventory inv);
 	void SellItem(Item* item);
 	void SetGold(int amount);
+	void AddToXpPool(const int& xp);
+	int& GetXpPool() { return mPartyExperiencePool; }
+	void ClearXpPool() { mPartyExperiencePool = 0; }
 	void AddToParty(Character* character);
 	void SetupParty(std::vector<Character*> characters);
 	void SetDeck(std::deque<Card*> newDeck)
@@ -25,6 +28,7 @@ public:
 private:
 	Inventory mInventory;
 	std::vector<Character*> mPartyMembers;
-	int mGold;
+	int mPartyExperiencePool = 0;
+	int mGold = 0;
 };
 

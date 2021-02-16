@@ -38,6 +38,7 @@ enum Scenes
 	ClassPicker = 6,
 	InventoryScreen = 7,
 	Boss = 8,
+	WinLoseStateScreen = 9,
 	NoSceneYet = 10 
 };
 

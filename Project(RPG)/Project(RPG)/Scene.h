@@ -19,6 +19,9 @@ struct UIText
 	SDL_Color textColor;
 	bool isVisible = true;
 	bool bWrapped = false;
+
+	std::string addTab() { return "        "; } //TTF Doesn't support tabs. Tabs are 8 whitespaces long typically - EH
+
 	std::pair<float, float>SetTextScale(float x, float y) 
 	{ 
 		scale = std::make_pair(x, y); 

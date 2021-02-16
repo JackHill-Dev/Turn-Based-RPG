@@ -20,6 +20,8 @@ public:
 
     MainMenuScene(Interface* rng);
     void Load();
+    void OnHover(RenderObject* rObj);
+    void OnLeave(RenderObject* rObj);
 
 protected:
 
@@ -36,6 +38,7 @@ private:
     RenderObject* quit;
     RenderObject* settings;
     RenderObject* ApplyBtn;
+    std::vector<RenderObject*> buttons;
 
 };
 

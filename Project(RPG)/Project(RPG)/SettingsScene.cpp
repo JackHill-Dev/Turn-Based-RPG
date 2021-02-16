@@ -16,6 +16,18 @@ void SettingsScene::Load()
 
 void SettingsScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
+	if (act == Act::MouseUpdate)
+	{
+		if (settingsCloseBtn->InBounds(mousePos.first, mousePos.second))
+		{
+			settingsCloseBtn->Tint({ 0,255,0 });
+		}
+		else
+		{
+			settingsCloseBtn->Untint();
+		}
+	}
+
 	if (act == Act::Click)
 	{
 
@@ -23,6 +35,7 @@ void SettingsScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 		{
 			mgr->PlaySFX(button_Click_SFX, 0, 1);
 			mgr->LoadPreviousScene();
+			settingsCloseBtn->Untint();
 		}
 
 		if (dropdownCollapsed->InBounds(mousePos.first, mousePos.second) && dropdownCollapsed->IsActive())

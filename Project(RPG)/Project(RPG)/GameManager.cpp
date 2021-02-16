@@ -108,6 +108,8 @@ void GameManager::LoadScene()
 		case Scenes::SettingsPage: mSettingsSceneInstance->Load(); break;
 		case Scenes::InventoryScreen : mInventorySceneInstance->Load(); break;
 		case Scenes::Boss: mBossSceneInstance->Load(); break;
+		case Scenes::WinLoseStateScreen: mWinLoseStateSceneInstance->Load(); break;
+		default: std::cout << "Error loading scene!" << std::endl;
 	}
 
 
@@ -127,7 +129,7 @@ bool GameManager::Init()
 	mInterface.StoreWindow(mWnd);
 	SetUp();
 
-	mPlayer.SetDeck({new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Magic"]),new Card(*cards["Heal"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Slash"]) });
+	mPlayer.SetDeck({new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Magic"]),new Card(*cards["Magic"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Slash"]) });
 
 	mMainMenuSceneInstance = new MainMenuScene(&mInterface);
 	scenes.push_back(mMainMenuSceneInstance); // 0
@@ -155,6 +157,9 @@ bool GameManager::Init()
 
 	mBossSceneInstance = new BossScene(&mInterface);
 	scenes.push_back(mBossSceneInstance); // 8
+
+	mWinLoseStateSceneInstance = new WinLoseStateScene(&mInterface);
+	scenes.push_back(mWinLoseStateSceneInstance); // 9
 
 	currentScene->Clear(mRnd);
 	currentScene = scenes[0];

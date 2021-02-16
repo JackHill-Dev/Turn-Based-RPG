@@ -38,6 +38,7 @@ const std::map<std::string,RenderObject*> definedObjects
 		// Item Objects
 
 		{"armourObj",new RenderObject("armour")},
+		{"defaultItemObj", new RenderObject("defaultItem")},
 		{"clothArmourObj",new RenderObject("clothArmour")},
 		{"leatherArmourObj",new RenderObject("leatherArmour")},
 		{"chainArmourObj",new RenderObject("chainArmour")},
@@ -56,11 +57,12 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"OptionsBackgroundObj", new RenderObject("OptionsBackground")},
 		{"overworldObj", new RenderObject("overworld")},
 		{"scrollBgObj", new RenderObject("scrollBg")},
+		{"settingsBgObj", new RenderObject("settingsBg")},
 		{"ShopBGObj",new RenderObject("shopBg")},
 		{"tileObj", new RenderObject("tile")},	
 		{"stoneTileObj", new RenderObject("stone-tile")},
 		{"TreeObj", new RenderObject("tree")},
-		{"settingsBgObj", new RenderObject("settingsBg")},
+		{"toolTipBgObj", new RenderObject("toolTipBg")},
 			
 		// Button Objects
 
@@ -69,12 +71,17 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"backBtnObj", new RenderObject("backBtn")},
 		{"backTxtBtnObj", new RenderObject("backTxtBtn")},
 		{"CloseBtnObj", new RenderObject("closeBtn")},
+		{"ConfirmButtonObj", new RenderObject("confirmButton")},
+		{"ContinueButtonObj", new RenderObject("continueButton")},
+		{"EndTurnButtonObj", new RenderObject("endTurnButton")},
 		{"exitButtonObj", new RenderObject("exitButton")},
 		{"inventoryButtonObj", new RenderObject("inventoryButton")},
 		{"menuButtonObj", new RenderObject("menuButton")},
 		{"quitBtnObj", new RenderObject("quitBtn")},
+		{"resetButtonObj", new RenderObject("resetButton")},
 		{"settingsBtnObj", new RenderObject("settingsBtn")},
 		{"StartBtnObj", new RenderObject("startBtn")},
+		{"upButtonObj", new RenderObject("upButton")},
 		{"yesTxtBtnObj", new RenderObject("yesTxtBtn")},
 
 		// Node Objects
@@ -99,9 +106,9 @@ const std::map<std::string,RenderObject*> definedObjects
 
 		{"MagicObj", new RenderObject("Magic")},
 		{"swordSlashEffectObj", new RenderObject("swordSlashEffect")},
+		{"healImageObject", new RenderObject("health")},
 		{"defaultItemObj", new RenderObject("defaultItem")},
 		{"toolTipBgObj", new RenderObject("toolTipBg")}
-
 
 	}
 };
@@ -136,6 +143,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		// Item Spritesheets
 
 		{"armour", new SpriteSheet("Assets/Sprites/armour.png",76, 72, 76, 72, false)},
+		{"defaultItem", new SpriteSheet("Assets/Sprites/helmet.png", 32, 32, 32, 32, false)},
 		{"leatherArmour", new SpriteSheet("Assets/Sprites/Items/leatherArmour.png",64, 64, 64, 64, false)},
 		{"chainArmour", new SpriteSheet("Assets/Sprites/Items/plateArmour.png",64, 64, 64, 64, false)},
 		{"clothArmour", new SpriteSheet("Assets/Sprites/Items/clothArmour.png",64, 64, 64, 64, false)},
@@ -154,30 +162,37 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"itemFrame", new SpriteSheet("Assets/Backgrounds/ItemFrame.png",85, 105, 85, 105, false)},
 		{"mainMenuBG", new SpriteSheet("Assets/Backgrounds/MainMenuBG_720.png",1280, 720, 1280, 720, false)},
 		{"OptionsBackground", new SpriteSheet("Assets/Sprites/Buttons/OptionsBackground.png",	240, 32, 240, 32, false)},
-		{"overworld", new SpriteSheet("Assets/Backgrounds/map.png", 1280, 720, 1280, 720, true)},
+		{"settingsBg", new SpriteSheet("Assets/Backgrounds/Blank_Map_1280x720_Blurred.png", 1280, 720, 1280, 720, false)},
+		{"overworld", new SpriteSheet("Assets/Backgrounds/map.png", 2048, 1536, 2048, 1536, true)},
 		{"scrollBg", new SpriteSheet("Assets/Backgrounds/ResizedScroll.png", 1280, 720, 1280, 720, false)},
 		{"shopBg", new SpriteSheet("Assets/Backgrounds/ShopBg.png",1280, 720, 1280, 720, false)},		
+		{"tile", new SpriteSheet("Assets/grass-tile.png", 32, 32, 32, 32, false)},	
+		{"toolTipBg", new SpriteSheet("Assets/Backgrounds/TooltipBackground.png", 48, 48, 48, 48, false)},
 		{"tile", new SpriteSheet("Assets/grass-tile.png", 32, 32, 32, 32, false)},		
 		{"stone-tile", new SpriteSheet("Assets/stone-tile.png", 32, 32, 32, 32, false)},
 		{"tree", new SpriteSheet("Assets/Sprites/baum.png", 128,128,128,128,false)},
+
 		
 		// Button Spritesheets		
 		
 		{"ApplyBtn", new SpriteSheet("Assets/Sprites/Buttons/ApplyBtn.png",	128, 64, 128, 64, false)},
 		{"armyViewerButton", new SpriteSheet("Assets/Sprites/Buttons/Army_viewer_btn1.png", 200, 34, 200, 34, false)},
-		{"backBtn", new SpriteSheet("Assets/Sprites/Buttons/BackButtonNoBg.png", 81, 97, 81, 97, false)},
-		{"backTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/Back.png", 71, 36, 71, 36, false)},
-		{"closeBtn", new SpriteSheet("Assets/Sprites/Buttons/CloseBtn2.png",32, 32, 32, 32, false)},
+		{"backBtn", new SpriteSheet("Assets/Sprites/Buttons/BackButtonTintable.png", 81, 97, 81, 97, false)},
+		{"backTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/BackTintable1.png", 71, 36, 71, 36, false)},
+		{"confirmButton", new SpriteSheet("Assets/Sprites/Buttons/Confirm.png", 111, 16, 111,16, false)},
+		{"continueButton", new SpriteSheet("Assets/Sprites/Buttons/Continue.png", 127, 16, 127, 16, false)},
+		{"closeBtn", new SpriteSheet("Assets/Sprites/Buttons/CloseButton.png",100, 100, 100, 100, false)},
+		{"endTurnButton", new SpriteSheet("Assets/Sprites/Buttons/EndTurnButton.png", 200,55,200,55, false)},
 		{"exitButton", new SpriteSheet("Assets/Sprites/Buttons/exitButton.png", 200, 55, 200, 55, false)},
 		{"inventoryButton", new SpriteSheet("Assets/Sprites/Buttons/inventoryBtn1.png", 200, 34, 200, 34, false)},
 		{"menuButton", new SpriteSheet("Assets/Sprites/Buttons/MenuBtn1.png", 200, 34, 200, 34, false)},
-		{"quitBtn", new SpriteSheet("Assets/Sprites/Buttons/QuitBtn.png",128, 64, 128, 64, false)},
-		{"settingsBtn", new SpriteSheet("Assets/Sprites/Buttons/SettingsBtn.png",	128, 64, 128, 64, false)},
-		{"startBtn", new SpriteSheet("Assets/Sprites/Buttons/StartBtn-02.png",128, 64, 128, 64, false)},
-		{"yesTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/Yes.png", 54, 36, 54, 36, false)},
-		{"defaultItem", new SpriteSheet("Assets/Sprites/helmet.png", 32, 32, 32, 32, false)},
-		{"settingsBg", new SpriteSheet("Assets/Backgrounds/Blank_Map_1280x720_Blurred.png", 1280, 720, 1280, 720, false)},
-		{"toolTipBg", new SpriteSheet("Assets/Backgrounds/TooltipBackground.png", 48, 48, 48, 48, false)},
+		{"quitBtn", new SpriteSheet("Assets/Sprites/Buttons/QuitButton.png",200, 55, 200, 55, false)},
+		{"resetButton", new SpriteSheet("Assets/Sprites/Buttons/Reset.png", 85, 16, 85, 16, false)},
+		{"settingsBtn", new SpriteSheet("Assets/Sprites/Buttons/SettingsButton.png",200, 55, 200, 55, false)},
+		{"startBtn", new SpriteSheet("Assets/Sprites/Buttons/StartButton.png",200, 55, 200, 55, false)},
+		{"upButton", new SpriteSheet("Assets/Sprites/Buttons/UpButton.png", 16, 15, 16, 15, false)},
+		{"yesTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/YesTintable.png", 54, 36, 54, 36, false)},
+
 
 		// Node Spritesheets
 
@@ -199,9 +214,9 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"resCollapsed", new SpriteSheet("Assets/Sprites/Buttons/dropDown-01.png",	240, 32, 240, 32, false)},
 		
 		// Effects Spritesheets
-
-		{"Magic", new SpriteSheet("Assets/Sprites/Effects/MagicEffect.png", 9200, 300, 400, 300,true)},
 		{"swordSlashEffect", new SpriteSheet("Assets/Sprites/Effects/SwordSlash.png", 3248, 190, 406, 190,true)},
+		{"Magic", new SpriteSheet("Assets/Sprites/Effects/MagicEffect.png", 9200, 300, 400, 300,true)},
+		{"health", new SpriteSheet("Assets/Sprites/Effects/SwordSlash.png", 3248, 190, 406, 190,true)},
 						
 	}
 };
@@ -308,6 +323,7 @@ const std::map<std::string, DefinedCard> definedCards
 {
 	{"magicCard",{25, 5, 0, 5, 0, "Magic", "Magically assail the enemy for 5 damage, costs 5 intelligence", "malePortrait" ,"MagicObj", 1.0}},
 	{"slashCard",{1.5, 5, 5, 0, 0, "Slash", "Slash the enemy for 10 damage, costs 10 strength", "SlashCard" ,"swordSlashEffectObj", 0.5}},	
+	{"healCard",{1.5, 5, 5, 0, 0, "Slash", "Slash the enemy for 10 damage, costs 10 strength", "SlashCard" ,"swordSlashEffectObj", 0.5}},
 };
 
 const std::map<std::string, Item*> definedItems

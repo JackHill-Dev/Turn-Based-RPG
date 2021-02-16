@@ -27,6 +27,24 @@ int Character::GetHealth()
 	return mStats.health.first;
 }
 
+std::string Character::GetClassName(UnitClass uClass)
+{
+	switch (uClass)
+	{
+		case UnitClass::Mage:
+			return "MAGE";
+			break;
+		case UnitClass::Rogue:
+			return "ROGUE";
+			break;
+		case UnitClass::Warrior:
+			return "WARRIOR";
+			break;
+		default:
+			return "MAI'Q THE LIAR";
+	}
+}
+
 void Character::modStat(std::pair<int, int>& statToMod, std::pair<int,int> statMod)
 {
 	statToMod.first += statMod.first;
@@ -36,6 +54,8 @@ void Character::modStat(std::pair<int, int>& statToMod, std::pair<int,int> statM
 void Character::LevelUp(int level, std::pair<int, int> characterHealth)
 {
 	++level;
+	mStats.experience.second *= 2; //Temp change to required experience for next level.
+	hasLevelled = false;
 	characterHealth.first += levelHealth;
 	characterHealth.second += levelHealth;
 }
@@ -102,11 +122,25 @@ bool Character::ModHealth(int mod)
 
 void Character::Heal(std::pair<int, int>& health, int healValue)
 {
+	// Changes status of defeated characters - EH
+	if (isDead)
+	{
+		isDead = false;
+	}
+
 	health.first += healValue;
 
 	if (health.first > health.second)
 	{
 		health.first = health.second;
 	}
+}
+
+void Character::Die()
+{
+	// Health of character is reduced to one to penalise player letting characters die, no permadeath but you'll need to buy potions and heal your units - EH
+	mStats.health.first = 1;
+
+	isDead = true;
 }
 
