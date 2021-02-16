@@ -24,11 +24,8 @@ MainMenuScene::MainMenuScene(Interface* rng) : Scene(rng)
 	back_SFX = Mix_LoadWAV("Assets/SFX/BackSound.wav");
 	
 	mgr->FadeInMusic(mStartMus, -1, mgr->fadeTime); // Cheeky solution as this one starts as current scene without using load scene method - EH
-	if (mgr->GetSeed() != 0)
-	{
 		LoadButton = AddObject("settingsBtnObj", 110, 300, UI);
 		buttons.push_back(LoadButton);
-	}
 	
 }
 
@@ -38,11 +35,11 @@ void MainMenuScene::Load()
 
 	if (mgr->GetSeed() != 0)
 	{
-		LoadButton->SetActive(true);
+		LoadButton->SetVisible(true);
 	}
 	else
 	{
-		LoadButton->SetActive(false);
+		LoadButton->SetVisible(false);
 	}
 
 	

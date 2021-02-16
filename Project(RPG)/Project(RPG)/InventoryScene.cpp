@@ -142,7 +142,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 			
 				if (i.obj->bPickedUp)
 				{
-					i.obj->SetPos(std::make_pair(mousePos.first, mousePos.second));
+					i.obj->SetPos(std::make_pair(mousePos.first / i.obj->sceneScale.first, mousePos.second / i.obj->sceneScale.second));
 					current = nullptr;
 				}
 

@@ -106,6 +106,7 @@ const std::map<std::string,RenderObject*> definedObjects
 
 		{"MagicObj", new RenderObject("Magic")},
 		{"swordSlashEffectObj", new RenderObject("swordSlashEffect")},
+		{"healImageObject", new RenderObject("health")},
 
 	}
 };
@@ -202,7 +203,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 
 		{"card", new SpriteSheet("Assets/Sprites/Card/CardTemplateNew.png",230, 322, 230, 322, false)},
 		{"SlashCard", new SpriteSheet("Assets/Sprites/SlashCard.png", 600, 951, 600, 951,false)},
-
+		{"health", new SpriteSheet("Assets/Sprites/SlashCard.png", 256, 256, 256, 256,false)},
 		// More Traditional UI Spritesheets
 
 		{"barBg", new SpriteSheet("Assets/Sprites/Bar_Bg.png",	176, 32, 176, 32, false)},
@@ -311,7 +312,19 @@ const std::map<std::string, std::vector<Animation>> definedAnimations
 	{"Magic", {Animation("default", {std::make_pair(0,0), std::make_pair(1,0),std::make_pair(2,0),std::make_pair(3,0),std::make_pair(4,0),std::make_pair(5,0),std::make_pair(6,0)})}},
 	{"swordSlashEffect", {Animation("default", {std::make_pair(0,0), std::make_pair(1,0),std::make_pair(2,0),std::make_pair(3,0),std::make_pair(4,0),std::make_pair(5,0),std::make_pair(6,0)})}},
 
-	{"daemonSpr", {Animation("default", {std::make_pair(4,0)})}},
+	{"daemonSpr",
+			{
+				Animation("LookUp", {std::make_pair(4,3)}),
+				Animation("LookLeft", {std::make_pair(0,1)}),
+				Animation("LookRight", {std::make_pair(0,2)}),
+				Animation("LookDown", {std::make_pair(4,2)}),
+
+				Animation("WalkUp", {std::make_pair(4,0), std::make_pair(4,1),std::make_pair(4,2),std::make_pair(4,3),std::make_pair(4,4)}),
+				Animation("WalkLeft", {std::make_pair(1,1), std::make_pair(1,2), std::make_pair(1,3), std::make_pair(1,4)}),
+				Animation("WalkRight", {std::make_pair(2,1), std::make_pair(2,2), std::make_pair(2,3), std::make_pair(2,4)}),
+				Animation("WalkDown",{std::make_pair(0,0), std::make_pair(0,1),std::make_pair(0,2),std::make_pair(0,3),std::make_pair(4,4)}),
+			}
+		}
 		
 	}
 };
@@ -319,7 +332,8 @@ const std::map<std::string, std::vector<Animation>> definedAnimations
 const std::map<std::string, DefinedCard> definedCards
 {
 	{"magicCard",{25, 5, 0, 5, 0, "Magic", "Magically assail the enemy for 5 damage, costs 5 intelligence", "malePortrait" ,"MagicObj", 1.0}},
-	{"slashCard",{1.5, 5, 5, 0, 0, "Slash", "Slash the enemy for 10 damage, costs 10 strength", "SlashCard" ,"swordSlashEffectObj", 0.5}},	
+	{"slashCard",{1.5, 5, 0, 0, 0, "Slash", "Slash the enemy for 10 damage, costs 10 strength", "SlashCard" ,"swordSlashEffectObj", 0.5}},
+	{"healCard",{1.5, 5, 0, 0, 0, "Heal", "Heal a target for 5 health, costs 10 intelligence", "SlashCard" ,"swordSlashEffectObj", 0.5}}
 };
 
 const std::map<std::string, Item*> definedItems
