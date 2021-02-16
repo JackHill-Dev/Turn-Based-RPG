@@ -3,7 +3,7 @@
 InventoryScene::InventoryScene(Interface* mgr) : Scene(mgr)
 {
 	AddObject("ShopBGObj", 640, 360, Background);
-	pCloseBtn = AddObject("exitButtonObj", 1000, 50, UI);
+	pCloseBtn = AddObject("CloseBtnObj", 1200, 50, UI);
 	button_SFX = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
 	Init();
 }
@@ -75,6 +75,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 	{
 		mgr->PlaySFX(button_SFX, 0, 1);
 		mgr->LoadPreviousScene();
+		pCloseBtn->Untint();
 	}
 	ItemObject* current = nullptr;
 
@@ -127,12 +128,21 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 
 	if (act == Act::MouseUpdate)
 	{
+		if (pCloseBtn->InBounds(mousePos.first, mousePos.second))
+		{
+			pCloseBtn->Tint({ 0,255,0 });
+		}
+		else
+		{
+			pCloseBtn->Untint();
+		}
+
 		for (auto& i : itemObjects)
 		{
 			
 				if (i.obj->bPickedUp)
 				{
-					i.obj->SetPos(std::make_pair(mousePos.first, mousePos.second));
+					i.obj->SetPos(std::make_pair(mousePos.first / i.obj->sceneScale.first, mousePos.second / i.obj->sceneScale.second));
 					current = nullptr;
 				}
 

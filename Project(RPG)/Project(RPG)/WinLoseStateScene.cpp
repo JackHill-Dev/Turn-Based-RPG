@@ -20,12 +20,12 @@ WinLoseStateScene::WinLoseStateScene(Interface* mObjMgr) : Scene(mObjMgr)
 	pRejectButton = AddObject("resetButtonObj", 480, 510, UI);
 	pRejectButton->SetVisible(false);
 
-	StrengthButton = AddObject("upButtonObj", 980, 440, UI);
-	StrengthButton->SetScale({ 2, 2 });
-	AgilityButton = AddObject("upButtonObj", 980, 470, UI);
-	AgilityButton->SetScale({ 2, 2 });
-	IntelligenceButton = AddObject("upButtonObj", 980, 500, UI);
-	IntelligenceButton->SetScale({ 2, 2 });
+	StrengthButton = AddObject("upButtonObj", 840, 400, UI);
+	//StrengthButton->SetScale({ 2, 2 });
+	AgilityButton = AddObject("upButtonObj", 840, 430, UI);
+	//AgilityButton->SetScale({ 2, 2 });
+	IntelligenceButton = AddObject("upButtonObj", 840, 460, UI);
+	//IntelligenceButton->SetScale({ 2, 2 });
 
 	pStatButtons.push_back(StrengthButton);
 	pStatButtons.push_back(AgilityButton);
@@ -100,7 +100,13 @@ void WinLoseStateScene::Load()
 			return pCharacter->GetDeadStatus() == false;
 		}))
 	{
+		mgr->PlaySFX(Victory_Sfx, 0, 1);
 		mgr->FadeInMusic(Victory_Music, -1, mgr->fadeTime);
+		dividedXp = mgr->GetPlayer()->GetXpPool() / pCharacters.size();
+		for (auto character : pCharacters)
+		{
+			character->pCharacter->modStat(character->pCharacter->GetStats().experience, { dividedXp, 0 });
+		}
 		SetUpWinState();
 	}
 	else
@@ -115,14 +121,11 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 {
 	for (auto character : pCharacters)
 	{
-		if (character->pCharacter->hasLevelled == false)
+		if (character->pCharacter->hasLevelled == false && character->pCharacter->GetDeadStatus() == false)
 		{
 			character->rObj->Untint();
 		}
 	}
-	pContinueButton->tint = SDL_Color{ 0,0,0 };
-	pConfirmButton->tint = SDL_Color{ 0,0,0 };
-	pRejectButton->tint = SDL_Color{ 0,0,0 };
 
 	if (act == Act::MouseUpdate)
 	{
@@ -149,6 +152,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 				mgr->LoadScene(Scenes::MainMenu);
 			}
 		}
+
 		if (pQuitButton->InBounds(mousePos.first, mousePos.second))
 		{
 			if (pQuitButton->IsVisible() == true)
@@ -157,6 +161,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 				mgr->Quit();
 			}
 		}
+
 		if (pContinueButton->InBounds(mousePos.first, mousePos.second) && pContinueButton->IsVisible() == true &&
 			std::all_of(pCharacters.begin(), pCharacters.end(), [](PlayerCharacter* pc)
 				{
@@ -189,81 +194,83 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 			}
 		}
 
-		if (StrengthButton->InBounds(mousePos.first, mousePos.second) && statPoints != 0)
+		if (StrengthButton->InBounds(mousePos.first, mousePos.second) && StrengthButton->IsVisible() == true)
 		{
-			if (StrengthButton->IsVisible() == true)
+			if (statPoints != 0)
 			{
 				--statPoints;
 				++strPoints;
 				mSceneText[2]->text = "STAT POINTS: " + std::to_string(statPoints);
-				mSceneText[3]->text = "STRENGTH:\t" + std::to_string(pTargetCharacter->pCharacter->GetStats().strength.second + strPoints);
+				mSceneText[3]->text = "STRENGTH:" + mSceneText[3]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().strength.second + strPoints);
+			}
+			else
+			{
+				mSceneText[6]->text = "INSUFFICIENT STAT POINTS. PLEASE RESET FOR REALLOCATION";
 			}
 		}
-		else
-		{
-			mSceneText[6]->text = "INSUFFICIENT STAT POINTS. PLEASE RESET FOR REALLOCATION";
-		}
 
-		if (AgilityButton->InBounds(mousePos.first, mousePos.second) && statPoints != 0)
+		if (AgilityButton->InBounds(mousePos.first, mousePos.second) && AgilityButton->IsVisible() == true)
 		{
-			if (AgilityButton->IsVisible() == true)
+			if (statPoints != 0)
 			{
 				--statPoints;
 				++agiPoints;
 				mSceneText[2]->text = "STAT POINTS: " + std::to_string(statPoints);
-				mSceneText[4]->text = "AGILITY:\t" + std::to_string(pTargetCharacter->pCharacter->GetStats().agility.second + agiPoints);
+				mSceneText[4]->text = "AGILITY:" + mSceneText[4]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().agility.second + agiPoints);
+			}
+			else
+			{
+				mSceneText[6]->text = "INSUFFICIENT STAT POINTS. PLEASE RESET FOR REALLOCATION";
 			}
 		}
-		else
-		{
-			mSceneText[6]->text = "INSUFFICIENT STAT POINTS. PLEASE RESET FOR REALLOCATION";
-		}
 
-		if (IntelligenceButton->InBounds(mousePos.first, mousePos.second) && statPoints != 0)
+		if (IntelligenceButton->InBounds(mousePos.first, mousePos.second) && IntelligenceButton->IsVisible() == true)
 		{
-			if (IntelligenceButton->IsVisible() == true)
+			if (statPoints != 0)
 			{
 				--statPoints;
 				++intPoints;
 				mSceneText[2]->text = "STAT POINTS: " + std::to_string(statPoints);
-				mSceneText[5]->text = "INTELLIGENCE:\t" + std::to_string(pTargetCharacter->pCharacter->GetStats().intelligence.second + intPoints);
+				mSceneText[5]->text = "INTELLIGENCE:" + mSceneText[5]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().intelligence.second + intPoints);
+			}
+			else
+			{
+				mgr->PlaySFX(Error_Sfx, 0, 1);
+				mSceneText[6]->text = "INSUFFICIENT STAT POINTS. PLEASE RESET FOR REALLOCATION";
 			}
 		}
-		else
-		{
-			mSceneText[6]->text = "INSUFFICIENT STAT POINTS. PLEASE RESET FOR REALLOCATION";
-		}
 
-		if (pRejectButton->InBounds(mousePos.first, mousePos.second))
+		if (pRejectButton->InBounds(mousePos.first, mousePos.second) && pRejectButton->IsVisible() == true)
 		{
-			if (pRejectButton->IsVisible() == true)
-			{
 				statPoints = 2;
 				strPoints = 0;
 				agiPoints = 0;
 				intPoints = 0;
 				mSceneText[2]->text = "STAT POINTS: " + std::to_string(statPoints);
-				mSceneText[3]->text = "STRENGTH:\t" + std::to_string(pTargetCharacter->pCharacter->GetStats().strength.second + strPoints);
-				mSceneText[4]->text = "AGILITY:\t" + std::to_string(pTargetCharacter->pCharacter->GetStats().agility.second + agiPoints);
-				mSceneText[5]->text = "INTELLIGENCE:\t" + std::to_string(pTargetCharacter->pCharacter->GetStats().intelligence.second + intPoints);
-			}
+				mSceneText[3]->text = "STRENGTH:" + mSceneText[3]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().strength.second + strPoints);
+				mSceneText[4]->text = "AGILITY:" + mSceneText[4]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().agility.second + agiPoints);
+				mSceneText[5]->text = "INTELLIGENCE:" + mSceneText[5]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().intelligence.second + intPoints);
 		}
-		if (pConfirmButton->InBounds(mousePos.first, mousePos.second) && statPoints == 0)
+
+		if (pConfirmButton->InBounds(mousePos.first, mousePos.second) && pConfirmButton->IsVisible() == true)
 		{
-			if (pConfirmButton->IsVisible() == true)
+			if (statPoints == 0)
 			{
 				pTargetCharacter->pCharacter->modStat(pTargetCharacter->pCharacter->GetStats().strength, { strPoints, strPoints });
 				pTargetCharacter->pCharacter->modStat(pTargetCharacter->pCharacter->GetStats().agility, { agiPoints, agiPoints });
 				pTargetCharacter->pCharacter->modStat(pTargetCharacter->pCharacter->GetStats().intelligence, { intPoints, intPoints });
 				pTargetCharacter->pCharacter->LevelUp(pTargetCharacter->pCharacter->GetStats().level, pTargetCharacter->pCharacter->GetStats().health);
+				strPoints = 0;
+				agiPoints = 0;
+				intPoints = 0;
 				SetUpWinState();
 			}
+			else
+			{
+				mgr->PlaySFX(Error_Sfx, 0, 1);
+				mSceneText[6]->text = "PLEASE ASSIGN ALL STAT POINTS";
+			}
 		}
-		else
-		{
-			mSceneText[6]->text = "PLEASE ASSIGN ALL STAT POINTS";
-		}
-
 	}
 }
 
@@ -279,14 +286,13 @@ void WinLoseStateScene::OnLeave(RenderObject* rObj)
 
 void WinLoseStateScene::SetUpWinState()
 {
-	int dividedXp = mgr->GetPlayer()->GetXpPool() / pCharacters.size();
+	
 
 	pContinueButton->SetVisible(true);
 	pConfirmButton->SetVisible(false);
 	pRejectButton->SetVisible(false);
 
-	for (auto button : pStatButtons)
-	{
+	for (auto button : pStatButtons)	{
 		button->SetVisible(false);
 	}
 
@@ -301,12 +307,15 @@ void WinLoseStateScene::SetUpWinState()
 
 	for (auto character : pCharacters)
 	{
-		character->pCharacter->modStat(character->pCharacter->GetStats().experience, {dividedXp, 0});
-
+		
 		if (character->pCharacter->GetStats().experience.second <= character->pCharacter->GetStats().experience.first)
 		{
 			character->rObj->tint = Gold;
 			character->pCharacter->hasLevelled = true;
+		}
+		else
+		{
+			character->rObj->Untint();
 		}
 
 		if (character->pCharacter->GetDeadStatus() == true && character->pCharacter->hasLevelled != false)
@@ -381,9 +390,10 @@ void WinLoseStateScene::SetUpWinState()
 void WinLoseStateScene::SetUpLoseState()
 {
 
-	pLeftSprite->tint = DimGray;
-	pCentreSprite->tint = DimGray;
-	pLeftSprite->tint = DimGray;
+	for (auto character : pCharacters)
+	{
+		character->rObj->tint = DimGray;
+	}
 
 	pLeftSprite->SetPos({ 320, 360 });
 	pCentreSprite->SetPos({ 640, 360 });
@@ -432,7 +442,7 @@ void WinLoseStateScene::SetUpLoseState()
 
 }
 
-void WinLoseStateScene::SetUpLevelUpState(PlayerCharacter* pc)
+void WinLoseStateScene::SetUpLevelUpState(PlayerCharacter* &pc)
 {
 	//pPassedCharacter = pc;
 	pTargetCharacter = pc;
@@ -440,10 +450,7 @@ void WinLoseStateScene::SetUpLevelUpState(PlayerCharacter* pc)
 
 	for (auto character : pCharacters)
 	{
-		if (character != pc)
-		{
 			character->rObj->SetVisible(false);
-		}
 	}
 
 	pConfirmButton->SetVisible(true);
@@ -455,7 +462,8 @@ void WinLoseStateScene::SetUpLevelUpState(PlayerCharacter* pc)
 		button->SetVisible(true);
 	}
 
-	pc->rObj->SetPos({ 640,340 });
+	pc->rObj->SetVisible(true);
+	pc->rObj->SetPos({ 640,350 });
 
 	mSceneText.clear();
 
@@ -474,19 +482,19 @@ void WinLoseStateScene::SetUpLevelUpState(PlayerCharacter* pc)
 	mFlavourText1.pos = std::make_pair<int>(640, 310);
 	mFlavourText1.SetTextScale(100, 30);
 
-	mFlavourText2.text = "STRENGTH:\t" + std::to_string(pc->pCharacter->GetStats().strength.second + strPoints);
+	mFlavourText2.text = "STRENGTH:" + mFlavourText2.addTab() + std::to_string(pc->pCharacter->GetStats().strength.second + strPoints);
 	mFlavourText2.textColor = SDL_Color{ 0,0,0 };
-	mFlavourText2.pos = std::make_pair<int>(640, 440);
+	mFlavourText2.pos = std::make_pair<int>(640, 400);
 	mFlavourText2.SetTextScale(300, 30);
 
-	mFlavourText3.text = "AGILITY:\t" + std::to_string(pc->pCharacter->GetStats().agility.second + agiPoints);
+	mFlavourText3.text = "AGILITY:" + mFlavourText3.addTab() + std::to_string(pc->pCharacter->GetStats().agility.second + agiPoints);
 	mFlavourText3.textColor = SDL_Color{ 0,0,0 };
-	mFlavourText3.pos = std::make_pair<int>(640, 470);
+	mFlavourText3.pos = std::make_pair<int>(640, 430);
 	mFlavourText3.SetTextScale(300, 30);
 
-	mFlavourText4.text = "INTELLIGENCE:\t" + std::to_string(pc->pCharacter->GetStats().intelligence.second + intPoints);
+	mFlavourText4.text = "INTELLIGENCE:" + mFlavourText4.addTab() + std::to_string(pc->pCharacter->GetStats().intelligence.second + intPoints);
 	mFlavourText4.textColor = SDL_Color{ 0,0,0 };
-	mFlavourText4.pos = std::make_pair<int>(640, 500);
+	mFlavourText4.pos = std::make_pair<int>(640, 460);
 	mFlavourText4.SetTextScale(300, 30);
 
 	mFooterInstruction.text = "PLEASE SELECT YOUR CHOICE WITH THE LEFT MOUSE BUTTON";

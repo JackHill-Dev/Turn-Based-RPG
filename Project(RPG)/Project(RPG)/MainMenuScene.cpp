@@ -6,21 +6,26 @@ RenderObject* LoadButton;
 nlohmann::json saveFile;
 MainMenuScene::MainMenuScene(Interface* rng) : Scene(rng)
 {
+
 	// Get all main menu button objects
-	start  = AddObject("StartBtnObj", 70, 90, UI);
-	quit = AddObject("quitBtnObj", 70, 400, UI);
-	settings = AddObject("settingsBtnObj", 70, 250, UI);
+	start  = AddObject("StartBtnObj", 110, 100, UI);
+	quit = AddObject("quitBtnObj", 110, 170, UI);
+	settings = AddObject("settingsBtnObj", 110, 240, UI);
+
+	buttons.push_back(start);
+	buttons.push_back(quit);
+	buttons.push_back(settings);
 	
 	// Get Background object
-	AddObject("mainMenuBGObj", 1280 / 2, 720 / 2, Background);
+	AddObject("mainMenuBGObj", 640, 360, Background);
 
 	mStartMus = Mix_LoadMUS("Assets/Music/GameStart.mp3");
 	confirm_SFX = Mix_LoadWAV("Assets/SFX/confirmSound.wav");
 	back_SFX = Mix_LoadWAV("Assets/SFX/BackSound.wav");
 	
 	mgr->FadeInMusic(mStartMus, -1, mgr->fadeTime); // Cheeky solution as this one starts as current scene without using load scene method - EH
-	if(mgr->GetSeed()!=0)
-	LoadButton = AddObject("settingsBtnObj", 70, 600, UI);
+		LoadButton = AddObject("settingsBtnObj", 110, 300, UI);
+		buttons.push_back(LoadButton);
 	
 }
 
@@ -30,11 +35,11 @@ void MainMenuScene::Load()
 
 	if (mgr->GetSeed() != 0)
 	{
-		LoadButton->SetActive(true);
+		LoadButton->SetVisible(true);
 	}
 	else
 	{
-		LoadButton->SetActive(false);
+		LoadButton->SetVisible(false);
 	}
 
 	
@@ -44,8 +49,33 @@ void MainMenuScene::Load()
 	}
 }
 
+void MainMenuScene::OnHover(RenderObject* rObj)
+{
+	rObj->tint = SDL_Color{ 0,255,0 };
+}
+
+void MainMenuScene::OnLeave(RenderObject* rObj)
+{
+	rObj->Untint();
+}
+
 void MainMenuScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 {
+
+	if (act == Act::MouseUpdate)
+	{
+		for (auto button : buttons)
+		{
+			if (button->InBounds(mouse.first, mouse.second))
+			{
+				OnHover(button);
+			}
+			else
+			{
+				OnLeave(button);
+			}
+		}
+	}
 	
 	if (act == Act::Click)
 	{
@@ -53,6 +83,7 @@ void MainMenuScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 		{
 			mgr->PlaySFX(confirm_SFX, 0, 1);
 			mgr->LoadScene(Scenes::ClassPicker);
+			OnLeave(start);
 		}
 
 		else if (quit->InBounds(mouse.first, mouse.second) && quit->IsActive())
@@ -64,11 +95,13 @@ void MainMenuScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 		{
 			mgr->PlaySFX(confirm_SFX, 0, 1);
 			mgr->LoadScene(Scenes::SettingsPage);
+			OnLeave(settings);
 		}
 		else if (LoadButton->InBounds(mouse.first, mouse.second) && LoadButton->IsActive())
 		{
 			mgr->PlaySFX(confirm_SFX, 0, 1);
 			mgr->LoadScene(Scenes::Overworld);
+			OnLeave(LoadButton);
 		}
 
 	}

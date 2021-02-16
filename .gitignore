@@ -245,3 +245,6 @@ paket-files/
 .idea/
 *.sln.iml
 *.vcxproj
+Project(RPG)/Project(RPG)/Savedata.Json
+Project(RPG)/Project(RPG)/x64/Debug/Project(RPG).log
+Project(RPG)/Project(RPG)/x64/Debug/Project(RPG).exe.recipe
