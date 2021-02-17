@@ -55,6 +55,7 @@ void Interface::LoadScene(Scenes scene)
 {
 	prevScene = *currentScene; 
 	*currentScene = scene;
+	SDL_Delay(100);
 }
 
 void Interface::LoadPreviousScene()
