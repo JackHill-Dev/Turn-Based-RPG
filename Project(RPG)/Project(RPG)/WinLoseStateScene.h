@@ -51,11 +51,10 @@ private:
 	SDL_Color DimGray = SDL_Color{ 105,105,105 };
 	SDL_Color Gold = SDL_Color{ 255,215,0 };
 
-	PlayerCharacter* firstCharacter = new PlayerCharacter;
-	PlayerCharacter* SecondCharacter = new PlayerCharacter;
-	PlayerCharacter* ThirdCharacter = new PlayerCharacter;
-	PlayerCharacter* pTargetCharacter = new PlayerCharacter;
-	PlayerCharacter* pPassedCharacter = new PlayerCharacter;
+	PlayerCharacter* firstCharacter = nullptr;
+	PlayerCharacter* SecondCharacter  = nullptr;
+	PlayerCharacter* ThirdCharacter   = nullptr;
+	PlayerCharacter* pTargetCharacter =	nullptr;
 
 	std::vector<std::string> names;
 	std::vector<RenderObject*> pAllButtons;
