@@ -45,7 +45,7 @@ class Character
 public:
 
 	Character() {}
-	Character(std::string objectName, std::string portraitName, std::pair<int, int> health, std::pair<int, int> strength, std::pair<int, int> intelligence, std::pair<int, int> agility);
+	Character(std::string portraitName, std::string objectName, std::string name, int level, std::pair<int,int> experience, bool isDead, std::pair<int, int> health, std::pair<int, int> strength, std::pair<int, int> intelligence, std::pair<int, int> agility);
 	~Character();
 
 	int GetLevel();

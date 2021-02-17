@@ -1,13 +1,14 @@
 #include "Character.h"
 
-Character::Character(std::string objectName, std::string portraitName, std::pair<int, int> health, std::pair<int, int> strength, std::pair<int, int> intelligence, std::pair<int, int> agility)
+Character::Character(std::string portraitName, std::string objectName, std::string name, int level, std::pair<int, int> experience, bool isDead, std::pair<int, int> health, std::pair<int, int> strength, std::pair<int, int> intelligence, std::pair<int, int> agility)
 {
+	mPortraitName = portraitName;
+	this->objectName = objectName;
 	mStats.health = health;
 	mStats.strength = strength;
 	mStats.agility = agility;
 	mStats.intelligence = intelligence;
-	this->objectName = objectName;
-	mPortraitName = portraitName;
+
 }
 
 Character::~Character()
