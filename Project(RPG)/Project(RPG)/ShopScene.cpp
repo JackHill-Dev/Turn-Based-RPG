@@ -122,7 +122,6 @@ void ShopScene::Load()
 	playerInv.clear();
 	shopInv.clear();
 	PlaceItems(mgr->GetPlayer()->GetInventory());
-	//PlaceItems(mShop.GetInventory());
 }
 
 void ShopScene::SetupShopInv()

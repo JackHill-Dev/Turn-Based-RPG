@@ -93,14 +93,17 @@ void GameManager::LoadScene()
 {
 	switch (mCScene)
 	{
-	case Scenes::MainMenu: LoadSettings(); mMainMenuSceneInstance->Load(); break;
-		case Scenes::ClassPicker: 
-			
+		case Scenes::MainMenu:
+		{
+			LoadSettings(); 
+			mMainMenuSceneInstance->Load(); break;
+		}
+		case Scenes::ClassPicker: 			
+		{
+			std::ofstream("Savedata.Json").clear();
+			loadedSeed = std::rand() % 100; mClassPickerInstance->Load(); break;
+		}
 
-			std::ofstream ("Savedata.Json").clear();
-			
-			
-			loadedSeed = std::rand()%100; mClassPickerInstance->Load(); break;
 		case Scenes::Overworld: mOverworldInstance->Load(); break;
 		case Scenes::Combat: combatInstance.first->Load(combatInstance.second, 15); break;
 		case Scenes::Shops: mShopSceneInstance->Load(); break;
@@ -110,6 +113,7 @@ void GameManager::LoadScene()
 		case Scenes::Boss: mBossSceneInstance->Load(); break;
 		case Scenes::WinLoseStateScreen: mWinLoseStateSceneInstance->Load(); break;
 		default: std::cout << "Error loading scene!" << std::endl;
+
 	}
 
 
@@ -183,10 +187,6 @@ void GameManager::LoadSettings()
 
 	std::ifstream is("Savedata.json");
 
-
-
-
-
 	nlohmann::json loaded = nlohmann::json::parse(is, nullptr, false, false);
 
 	if (loaded.find("Saves") != loaded.end())
@@ -202,12 +202,7 @@ void GameManager::LoadSettings()
 			{
 				Character* character = new Character(i["Object"].get<std::string>(), i["Portrait"].get<std::string>(), i["Health"].get<std::pair<int, int>>(), i["Strength"].get<std::pair<int, int>>(), i["Intelligence"].get<std::pair<int, int>>(), i["Agility"].get<std::pair<int, int>>());
 				mPlayer.AddToParty(character);
-
-
 			}
-
-
-
 		}
 	}
 	else
