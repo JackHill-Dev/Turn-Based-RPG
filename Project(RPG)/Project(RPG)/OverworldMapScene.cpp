@@ -34,7 +34,9 @@ void OverworldMapScene::SaveFile()
 
 	for (auto i : mgr->GetPlayer()->GetParty())
 	{
-		characters.push_back({ {"Portrait", i->GetPortraitName()}, {"Object", i->GetObjName()}, {"Name", i->GetClassName()}, {"Level", i->GetLevel()}, {"Experience", i->GetStats().experience}, {"Dead", i->GetDeadStatus()} { "Health", i->GetStats().health}, {"Strength", i->GetStats().strength},{"Intelligence", i->GetStats().intelligence},{"Agility", i->GetStats().agility} });
+		characters.push_back({ {"Portrait", i->GetPortraitName()}, {"Object", i->GetObjName()}, {"Name", i->GetClassName(i->GetStats().cClass)}, {"Level", i->GetLevel()},
+							   {"Experience", i->GetStats().experience}, {"Dead", i->GetDeadStatus()}, 
+								{ "Health", i->GetStats().health}, {"Strength", i->GetStats().strength},{"Intelligence", i->GetStats().intelligence},{"Agility", i->GetStats().agility} });
 	}
 		
 	nlohmann::json j;

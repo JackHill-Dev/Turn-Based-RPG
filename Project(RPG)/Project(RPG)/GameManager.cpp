@@ -200,7 +200,8 @@ void GameManager::LoadSettings()
 
 			for (auto i : loaded["Saves"]["Save"]["Characters"])
 			{
-				Character* character = new Character(i["Object"].get<std::string>(), i["Portrait"].get<std::string>(), i["Health"].get<std::pair<int, int>>(), i["Strength"].get<std::pair<int, int>>(), i["Intelligence"].get<std::pair<int, int>>(), i["Agility"].get<std::pair<int, int>>());
+				Character* character = new Character(i["Portrait"].get<std::string>(), i["Object"].get<std::string>(), i["Name"].get<std::string>(), i["Level"].get<int>(), i["Experience"].get<std::pair<int,int>>(), i["Dead"].get<bool>(),
+														i["Health"].get<std::pair<int, int>>(), i["Strength"].get<std::pair<int, int>>(), i["Intelligence"].get<std::pair<int, int>>(), i["Agility"].get<std::pair<int, int>>());
 				mPlayer.AddToParty(character);
 			}
 		}
