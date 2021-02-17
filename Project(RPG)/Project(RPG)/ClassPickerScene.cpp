@@ -33,20 +33,20 @@ ClassPickerScene::ClassPickerScene(Interface* mObjMgr) : Scene(mObjMgr)
 	bg_Music = Mix_LoadMUS("Assets/Music/ClassPicker.mp3");
 	confirm_SFX = Mix_LoadWAV("Assets/SFX/confirmSound.wav");
 	back_SFX = Mix_LoadWAV("Assets/SFX/BackSound.wav");
-
-	Init();
 }
 
 void ClassPickerScene::Init()
 {
-	SetUpClassView(CharacterPickerState::ClassView);
+
 }
 
 void ClassPickerScene::Load()
 {
+	PartyCount = 0;
 	mgr->GetPlayer()->GetParty().clear();
-	mgr->FadeInMusic(bg_Music, -1, mgr->fadeTime);
-	
+	mgr->GetPlayer()->ClearGold();
+	SetUpClassView(CharacterPickerState::ClassView);
+	mgr->FadeInMusic(bg_Music, -1, mgr->fadeTime);	
 }
 
 
@@ -200,6 +200,8 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 					SetUpBackgroundView(CharacterPickerState::NobleView);
 					break;
 			}
+
+			pBackBtn->Untint();
 		}
 
 		if (pWarriorIcon->InBounds(mousePos.first, mousePos.second) && pWarriorIcon->IsVisible())
@@ -839,6 +841,7 @@ void ClassPickerScene::GeneratePartyFromChoices()
 	// Collects all the gold from choices - EH
 	int partyGold = std::accumulate(currentPartyGold.begin(), currentPartyGold.end(), 0);
 	mgr->GetPlayer()->SetGold(partyGold);
+	currentPartyGold.clear();
 
 	int statCount = 0;
 
@@ -911,6 +914,7 @@ void ClassPickerScene::GeneratePartyFromChoices()
 
 	// Assigns the fully modified characters vector to the one stored in the player to be used in-game - EH
 	mgr->GetPlayer()->SetupParty(mCharacters);
+	mCharacters.clear();
 	mgr->LoadScene(Scenes::Overworld);
 }
 

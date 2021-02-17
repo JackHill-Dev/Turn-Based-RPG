@@ -16,6 +16,7 @@ public:
 	void SetInventory(Inventory inv);
 	void SellItem(Item* item);
 	void SetGold(int amount);
+	void ClearGold() { mGold = 0; }
 	void AddToXpPool(const int& xp);
 	int& GetXpPool() { return mPartyExperiencePool; }
 	void ClearXpPool() { mPartyExperiencePool = 0; }
