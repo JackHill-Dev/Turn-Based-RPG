@@ -1,14 +1,18 @@
 #include "Character.h"
 
-Character::Character(std::string portraitName, std::string objectName, std::string name, int level, std::pair<int, int> experience, bool isDead, std::pair<int, int> health, std::pair<int, int> strength, std::pair<int, int> intelligence, std::pair<int, int> agility)
+Character::Character(std::string portraitName, std::string objectName, std::string name, UnitClass unitClass, int level, std::pair<int, int> experience, bool dead, std::pair<int, int> health, std::pair<int, int> strength, std::pair<int, int> intelligence, std::pair<int, int> agility)
 {
 	mPortraitName = portraitName;
 	this->objectName = objectName;
+	mStats.cClass = unitClass;
+	mClassName = GetClassName(unitClass);
+	mStats.level = level;
+	mStats.experience = experience;
+	isDead = dead;
 	mStats.health = health;
 	mStats.strength = strength;
 	mStats.agility = agility;
 	mStats.intelligence = intelligence;
-
 }
 
 Character::~Character()
@@ -69,6 +73,11 @@ void Character::SetBackground(UnitBackground background)
 void Character::SetClass(UnitClass uClass)
 {
 	mStats.cClass = uClass;
+}
+
+void Character::SetClassName(UnitClass uClass)
+{
+	mClassName = GetClassName(uClass);
 }
 
 void Character::SetArmour(Armour* armour)

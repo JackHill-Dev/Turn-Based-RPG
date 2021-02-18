@@ -1,14 +1,6 @@
 #include "BossScene.h"
 #include <deque>
 
-
-
-
-
-
-
-
-
 BossScene::BossScene(Interface* objmg) : Scene(objmg)
 {
 
@@ -400,12 +392,9 @@ void BossScene::Load()
 		layer.clear();
 	}
 
-
-
-
-	combat_music = Mix_LoadMUS("Assets/Combat_Music.wav");
+	combat_music = Mix_LoadMUS("Assets/Music/Combat_Music.wav");
 	slash_sfx = Mix_LoadWAV("Assets/SFX/slash.wav");
-	endTurn = AddObject("quitBtnObj", centre.first, 20, UI);
+	endTurn = AddObject("EndTurnButtonObj", centre.first, 30, UI);
 	endTurn->scale = std::make_pair(1, 1);
 	AddObject("forestBGObj", 640, 360, Background);
 
@@ -480,7 +469,7 @@ void BossScene::Load()
 
 
 
-	Unit boss = Unit(new Character("", "", std::make_pair(30,30), std::make_pair(25,25), std::make_pair(25,25), std::make_pair(25,25)), &mapp[4][3], AddObject("daemonBoss", 500, 500, Game), AddObject("daemonBoss", 500, 500, Game));
+	Unit boss = Unit(new Character("", "", "", UnitClass::NoClass, 0, std::make_pair(1000, 3000), false, std::make_pair(30,30), std::make_pair(25,25), std::make_pair(25,25), std::make_pair(25,25)), &mapp[4][3], AddObject("daemonBoss", 500, 500, Game), AddObject("daemonBoss", 500, 500, Game));
 	boss.object->scale = { 2,2 };
 	enemy.push_back(boss);
 	for (int i = 0; i < 5; i++)

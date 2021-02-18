@@ -61,10 +61,23 @@ private:
 	// Allows these factors to be consistent and easily changed during playtesting and polish phase - EH
 	const std::pair<int, int> mStatBuff = {2, 2};
 	const std::pair<int, int> mStatDebuff = {-1, -1};
+	const std::pair<int, int> mBaseXp = { 0,100 };
+	const std::pair<int, int> mBaseClassBuff = { 12, 12 };
+	const std::pair<int, int> mBaseClassDebuff = { 9,9 };
+	const std::pair<int, int> mBaseClassStat = { 10,10 };
+	const std::pair<int, int> mBaseHealth{ 10,10 };
+
+	const int mBaseLevel = 1;
+	const bool mBaseDeadStatus = false;
 	const int mVillagerGold = 50;
 	const int mScholarGold = 100;
 	const int mNobleGold = 150;
 	const int maxPartySize = 3;
+	
+	//const std::pair<int, int>
+	//const std::pair<int, int>
+	//const std::pair<int, int>
+	//const std::pair<int, int>
 
 protected:
 
