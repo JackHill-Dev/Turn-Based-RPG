@@ -96,25 +96,30 @@ void PartyViewerScene::GetCharacterPortraits()
 
 void PartyViewerScene::GetCharacterStatistics()
 {
-	int offsetX = 200;
+	int offsetX = 250;
 	int offsetY = 330;
 	for (Character* c  : mParty) 
 	{
 		CharacterCard cc;
-		cc.health = DrawStat("Health", c->GetStats().health.second, SDL_Color{255,0,0}, std::make_pair(offsetX, offsetY));
+
+		cc.name = new UIText{ "Name: " + c->GetClassName(c->GetClass()), std::make_pair(offsetX, offsetY), std::make_pair<float,float>(180, 70), SDL_Color{31,30,29} };
 		offsetY += 50;
 
-		cc.intelligence = DrawStat("Mana", c->GetStats().intelligence.second, SDL_Color{ 0,0,200 }, std::make_pair(offsetX, offsetY));
+		cc.health = DrawStat("Health", c->GetStats().health.second, SDL_Color{178,34,34}, std::make_pair(offsetX, offsetY));
+		offsetY += 50;
+
+		cc.strength = DrawStat("Strength", c->GetStats().strength.second, SDL_Color{ 151,112,15 }, std::make_pair(offsetX, offsetY));
+	
+		offsetY += 50;
+		cc.agility = DrawStat("Agility", c->GetStats().agility.second, SDL_Color{ 0,100,0 }, std::make_pair(offsetX, offsetY));
 
 		offsetY += 50;
-		cc.agility = DrawStat("Agility", c->GetStats().agility.second, SDL_Color{ 0,200,0 }, std::make_pair(offsetX, offsetY));
+		cc.intelligence = DrawStat("Intelligence", c->GetStats().intelligence.second, SDL_Color{ 50,50,150 }, std::make_pair(offsetX, offsetY));
 
 		offsetY += 50;
-		cc.strength = DrawStat("Stamina", c->GetStats().strength.second, SDL_Color{ 50, 143, 23 }, std::make_pair(offsetX, offsetY));
+		cc.movement = DrawStat("Movement", c->GetStats().movement.second, SDL_Color{ 31,30,29 }, std::make_pair(offsetX, offsetY));
 
-		offsetY += 50;
-		cc.movement = DrawStat("Movement", c->GetStats().movement.second, SDL_Color{ 50,50,150 }, std::make_pair(offsetX, offsetY));
-
+		mSceneText.push_back(cc.name);
 		mSceneText.push_back(cc.health);
 		mSceneText.push_back(cc.intelligence);
 		mSceneText.push_back(cc.agility);
@@ -130,6 +135,6 @@ void PartyViewerScene::GetCharacterStatistics()
 UIText* PartyViewerScene::DrawStat(std::string statName, int stat, SDL_Color textColor, std::pair<int, int> pos)
 {
 	std::string statTxt = statName + ": " + std::to_string(stat);
-	return new UIText{statTxt, pos,std::make_pair(70,50), textColor};
+	return new UIText{ statTxt, pos, std::make_pair<float,float>(180, 70), textColor };
 }
 
