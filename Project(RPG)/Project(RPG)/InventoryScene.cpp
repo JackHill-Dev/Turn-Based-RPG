@@ -16,10 +16,10 @@ InventoryScene::~InventoryScene()
 	button_SFX = nullptr;
 	delete button_SFX;
 
-	for (auto r : playerInvGrid)
+	for (auto g : playerInvGrid)
 	{
-		r = nullptr;
-		delete r;
+		g = nullptr;
+		delete g;
 	}
 }
 
@@ -42,26 +42,37 @@ void InventoryScene::Load()
 	mLayers[Game].clear();
 	itemObjects.clear();
 	mSceneText.clear();
-	GetCharacterPortraits();
+
+
 	int i = 0;
+	
+
+	// if a character has an equip slot filled then draw them to the screen and add them the the scene's item objects
+	for (auto& c : mParty)
+	{
+
+		int xOffset = 640 + ((i - (mParty.size()) / 2) * 300);
+		characters.push_back(characterInventory(c, AddObject(c->GetPortraitName(), xOffset, 180, Game), AddObject("itemFrameObj", xOffset - 150, 230, Game), AddObject("itemFrameObj", xOffset - 150, 120, Game)));
+
+		if (c->ArmourEquipSlot != nullptr)
+		{
+			itemObjects.push_back(ItemObject(c->ArmourEquipSlot,
+				AddObject(c->ArmourEquipSlot->GetObjName(), characters.back().armourSlot->GetPos().first, characters.back().armourSlot->GetPos().second, Game)));
+		}
+		
+		if (c->mWeaponEquipSlot != nullptr)
+		{
+			itemObjects.push_back(ItemObject(c->mWeaponEquipSlot,
+				AddObject(c->mWeaponEquipSlot->GetObjName(), characters.back().weaponSlot->GetPos().first, characters.back().weaponSlot->GetPos().second, Game)));
+		}
+		i++;
+	}
+	i = 0;
 	for (Item* item : mgr->GetPlayer()->GetInventory().GetContents())
 	{
 		itemObjects.push_back(ItemObject(item, AddObject(item->GetObjName(), playerInvGrid[i]->GetPos().first, playerInvGrid[i]->GetPos().second, Game)));
 		++i;
 	}
-	
-	// if a character has an equip slot filled then draw them to the screen and add them the the scene's item objects
-	for (auto c : mParty)
-	{
-		if (c->ArmourEquipSlot._item != nullptr)
-			itemObjects.push_back(ItemObject(c->ArmourEquipSlot._item, AddObject(c->ArmourEquipSlot._item->GetObjName(),
-				c->ArmourEquipSlot.slotObj->GetPos().first, c->ArmourEquipSlot.slotObj->GetPos().second, Game)));
-
-		if (c->mWeaponEquipSlot._item != nullptr)
-			itemObjects.push_back(ItemObject(c->mWeaponEquipSlot._item, AddObject(c->mWeaponEquipSlot._item->GetObjName(),
-				c->mWeaponEquipSlot.slotObj->GetPos().first, c->mWeaponEquipSlot.slotObj->GetPos().second, Game)));
-	}
-
 	mToolTip.mDescription.textColor = SDL_Color{ 255,255,255 };
 	mSceneText.push_back(&mToolTip.mDescription);
 
@@ -79,181 +90,130 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 	}
 	ItemObject* current = nullptr;
 
-
-	if (act == Act::Click)
+	for (auto& i : itemObjects)
 	{
-		for (auto& i : itemObjects)
+		if (act == Act::Click)
 		{
-			if (i.obj->InBounds(mousePos.first, mousePos.second))
+
+			if (i.obj->InBounds(mousePos.first, mousePos.second) && i._item != nullptr)
 			{
-
-				if (i.obj->bPickedUp)
+				if (i.bPickedUp)
 				{
-					for (auto c : mParty)
+					for (auto& c : characters)
 					{
-						HandleArmourEquip(i, *c);
-						HandleWeaponEquip(i, *c);
-
-						if ((c->ArmourEquipSlot._item == i._item || c->mWeaponEquipSlot._item == i._item) && !i._item->bEquipped)
+						if (c.armourSlot->InBounds(mousePos.first, mousePos.second) && i.bPickedUp && c.character->ArmourEquipSlot == nullptr)
 						{
-							switch (i._item->GetType())
-							{
-							case ItemType::ARMOUR:
-								c->SetArmour(nullptr);
-								c->UpdateCharacter();
-								mgr->GetPlayer()->GetInventory().AddItem(i._item);
-								break;
-							case ItemType::WEAPON:
-								c->SetWeapon(nullptr);
-								c->UpdateCharacter();
-								mgr->GetPlayer()->GetInventory().AddItem(i._item);
-							default:
-								std::cout << "\nUnknown item type";
-								break;
-							}
+							i.bPickedUp = false;
+							i.obj->SetPos(c.armourSlot->GetPos());
+							c.character->SetArmour(static_cast<Armour*>(i._item));
+
+
+						}
+						else
+						if (c.weaponSlot->InBounds(mousePos.first, mousePos.second) && i.bPickedUp && c.character->mWeaponEquipSlot == nullptr)
+						{
+							i.bPickedUp = false;
+							i.obj->SetPos(c.weaponSlot->GetPos());
+							c.character->SetWeapon(static_cast<Weapon*>(i._item));
+
 
 						}
 					}
-
+					if (i.bPickedUp)
+					{
+						for (auto g : playerInvGrid)
+						{
+							if (g->InBounds(mousePos.first, mousePos.second) && i.bPickedUp)
+							{
+								i.obj->SetPos(g->GetPos());
+								i.bPickedUp = false;
+								mgr->GetPlayer()->GetInventory().GetContents().push_back(i._item);
+							}
+						}
+					}
+					if (i.bPickedUp)
+					{
+						i.obj->SetPos(playerInvGrid[mgr->GetPlayer()->GetInventory().GetContents().size()]->GetPos());
+						i.bPickedUp = false;
+						mgr->GetPlayer()->GetInventory().GetContents().push_back(i._item);
+					}
 				}
 				else
 				{
-					i.obj->bPickedUp = true; // Pickup the item
-					i._item->bEquipped = false; // Make sure the item isn't equipped by a character
+					i.bPickedUp = true;
+
+					bool partyItem = false;
+					for (auto& c : characters)
+					{
+						if (c.character->ArmourEquipSlot == i._item && !partyItem)
+						{
+							c.character->SetArmour(nullptr);
+							partyItem = true;
+						}
+
+						if (c.character->mWeaponEquipSlot == i._item && !partyItem)
+						{
+							c.character->SetWeapon(nullptr);
+							partyItem = true;
+						}
+					}
+					if (!partyItem)
+					{
+						mgr->GetPlayer()->GetInventory().GetContents().erase(std::remove(mgr->GetPlayer()->GetInventory().GetContents().begin(), mgr->GetPlayer()->GetInventory().GetContents().end(), i._item));
+					}
+
+
 				}
 			}
-
-		}
-	}
-
-	if (act == Act::MouseUpdate)
-	{
-		if (pCloseBtn->InBounds(mousePos.first, mousePos.second))
-		{
-			pCloseBtn->Tint({ 0,255,0 });
-		}
-		else
-		{
-			pCloseBtn->Untint();
 		}
 
-		for (auto& i : itemObjects)
+
+		if (act == Act::MouseUpdate)
 		{
-			
-				if (i.obj->bPickedUp)
-				{
-					i.obj->SetPos(std::make_pair(mousePos.first / i.obj->sceneScale.first, mousePos.second / i.obj->sceneScale.second));
-					current = nullptr;
-				}
-
-				if (i.obj->InBounds(mousePos.first, mousePos.second))
-				{
-					current = &i;
-					
-				}
-				
-
-		}
-
-		if (current != nullptr)
-		{
-			mToolTip.pItemImage->SetTexture(current->obj->GetSheet());
-			mToolTip.mDescription.text = current->_item->GetDescription();
-
-			mToolTip.SetPos({ current->obj->GetPos().first - 120, current->obj->GetPos().second });
-
-			mToolTip.Show();
-
-		}
-		else
-		{
-			mToolTip.Hide();
-			current = nullptr;
-		}
-	}
-
-
-}
-
-
-void InventoryScene::GetCharacterPortraits()
-{
-	int testX;
-	switch (mParty.size())
-	{
-	case 1: testX = 640; break;
-	case 2: testX = 540; break;
-	case 3: testX = 440; break;
-	case 4: testX = 250; break;
-	default: testX = 0; break;
-	}
-	
-	int offsetX = testX; // Allows for equal seperation of portraits and frames
-
-	// Get all party memebers from player
-	for (Character* c : mgr->GetPlayer()->GetParty())
-	{
-		AddObject(c->GetPortraitName(), offsetX, 180, Background)->SetScale(std::make_pair(0.8,0.8)); // Get all of their portrait render objects and add them to the scene
-
-		c->ArmourEquipSlot.slotObj = AddObject("itemFrameObj", offsetX - 120, 150,	Game);
-		c->mWeaponEquipSlot.slotObj = AddObject("itemFrameObj", offsetX - 120, 260, Game);
-
-		offsetX += 250;
-	}
-}
-
-
-
-void InventoryScene::HandleArmourEquip(ItemObject & i, Character & c)
-{
-	// Check if what is under the item is an item frame
-	if (i.obj->InBounds(c.ArmourEquipSlot.slotObj->GetPos().first, c.ArmourEquipSlot.slotObj->GetPos().second) && c.ArmourEquipSlot._item == nullptr)
-	{
-		// if type armour
-		if (i._item->GetType() == ARMOUR) // Getting called twice and don't know why
-		{
-			if (!i._item->bEquipped)
+			if (pCloseBtn->InBounds(mousePos.first, mousePos.second))
 			{
-				c.SetArmour(static_cast<Armour*>(i._item)); // then check which character's equipment slot it is and then assign them that piece of equipment
-				i.obj->SetPos(std::make_pair(c.ArmourEquipSlot.slotObj->GetPos().first, c.ArmourEquipSlot.slotObj->GetPos().second));
-			
-				mgr->GetPlayer()->GetInventory().RemoveItem(i._item);
-				i._item->bEquipped = true;
-				i.obj->bPickedUp = false; // Dropped the item
+				pCloseBtn->Tint({ 0,255,0 });
 			}
-
-		}
-
-	}
-	else
-	{
-		i.obj->bPickedUp = false;
-	}
-}
-
-	void InventoryScene::HandleWeaponEquip(ItemObject& i, Character& c)
-{
-	// Check if what is under the item is an item frame
-	if (i.obj->InBounds(c.mWeaponEquipSlot.slotObj->GetPos().first, c.mWeaponEquipSlot.slotObj->GetPos().second) && c.mWeaponEquipSlot._item == nullptr)
-	{
-		// if type weapon
-		if (i._item->GetType() == WEAPON) // Getting called twice and don't know why
-		{
-			if (!i._item->bEquipped)
+			else
 			{
-				c.SetWeapon(static_cast<Weapon*>(i._item)); // then check which character's equipment slot it is and then assign them that piece of equipment
-				i.obj->SetPos(std::make_pair(c.mWeaponEquipSlot.slotObj->GetPos().first, c.mWeaponEquipSlot.slotObj->GetPos().second));
-				mgr->GetPlayer()->GetInventory().RemoveItem(i._item);
-				i._item->bEquipped = true; // Equipped item 
-				i.obj->bPickedUp = false; // Dropped the item
+				pCloseBtn->Untint();
+			}
+
+
+			if (i.bPickedUp)
+			{
+				i.obj->SetPos(std::make_pair(mousePos.first / i.obj->sceneScale.first, mousePos.second / i.obj->sceneScale.second));
+				current = nullptr;
+			}
+
+			if (i.obj->InBounds(mousePos.first, mousePos.second))
+			{
+				current = &i;
+
+			}
+
+			if (current != nullptr)
+			{
+				mToolTip.pItemImage->SetTexture(current->obj->GetSheet());
+				mToolTip.mDescription.text = current->_item->GetDescription();
+
+				mToolTip.SetPos({ current->obj->GetPos().first - 120, current->obj->GetPos().second });
+
+				mToolTip.Show();
+
+			}
+			else
+			{
+				mToolTip.Hide();
+				current = nullptr;
 			}
 		}
 	}
-	else
-	{
-		i.obj->bPickedUp = false;
-	}
+
 }
+
+
+
 
 std::vector<RenderObject*> InventoryScene::DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY, int gridBoundsX)
 {

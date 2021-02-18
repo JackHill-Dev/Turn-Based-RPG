@@ -1,6 +1,19 @@
 #pragma once
 #include "Scene.h"
 
+struct characterInventory
+{
+	characterInventory(Character* character, RenderObject* portrait, RenderObject* weaponSlot, RenderObject* armourSlot) :portrait(portrait), weaponSlot(weaponSlot), armourSlot(armourSlot), character(character)
+	{
+
+	}
+	Character* character;
+	RenderObject* portrait;
+	RenderObject* weaponSlot;
+	RenderObject* armourSlot;
+
+};
+
 class InventoryScene :
     public Scene
 {
@@ -22,6 +35,7 @@ private:
 	ToolTip mToolTip;
 	std::vector<RenderObject*> playerInvGrid;
 	std::vector<ItemObject> itemObjects;
+	std::vector<characterInventory> characters;
 	std::vector<Character*> mParty;
 
 };

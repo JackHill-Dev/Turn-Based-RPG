@@ -34,12 +34,6 @@ struct Statistics
 	std::pair<int, int> experience = { 0, 100 }; // current, next level - EH
 };
 
-struct EquipSlot
-{
-	RenderObject* slotObj = nullptr;
-	Item* _item = nullptr;
-};
-
 class Character
 {
 public:
@@ -72,8 +66,8 @@ public:
 	
 	bool hasLevelled = false;
 	bool moving = false;
-	EquipSlot ArmourEquipSlot;
-	EquipSlot mWeaponEquipSlot;
+	Armour* ArmourEquipSlot;
+	Weapon* mWeaponEquipSlot;
 
 protected:
 
