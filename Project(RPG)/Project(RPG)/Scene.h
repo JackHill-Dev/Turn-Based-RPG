@@ -33,6 +33,7 @@ struct ItemObject
 {
 	Item* _item;
 	RenderObject* obj;
+	bool bPickedUp = false;
 
 	ItemObject() {}
 	ItemObject(Item* i, RenderObject* r) : _item(i), obj(r) {}

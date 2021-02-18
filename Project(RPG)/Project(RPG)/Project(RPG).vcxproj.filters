@@ -111,6 +111,9 @@
     <ClCompile Include="BossScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WinLoseStateScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions.h">
@@ -199,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="BossScene.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WinLoseStateScene.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
