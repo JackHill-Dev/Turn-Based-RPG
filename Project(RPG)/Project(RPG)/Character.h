@@ -45,7 +45,7 @@ class Character
 public:
 
 	Character() {}
-	Character(std::string objectName, std::string portraitName, std::pair<int, int> health, std::pair<int, int> strength, std::pair<int, int> intelligence, std::pair<int, int> agility);
+	Character(std::string portraitName, std::string objectName, std::string name, UnitClass unitClass, int level, std::pair<int,int> experience, bool dead, std::pair<int, int> health, std::pair<int, int> strength, std::pair<int, int> intelligence, std::pair<int, int> agility);
 	~Character();
 
 	int GetLevel();
@@ -62,6 +62,7 @@ public:
 	void LevelUp(int level, std::pair<int, int> characterHealth);
 	void SetBackground(UnitBackground background);
 	void SetClass(UnitClass uClass);
+	void SetClassName(UnitClass uClass);
 	void SetArmour(Armour* armour);
 	void SetWeapon(Weapon* weapon);
 	void UpdateCharacter();
@@ -78,6 +79,7 @@ public:
 protected:
 
 	Statistics mStats;
+	std::string mClassName;
 	std::string mPortraitName;
 	std::string objectName;
 	std::pair<double, double> target;

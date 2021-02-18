@@ -4,6 +4,16 @@ WinLoseStateScene::WinLoseStateScene(Interface* mObjMgr) : Scene(mObjMgr)
 {
 	pBackground = AddObject("scrollBgObj", 640, 360, Map);
 
+	Victory_Music = Mix_LoadMUS("Assets/Music/VictoryWindlessSlopes.mp3");
+	Defeat_Music = Mix_LoadMUS("Assets/Music/Game-over-silence.mp3");
+
+	Victory_Sfx = Mix_LoadWAV("Assets/SFX/VictorySfx.wav");
+	Button_Sfx = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
+	Error_Sfx = Mix_LoadWAV("Assets/SFX/ErrorSound.wav");
+}
+
+void WinLoseStateScene::SetUpButtons()
+{
 	pMenuButton = AddObject("menuButtonObj", 800, 510, UI);
 	pMenuButton->SetVisible(false);
 
@@ -21,11 +31,11 @@ WinLoseStateScene::WinLoseStateScene(Interface* mObjMgr) : Scene(mObjMgr)
 	pRejectButton->SetVisible(false);
 
 	StrengthButton = AddObject("upButtonObj", 840, 400, UI);
-	//StrengthButton->SetScale({ 2, 2 });
+
 	AgilityButton = AddObject("upButtonObj", 840, 430, UI);
-	//AgilityButton->SetScale({ 2, 2 });
+
 	IntelligenceButton = AddObject("upButtonObj", 840, 460, UI);
-	//IntelligenceButton->SetScale({ 2, 2 });
+
 
 	pStatButtons.push_back(StrengthButton);
 	pStatButtons.push_back(AgilityButton);
@@ -44,58 +54,51 @@ WinLoseStateScene::WinLoseStateScene(Interface* mObjMgr) : Scene(mObjMgr)
 	{
 		button->SetVisible(false);
 	}
-
-	Victory_Music = Mix_LoadMUS("Assets/Music/VictoryWindlessSlopes.mp3");
-	Defeat_Music = Mix_LoadMUS("Assets/Music/Game-over-silence.mp3");
-
-	Victory_Sfx = Mix_LoadWAV("Assets/SFX/VictorySfx.wav");
-	Button_Sfx = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
-	Error_Sfx = Mix_LoadWAV("Assets/SFX/ErrorSound.wav");
-
 }
 
-void WinLoseStateScene::Init()
+// Checks if any are alive(You win) or if the party is all dead(Game over) and then calls the relevant starting view,
+// Win state or lose state - EH
+void WinLoseStateScene::PickState()
 {
-
-}
-
-void WinLoseStateScene::Load()
-{
-	// Checks if any are alive(You win) or if the party is all dead(Game over) and then calls the relevant starting view,
-	// Win state or lose state 
 	std::vector<Character*> party = mgr->GetPlayer()->GetParty();
+
+	firstCharacter = new PlayerCharacter;
+	SecondCharacter = new PlayerCharacter;
+	ThirdCharacter = new PlayerCharacter;
+	pTargetCharacter = new PlayerCharacter;
 
 	for (auto member : party)
 	{
 		names.push_back(member->GetClassName(member->GetClass()));
 	}
 
-	for (auto button : pAllButtons)
-	{
-		button->SetVisible(false);
-	}
-
 	pCharacters.clear();
 
 	pLeftSprite = AddObject(party[0]->GetObjName(), 320, 360, UI);
 	pLeftSprite->SetScale(std::make_pair(2, 2));
+	pLeftSprite->SetVisible(false);
 	firstCharacter->pCharacter = mgr->GetPlayer()->GetParty().at(0);
 	firstCharacter->rObj = pLeftSprite;
+	pLeftSprite = nullptr;
 	pCharacters.push_back(firstCharacter);
 
 	pCentreSprite = AddObject(party[1]->GetObjName(), 640, 360, UI);
 	pCentreSprite->SetScale(std::make_pair(2, 2));
+	pCentreSprite->SetVisible(false);
 	SecondCharacter->pCharacter = party[1];
 	SecondCharacter->rObj = pCentreSprite;
+	pCentreSprite = nullptr;
 	pCharacters.push_back(SecondCharacter);
 
 	pRightSprite = AddObject(party[2]->GetObjName(), 960, 360, UI);
 	pRightSprite->SetScale(std::make_pair(2, 2));
+	pRightSprite->SetVisible(false);
 	ThirdCharacter->pCharacter = party[2];
 	ThirdCharacter->rObj = pRightSprite;
+	pRightSprite = nullptr;
 	pCharacters.push_back(ThirdCharacter);
 
-	if (std::any_of(party.begin(), party.end(), [party](Character* pCharacter) 
+	if (std::any_of(party.begin(), party.end(), [party](Character* pCharacter)
 		{
 			return pCharacter->GetDeadStatus() == false;
 		}))
@@ -115,6 +118,14 @@ void WinLoseStateScene::Load()
 		SetUpLoseState();
 	}
 
+	party.clear();
+}
+
+void WinLoseStateScene::Load()
+{
+	mLayers[UI].clear();
+	SetUpButtons();
+	PickState();
 }
 
 void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
@@ -170,7 +181,20 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 		{
 			mgr->PlaySFX(Button_Sfx, 0, 1);
 			mgr->GetPlayer()->ClearXpPool();
+			for (auto character : pCharacters)
+			{
+				delete character;
+			}
 			mgr->LoadScene(Scenes::Overworld);
+
+			pCharacters.clear();
+			names.clear();
+			
+
+			for (auto button : pAllButtons)
+			{
+				button->Untint();
+			}
 		}
 		else
 		{
@@ -189,6 +213,10 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 				if (character->rObj->IsVisible() == true)
 				{
 					mgr->PlaySFX(Button_Sfx, 0, 1);
+					for (auto character : pCharacters)
+					{
+						std::cout << "AHH" << std::endl;
+					}
 					SetUpLevelUpState(character);
 				}
 			}
@@ -205,6 +233,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 			}
 			else
 			{
+				mgr->PlaySFX(Error_Sfx, 0, 1);
 				mSceneText[6]->text = "INSUFFICIENT STAT POINTS. PLEASE RESET FOR REALLOCATION";
 			}
 		}
@@ -220,6 +249,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 			}
 			else
 			{
+				mgr->PlaySFX(Error_Sfx, 0, 1);
 				mSceneText[6]->text = "INSUFFICIENT STAT POINTS. PLEASE RESET FOR REALLOCATION";
 			}
 		}
@@ -286,28 +316,24 @@ void WinLoseStateScene::OnLeave(RenderObject* rObj)
 
 void WinLoseStateScene::SetUpWinState()
 {
-	
-
 	pContinueButton->SetVisible(true);
 	pConfirmButton->SetVisible(false);
 	pRejectButton->SetVisible(false);
 
-	for (auto button : pStatButtons)	{
+	for (auto button : pStatButtons)	
+	{
 		button->SetVisible(false);
 	}
 
-	pLeftSprite->SetPos({320, 360});
-	pCentreSprite->SetPos({640, 360});
-	pRightSprite->SetPos({960, 360});
+	pCharacters[0]->rObj->SetPos({320, 360});
+	pCharacters[1]->rObj->SetPos({640, 360});
+	pCharacters[2]->rObj->SetPos({960, 360});
+
 
 	for (auto character : pCharacters)
 	{
 		character->rObj->SetVisible(true);
-	}
 
-	for (auto character : pCharacters)
-	{
-		
 		if (character->pCharacter->GetStats().experience.second <= character->pCharacter->GetStats().experience.first)
 		{
 			character->rObj->tint = Gold;
@@ -395,9 +421,9 @@ void WinLoseStateScene::SetUpLoseState()
 		character->rObj->tint = DimGray;
 	}
 
-	pLeftSprite->SetPos({ 320, 360 });
-	pCentreSprite->SetPos({ 640, 360 });
-	pRightSprite->SetPos({ 960, 360 });
+	pCharacters[0]->rObj->SetPos({ 320, 360 });
+	pCharacters[1]->rObj->SetPos({ 640, 360 });
+	pCharacters[2]->rObj->SetPos({ 960, 360 });
 	
 	pMenuButton->SetVisible(true);
 	pQuitButton->SetVisible(true);
@@ -444,7 +470,6 @@ void WinLoseStateScene::SetUpLoseState()
 
 void WinLoseStateScene::SetUpLevelUpState(PlayerCharacter* &pc)
 {
-	//pPassedCharacter = pc;
 	pTargetCharacter = pc;
 	statPoints = 2;
 

@@ -475,7 +475,7 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 
 
 
-	combat_music = Mix_LoadMUS("Assets/Combat_Music.wav");
+	combat_music = Mix_LoadMUS("Assets/Music/Combat_Music.wav");
 	slash_sfx = Mix_LoadWAV("Assets/SFX/slash.wav");
 	endTurn = AddObject("EndTurnButtonObj", centre.first, 30, UI);
 	endTurn->scale = std::make_pair(1, 1);
