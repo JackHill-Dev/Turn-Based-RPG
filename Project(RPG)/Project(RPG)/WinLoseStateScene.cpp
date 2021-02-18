@@ -4,6 +4,16 @@ WinLoseStateScene::WinLoseStateScene(Interface* mObjMgr) : Scene(mObjMgr)
 {
 	pBackground = AddObject("scrollBgObj", 640, 360, Map);
 
+	Victory_Music = Mix_LoadMUS("Assets/Music/VictoryWindlessSlopes.mp3");
+	Defeat_Music = Mix_LoadMUS("Assets/Music/Game-over-silence.mp3");
+
+	Victory_Sfx = Mix_LoadWAV("Assets/SFX/VictorySfx.wav");
+	Button_Sfx = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
+	Error_Sfx = Mix_LoadWAV("Assets/SFX/ErrorSound.wav");
+}
+
+void WinLoseStateScene::SetUpButtons()
+{
 	pMenuButton = AddObject("menuButtonObj", 800, 510, UI);
 	pMenuButton->SetVisible(false);
 
@@ -21,11 +31,11 @@ WinLoseStateScene::WinLoseStateScene(Interface* mObjMgr) : Scene(mObjMgr)
 	pRejectButton->SetVisible(false);
 
 	StrengthButton = AddObject("upButtonObj", 840, 400, UI);
-	//StrengthButton->SetScale({ 2, 2 });
+
 	AgilityButton = AddObject("upButtonObj", 840, 430, UI);
-	//AgilityButton->SetScale({ 2, 2 });
+
 	IntelligenceButton = AddObject("upButtonObj", 840, 460, UI);
-	//IntelligenceButton->SetScale({ 2, 2 });
+
 
 	pStatButtons.push_back(StrengthButton);
 	pStatButtons.push_back(AgilityButton);
@@ -44,25 +54,12 @@ WinLoseStateScene::WinLoseStateScene(Interface* mObjMgr) : Scene(mObjMgr)
 	{
 		button->SetVisible(false);
 	}
-
-	Victory_Music = Mix_LoadMUS("Assets/Music/VictoryWindlessSlopes.mp3");
-	Defeat_Music = Mix_LoadMUS("Assets/Music/Game-over-silence.mp3");
-
-	Victory_Sfx = Mix_LoadWAV("Assets/SFX/VictorySfx.wav");
-	Button_Sfx = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
-	Error_Sfx = Mix_LoadWAV("Assets/SFX/ErrorSound.wav");
-
 }
 
-void WinLoseStateScene::Init()
+// Checks if any are alive(You win) or if the party is all dead(Game over) and then calls the relevant starting view,
+// Win state or lose state - EH
+void WinLoseStateScene::PickState()
 {
-
-}
-
-void WinLoseStateScene::Load()
-{
-	// Checks if any are alive(You win) or if the party is all dead(Game over) and then calls the relevant starting view,
-	// Win state or lose state 
 	std::vector<Character*> party = mgr->GetPlayer()->GetParty();
 
 	firstCharacter = new PlayerCharacter;
@@ -73,11 +70,6 @@ void WinLoseStateScene::Load()
 	for (auto member : party)
 	{
 		names.push_back(member->GetClassName(member->GetClass()));
-	}
-
-	for (auto button : pAllButtons)
-	{
-		button->SetVisible(false);
 	}
 
 	pCharacters.clear();
@@ -106,7 +98,7 @@ void WinLoseStateScene::Load()
 	pRightSprite = nullptr;
 	pCharacters.push_back(ThirdCharacter);
 
-	if (std::any_of(party.begin(), party.end(), [party](Character* pCharacter) 
+	if (std::any_of(party.begin(), party.end(), [party](Character* pCharacter)
 		{
 			return pCharacter->GetDeadStatus() == false;
 		}))
@@ -127,7 +119,13 @@ void WinLoseStateScene::Load()
 	}
 
 	party.clear();
+}
 
+void WinLoseStateScene::Load()
+{
+	mLayers[UI].clear();
+	SetUpButtons();
+	PickState();
 }
 
 void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mousePos)

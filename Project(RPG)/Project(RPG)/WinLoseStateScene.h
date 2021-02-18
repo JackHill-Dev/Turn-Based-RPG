@@ -74,6 +74,8 @@ public:
 	WinLoseStateScene(Interface* mObjMgr);
 
 	void Init();
+	void SetUpButtons();
+	void PickState();
 	void Load();
 	void Update(double dTime, Act act, std::pair<int, int> mousePos) override;
 
