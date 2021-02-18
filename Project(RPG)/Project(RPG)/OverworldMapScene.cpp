@@ -34,7 +34,9 @@ void OverworldMapScene::SaveFile()
 
 	for (auto i : mgr->GetPlayer()->GetParty())
 	{
-		characters.push_back({ {"Portrait", i->GetPortraitName()}, {"Object", i->GetObjName()}, { "Health", i->GetStats().health},{"Strength", i->GetStats().strength},{"Intelligence", i->GetStats().intelligence},{"Agility", i->GetStats().agility} });
+		characters.push_back({ {"Portrait", i->GetPortraitName()}, {"Object", i->GetObjName()}, {"Name", i->GetClassName(i->GetStats().cClass)}, {"Class", i->GetStats().cClass}, {"Level", i->GetLevel()},
+							   {"Experience", i->GetStats().experience}, {"Dead", i->GetDeadStatus()}, 
+								{ "Health", i->GetStats().health}, {"Strength", i->GetStats().strength},{"Intelligence", i->GetStats().intelligence},{"Agility", i->GetStats().agility} });
 	}
 		
 	nlohmann::json j;
@@ -350,6 +352,7 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 		{
 			mgr->PlaySFX(button_Click_SFX, 0, 1);
 			mgr->LoadScene(Scenes::MainMenu);
+			mgr->GetPlayer()->GetParty().clear();
 		}
 		else
 			if (pArmyViewerButton->InBounds(mousePos.first, mousePos.second))
@@ -402,7 +405,7 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 									int number = std::rand() % 4 + 1;
 
 									for (int i = 0; i < number; ++i)
-										enemy.push_back(new Character("maleObj", "portrait", std::make_pair(5, 5), std::make_pair(10, 10), std::make_pair(10, 10), std::make_pair(10, 10)));
+										enemy.push_back(new Character("portrait", "maleObj", " ", UnitClass::NoClass, 0,  std::make_pair(100, 200), false, std::make_pair(20, 20), std::make_pair(10, 10), std::make_pair(10, 10), std::make_pair(10, 10)));
 
 									mgr->LoadCombatScene(enemy);
 								}

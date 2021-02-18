@@ -286,28 +286,22 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 			{
 				case CharacterPickerState::WarriorView:
 
-					mCharacters.push_back(new Character("warSprObj", "WarriorObj", std::make_pair(10,10), std::make_pair(15, 15), std::make_pair(10, 10), std::make_pair(10, 10)));
-					mCharacters[PartyCount]->SetClass(UnitClass::Warrior);
-					mCharacterStats.push_back(mStatDebuff); // Intelligence debuff - EH
-					mCharacterStats.push_back(mStatBuff); // Strength buff - EH
+					mCharacters.push_back(new Character("WarriorObj", "warSprObj", " ", UnitClass::Warrior, mBaseLevel, mBaseXp, mBaseDeadStatus, mBaseHealth, mBaseClassBuff, mBaseClassDebuff, mBaseClassStat)); // Good Strength but poor Intelligence - EH
+					mCharacters[PartyCount]->SetClassName(mCharacters[PartyCount]->GetStats().cClass);
 					SetUpBackgroundView(CharacterPickerState::ClassView);
 					break;
 
 				case CharacterPickerState::RogueView:
 
-					mCharacters.push_back(new Character("rogSprObj", "RogueObj", std::make_pair(10, 10), std::make_pair(15, 15), std::make_pair(10, 10), std::make_pair(10, 10)));
-					mCharacters[PartyCount]->SetClass(UnitClass::Rogue);
-					mCharacterStats.push_back(mStatDebuff); // Strength debuff - EH
-					mCharacterStats.push_back(mStatBuff); // Agility buff - EH
+					mCharacters.push_back(new Character("RogueObj", "rogSprObj", " ", UnitClass::Rogue, mBaseLevel, mBaseXp, mBaseDeadStatus, mBaseHealth, mBaseClassDebuff, mBaseClassStat, mBaseClassBuff)); // Good Agility but poor Strength - EH
+					mCharacters[PartyCount]->SetClassName(mCharacters[PartyCount]->GetStats().cClass);
 					SetUpBackgroundView(CharacterPickerState::ClassView);
 					break;
 
 				case CharacterPickerState::MageView:
 
-					mCharacters.push_back(new Character("mageSprObj", "ClericObj", std::make_pair(10, 10), std::make_pair(15, 15), std::make_pair(10, 10), std::make_pair(10, 10)));
-					mCharacters[PartyCount]->SetClass(UnitClass::Mage);
-					mCharacterStats.push_back(mStatDebuff); // Agility debuff - EH
-					mCharacterStats.push_back(mStatBuff); // Intelligence buff - EH
+					mCharacters.push_back(new Character("ClericObj", "mageSprObj", " ", UnitClass::Mage,  mBaseLevel, mBaseXp, mBaseDeadStatus, mBaseHealth, mBaseClassStat, mBaseClassBuff, mBaseClassDebuff)); // Good Intelligence but poor Agility - EH
+					mCharacters[PartyCount]->SetClassName(mCharacters[PartyCount]->GetStats().cClass);
 					SetUpBackgroundView(CharacterPickerState::ClassView);
 					break;
 
@@ -848,37 +842,6 @@ void ClassPickerScene::GeneratePartyFromChoices()
 	// Modifies stats of the correct party member in the characters vector. Stat count is used as an index and is incremented in accordance to how many stats the choice modifies - EH
 	for (int i = 0; i < maxPartySize; ++i)
 	{
-		switch (mCharacters[i]->GetClass())
-		{
-
-		case UnitClass::Warrior:
-
-			mCharacters[i]->modStat(mCharacters[i]->GetStats().intelligence, mCharacterStats[statCount]);
-			++statCount;
-			mCharacters[i]->modStat(mCharacters[i]->GetStats().strength, mCharacterStats[statCount]);
-			++statCount;
-			break;
-
-		case UnitClass::Rogue:
-
-			mCharacters[i]->modStat(mCharacters[i]->GetStats().strength, mCharacterStats[statCount]);
-			++statCount;
-			mCharacters[i]->modStat(mCharacters[i]->GetStats().agility, mCharacterStats[statCount]);
-			++statCount;
-			break;
-
-		case UnitClass::Mage:
-
-			mCharacters[i]->modStat(mCharacters[i]->GetStats().agility, mCharacterStats[statCount]);
-			++statCount;
-			mCharacters[i]->modStat(mCharacters[i]->GetStats().intelligence, mCharacterStats[statCount]);
-			++statCount;
-			break;
-
-		default:
-			std::cout << "Error in adding class stats!! " << std::endl;
-
-		}
 
 		// Modifies stats of the correct party member in the characters vector. Stat count is used as an index and is incremented in accordance to how many stats the choice modifies. Scholar currently doesn't modify stats - EH
 		switch (mCharacters[i]->GetBackground())
