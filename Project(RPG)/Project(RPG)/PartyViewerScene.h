@@ -5,6 +5,7 @@
 struct CharacterCard
 {
 	UIText* name;
+	UIText* level;
 	UIText* strength;
 	UIText* health;
 	UIText* intelligence;
@@ -14,8 +15,7 @@ struct CharacterCard
 
 
 
-class PartyViewerScene :
-    public Scene
+class PartyViewerScene : public Scene
 {
 public:
 	PartyViewerScene(Interface* mgr);
@@ -34,8 +34,6 @@ private:
 
 	UIText* DrawStat(std::string statName, int stat, SDL_Color textColor, std::pair<int,int> pos);
 	std::vector<Character*> mParty;
-
-
 
 };
 
