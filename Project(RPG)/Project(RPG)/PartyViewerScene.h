@@ -4,6 +4,7 @@
 
 struct CharacterCard
 {
+	UIText* name;
 	UIText* strength;
 	UIText* health;
 	UIText* intelligence;
