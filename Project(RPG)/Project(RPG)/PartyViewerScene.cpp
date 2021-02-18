@@ -77,7 +77,7 @@ void PartyViewerScene::Load()
 
 void PartyViewerScene::GetCharacterPortraits()
 {
-	int offsetX = 250; // Allows for equal seperation of portraits and frames
+	int offsetX = 390; // Allows for equal seperation of portraits and frames
 	
 	// Get all party memebers from player
 	for (Character* c : mParty)
@@ -85,7 +85,7 @@ void PartyViewerScene::GetCharacterPortraits()
 		AddObject(c->GetPortraitName(), offsetX, 180, Game); // Get all of their portrait render objects and add them to the scene
 		offsetX += 250;							
 	}
-	offsetX = 250;
+	offsetX = 390;
 	// Add character frame object for each party memeber
 	for (int i = 0; i < mParty.size(); ++i)
 	{
@@ -96,16 +96,19 @@ void PartyViewerScene::GetCharacterPortraits()
 
 void PartyViewerScene::GetCharacterStatistics()
 {
-	int offsetX = 250;
+	int offsetX = 390;
 	int offsetY = 330;
 	for (Character* c  : mParty) 
 	{
 		CharacterCard cc;
 
-		cc.name = new UIText{ "Name: " + c->GetClassName(c->GetClass()), std::make_pair(offsetX, offsetY), std::make_pair<float,float>(180, 70), SDL_Color{31,30,29} };
+		cc.name = new UIText{ "Name: " + c->GetClassName(c->GetClass()), std::make_pair(offsetX, offsetY), std::make_pair<float,float>(160, 60), SDL_Color{31,30,29} };
 		offsetY += 50;
 
-		cc.health = DrawStat("Health", c->GetStats().health.second, SDL_Color{178,34,34}, std::make_pair(offsetX, offsetY));
+		//+" Next: " + std::to_string(c->GetStats().experience.second - c->GetStats().experience.first + "XP"
+		cc.level = new UIText{ "Level: " + std::to_string(c->GetStats().level) + " XP: " + std::to_string(c->GetStats().experience.first) + "/" + std::to_string(c->GetStats().experience.second), std::make_pair(offsetX, offsetY), std::make_pair<float,float>(160, 60), SDL_Color{31,30,29} };
+		offsetY += 50;
+		cc.health = new UIText{ "Health: " + std::to_string(c->GetStats().health.first) + "/" + std::to_string(c->GetStats().health.second), std::make_pair(offsetX, offsetY), std::make_pair<float,float>(160, 60), SDL_Color{178,34,34} };
 		offsetY += 50;
 
 		cc.strength = DrawStat("Strength", c->GetStats().strength.second, SDL_Color{ 151,112,15 }, std::make_pair(offsetX, offsetY));
@@ -120,12 +123,12 @@ void PartyViewerScene::GetCharacterStatistics()
 		cc.movement = DrawStat("Movement", c->GetStats().movement.second, SDL_Color{ 31,30,29 }, std::make_pair(offsetX, offsetY));
 
 		mSceneText.push_back(cc.name);
+		mSceneText.push_back(cc.level);
 		mSceneText.push_back(cc.health);
 		mSceneText.push_back(cc.intelligence);
 		mSceneText.push_back(cc.agility);
 		mSceneText.push_back(cc.strength);
 		mSceneText.push_back(cc.movement);
-
 
 		offsetX += 250;
 		offsetY = 330;
@@ -135,6 +138,6 @@ void PartyViewerScene::GetCharacterStatistics()
 UIText* PartyViewerScene::DrawStat(std::string statName, int stat, SDL_Color textColor, std::pair<int, int> pos)
 {
 	std::string statTxt = statName + ": " + std::to_string(stat);
-	return new UIText{ statTxt, pos, std::make_pair<float,float>(180, 70), textColor };
+	return new UIText{ statTxt, pos, std::make_pair<float,float>(160, 60), textColor };
 }
 
