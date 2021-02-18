@@ -39,7 +39,7 @@ class Character
 public:
 
 	Character() {}
-	Character(std::string portraitName, std::string objectName, std::string name, UnitClass unitClass, int level, std::pair<int,int> experience, bool dead, std::pair<int, int> health, std::pair<int, int> strength, std::pair<int, int> intelligence, std::pair<int, int> agility);
+	Character(std::string portraitName, std::string objectName, std::string name, UnitClass unitClass, int level, std::pair<int,int> experience, bool dead, std::pair<int, int> health, std::pair<int, int> strength, std::pair<int, int> intelligence, std::pair<int, int> agility, std::string weaponName, std::string armourName);
 	~Character();
 
 	int GetLevel();
@@ -47,6 +47,8 @@ public:
 	Statistics& GetStats() { return mStats; }
 	UnitBackground& GetBackground(){ return mStats.bg; }
 	UnitClass& GetClass() { return mStats.cClass; }
+	Weapon* GetWeapon() { return mWeaponEquipSlot; };
+	Armour* GetArmour() { return ArmourEquipSlot; };
 	std::string GetClassName(UnitClass uClass);
 	std::string GetPortraitName() { return mPortraitName; }
 	std::string GetObjName() { return objectName; }
@@ -67,6 +69,7 @@ public:
 	
 	bool hasLevelled = false;
 	bool moving = false;
+	
 	Armour* ArmourEquipSlot;
 	Weapon* mWeaponEquipSlot;
 

@@ -469,7 +469,7 @@ void BossScene::Load()
 
 
 
-	Unit boss = Unit(new Character("", "", "", UnitClass::NoClass, 0, std::make_pair(1000, 3000), false, std::make_pair(30,30), std::make_pair(25,25), std::make_pair(25,25), std::make_pair(25,25)), &mapp[4][3], AddObject("daemonBoss", 500, 500, Game), AddObject("daemonBoss", 500, 500, Game));
+	Unit boss = Unit(new Character("", "", "", UnitClass::NoClass, 0, std::make_pair(1000, 3000), false, std::make_pair(30, 30), std::make_pair(25, 25), std::make_pair(25, 25), std::make_pair(25, 25), "", ""),  &mapp[4][3], AddObject("daemonBoss", 500, 500, Game), AddObject("daemonBoss", 500, 500, Game));
 	boss.object->scale = { 2,2 };
 	enemy.push_back(boss);
 	for (int i = 0; i < 5; i++)

@@ -1,6 +1,7 @@
 #include "Character.h"
 
-Character::Character(std::string portraitName, std::string objectName, std::string name, UnitClass unitClass, int level, std::pair<int, int> experience, bool dead, std::pair<int, int> health, std::pair<int, int> strength, std::pair<int, int> intelligence, std::pair<int, int> agility)
+Character::Character(std::string portraitName, std::string objectName, std::string name, UnitClass unitClass, int level, std::pair<int, int> experience, bool dead,
+					 std::pair<int, int> health, std::pair<int, int> strength, std::pair<int, int> intelligence, std::pair<int, int> agility, std::string weaponName = "", std::string armourName = "")
 {
 	mPortraitName = portraitName;
 	this->objectName = objectName;
@@ -11,8 +12,16 @@ Character::Character(std::string portraitName, std::string objectName, std::stri
 	isDead = dead;
 	mStats.health = health;
 	mStats.strength = strength;
-	mStats.agility = agility;
 	mStats.intelligence = intelligence;
+	mStats.agility = agility;
+	if (weaponName != "")
+	{
+		mWeaponEquipSlot->SetObjName(weaponName);
+	}
+	if(armourName != "")
+	{ 
+		ArmourEquipSlot->SetObjName(armourName);
+	}
 }
 
 Character::~Character()

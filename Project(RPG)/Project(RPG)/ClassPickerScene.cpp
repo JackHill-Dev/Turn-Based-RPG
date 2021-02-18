@@ -286,21 +286,21 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 			{
 				case CharacterPickerState::WarriorView:
 
-					mCharacters.push_back(new Character("WarriorObj", "warSprObj", " ", UnitClass::Warrior, mBaseLevel, mBaseXp, mBaseDeadStatus, mBaseHealth, mBaseClassBuff, mBaseClassDebuff, mBaseClassStat)); // Good Strength but poor Intelligence - EH
+					mCharacters.push_back(new Character("WarriorObj", "warSprObj", " ", UnitClass::Warrior, mBaseLevel, mBaseXp, mBaseDeadStatus, mBaseHealth, mBaseClassBuff, mBaseClassDebuff, mBaseClassStat, "", "")); // Good Strength but poor Intelligence - EH
 					mCharacters[PartyCount]->SetClassName(mCharacters[PartyCount]->GetStats().cClass);
 					SetUpBackgroundView(CharacterPickerState::ClassView);
 					break;
 
 				case CharacterPickerState::RogueView:
 
-					mCharacters.push_back(new Character("RogueObj", "rogSprObj", " ", UnitClass::Rogue, mBaseLevel, mBaseXp, mBaseDeadStatus, mBaseHealth, mBaseClassDebuff, mBaseClassStat, mBaseClassBuff)); // Good Agility but poor Strength - EH
+					mCharacters.push_back(new Character("RogueObj", "rogSprObj", " ", UnitClass::Rogue, mBaseLevel, mBaseXp, mBaseDeadStatus, mBaseHealth, mBaseClassDebuff, mBaseClassStat, mBaseClassBuff, "", "")); // Good Agility but poor Strength - EH
 					mCharacters[PartyCount]->SetClassName(mCharacters[PartyCount]->GetStats().cClass);
 					SetUpBackgroundView(CharacterPickerState::ClassView);
 					break;
 
 				case CharacterPickerState::MageView:
 
-					mCharacters.push_back(new Character("ClericObj", "mageSprObj", " ", UnitClass::Mage,  mBaseLevel, mBaseXp, mBaseDeadStatus, mBaseHealth, mBaseClassStat, mBaseClassBuff, mBaseClassDebuff)); // Good Intelligence but poor Agility - EH
+					mCharacters.push_back(new Character("ClericObj", "mageSprObj", " ", UnitClass::Mage,  mBaseLevel, mBaseXp, mBaseDeadStatus, mBaseHealth, mBaseClassStat, mBaseClassBuff, mBaseClassDebuff, "", "")); // Good Intelligence but poor Agility - EH
 					mCharacters[PartyCount]->SetClassName(mCharacters[PartyCount]->GetStats().cClass);
 					SetUpBackgroundView(CharacterPickerState::ClassView);
 					break;
