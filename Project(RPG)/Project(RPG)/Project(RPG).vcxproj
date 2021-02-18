@@ -183,6 +183,7 @@
     <ClCompile Include="ShopScene.cpp" />
     <ClCompile Include="SpriteSheet.cpp" />
     <ClCompile Include="Weapon.cpp" />
+    <ClCompile Include="WinLoseStateScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -214,6 +215,7 @@
     <ClInclude Include="ShopScene.h" />
     <ClInclude Include="SpriteSheet.h" />
     <ClInclude Include="Weapon.h" />
+    <ClInclude Include="WinLoseStateScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -46,12 +46,6 @@ Inventory& Player::GetInventory()
 	return mInventory;
 }
 
-// Currently loses item data, don't use until fixed, instead just add straight to inventory - JP
-void Player::SetInventory(Inventory inv)
-{
-	mInventory = inv;
-}
-
 void Player::SellItem(Item* item)
 {
 	SetGold(item->GetCost());
