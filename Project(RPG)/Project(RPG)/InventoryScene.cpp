@@ -25,7 +25,7 @@ InventoryScene::~InventoryScene()
 
 void InventoryScene::Init()
 {
-	mParty = mgr->GetPlayer()->GetParty();
+	mParty = mgr->GetPlayer()->GetParty(); 
 	playerInvGrid = DrawGrid(9, 3, 250, 400, 800);
 	UIText defaultText;
 	defaultText.text = "This is default tooltip text";
@@ -39,6 +39,7 @@ void InventoryScene::Init()
 void InventoryScene::Load()
 {
 	mParty = mgr->GetPlayer()->GetParty();
+	// To avoid items duplicating clear the layer they are on
 	mLayers[Game].clear();
 	itemObjects.clear();
 	mSceneText.clear();
@@ -47,13 +48,14 @@ void InventoryScene::Load()
 	int i = 0;
 	
 
-	// if a character has an equip slot filled then draw them to the screen and add them the the scene's item objects
+	
 	for (auto& c : mParty)
 	{
-
+		// Dynamically work out the x pos of the portraits and equip slots based how the amount in the party
 		int xOffset = 640 + ((i - (mParty.size()) / 2) * 300);
 		characters.push_back(characterInventory(c, AddObject(c->GetPortraitName(), xOffset, 180, Game), AddObject("itemFrameObj", xOffset - 150, 230, Game), AddObject("itemFrameObj", xOffset - 150, 120, Game)));
 
+		// if a character has an equip slot filled then draw them to the screen and add them the the scene's item objects
 		if (c->ArmourEquipSlot != nullptr)
 		{
 			itemObjects.push_back(ItemObject(c->ArmourEquipSlot,
@@ -68,6 +70,7 @@ void InventoryScene::Load()
 		i++;
 	}
 	i = 0;
+	// Draw the player's inventory 
 	for (Item* item : mgr->GetPlayer()->GetInventory().GetContents())
 	{
 		itemObjects.push_back(ItemObject(item, AddObject(item->GetObjName(), playerInvGrid[i]->GetPos().first, playerInvGrid[i]->GetPos().second, Game)));
@@ -105,7 +108,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 						{
 							i.bPickedUp = false;
 							i.obj->SetPos(c.armourSlot->GetPos());
-							c.character->SetArmour(static_cast<Armour*>(i._item));
+							c.character->SetArmour(static_cast<Armour*>(i._item)); // Equip the armour selected
 
 
 						}
@@ -114,7 +117,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 						{
 							i.bPickedUp = false;
 							i.obj->SetPos(c.weaponSlot->GetPos());
-							c.character->SetWeapon(static_cast<Weapon*>(i._item));
+							c.character->SetWeapon(static_cast<Weapon*>(i._item)); // Equip the weapon selected
 
 
 						}
@@ -147,18 +150,19 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 					{
 						if (c.character->ArmourEquipSlot == i._item && !partyItem)
 						{
-							c.character->SetArmour(nullptr);
+							c.character->SetArmour(nullptr); // Unequip armour
 							partyItem = true;
 						}
 
 						if (c.character->mWeaponEquipSlot == i._item && !partyItem)
 						{
-							c.character->SetWeapon(nullptr);
+							c.character->SetWeapon(nullptr); // Unequip weapon
 							partyItem = true;
 						}
 					}
 					if (!partyItem)
 					{
+						// Once equipped remove from global player inventory
 						mgr->GetPlayer()->GetInventory().GetContents().erase(std::remove(mgr->GetPlayer()->GetInventory().GetContents().begin(), mgr->GetPlayer()->GetInventory().GetContents().end(), i._item));
 					}
 
@@ -182,6 +186,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 
 			if (i.bPickedUp)
 			{
+				// While item is picked up stay at the mouse's screen position
 				i.obj->SetPos(std::make_pair(mousePos.first / i.obj->sceneScale.first, mousePos.second / i.obj->sceneScale.second));
 				current = nullptr;
 			}
