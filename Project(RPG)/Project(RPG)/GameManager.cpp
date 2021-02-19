@@ -166,7 +166,8 @@ bool GameManager::Init()
 	scenes.push_back(mWinLoseStateSceneInstance); // 9
 
 	currentScene->Clear(mRnd);
-	currentScene = scenes[0];
+	mInterface.LoadScene(Scenes::MainMenu);
+	//currentScene = scenes[0];
 
 	return true;
 }
