@@ -1,1 +1,1668 @@
-﻿  Project(RPG).vcxproj -> C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\x64\Debug\Project(RPG).exe
+﻿  BossScene.cpp
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Globals.h(56,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(124,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(205,20): warning C4244: 'initializing': conversion from '_Ty1' to 'float', possible loss of data
+          with
+          [
+              _Ty1=double
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(261,22): warning C4244: 'initializing': conversion from '_Ty1' to 'float', possible loss of data
+          with
+          [
+              _Ty1=double
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(326,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(457,155): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(535,16): warning C4244: 'initializing': conversion from '_Ty1' to 'float', possible loss of data
+          with
+          [
+              _Ty1=double
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(622,46): warning C4267: '-=': conversion from 'size_t' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(638,24): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(655,44): warning C4267: '-=': conversion from 'size_t' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(686,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(688,15): warning C4244: 'initializing': conversion from '_Ty1' to 'float', possible loss of data
+          with
+          [
+              _Ty1=double
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(766,30): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,16): warning C4244: 'initializing': conversion from 'const _Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,1): warning C4244: 'initializing': conversion from 'const _Ty2' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty2=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.h(102): message : see reference to function template instantiation 'std::pair<float,float>::pair<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.h(102): message : see reference to function template instantiation 'std::pair<float,float>::pair<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(314,39): warning C4244: '=': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(398): message : see reference to function template instantiation 'std::pair<float,float> &std::pair<float,float>::operator =<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(398): message : see reference to function template instantiation 'std::pair<float,float> &std::pair<float,float>::operator =<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(315,39): warning C4244: '=': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(314,39): warning C4244: '=': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(411): message : see reference to function template instantiation 'std::pair<float,float> &std::pair<float,float>::operator =<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(411): message : see reference to function template instantiation 'std::pair<float,float> &std::pair<float,float>::operator =<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(315,39): warning C4244: '=': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+  Card.cpp
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Globals.h(56,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+  Character.cpp
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Globals.h(56,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+  ClassPickerScene.cpp
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Globals.h(56,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,16): warning C4244: 'initializing': conversion from 'const _Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,1): warning C4244: 'initializing': conversion from 'const _Ty2' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty2=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+  CombatScene.cpp
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Globals.h(56,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(170,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(266,20): warning C4244: 'initializing': conversion from '_Ty1' to 'float', possible loss of data
+          with
+          [
+              _Ty1=double
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(322,22): warning C4244: 'initializing': conversion from '_Ty1' to 'float', possible loss of data
+          with
+          [
+              _Ty1=double
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(404,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(543,154): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(577,17): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(632,16): warning C4244: 'initializing': conversion from '_Ty1' to 'float', possible loss of data
+          with
+          [
+              _Ty1=double
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(719,46): warning C4267: '-=': conversion from 'size_t' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(735,24): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(752,44): warning C4267: '-=': conversion from 'size_t' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(787,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(789,15): warning C4244: 'initializing': conversion from '_Ty1' to 'float', possible loss of data
+          with
+          [
+              _Ty1=double
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(871,30): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,16): warning C4244: 'initializing': conversion from 'const _Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,1): warning C4244: 'initializing': conversion from 'const _Ty2' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty2=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.h(102): message : see reference to function template instantiation 'std::pair<float,float>::pair<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.h(102): message : see reference to function template instantiation 'std::pair<float,float>::pair<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(314,39): warning C4244: '=': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(481): message : see reference to function template instantiation 'std::pair<float,float> &std::pair<float,float>::operator =<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(481): message : see reference to function template instantiation 'std::pair<float,float> &std::pair<float,float>::operator =<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(315,39): warning C4244: '=': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(314,39): warning C4244: '=': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(494): message : see reference to function template instantiation 'std::pair<float,float> &std::pair<float,float>::operator =<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(494): message : see reference to function template instantiation 'std::pair<float,float> &std::pair<float,float>::operator =<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(315,39): warning C4244: '=': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+  GameManager.cpp
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Globals.h(56,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.h(11,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(26,9): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(130,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(296,164): warning C4244: 'argument': conversion from '_Ty2' to 'int', possible loss of data
+          with
+          [
+              _Ty2=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(296,127): warning C4244: 'argument': conversion from '_Ty1' to 'int', possible loss of data
+          with
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(367,100): warning C4244: 'argument': conversion from '_Ty2' to 'int', possible loss of data
+          with
+          [
+              _Ty2=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(367,60): warning C4244: 'argument': conversion from '_Ty1' to 'int', possible loss of data
+          with
+          [
+              _Ty1=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,16): warning C4244: 'initializing': conversion from 'const _Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,1): warning C4244: 'initializing': conversion from 'const _Ty2' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty2=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.h(102): message : see reference to function template instantiation 'std::pair<float,float>::pair<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.h(102): message : see reference to function template instantiation 'std::pair<float,float>::pair<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+  Interface.cpp
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Globals.h(56,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+  InventoryScene.cpp
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Globals.h(56,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\InventoryScene.cpp(55,56): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,16): warning C4244: 'initializing': conversion from 'const _Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,1): warning C4244: 'initializing': conversion from 'const _Ty2' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty2=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+  main.cpp
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Globals.h(56,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.h(11,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,16): warning C4244: 'initializing': conversion from 'const _Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,1): warning C4244: 'initializing': conversion from 'const _Ty2' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty2=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.h(102): message : see reference to function template instantiation 'std::pair<float,float>::pair<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.h(102): message : see reference to function template instantiation 'std::pair<float,float>::pair<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+  MainMenuScene.cpp
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Globals.h(56,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,16): warning C4244: 'initializing': conversion from 'const _Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,1): warning C4244: 'initializing': conversion from 'const _Ty2' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty2=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+  OverworldMapScene.cpp
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Globals.h(56,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\OverworldMapScene.cpp(80,37): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\OverworldMapScene.cpp(308,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,16): warning C4244: 'initializing': conversion from 'const _Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,1): warning C4244: 'initializing': conversion from 'const _Ty2' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty2=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from 'int' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+  PartyViewerScene.cpp
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Globals.h(56,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,16): warning C4244: 'initializing': conversion from 'const _Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,1): warning C4244: 'initializing': conversion from 'const _Ty2' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty2=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+  Player.cpp
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Globals.h(56,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Player.cpp(59,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Player.cpp(72,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+  Scene.cpp
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Globals.h(56,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.h(11,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(30,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(60,53): warning C4244: '=': conversion from '_Ty1' to 'int', possible loss of data
+          with
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(61,54): warning C4244: '=': conversion from '_Ty2' to 'int', possible loss of data
+          with
+          [
+              _Ty2=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(62,43): warning C4244: '=': conversion from '_Ty1' to 'int', possible loss of data
+          with
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(63,43): warning C4244: '=': conversion from '_Ty2' to 'int', possible loss of data
+          with
+          [
+              _Ty2=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(66,50): warning C4244: '=': conversion from '_Ty1' to 'int', possible loss of data
+          with
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(67,51): warning C4244: '=': conversion from '_Ty2' to 'int', possible loss of data
+          with
+          [
+              _Ty2=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(84,20): warning C4244: '=': conversion from '_Ty1' to 'int', possible loss of data
+          with
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.cpp(85,20): warning C4244: '=': conversion from '_Ty2' to 'int', possible loss of data
+          with
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,16): warning C4244: 'initializing': conversion from 'const _Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,1): warning C4244: 'initializing': conversion from 'const _Ty2' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty2=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.h(102): message : see reference to function template instantiation 'std::pair<float,float>::pair<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.h(102): message : see reference to function template instantiation 'std::pair<float,float>::pair<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+  SettingsScene.cpp
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Globals.h(56,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,16): warning C4244: 'initializing': conversion from 'const _Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,1): warning C4244: 'initializing': conversion from 'const _Ty2' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty2=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from 'int' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\SettingsScene.cpp(96): message : see reference to function template instantiation 'std::pair<float,float>::pair<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\SettingsScene.cpp(96): message : see reference to function template instantiation 'std::pair<float,float>::pair<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+  ShopScene.cpp
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Globals.h(56,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\ShopScene.cpp(5,39): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\ShopScene.cpp(19,17): warning C4150: deletion of pointer to incomplete type '_Mix_Music'; no destructor called
+C:\vclib\SDL2-2.0.12\include\SDL_mixer.h(143): message : see declaration of '_Mix_Music'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,16): warning C4244: 'initializing': conversion from 'const _Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,1): warning C4244: 'initializing': conversion from 'const _Ty2' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty2=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+  WinLoseStateScene.cpp
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Globals.h(56,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\WinLoseStateScene.cpp(108,65): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\RenderObject.h(19): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,16): warning C4244: 'initializing': conversion from 'const _Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(47): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(const std::pair<int,int> &) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(221,1): warning C4244: 'initializing': conversion from 'const _Ty2' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty2=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(48): message : see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from '_Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Scene.h(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<_Ty1&,int,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Ty1=int,
+              _Other1=int &,
+              _Other2=int
+          ]
+  Generating Code...
+  Project(RPG).vcxproj -> C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\x64\Debug\Project(RPG).exe

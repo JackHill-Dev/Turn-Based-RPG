@@ -1,7 +1,6 @@
 #pragma once
 #include "Globals.h"
 #include "RenderObject.h"
-#include "Inventory.h"
 #include "Armour.h"
 #include "Weapon.h"
 

@@ -2,7 +2,6 @@
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 #include "Scene.h"
-#include "Shop.h"
 #include "Player.h"
 #include "Weapon.h"
 #include "Armour.h"
