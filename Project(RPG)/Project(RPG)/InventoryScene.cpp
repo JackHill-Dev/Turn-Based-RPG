@@ -71,7 +71,7 @@ void InventoryScene::Load()
 	}
 	i = 0;
 	// Draw the player's inventory 
-	for (Item* item : mgr->GetPlayer()->GetInventory().GetContents())
+	for (Item* item : mgr->GetPlayer()->inventory)
 	{
 		itemObjects.push_back(ItemObject(item, AddObject(item->GetObjName(), playerInvGrid[i]->GetPos().first, playerInvGrid[i]->GetPos().second, Game)));
 		++i;
@@ -130,15 +130,15 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 							{
 								i.obj->SetPos(g->GetPos());
 								i.bPickedUp = false;
-								mgr->GetPlayer()->GetInventory().GetContents().push_back(i._item);
+								mgr->GetPlayer()->AddItem(i._item);
 							}
 						}
 					}
 					if (i.bPickedUp)
 					{
-						i.obj->SetPos(playerInvGrid[mgr->GetPlayer()->GetInventory().GetContents().size()]->GetPos());
+						i.obj->SetPos(playerInvGrid[mgr->GetPlayer()->inventory.size()]->GetPos());
 						i.bPickedUp = false;
-						mgr->GetPlayer()->GetInventory().GetContents().push_back(i._item);
+						mgr->GetPlayer()->AddItem(i._item);
 					}
 				}
 				else
@@ -163,7 +163,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 					if (!partyItem)
 					{
 						// Once equipped remove from global player inventory
-						mgr->GetPlayer()->GetInventory().GetContents().erase(std::remove(mgr->GetPlayer()->GetInventory().GetContents().begin(), mgr->GetPlayer()->GetInventory().GetContents().end(), i._item));
+						mgr->GetPlayer()->RemoveItem(i._item);
 					}
 
 

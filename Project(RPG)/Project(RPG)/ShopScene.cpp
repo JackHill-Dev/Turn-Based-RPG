@@ -48,20 +48,20 @@ void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 			mgr->LoadPreviousScene();
 		}
 	}
-	ManagePlayerInventory(mgr->GetPlayer()->GetInventory(), act, mousePos);
-	ManageShopInventory(mShop.GetInventory(), act, mousePos);
+	ManagePlayerInventory(mgr->GetPlayer()->inventory, act, mousePos);
+	ManageShopInventory(mShop.inventory, act, mousePos);
 }
 
-void ShopScene::PlaceItems(Inventory& inv)
+void ShopScene::PlaceItems(std::vector<Item*> inv)
 {
-	for (auto i : mgr->GetPlayer()->GetInventory().GetContents())
+	for (auto i : mgr->GetPlayer()->inventory)
 	{
 		// Display item to screen and set its render object to the correct image
 		playerInv.push_back(ItemObject(i, AddObject(i->GetObjName(), i->inventoryPos.pos.first, i->inventoryPos.pos.second, Game)));
 		
 	}
 
-	for (auto i : mShop.GetInventory().GetContents())
+	for (auto i : mShop.inventory)
 	{
 		// Display item to screen and set its render object to the correct image
 		shopInv.push_back(ItemObject(i, AddObject(i->GetObjName(), i->inventoryPos.pos.first, i->inventoryPos.pos.second, Game)));
@@ -121,7 +121,7 @@ void ShopScene::Load()
 	mLayers[Game].clear();
 	playerInv.clear();
 	shopInv.clear();
-	PlaceItems(mgr->GetPlayer()->GetInventory());
+	PlaceItems(mgr->GetPlayer()->inventory);
 }
 
 void ShopScene::SetupShopInv()
@@ -130,20 +130,20 @@ void ShopScene::SetupShopInv()
 	std::vector<std::string> ArmourStrings{"clothArmour", "leatherArmour", "chainArmour" };
 	for (int f = 0; f < 20; ++f)
 	{
-
+		// TODO: Add level gating
 		int i = RandomRange(0, 99);
 		int j = RandomRange(0, 2);
 		if (i >= 0 && i <= 24)
 		{
-			mShop.GetInventory().AddItem(mgr->RequestItem(weaponStrings[RandomRange(0,2)]));
+			mShop.AddItem(mgr->RequestItem(weaponStrings[RandomRange(0,2)]));
 		}
 		else if (i > 24 && i <= 49)
 		{
-			mShop.GetInventory().AddItem(mgr->RequestItem(ArmourStrings[j]));
+			mShop.AddItem(mgr->RequestItem(ArmourStrings[j]));
 		}
 		else
 		{
-			mShop.GetInventory().AddItem(mgr->RequestItem("healthPotion"));
+			mShop.AddItem(mgr->RequestItem("healthPotion"));
 		}
 	}
 
@@ -151,7 +151,7 @@ void ShopScene::SetupShopInv()
 }
 
 
-void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int> mousePos)
+void ShopScene::ManageShopInventory(std::vector<Item*> inv, Act act, std::pair<int, int> mousePos)
 {
 	shopItemHovered = nullptr;
 	// check if mouse is hovering over it
@@ -192,11 +192,11 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 		{
 			if (!(mgr->GetPlayer()->GetGold() < i._item->GetCost())) // If player can't afford item they can't buy it
 			{
-				mShop.BuyItem(i._item);
+				mShop.SellItem(i._item);
 				playerInv.push_back(i);
 				shopInv.erase(std::remove_if(shopInv.begin(), shopInv.end(), [&i](ItemObject item_) {return item_._item == i._item; }));
 				mgr->GetPlayer()->SetGold(-i._item->GetCost());	// Remove cost of item from player's gold
-				mgr->GetPlayer()->GetInventory().AddItem(i._item);// Add bought item to player's inventory
+				mgr->GetPlayer()->AddItem(i._item);// Add bought item to player's inventory
 				mgr->PlaySFX(buySell_SFX, 0, 1);
 				i.obj->SetPos(i._item->inventoryPos.pos);
 				mSceneText[0]->text = "Gold: " + std::to_string(mgr->GetPlayer()->GetGold());; // Display player gold
@@ -208,7 +208,7 @@ void ShopScene::ManageShopInventory(Inventory& inv, Act act, std::pair<int, int>
 	
 }
 
-void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, int> mousePos)
+void ShopScene::ManagePlayerInventory(std::vector<Item*> inv, Act act, std::pair<int, int> mousePos)
 {
 	playerItemHovered = nullptr;
 	if (act == Act::MouseUpdate)
@@ -253,7 +253,7 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 				shopInv.push_back(i);
 				playerInv.erase(std::remove_if(playerInv.begin(), playerInv.end(), [&i](ItemObject nI) { return nI._item == i._item; })); // remove from local container as well
 				mShop.SetGold(-i._item->GetCost());	 // Remove cost of sold item from shop gold
-				mShop.GetInventory().AddItem(i._item); // Add sold item to shop inventory
+				mShop.AddItem(i._item); // Add sold item to shop inventory
 				mgr->PlaySFX(buySell_SFX, 0, 1); // Play buy sfx on channel 1 and don't loop
 				i.obj->SetPos(i._item->inventoryPos.pos); // Update the render object position 
 				// Update the gold text for both player and shop
@@ -266,17 +266,17 @@ void ShopScene::ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, in
 
 void ShopScene::GenerateGrids()
 {
-	mShop.GetInventory().SetInitialGridPos(880);
+	mShop.SetInitialGridPos(880);
 
-	mShop.GetInventory().GeneratePositions();
-
+	mShop.GeneratePositions(); 
+	mgr->GetPlayer()->GeneratePositions();
 	SetupShopInv();
 
 	DrawGrid(4, 5, 80, 110); // Draw item frames for player inventory
 	DrawGrid(4, 5, 880, 110); // Draw item frames for shop inventory
 
-	PlaceItems(mgr->GetPlayer()->GetInventory());
-	PlaceItems(mShop.GetInventory());
+	PlaceItems(mgr->GetPlayer()->inventory);
+	PlaceItems(mShop.inventory);
 }
 
 
