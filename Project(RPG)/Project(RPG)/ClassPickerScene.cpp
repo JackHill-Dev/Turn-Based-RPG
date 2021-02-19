@@ -30,6 +30,14 @@ ClassPickerScene::ClassPickerScene(Interface* mObjMgr) : Scene(mObjMgr)
 	pYesBtn = AddObject("yesTxtBtnObj", 800, 510, UI);
 	pRejectBtn = AddObject("backTxtBtnObj", 480, 510, UI);
 
+	mIcons.push_back(pWarriorIcon);
+	mIcons.push_back(pRogueIcon);
+	mIcons.push_back(pMageIcon);
+	mIcons.push_back(pVillagerIcon);
+	mIcons.push_back(pScholarIcon);
+	mIcons.push_back(pNobleIcon);
+
+
 	bg_Music = Mix_LoadMUS("Assets/Music/ClassPicker.mp3");
 	confirm_SFX = Mix_LoadWAV("Assets/SFX/confirmSound.wav");
 	back_SFX = Mix_LoadWAV("Assets/SFX/BackSound.wav");
@@ -42,6 +50,7 @@ void ClassPickerScene::Init()
 
 void ClassPickerScene::Load()
 {
+
 	PartyCount = 0;
 	mgr->GetPlayer()->GetParty().clear();
 	mgr->GetPlayer()->ClearGold();
@@ -65,59 +74,25 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 {
 	if (act == Act::MouseUpdate)
 	{
-		if (pWarriorIcon->InBounds(mousePos.first, mousePos.second) && !isFocused)
+		for (auto object : mIcons)
 		{
-			OnHover(pWarriorIcon);
+			if (object->InBounds(mousePos.first, mousePos.second) && isFocused == false)
+			{
+				OnHover(object);
+			}
+			else
+			{
+				OnLeave(object);
+			}
 		}
-		else OnLeave(pWarriorIcon);
-
-		if (pRogueIcon->InBounds(mousePos.first, mousePos.second) && !isFocused)
-		{
-			OnHover(pRogueIcon);
-		}
-		else OnLeave(pRogueIcon);
-
-		if (pMageIcon->InBounds(mousePos.first, mousePos.second) && !isFocused)
-		{
-			OnHover(pMageIcon);
-		}
-		else OnLeave(pMageIcon);
-
-		if (pVillagerIcon->InBounds(mousePos.first, mousePos.second) && !isFocused)
-		{
-			OnHover(pVillagerIcon);
-		}
-		else OnLeave(pVillagerIcon);
-
-		if (pScholarIcon->InBounds(mousePos.first, mousePos.second) && !isFocused)
-		{
-			OnHover(pScholarIcon);
-		}
-		else OnLeave(pScholarIcon);
-
-		if (pNobleIcon->InBounds(mousePos.first, mousePos.second) && !isFocused)
-		{
-			OnHover(pNobleIcon);
-		}
-		else OnLeave(pNobleIcon);
-		
 		if (pBackBtn->InBounds(mousePos.first, mousePos.second))
 		{
 			OnHover(pBackBtn);
 		}
-		else OnLeave(pBackBtn);
-
-		if (pRejectBtn->InBounds(mousePos.first, mousePos.second))
+		else
 		{
-			OnHover(pRejectBtn);
+			OnLeave(pBackBtn);
 		}
-		else OnLeave(pRejectBtn);
-
-		if (pYesBtn->InBounds(mousePos.first, mousePos.second))
-		{
-			OnHover(pYesBtn);
-		}
-		else OnLeave(pYesBtn);
 	}
 
 	if (act == Act::Click)
@@ -203,7 +178,6 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 
 			pBackBtn->Untint();
 		}
-
 		if (pWarriorIcon->InBounds(mousePos.first, mousePos.second) && pWarriorIcon->IsVisible())
 		{
 			mgr->PlaySFX(confirm_SFX, 0, 1);
@@ -461,17 +435,17 @@ void ClassPickerScene::SetUpWarriorView(CharacterPickerState originState)
 	mFlavourText1.text = "INTELLIGENCE - 1";
 	mFlavourText1.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText1.pos = std::make_pair<int>(640, 400);
-	mFlavourText1.SetTextScale(100, 30);
+	mFlavourText1.SetTextScale(200, 40);
 
 	mFlavourText2.text = "STRENGTH + 2";
 	mFlavourText2.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText2.pos = std::make_pair<int>(640, 370);
-	mFlavourText2.SetTextScale(100, 30);
+	mFlavourText2.SetTextScale(200, 40);
 
 	mFlavourText3.text = "A WARRIOR'S STRENGTH IS THEIR... STRENGTH";
 	mFlavourText3.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText3.pos = std::make_pair<int>(640, 430);
-	mFlavourText3.SetTextScale(300, 30);
+	mFlavourText3.SetTextScale(600, 50);
 
 	mFooterInstruction.text = "PLEASE SELECT YOUR CHOICE WITH THE LEFT MOUSE BUTTON";
 	mFooterInstruction.textColor = SDL_Color{ 0,0,0 };
@@ -517,17 +491,17 @@ void ClassPickerScene::SetUpRogueView(CharacterPickerState originState)
 	mFlavourText1.text = "STRENGTH - 1";
 	mFlavourText1.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText1.pos = std::make_pair<int>(640, 400);
-	mFlavourText1.SetTextScale(100, 30);
+	mFlavourText1.SetTextScale(200, 40);
 
 	mFlavourText2.text = "AGILITY + 2";
 	mFlavourText2.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText2.pos = std::make_pair<int>(640, 370);
-	mFlavourText2.SetTextScale(100, 30);
+	mFlavourText2.SetTextScale(200, 40);
 
 	mFlavourText3.text = "ROGUES FIGHT WITH SPEED AND CUNNING TO DEAL A KILLER BLOW";
 	mFlavourText3.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText3.pos = std::make_pair<int>(640, 430);
-	mFlavourText3.SetTextScale(300, 30);
+	mFlavourText3.SetTextScale(600, 50);
 
 	mFooterInstruction.text = "PLEASE SELECT YOUR CHOICE WITH THE LEFT MOUSE BUTTON";
 	mFooterInstruction.textColor = SDL_Color{ 0,0,0 };
@@ -572,17 +546,17 @@ void ClassPickerScene::SetUpMageView(CharacterPickerState originState)
 	mFlavourText1.text = "AGILITY - 1";
 	mFlavourText1.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText1.pos = std::make_pair<int>(640, 400);
-	mFlavourText1.SetTextScale(100, 30);
+	mFlavourText1.SetTextScale(200, 40);
 
 	mFlavourText2.text = "INTELLIGENCE + 2";
 	mFlavourText2.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText2.pos = std::make_pair<int>(640, 370);
-	mFlavourText2.SetTextScale(100, 30);
+	mFlavourText2.SetTextScale(200, 40);
 
 	mFlavourText3.text = "MAGES DESTROY FOES WITH WEAPONISED INTELLECT";
 	mFlavourText3.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText3.pos = std::make_pair<int>(640, 430);
-	mFlavourText3.SetTextScale(300, 30);
+	mFlavourText3.SetTextScale(600, 50);
 
 
 	mFooterInstruction.text = "PLEASE SELECT YOUR CHOICE WITH THE LEFT MOUSE BUTTON";
@@ -688,22 +662,22 @@ void ClassPickerScene::SetUpVillagerView(CharacterPickerState originState)
 	mFlavourText1.text = "INTELLIGENCE - 2";
 	mFlavourText1.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText1.pos = std::make_pair<int>(640, 400);
-	mFlavourText1.SetTextScale(100, 30);
+	mFlavourText1.SetTextScale(200, 40);
 
 	mFlavourText2.text = "STRENGTH AGILITY + 2";
 	mFlavourText2.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText2.pos = std::make_pair<int>(640, 370);
-	mFlavourText2.SetTextScale(100, 30);
+	mFlavourText2.SetTextScale(200, 40);
 
 	mFlavourText3.text = "STARTING GOLD: 50";
 	mFlavourText3.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText3.pos = std::make_pair<int>(640, 430);
-	mFlavourText3.SetTextScale(100, 30);
+	mFlavourText3.SetTextScale(200, 40);
 
 	mFlavourText4.text = "A COMMONER LIVES A SIMPLE LIFE WON WITH THEIR OWN HANDS";
 	mFlavourText4.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText4.pos = std::make_pair<int>(640, 460);
-	mFlavourText4.SetTextScale(300, 30);
+	mFlavourText4.SetTextScale(600, 50);
 
 	mFooterInstruction.text = "PLEASE SELECT YOUR CHOICE WITH THE LEFT MOUSE BUTTON";
 	mFooterInstruction.textColor = SDL_Color{ 0,0,0 };
@@ -749,12 +723,12 @@ void ClassPickerScene::SetUpScholarView(CharacterPickerState originState)
 	mFlavourText2.text = "STARTING GOLD: 100 ";
 	mFlavourText2.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText2.pos = std::make_pair<int>(640, 370);
-	mFlavourText2.SetTextScale(100, 30);
+	mFlavourText2.SetTextScale(200, 40);
 
 	mFlavourText3.text = "A SCHOLAR ENJOYS A LIFE OF LEARNING AND CREATURE COMFORTS";
 	mFlavourText3.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText3.pos = std::make_pair<int>(640, 400);
-	mFlavourText3.SetTextScale(300, 30);
+	mFlavourText3.SetTextScale(600, 50);
 
 	mFooterInstruction.text = "PLEASE SELECT YOUR CHOICE WITH THE LEFT MOUSE BUTTON";
 	mFooterInstruction.textColor = SDL_Color{ 0,0,0 };
@@ -798,22 +772,22 @@ void ClassPickerScene::SetUpNobleView(CharacterPickerState originState)
 	mFlavourText1.text = "STRENGTH AGILITY - 2 ";
 	mFlavourText1.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText1.pos = std::make_pair<int>(640, 400);
-	mFlavourText1.SetTextScale(100, 30);
+	mFlavourText1.SetTextScale(200, 40);
 
 	mFlavourText2.text = "INTELLIGENCE + 2";
 	mFlavourText2.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText2.pos = std::make_pair<int>(640, 370);
-	mFlavourText2.SetTextScale(100, 30);
+	mFlavourText2.SetTextScale(200, 40);
 
 	mFlavourText3.text = "STARTING GOLD: 150";
 	mFlavourText3.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText3.pos = std::make_pair<int>(640, 430);
-	mFlavourText3.SetTextScale(100, 30);
+	mFlavourText3.SetTextScale(200, 40);
 
 	mFlavourText4.text = "A NOBLE'S LIFE OF LEISURE HAS LED TO A STRONG MIND BUT A WEAK BODY";
 	mFlavourText4.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText4.pos = std::make_pair<int>(640, 460);
-	mFlavourText4.SetTextScale(300, 30);
+	mFlavourText4.SetTextScale(600, 50);
 
 	mFooterInstruction.text = "PLEASE SELECT YOUR CHOICE WITH THE LEFT MOUSE BUTTON";
 	mFooterInstruction.textColor = SDL_Color{ 0,0,0 };

@@ -46,6 +46,7 @@ private:
 	Mix_Chunk* confirm_SFX;
 	Mix_Chunk* back_SFX;
 	std::vector<Character*> mCharacters;
+	std::vector<RenderObject*> mIcons;
 	std::vector<int> currentPartyGold;
 	std::vector<std::pair<int, int>> mCharacterStats;
 
@@ -74,11 +75,6 @@ private:
 	const int mNobleGold = 150;
 	const int maxPartySize = 3;
 	
-	//const std::pair<int, int>
-	//const std::pair<int, int>
-	//const std::pair<int, int>
-	//const std::pair<int, int>
-
 protected:
 
 public:
