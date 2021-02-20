@@ -13,7 +13,6 @@ const std::map<std::string,RenderObject*> definedObjects
 {
 	{
 		// Character Sprite objects
-
 		{"femaleObj",new RenderObject("female")},
 		{"mageObj",new RenderObject("mage")},
 		{"mageSprObj",new RenderObject("magSpr")},
