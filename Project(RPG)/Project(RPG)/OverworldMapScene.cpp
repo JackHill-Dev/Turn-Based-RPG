@@ -458,25 +458,25 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 			pMenuButton->Untint();
 		}
 
-		if (pArmyViewerButton->InBounds(mousePos.first, mousePos.second))
+		else if (pArmyViewerButton->InBounds(mousePos.first, mousePos.second))
 		{
 			mgr->PlaySFX(button_Click_SFX, 0, 1);
 			mgr->LoadScene(Scenes::Party);
 			pArmyViewerButton->Untint();
 		}
 
-		if (pSettingsButton->InBounds(mousePos.first, mousePos.second))
+		else if (pSettingsButton->InBounds(mousePos.first, mousePos.second))
 		{
 			mgr->PlaySFX(button_Click_SFX, 0, 1);
 			mgr->LoadScene(Scenes::SettingsPage);
 			pSettingsButton->Untint();
 		}
 
-		if (pLegendButton->InBounds(mousePos.first, mousePos.second))
+		else if (pLegendButton->InBounds(mousePos.first, mousePos.second))
 		{
 			mgr->PlaySFX(button_Click_SFX, 0, 1);
 
-			if (legendOn == true)
+	 		if (legendOn == true)
 			{
 				HideLegend();
 			}
@@ -485,64 +485,65 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 				ShowLegend();
 			}
 		}
-
-	else
-	{
-
-		int t = 0;
-		for (auto &i : map)
+		else
 		{
-			if (t != currentNode)
-			{
-				bool found = (std::find_if(map[currentNode].adjacentNodes.begin(), map[currentNode].adjacentNodes.end(), [i](new_Node* node) {return i.obj == node->obj; }) != map[currentNode].adjacentNodes.end());
-				if (!found)
-					i.obj->Untint();
-			}
 
-			if (i.obj->InBounds(mousePos.first, mousePos.second))
+			int t = 0;
+			for (auto& i : map)
 			{
-				if (std::find_if(map[currentNode].adjacentNodes.begin(), map[currentNode].adjacentNodes.end(), [i](new_Node* node) {return i.obj == node->obj; }) != map[currentNode].adjacentNodes.end())
+				if (t != currentNode)
 				{
-					map[currentNode].obj->Untint();
-					for (auto a : map[currentNode].adjacentNodes)
-						a->obj->Untint();
-					currentNode = t;
-					mgr->GetPlayer()->currentNode = currentNode;
-					map[currentNode].obj->tint = { 255,0,0 };
-					for (auto a : i.adjacentNodes)
-						a->obj->tint = { 0,0,255 };
-					if (&i == boss)
+					bool found = (std::find_if(map[currentNode].adjacentNodes.begin(), map[currentNode].adjacentNodes.end(), [i](new_Node* node) {return i.obj == node->obj; }) != map[currentNode].adjacentNodes.end());
+					if (!found)
+						i.obj->Untint();
+				}
+
+				if (i.obj->InBounds(mousePos.first, mousePos.second))
+				{
+					if (std::find_if(map[currentNode].adjacentNodes.begin(), map[currentNode].adjacentNodes.end(), [i](new_Node* node) {return i.obj == node->obj; }) != map[currentNode].adjacentNodes.end())
 					{
-						mgr->PlaySFX(button_Click_SFX, 0, 1);
-						mgr->LoadScene(Scenes::Boss);
-					}
-					else
-					if (i.shop)
-					{
-						mgr->PlaySFX(shop_Entry_SFX, 0, 1);
-						mgr->LoadScene(Scenes::Shops);
-					}
-					else
-					{
-						if (IsCombat())
+						map[currentNode].obj->Untint();
+						for (auto a : map[currentNode].adjacentNodes)
+							a->obj->Untint();
+						currentNode = t;
+						mgr->GetPlayer()->currentNode = currentNode;
+						map[currentNode].obj->tint = { 255,0,0 };
+						for (auto a : i.adjacentNodes)
+							a->obj->tint = { 0,0,255 };
+						if (&i == boss)
 						{
-							std::vector<Character*> enemy;
-
-							int number = std::rand() % 4 + 1;
-
-							for (int i = 0; i < number; ++i)
-								enemy.push_back(new Character("portrait", "maleObj", " ", UnitClass::NoClass, 0,  std::make_pair(100, 200), false, std::make_pair(20, 20), std::make_pair(10, 10), std::make_pair(10, 10), std::make_pair(10, 10)));
-
-								mgr->LoadCombatScene(enemy, i.seed);
-							}
 							mgr->PlaySFX(button_Click_SFX, 0, 1);
+							mgr->LoadScene(Scenes::Boss);
 						}
+						else
+							if (i.shop)
+							{
+								mgr->PlaySFX(shop_Entry_SFX, 0, 1);
+								mgr->LoadScene(Scenes::Shops);
+							}
+							else
+							{
+								if (true == false)
+								{
+									std::vector<Character*> enemy;
+
+									int number = std::rand() % 4 + 1;
+
+									for (int i = 0; i < number; ++i)
+										enemy.push_back(new Character("portrait", "maleObj", " ", UnitClass::NoClass, 0, std::make_pair(100, 200), false, std::make_pair(20, 20), std::make_pair(10, 10), std::make_pair(10, 10), std::make_pair(10, 10)));
+
+									mgr->LoadCombatScene(enemy, i.seed);
+								}
+								mgr->PlaySFX(button_Click_SFX, 0, 1);
+							}
 						mgr->PlaySFX(button_Click_SFX, 0, 1);
 					}
 				}
+				t++;
 			}
-			t++;
+
 		}
+		
 	}
 }
 // Forces the first four to be different nodes and guarantees the first node is a start node, then it's random from there - EH
