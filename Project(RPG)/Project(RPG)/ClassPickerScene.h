@@ -47,6 +47,7 @@ private:
 	Mix_Chunk* back_SFX;
 	std::vector<Character*> mCharacters;
 	std::vector<RenderObject*> mIcons;
+	std::vector<RenderObject*> mButtons;
 	std::vector<int> currentPartyGold;
 	std::vector<std::pair<int, int>> mCharacterStats;
 

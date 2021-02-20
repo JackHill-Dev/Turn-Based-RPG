@@ -37,6 +37,9 @@ ClassPickerScene::ClassPickerScene(Interface* mObjMgr) : Scene(mObjMgr)
 	mIcons.push_back(pScholarIcon);
 	mIcons.push_back(pNobleIcon);
 
+	mButtons.push_back(pBackBtn);
+	mButtons.push_back(pYesBtn);
+	mButtons.push_back(pRejectBtn);
 
 	bg_Music = Mix_LoadMUS("Assets/Music/ClassPicker.mp3");
 	confirm_SFX = Mix_LoadWAV("Assets/SFX/confirmSound.wav");
@@ -85,13 +88,16 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 				OnLeave(object);
 			}
 		}
-		if (pBackBtn->InBounds(mousePos.first, mousePos.second))
+		for (auto button : mButtons)
 		{
-			OnHover(pBackBtn);
-		}
-		else
-		{
-			OnLeave(pBackBtn);
+			if (button->InBounds(mousePos.first, mousePos.second) && button->IsVisible() == true)
+			{
+				OnHover(button);
+			}
+			else
+			{
+				OnLeave(button);
+			}
 		}
 	}
 
