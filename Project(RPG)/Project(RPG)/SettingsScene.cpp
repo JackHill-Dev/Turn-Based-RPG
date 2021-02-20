@@ -42,7 +42,7 @@ void SettingsScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 		if (settingsCloseBtn->InBounds(mousePos.first, mousePos.second) && settingsCloseBtn->IsActive())
 		{
 			mgr->PlaySFX(button_Click_SFX, 0, 1);
-			mgr->LoadScene(MainMenu);
+			mgr->LoadPreviousScene();
 			settingsCloseBtn->Untint();
 		}
 
