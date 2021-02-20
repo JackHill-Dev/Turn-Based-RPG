@@ -247,7 +247,6 @@ const std::map<std::string, std::vector<Animation>> definedAnimations
 		Animation("WalkRight", {std::make_pair(0,2), std::make_pair(1,2), std::make_pair(2,2)}),
 		Animation("WalkDown", {std::make_pair(0,3), std::make_pair(1,3), std::make_pair(2,3)}),
 
-
 		}},
 
 		{"magSpr",
@@ -274,7 +273,6 @@ const std::map<std::string, std::vector<Animation>> definedAnimations
 		Animation("WalkLeft", {std::make_pair(0,1), std::make_pair(1,1), std::make_pair(2,1)}),
 		Animation("WalkRight", {std::make_pair(0,2), std::make_pair(1,2), std::make_pair(2,2)}),
 		Animation("WalkDown", {std::make_pair(0,3), std::make_pair(1,3), std::make_pair(2,3)}),
-
 
 		}},
 
