@@ -21,9 +21,19 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 		}
 		mLayers[Effects].clear();
 
-
+		// Lose Condition - EH
 		if (team.size() <= 0)
-			mgr->LoadScene(MainMenu);
+		{
+			mgr->LoadScene(Scenes::WinLoseStateScreen);
+		}
+
+		// Win Condition
+		if (enemy.size() <= 0)
+		{
+			// Flips a bool in player to display the 'Game Cleared' state. Woo! - EH
+			mgr->GetPlayer()->GameCleared();
+			mgr->LoadScene(Scenes::WinLoseStateScreen);
+		}
 
 
 
@@ -380,10 +390,11 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 void BossScene::Load()
 {
 	playerTurn = false;
-	mgr->PlayMusic(combat_music, -1);
 	int v = 0;
+
 	enemyHand.clear();
 	playerhand.clear();
+
 	enemy.clear(); team.clear();
 	for (auto& layer : mLayers)
 	{
@@ -392,7 +403,8 @@ void BossScene::Load()
 		layer.clear();
 	}
 
-	combat_music = Mix_LoadMUS("Assets/Music/Combat_Music.wav");
+	combat_music = Mix_LoadMUS("Assets/Music/Boss.mp3");
+	mgr->FadeInMusic(combat_music, -1, mgr->fadeTime);
 	slash_sfx = Mix_LoadWAV("Assets/SFX/slash.wav");
 	endTurn = AddObject("EndTurnButtonObj", centre.first, 30, UI);
 	endTurn->scale = std::make_pair(1, 1);
@@ -474,7 +486,7 @@ void BossScene::Load()
 	enemy.push_back(boss);
 	for (int i = 0; i < 5; i++)
 	{
-		enemyHand.push_back(std::make_pair(new Card(5, "Slash", 1, "cardObj", "swordSlashEffectObj", 0.5, 5, 0, 0), nullptr));
+		enemyHand.push_back(std::make_pair(new Card(5, "Slash", 1, "cardObj", "BossAttackObj", 0.5, 5, 0, 0), nullptr));
 
 	}
 
@@ -554,9 +566,9 @@ void BossScene::RemoveUnit(Unit* unit)
 {
 	auto p = std::find(mLayers[Game].begin(), mLayers[Game].end(), unit->object);
 	mLayers[Game].erase(p);
-	mLayers[UI].erase(std::find(mLayers[UI].begin(), mLayers[UI].end(), unit->profile));
+	//mLayers[UI].erase(std::find(mLayers[UI].begin(), mLayers[UI].end(), unit->profile));
 	delete unit->object;
-	delete unit->profile;
+	//delete unit->profile;
 	unit->occupiedTile->availiable = true;
 	auto i = std::find_if(team.begin(), team.end(), [unit](Unit u) {
 		return (u.character == unit->character);

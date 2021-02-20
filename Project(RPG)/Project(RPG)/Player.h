@@ -18,6 +18,8 @@ public:
 	void AddToXpPool(const int& xp);
 	int& GetXpPool() { return mPartyExperiencePool; }
 	void ClearXpPool() { mPartyExperiencePool = 0; }
+	void GameCleared() { gameCleared = true; }
+	bool GetGameCleared() { return gameCleared; }
 	void AddToParty(Character* character);
 	void SetupParty(std::vector<Character*> characters);
 	void SetDeck(std::deque<Card*> newDeck)
@@ -43,6 +45,7 @@ private:
 	std::vector<std::pair<int, int>> gridPositions;
 	int mInitialGridPos = 0;
 	int mItemCount;
+	bool gameCleared = false;
 
 };
 

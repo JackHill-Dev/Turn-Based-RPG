@@ -21,7 +21,6 @@ void WinLoseStateScene::SetUpButtons()
 	pQuitButton->SetVisible(false);
 
 	pContinueButton = AddObject("ContinueButtonObj", 640, 510, UI);
-	pContinueButton->SetScale({ 2,2 });
 	pContinueButton->SetVisible(false);
 
 	pConfirmButton = AddObject("ConfirmButtonObj", 800, 510, UI);
@@ -110,7 +109,14 @@ void WinLoseStateScene::PickState()
 		{
 			character->pCharacter->modStat(character->pCharacter->GetStats().experience, { dividedXp, 0 });
 		}
-		SetUpWinState();
+		if (mgr->GetPlayer()->GetGameCleared() == false)
+		{
+			SetUpWinState();
+		}
+		else
+		{
+			SetUpGameClearState();
+		}
 	}
 	else
 	{
@@ -161,6 +167,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 			{
 				mgr->PlaySFX(Button_Sfx, 0, 1);
 				mgr->LoadScene(Scenes::MainMenu);
+				mgr->GetPlayer()->GetParty().clear();
 			}
 		}
 
@@ -534,6 +541,23 @@ void WinLoseStateScene::SetUpLevelUpState(PlayerCharacter* &pc)
 	mSceneText.push_back(&mFlavourText3);
 	mSceneText.push_back(&mFlavourText4);
 	mSceneText.push_back(&mFooterInstruction);
+}
+
+void WinLoseStateScene::SetUpGameClearState()
+{
+	pGameClearBanner = AddObject("gameClearObj", 640, 360, UI);
+
+	pMenuButton->SetPos({ 800, 550 });
+	pQuitButton->SetPos({ 480,550 });
+
+	for (auto character : pCharacters)
+	{
+		character->rObj->SetVisible(false);
+	}
+
+	pMenuButton->SetVisible(true);
+	pQuitButton->SetVisible(true);
+	mSceneText.clear();
 }
 
 
