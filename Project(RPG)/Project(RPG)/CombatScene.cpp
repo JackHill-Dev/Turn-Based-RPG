@@ -123,7 +123,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 						}
 						for (int i = 0; i < 5; i++)
 						{
-							enemyHand.push_back(std::make_pair(new Card(5, "Slash", 1, "cardObj", "swordSlashEffectObj", 0.5, 5, 0, 0), nullptr));
+							enemyHand.push_back(std::make_pair(new Card(1, "Slash", 1, "cardObj", "swordSlashEffectObj", 0.5, 5, 0, 0), nullptr));
 
 						}
 					}

@@ -154,10 +154,10 @@ void Character::Heal(std::pair<int, int>& health, int healValue)
 
 	health.first += healValue;
 
-	if (health.first > health.second)
+	/*if (health.first > health.second)
 	{
 		health.first = health.second;
-	}
+	}*/
 }
 
 void Character::Die()

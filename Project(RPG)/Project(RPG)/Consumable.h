@@ -5,13 +5,14 @@ class Consumable :
 {
 public:
     Consumable() {}
-    Consumable(std::string name,std::string spriteName, int cost);
+    Consumable(std::string name,std::string spriteName, int cost, int healAmount);
     void OnConsume();
 
     std::string GetDescription() override;
     Item* Clone() override { return new Consumable(*this); }
+    int mHealAmount = 10;
 private:
-
+   
 
 };
 

@@ -1,9 +1,10 @@
 #include "Consumable.h"
 
-Consumable::Consumable(std::string name,std::string spriteName, int cost) : Item(name, cost)
+Consumable::Consumable(std::string name,std::string spriteName, int cost, int healAmount) : Item(name, cost)
 {
-	ItemType::CONSUMABLE;
+	mType = ItemType::CONSUMABLE;
 	mObjName = spriteName;
+	mHealAmount = healAmount;
 }
 
 void Consumable::OnConsume()
