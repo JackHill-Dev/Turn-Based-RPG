@@ -46,11 +46,6 @@ ClassPickerScene::ClassPickerScene(Interface* mObjMgr) : Scene(mObjMgr)
 	back_SFX = Mix_LoadWAV("Assets/SFX/BackSound.wav");
 }
 
-void ClassPickerScene::Init()
-{
-
-}
-
 void ClassPickerScene::Load()
 {
 
