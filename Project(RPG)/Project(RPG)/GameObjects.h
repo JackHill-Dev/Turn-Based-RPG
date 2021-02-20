@@ -363,7 +363,7 @@ const std::map<std::string, Item*> definedItems
 	{"chainArmour",  new Armour("Chainmail Armour", "chainArmourObj", 30, 250 )} ,
 
 	// Consumables
-	{"healthPotion",  new Consumable("Health potion", "potionObj", 25)}
+	{"healthPotion",  new Consumable("Health potion", "potionObj", 25, 10)}
 };
 
 
