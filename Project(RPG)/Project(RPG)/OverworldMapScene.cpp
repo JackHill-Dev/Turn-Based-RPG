@@ -49,9 +49,18 @@ void OverworldMapScene::SaveFile()
 OverworldMapScene::OverworldMapScene(Interface* mObjMgr) : Scene(mObjMgr)
 {
 	pOverworld = AddObject("overworldObj", 640, 360, Map);
-	pArmyViewerButton = AddObject("armyViewerButtonObj", 730, 700, UI);
-	pMenuButton = AddObject("menuButtonObj", 440, 700, UI);
-	//saveButton = AddObject("menuButtonObj", 440, 600, UI);
+	pLegend = AddObject("legendObj", 1190, 180, UI);
+	pLegend->SetScale({ 0.9, 0.9 });
+	pArmyViewerButton = AddObject("armyViewerButtonObj", 200, 700, UI);
+	pLegendButton = AddObject("legendButtonObj", 1070, 700, UI);
+	pSettingsButton = AddObject("settingsBtnObj", 780, 700, UI);
+	pMenuButton = AddObject("menuButtonObj", 490, 700, UI);
+
+	mOverworldButtons.push_back(pArmyViewerButton);
+	mOverworldButtons.push_back(pLegendButton);
+	mOverworldButtons.push_back(pSettingsButton);
+	mOverworldButtons.push_back(pMenuButton);
+
 	mBackgroundMus = Mix_LoadMUS("Assets/Music/Overworld.mp3");
 	
 	Init();
@@ -260,8 +269,98 @@ void OverworldMapScene::LoadNodes(int loadedseed)
 		}
 	}
 }
-	
 
+void OverworldMapScene::ShowLegend()
+{
+	pLegend->SetVisible(true);
+	legendOn = true;
+
+	mLegend.mNormalNode = AddObject("nodeObj", 1150, 150, UI);
+	mLegend.mNormalNode->Tint({ 255,0,0 });
+	mLegend.mHoveredNode = AddObject("nodeObj", 1230, 150, UI);
+	mLegend.mHoveredNode->Tint({ 0,0,255 });
+
+	mLegend.mShopNode = AddObject("shopNodeObj", 1150, 230, UI);
+	mLegend.mShopNode->Tint({ 255,0,0 });
+	mLegend.mHoveredShop = AddObject("shopNodeObj", 1230, 230, UI);
+	mLegend.mHoveredShop->Tint({ 0,0,255 });
+
+	mLegend.mBossNode = AddObject("battleNodeObj", 1150, 300, UI);
+	mLegend.mBossNode->Tint({ 255,0,0 });
+	mLegend.mHoveredBoss = AddObject("battleNodeObj", 1230, 300, UI);
+	mLegend.mHoveredBoss->Tint({ 0,0,255 });
+
+	mLegend.mLegendObjects.push_back(mLegend.mNormalNode);
+	mLegend.mLegendObjects.push_back(mLegend.mHoveredNode);
+	mLegend.mLegendObjects.push_back(mLegend.mShopNode);
+	mLegend.mLegendObjects.push_back(mLegend.mHoveredShop);
+	mLegend.mLegendObjects.push_back(mLegend.mBossNode);
+	mLegend.mLegendObjects.push_back(mLegend.mHoveredBoss);
+
+	mSceneText.clear();
+	
+	for (auto object : mLegend.mLegendObjects)
+	{
+		object->SetVisible(true);
+	}
+	
+	mLegend.mHeaderText.text = "LEGEND";
+	mLegend.mHeaderText.textColor = Black;
+	mLegend.mHeaderText.pos = { 1190, 45 };
+	mLegend.mHeaderText.SetTextScale(120, 35);
+
+	mLegend.mCurrentLabel.text = "CURRENT";
+	mLegend.mCurrentLabel.textColor = Black;
+	mLegend.mCurrentLabel.pos = { 1150, 85 };
+	mLegend.mCurrentLabel.SetTextScale(50, 30);
+
+	mLegend.mAdjacentLabel.text = "ADJACENT";
+	mLegend.mAdjacentLabel.textColor = Black;
+	mLegend.mAdjacentLabel.pos = { 1225, 85 };
+	mLegend.mAdjacentLabel.SetTextScale(60, 30);
+
+	mLegend.mStandardNodeLabel.text = "STANDARD";
+	mLegend.mStandardNodeLabel.textColor = Black;
+	mLegend.mStandardNodeLabel.pos = { 1190, 115 };
+	mLegend.mStandardNodeLabel.SetTextScale(60, 30);
+
+	mLegend.mShopNodeLabel.text = "SHOP";
+	mLegend.mShopNodeLabel.textColor = Black;
+	mLegend.mShopNodeLabel.pos = { 1190, 195 };
+	mLegend.mShopNodeLabel.SetTextScale(60, 30);
+
+	mLegend.mBossNodeLabel.text = "BOSS";
+	mLegend.mBossNodeLabel.textColor = Black;
+	mLegend.mBossNodeLabel.pos = { 1190, 265 };
+	mLegend.mBossNodeLabel.SetTextScale(60, 30);
+
+
+	mLegend.mInstructionText.text = "Click node to travel";
+	mLegend.mInstructionText.textColor = Black;
+	mLegend.mInstructionText.pos = { 1190, 340 };
+	mLegend.mInstructionText.SetTextScale(140, 40);
+
+	mSceneText.push_back(&mLegend.mHeaderText);
+	mSceneText.push_back(&mLegend.mCurrentLabel);
+	mSceneText.push_back(&mLegend.mAdjacentLabel);
+	mSceneText.push_back(&mLegend.mStandardNodeLabel);
+	mSceneText.push_back(&mLegend.mShopNodeLabel);
+	mSceneText.push_back(&mLegend.mBossNodeLabel);
+	mSceneText.push_back(&mLegend.mInstructionText);
+
+}
+
+void OverworldMapScene::HideLegend()
+{
+	legendOn = false;
+
+	pLegend->SetVisible(false);
+	mSceneText.clear();
+	for (auto object : mLegend.mLegendObjects)
+	{
+		object->SetVisible(false);
+	}
+}
 
 void OverworldMapScene::Init()
 {
@@ -284,6 +383,15 @@ void OverworldMapScene::Load()
 	}
 
 	LoadNodes();
+
+	if (legendOn == true)
+	{
+		ShowLegend();
+	}
+	else
+	{
+		HideLegend();
+	}
 	
 	currentNode = mgr->GetPlayer()->currentNode;
 	for (auto i : map[currentNode].adjacentNodes)
@@ -327,21 +435,16 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 			}
 			t = 0;
 
-			if (pMenuButton->InBounds(mousePos.first, mousePos.second))
+			for (auto button : mOverworldButtons)
 			{
-				OnHover(pMenuButton);
-			}
-			else
-			{
-				OnLeave(pMenuButton);
-			}
-			if (pArmyViewerButton->InBounds(mousePos.first, mousePos.second))
-			{
-				OnHover(pArmyViewerButton);
-			}
-			else
-			{
-				OnLeave(pArmyViewerButton);
+				if (button->InBounds(mousePos.first, mousePos.second))
+				{
+					OnHover(button);
+				}
+				else
+				{
+					OnLeave(button);
+				}
 			}
 	}
 
@@ -354,69 +457,91 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 			mgr->GetPlayer()->GetParty().clear();
 			pMenuButton->Untint();
 		}
-		else
-			if (pArmyViewerButton->InBounds(mousePos.first, mousePos.second))
+
+		if (pArmyViewerButton->InBounds(mousePos.first, mousePos.second))
+		{
+			mgr->PlaySFX(button_Click_SFX, 0, 1);
+			mgr->LoadScene(Scenes::Party);
+			pArmyViewerButton->Untint();
+		}
+
+		if (pSettingsButton->InBounds(mousePos.first, mousePos.second))
+		{
+			mgr->PlaySFX(button_Click_SFX, 0, 1);
+			mgr->LoadScene(Scenes::SettingsPage);
+			pSettingsButton->Untint();
+		}
+
+		if (pLegendButton->InBounds(mousePos.first, mousePos.second))
+		{
+			mgr->PlaySFX(button_Click_SFX, 0, 1);
+			if (legendOn == true)
 			{
-				mgr->PlaySFX(button_Click_SFX, 0, 1);
-				mgr->LoadScene(Scenes::Party);
-				pArmyViewerButton->Untint();
+				HideLegend();
 			}
 			else
 			{
+				ShowLegend();
+			}
+		}
+		else
+		{
 
-				int t = 0;
-				for (auto &i : map)
+			int t = 0;
+			for (auto &i : map)
+			{
+				if (t != currentNode)
 				{
-					if (t != currentNode)
-					{
-						bool found = (std::find_if(map[currentNode].adjacentNodes.begin(), map[currentNode].adjacentNodes.end(), [i](new_Node* node) {return i.obj == node->obj; }) != map[currentNode].adjacentNodes.end());
-						if (!found)
-							i.obj->Untint();
-					}
+					bool found = (std::find_if(map[currentNode].adjacentNodes.begin(), map[currentNode].adjacentNodes.end(), [i](new_Node* node) {return i.obj == node->obj; }) != map[currentNode].adjacentNodes.end());
+					if (!found)
+						i.obj->Untint();
+				}
 
-					if (i.obj->InBounds(mousePos.first, mousePos.second))
+				if (i.obj->InBounds(mousePos.first, mousePos.second))
+				{
+					if (std::find_if(map[currentNode].adjacentNodes.begin(), map[currentNode].adjacentNodes.end(), [i](new_Node* node) {return i.obj == node->obj; }) != map[currentNode].adjacentNodes.end())
 					{
-						if (std::find_if(map[currentNode].adjacentNodes.begin(), map[currentNode].adjacentNodes.end(), [i](new_Node* node) {return i.obj == node->obj; }) != map[currentNode].adjacentNodes.end())
+						map[currentNode].obj->Untint();
+						for (auto a : map[currentNode].adjacentNodes)
+							a->obj->Untint();
+						currentNode = t;
+						mgr->GetPlayer()->currentNode = currentNode;
+						map[currentNode].obj->tint = { 255,0,0 };
+						for (auto a : i.adjacentNodes)
+							a->obj->tint = { 0,0,255 };
+						if (&i == boss)
 						{
-							map[currentNode].obj->Untint();
-							for (auto a : map[currentNode].adjacentNodes)
-								a->obj->Untint();
-							currentNode = t;
-							mgr->GetPlayer()->currentNode = currentNode;
-							map[currentNode].obj->tint = { 255,0,0 };
-							for (auto a : i.adjacentNodes)
-								a->obj->tint = { 0,0,255 };
-							if (&i == boss)
+							mgr->PlaySFX(button_Click_SFX, 0, 1);
+							mgr->LoadScene(Scenes::Boss);
+						}
+						else
+						if (i.shop)
+						{
+							mgr->PlaySFX(shop_Entry_SFX, 0, 1);
+							mgr->LoadScene(Scenes::Shops);
+						}
+						else
+						{
+							if (IsCombat())
 							{
-								mgr->PlaySFX(button_Click_SFX, 0, 1);
-								mgr->LoadScene(Scenes::Boss);
-							}
-							else
-							if (i.shop)
-							{
-								mgr->PlaySFX(shop_Entry_SFX, 0, 1);
-								mgr->LoadScene(Scenes::Shops);
-							}
-							else
-							{
-								if (IsCombat())
-								{
-									std::vector<Character*> enemy;
+								std::vector<Character*> enemy;
 
-									int number = std::rand() % 4 + 1;
+								int number = std::rand() % 4 + 1;
 
-									for (int i = 0; i < number; ++i)
-										enemy.push_back(new Character("portrait", "maleObj", " ", UnitClass::NoClass, 0,  std::make_pair(100, 200), false, std::make_pair(20, 20), std::make_pair(10, 10), std::make_pair(10, 10), std::make_pair(10, 10)));
+								for (int i = 0; i < number; ++i)
+									enemy.push_back(new Character("portrait", "maleObj", " ", UnitClass::NoClass, 0,  std::make_pair(100, 200), false, std::make_pair(20, 20), std::make_pair(10, 10), std::make_pair(10, 10), std::make_pair(10, 10)));
 
 									mgr->LoadCombatScene(enemy, i.seed);
 								}
 								mgr->PlaySFX(button_Click_SFX, 0, 1);
 							}
+							mgr->PlaySFX(button_Click_SFX, 0, 1);
 						}
 					}
-					t++;
 				}
+				t++;
 			}
+		}
 	}
 }
 // Forces the first four to be different nodes and guarantees the first node is a start node, then it's random from there - EH
