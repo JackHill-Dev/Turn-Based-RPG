@@ -165,6 +165,8 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 		{
 			if (pMenuButton->IsVisible() == true)
 			{
+				if(mgr->GetPlayer()->GetGameCleared())
+					std::ofstream("Savedata.Json").clear();
 				mgr->PlaySFX(Button_Sfx, 0, 1);
 				mgr->LoadScene(Scenes::MainMenu);
 				mgr->GetPlayer()->GetParty().clear();
