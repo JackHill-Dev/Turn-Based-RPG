@@ -26,6 +26,14 @@ void SettingsScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 		{
 			settingsCloseBtn->Untint();
 		}
+		if (ApplyBtn->InBounds(mousePos.first, mousePos.second))
+		{
+			ApplyBtn->Tint({ 0,255,0 });
+		}
+		else
+		{
+			ApplyBtn->Untint();
+		}
 	}
 
 	if (act == Act::Click)
