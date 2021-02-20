@@ -141,7 +141,6 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 									i.second->tint = SDL_Color{ 255,255,0 };
 									hovered.push_back(i.second);
 									
-									//hovered->tint = SDL_Color{ 255,255,0 };
 									current = Selection::Team;
 								}
 

@@ -353,12 +353,14 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 			mgr->PlaySFX(button_Click_SFX, 0, 1);
 			mgr->LoadScene(Scenes::MainMenu);
 			mgr->GetPlayer()->GetParty().clear();
+			pMenuButton->Untint();
 		}
 		else
 			if (pArmyViewerButton->InBounds(mousePos.first, mousePos.second))
 			{
 				mgr->PlaySFX(button_Click_SFX, 0, 1);
 				mgr->LoadScene(Scenes::Party);
+				pArmyViewerButton->Untint();
 			}
 			else
 			{
