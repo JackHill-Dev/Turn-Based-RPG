@@ -133,7 +133,7 @@ bool GameManager::Init()
 	mInterface.StoreWindow(mWnd);
 	SetUp();
 
-	mPlayer.SetDeck({new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Magic"]),new Card(*cards["Magic"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Slash"]) });
+	mPlayer.SetDeck({new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Heal"]),new Card(*cards["Magic"]), new Card(*cards["Magic"]), new Card(*cards["Shoot"]), new Card(*cards["Shoot"]) });
 
 	mMainMenuSceneInstance = new MainMenuScene(&mInterface);
 	scenes.push_back(mMainMenuSceneInstance); // 0
@@ -166,7 +166,8 @@ bool GameManager::Init()
 	scenes.push_back(mWinLoseStateSceneInstance); // 9
 
 	currentScene->Clear(mRnd);
-	currentScene = scenes[0];
+	mInterface.LoadScene(Scenes::MainMenu);
+	//currentScene = scenes[0];
 
 	return true;
 }

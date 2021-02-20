@@ -8,9 +8,11 @@ MainMenuScene::MainMenuScene(Interface* rng) : Scene(rng)
 {
 
 	// Get all main menu button objects
-	start  = AddObject("StartBtnObj", 110, 100, UI);
-	quit = AddObject("quitBtnObj", 110, 170, UI);
+	start  = AddObject("newGameButtonObj", 110, 100, UI);
+	LoadButton = AddObject("ContinueButtonObj", 110, 170, UI);
 	settings = AddObject("settingsBtnObj", 110, 240, UI);
+	quit = AddObject("quitBtnObj", 110, 310, UI);
+
 
 	buttons.push_back(start);
 	buttons.push_back(quit);
@@ -24,9 +26,20 @@ MainMenuScene::MainMenuScene(Interface* rng) : Scene(rng)
 	back_SFX = Mix_LoadWAV("Assets/SFX/BackSound.wav");
 	
 	mgr->FadeInMusic(mStartMus, -1, mgr->fadeTime); // Cheeky solution as this one starts as current scene without using load scene method - EH
-		LoadButton = AddObject("settingsBtnObj", 110, 300, UI);
-		buttons.push_back(LoadButton);
-	
+
+	buttons.push_back(LoadButton);
+
+	if (mgr->GetSeed() != 0)
+	{
+		LoadButton->SetVisible(true);
+	}
+	else
+	{
+		settings->SetPos({ 110,170 });
+		quit->SetPos({ 110,240 });
+		LoadButton->SetPos({110,310});
+		LoadButton->SetVisible(false);
+	}
 }
 
 void MainMenuScene::Load()
@@ -35,10 +48,16 @@ void MainMenuScene::Load()
 
 	if (mgr->GetSeed() != 0)
 	{
+		LoadButton->SetPos({110,170});
+		settings->SetPos({110,240});
+		quit->SetPos({110,310});
 		LoadButton->SetVisible(true);
 	}
 	else
 	{
+		settings->SetPos({ 110,170 });
+		quit->SetPos({ 110,240 });
+		LoadButton->SetPos({ 110,310 });
 		LoadButton->SetVisible(false);
 	}
 
@@ -79,25 +98,25 @@ void MainMenuScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 	
 	if (act == Act::Click)
 	{
-		if (start->InBounds(mouse.first, mouse.second) && start->IsActive())
+		if (start->InBounds(mouse.first, mouse.second) && start->IsVisible() == true)
 		{
 			mgr->PlaySFX(confirm_SFX, 0, 1);			
 			mgr->LoadScene(Scenes::ClassPicker);
 			OnLeave(start);
 		}
 
-		else if (quit->InBounds(mouse.first, mouse.second) && quit->IsActive())
+		else if (quit->InBounds(mouse.first, mouse.second) && quit->IsVisible() == true)
 		{
 			mgr->Quit();
 		}
 		
-		else if (settings->InBounds(mouse.first, mouse.second) && settings->IsActive())
+		else if (settings->InBounds(mouse.first, mouse.second) && settings->IsVisible() == true)
 		{
 			mgr->PlaySFX(confirm_SFX, 0, 1);
 			mgr->LoadScene(Scenes::SettingsPage);
 			OnLeave(settings);
 		}
-		else if (LoadButton->InBounds(mouse.first, mouse.second) && LoadButton->IsActive())
+		else if (LoadButton->InBounds(mouse.first, mouse.second) && LoadButton->IsVisible() == true)
 		{
 			mgr->PlaySFX(confirm_SFX, 0, 1);
 			mgr->LoadScene(Scenes::Overworld);

@@ -25,7 +25,7 @@ ClassPickerScene::ClassPickerScene(Interface* mObjMgr) : Scene(mObjMgr)
 	pNobleIcon->SetScale(std::make_pair(2, 2));
 	pNobleIcon->SetVisible(false);
 
-	pBackBtn = AddObject("backBtnObj", 140, 230, UI);
+	pBackBtn = AddObject("backBtnObj", 130, 240, UI);
 
 	pYesBtn = AddObject("yesTxtBtnObj", 800, 510, UI);
 	pRejectBtn = AddObject("backTxtBtnObj", 480, 510, UI);

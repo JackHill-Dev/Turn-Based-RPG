@@ -167,7 +167,6 @@
     <ClCompile Include="Consumable.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Interface.cpp" />
-    <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="InventoryScene.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
@@ -179,7 +178,6 @@
     <ClCompile Include="RenderObject.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SettingsScene.cpp" />
-    <ClCompile Include="Shop.cpp" />
     <ClCompile Include="ShopScene.cpp" />
     <ClCompile Include="SpriteSheet.cpp" />
     <ClCompile Include="Weapon.cpp" />
@@ -199,7 +197,6 @@
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Actions.h" />
     <ClInclude Include="Interface.h" />
-    <ClInclude Include="Inventory.h" />
     <ClInclude Include="InventoryScene.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="json.hpp" />
@@ -211,7 +208,6 @@
     <ClInclude Include="RenderObject.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SettingsScene.h" />
-    <ClInclude Include="Shop.h" />
     <ClInclude Include="ShopScene.h" />
     <ClInclude Include="SpriteSheet.h" />
     <ClInclude Include="Weapon.h" />

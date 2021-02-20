@@ -2,7 +2,6 @@
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 #include "Scene.h"
-#include "Shop.h"
 #include "Player.h"
 #include "Weapon.h"
 #include "Armour.h"
@@ -23,15 +22,15 @@ protected:
 private:
 	
 
-	void PlaceItems(Inventory& inv);
+	void PlaceItems(std::vector<Item*> inv);
 	void SetupShopInv(); // For testing
-	void ManageShopInventory(Inventory& inv, Act act, std::pair<int, int> mousePos);
-	void ManagePlayerInventory(Inventory& inv, Act act, std::pair<int, int> mousePos);
+	void ManageShopInventory(std::vector<Item*> inv, Act act, std::pair<int, int> mousePos);
+	void ManagePlayerInventory(std::vector<Item*> inv, Act act, std::pair<int, int> mousePos);
 	void GenerateGrids();
 	void DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY);
 	void HandleTooltip(ItemObject* hovered);
 
-	Shop mShop;
+	Player mShop;
 	UIText mPlayerGoldText;
 	UIText mShopGoldText;
 	Mix_Music* bg_Music;

@@ -26,6 +26,7 @@ private:
 	UIText mFooterInstruction;
 
 	RenderObject* pBackground = nullptr;
+	RenderObject* pGameClearBanner = nullptr;
 	RenderObject* pLevelUpOverlay = nullptr;
 	RenderObject* pConfirmButton = nullptr;
 	RenderObject* pContinueButton = nullptr;
@@ -73,7 +74,6 @@ public:
 
 	WinLoseStateScene(Interface* mObjMgr);
 
-	void Init();
 	void SetUpButtons();
 	void PickState();
 	void Load();
@@ -85,6 +85,7 @@ public:
 	void SetUpWinState();
 	void SetUpLoseState();
 	void SetUpLevelUpState(PlayerCharacter* &pc);
+	void SetUpGameClearState();
 
 };
 

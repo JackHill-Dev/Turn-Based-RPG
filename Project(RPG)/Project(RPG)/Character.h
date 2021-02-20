@@ -1,7 +1,6 @@
 #pragma once
 #include "Globals.h"
 #include "RenderObject.h"
-#include "Inventory.h"
 #include "Armour.h"
 #include "Weapon.h"
 
@@ -53,7 +52,7 @@ public:
 	bool GetDeadStatus() { return isDead; }
 
 	void modStat(std::pair<int, int>& statToMod, std::pair<int,int> statMod);
-	void LevelUp(int level, std::pair<int, int> characterHealth);
+	void LevelUp(int &level, std::pair<int, int> &characterHealth);
 	void SetBackground(UnitBackground background);
 	void SetClass(UnitClass uClass);
 	void SetClassName(UnitClass uClass);

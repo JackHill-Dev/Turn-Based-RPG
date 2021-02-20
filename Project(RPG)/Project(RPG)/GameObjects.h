@@ -52,7 +52,9 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"characterFrameObj",new RenderObject("characterFrame")},
 		{"forestBGObj",new RenderObject("forestBG")},
 		{"forestFightSceneBg", new RenderObject("fightSceneForest")},
+		{"gameClearObj", new RenderObject("gameClear")},
 		{"itemFrameObj",new RenderObject("itemFrame")},
+		{"legendObj", new RenderObject("legend")},
 		{"mainMenuBGObj",new RenderObject("mainMenuBG")},
 		{"OptionsBackgroundObj", new RenderObject("OptionsBackground")},
 		{"overworldObj", new RenderObject("overworld")},
@@ -77,6 +79,7 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"exitButtonObj", new RenderObject("exitButton")},
 		{"inventoryButtonObj", new RenderObject("inventoryButton")},
 		{"menuButtonObj", new RenderObject("menuButton")},
+		{"newGameButtonObj", new RenderObject("newGameButton")},
 		{"quitBtnObj", new RenderObject("quitBtn")},
 		{"resetButtonObj", new RenderObject("resetButton")},
 		{"settingsBtnObj", new RenderObject("settingsBtn")},
@@ -107,8 +110,8 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"MagicObj", new RenderObject("Magic")},
 		{"swordSlashEffectObj", new RenderObject("swordSlashEffect")},
 		{"healImageObject", new RenderObject("health")},
-		{"defaultItemObj", new RenderObject("defaultItem")},
-		{"toolTipBgObj", new RenderObject("toolTipBg")}
+		{"ArrowShotObj", new RenderObject("ArrowShot")},
+		{"BossAttackObj", new RenderObject("BossAttack")},
 
 	}
 };
@@ -159,7 +162,9 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"characterFrame", new SpriteSheet("Assets/Backgrounds/CharacterFrame.png",228, 624, 228, 624, false)},
 		{"fightSceneForest", new SpriteSheet("Assets/ForestFight.png",700, 400, 700, 400, false)},
 		{"forestBG", new SpriteSheet("Assets/forestbackground.png",1280, 720, 1280, 720, false)},
+		{"gameClear", new SpriteSheet("Assets/Backgrounds/GameClear.png", 650, 345, 650, 345, false)},
 		{"itemFrame", new SpriteSheet("Assets/Backgrounds/ItemFrame.png",85, 105, 85, 105, false)},
+		{"legend", new SpriteSheet("Assets/Backgrounds/Legend.png", 303, 500, 303, 500, false)},
 		{"mainMenuBG", new SpriteSheet("Assets/Backgrounds/MainMenuBG_720.png",1280, 720, 1280, 720, false)},
 		{"OptionsBackground", new SpriteSheet("Assets/Sprites/Buttons/OptionsBackground.png",	240, 32, 240, 32, false)},
 		{"settingsBg", new SpriteSheet("Assets/Backgrounds/Blank_Map_1280x720_Blurred.png", 1280, 720, 1280, 720, false)},
@@ -175,23 +180,24 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		
 		// Button Spritesheets		
 		
-		{"ApplyBtn", new SpriteSheet("Assets/Sprites/Buttons/ApplyBtn.png",	128, 64, 128, 64, false)},
+		{"ApplyBtn", new SpriteSheet("Assets/Sprites/Buttons/Apply_Button.png",	200, 55, 200, 55, false)},
 		{"armyViewerButton", new SpriteSheet("Assets/Sprites/Buttons/Army_viewer_btn1.png", 200, 34, 200, 34, false)},
-		{"backBtn", new SpriteSheet("Assets/Sprites/Buttons/BackButtonTintable.png", 81, 97, 81, 97, false)},
-		{"backTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/BackTintable1.png", 71, 36, 71, 36, false)},
-		{"confirmButton", new SpriteSheet("Assets/Sprites/Buttons/Confirm.png", 111, 16, 111,16, false)},
-		{"continueButton", new SpriteSheet("Assets/Sprites/Buttons/Continue.png", 127, 16, 127, 16, false)},
+		{"backBtn", new SpriteSheet("Assets/Sprites/Buttons/back_symbol_buttonCropped.png", 81, 67, 81, 67, false)},
+		{"backTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/Back_Button.png", 200, 55, 200, 55, false)},
+		{"confirmButton", new SpriteSheet("Assets/Sprites/Buttons/Confirm.png", 200, 55, 200,55, false)},
+		{"continueButton", new SpriteSheet("Assets/Sprites/Buttons/Continue_Button.png", 200, 55, 200, 55, false)},
 		{"closeBtn", new SpriteSheet("Assets/Sprites/Buttons/CloseButton.png",100, 100, 100, 100, false)},
 		{"endTurnButton", new SpriteSheet("Assets/Sprites/Buttons/EndTurnButton.png", 200,55,200,55, false)},
 		{"exitButton", new SpriteSheet("Assets/Sprites/Buttons/exitButton.png", 200, 55, 200, 55, false)},
 		{"inventoryButton", new SpriteSheet("Assets/Sprites/Buttons/inventoryBtn1.png", 200, 34, 200, 34, false)},
 		{"menuButton", new SpriteSheet("Assets/Sprites/Buttons/MenuBtn1.png", 200, 34, 200, 34, false)},
-		{"quitBtn", new SpriteSheet("Assets/Sprites/Buttons/QuitButton.png",200, 55, 200, 55, false)},
-		{"resetButton", new SpriteSheet("Assets/Sprites/Buttons/Reset.png", 85, 16, 85, 16, false)},
+		{"newGameButton", new SpriteSheet("Assets/Sprites/Buttons/New_Game.png", 200, 55, 200, 55, false)},
+		{"quitBtn", new SpriteSheet("Assets/Sprites/Buttons/quit_resized.png",200, 55, 200, 55, false)},
+		{"resetButton", new SpriteSheet("Assets/Sprites/Buttons/Reset.png", 200, 55, 200, 55, false)},
 		{"settingsBtn", new SpriteSheet("Assets/Sprites/Buttons/SettingsButton.png",200, 55, 200, 55, false)},
 		{"startBtn", new SpriteSheet("Assets/Sprites/Buttons/StartButton.png",200, 55, 200, 55, false)},
 		{"upButton", new SpriteSheet("Assets/Sprites/Buttons/UpButton.png", 16, 15, 16, 15, false)},
-		{"yesTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/YesTintable.png", 54, 36, 54, 36, false)},
+		{"yesTxtBtn", new SpriteSheet("Assets/Sprites/Buttons/Yes_Button.png", 200, 55, 200, 55, false)},
 
 
 		// Node Spritesheets
@@ -205,6 +211,9 @@ const std::map<std::string, SpriteSheet*> definedSheets
 
 		{"card", new SpriteSheet("Assets/Sprites/Card/CardTemplateNew.png",230, 322, 230, 322, false)},
 		{"SlashCard", new SpriteSheet("Assets/Sprites/SlashCard.png", 600, 951, 600, 951,false)},
+		{"BowAndArrow", new SpriteSheet("Assets/Sprites/ShootCard.png", 600, 951, 600, 951, false )},
+		{"healCard", new SpriteSheet("Assets/Sprites/HealCard.png", 600, 951, 600, 951, false)},
+		{"magicCard", new SpriteSheet("Assets/Sprites/Magic_Card.png", 600, 951, 600, 951, false)},
 
 		// More Traditional UI Spritesheets
 
@@ -215,8 +224,10 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		
 		// Effects Spritesheets
 		{"swordSlashEffect", new SpriteSheet("Assets/Sprites/Effects/SwordSlash.png", 3248, 190, 406, 190,true)},
-		{"Magic", new SpriteSheet("Assets/Sprites/Effects/MagicEffect.png", 9200, 300, 400, 300,true)},
-		{"health", new SpriteSheet("Assets/Sprites/Effects/SwordSlash.png", 3248, 190, 406, 190,true)},
+		{"Magic", new SpriteSheet("Assets/Sprites/Effects/MagicAttack.png", 3530, 390, 353, 390,true)},
+		{"health", new SpriteSheet("Assets/Sprites/Effects/heal.png", 4032, 92, 192, 92,true)},
+		{"ArrowShot", new SpriteSheet("Assets/Sprites/Effects/ArrowShot.png", 2420, 246, 220, 246, true)},
+		{"BossAttack", new SpriteSheet("Assets/Sprites/Effects/BossAttack.png", 10231, 397, 787, 397, true)},
 						
 	}
 };
@@ -296,34 +307,49 @@ const std::map<std::string, std::vector<Animation>> definedAnimations
 			}
 		},
 
-	// UI Animations
+		{"daemonSpr",
+			{
+				Animation("LookUp", {std::make_pair(0,0)}),
+				Animation("LookLeft", {std::make_pair(1,0)}),
+				Animation("LookRight", {std::make_pair(2,0)}),
+				Animation("LookDown", {std::make_pair(4,0)}),
 
-	{"checkBox", {Animation("Checked", {std::make_pair(1,0)})}},
-	{"startBtn", {Animation("Hover", {std::make_pair(1,0)})}},
+				Animation("WalkUp", {std::make_pair(0,0), std::make_pair(0,1),std::make_pair(0,2),std::make_pair(0,3), std::make_pair(0,4)}),
+				Animation("WalkLeft", {std::make_pair(1,0),std::make_pair(1,1),std::make_pair(1,2), std::make_pair(1,3), std::make_pair(1,4)}),
+				Animation("WalkRight", {std::make_pair(2,0),std::make_pair(2,1),std::make_pair(2,2),std::make_pair(2,3),std::make_pair(2,4)}),
+				Animation("WalkDown", {std::make_pair(4,0),std::make_pair(4,1),std::make_pair(4,2),std::make_pair(4,3),std::make_pair(4,4)}),
+			}
+		},
 
-	// Background Animations
+		// UI Animations
 
-	{"tile",
-		{
-			Animation("Grass", {std::make_pair(0,0)})
-		}
-	},
+		{"checkBox", {Animation("Checked", {std::make_pair(1,0)})}},
+		{"startBtn", {Animation("Hover", {std::make_pair(1,0)})}},
 
-	// Effects Animations
+		// Background Animations
 
-	{"Magic", {Animation("default", {std::make_pair(0,0), std::make_pair(1,0),std::make_pair(2,0),std::make_pair(3,0),std::make_pair(4,0),std::make_pair(5,0),std::make_pair(6,0)})}},
-	{"swordSlashEffect", {Animation("default", {std::make_pair(0,0), std::make_pair(1,0),std::make_pair(2,0),std::make_pair(3,0),std::make_pair(4,0),std::make_pair(5,0),std::make_pair(6,0)})}},
+		{"tile",
+			{
+				Animation("Grass", {std::make_pair(0,0)})
+			}
+		},
 
-	{"daemonSpr", {Animation("default", {std::make_pair(4,0)})}},
-		
+		// Effects Animations
+
+		{"Magic", {Animation("default", {std::make_pair(0,0), std::make_pair(1,0),std::make_pair(2,0),std::make_pair(3,0),std::make_pair(4,0),std::make_pair(5,0),std::make_pair(6,0)})}},
+		{"swordSlashEffect", {Animation("default", {std::make_pair(0,0), std::make_pair(1,0),std::make_pair(2,0),std::make_pair(3,0),std::make_pair(4,0),std::make_pair(5,0),std::make_pair(6,0)})}},
+		{"ArrowShot", {Animation("default", {std::make_pair(3,0), std::make_pair(4,0),std::make_pair(5,0),std::make_pair(6,0),std::make_pair(7,0)})}},
+		{"health", {Animation("default", {std::make_pair(2,0),std::make_pair(3,0),std::make_pair(4,0),std::make_pair(5,0),std::make_pair(6,0),std::make_pair(7,0),std::make_pair(8,0), std::make_pair(9,0)})}},
+		{"BossAttack", {Animation("default", {std::make_pair(0,0),std::make_pair(1,0),std::make_pair(2,0),std::make_pair(3,0),std::make_pair(4,0),std::make_pair(5,0), std::make_pair(6,0)})}},
 	}
 };
 
 const std::map<std::string, DefinedCard> definedCards
 {
-	{"magicCard",{25, 5, 0, 5, 0, "Magic", "Magically assail the enemy for 5 damage, costs 5 intelligence", "malePortrait" ,"MagicObj", 1.0}},
+	{"magicCard",{25, 40, 0, 5, 0, "Magic", "Magically assail the enemy for 5 damage, costs 5 intelligence", "magicCard" ,"MagicObj", 0.75}},
+	{"arrowCard", {25, 10, 0, 0, 5, "Shoot", "Pepper your foe with arrows for 5 damage, costs 5 agility", "BowAndArrow", "ArrowShotObj", 0.75}},
 	{"slashCard",{1.5, 5, 5, 0, 0, "Slash", "Slash the enemy for 10 damage, costs 10 strength", "SlashCard" ,"swordSlashEffectObj", 0.5}},	
-	{"healCard",{1.5, 5, 5, 0, 0, "Slash", "Slash the enemy for 10 damage, costs 10 strength", "SlashCard" ,"swordSlashEffectObj", 0.5}},
+	{"healCard",{1.5, -5, 10, 10, 10, "Heal", "Heal the target for 5 health, costs 10 of all stats", "healCard" ,"healImageObject", 1.25}},
 };
 
 const std::map<std::string, Item*> definedItems
