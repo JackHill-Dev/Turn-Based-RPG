@@ -56,7 +56,7 @@ void Character::modStat(std::pair<int, int>& statToMod, std::pair<int,int> statM
 	statToMod.second += statMod.second;
 }
 
-void Character::LevelUp(int &level, std::pair<int, int> characterHealth)
+void Character::LevelUp(int &level, std::pair<int, int> &characterHealth)
 {
 	++level;
 	mStats.experience.second *= 2; //Temp change to required experience for next level.
