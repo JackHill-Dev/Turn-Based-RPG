@@ -13,6 +13,26 @@ struct Node
 	std::vector<Node*> adjacentTiles;
 };
 
+struct Legend
+{
+	UIText mStandardNodeLabel;
+	UIText mShopNodeLabel;
+	UIText mBossNodeLabel;
+	UIText mCurrentLabel;
+	UIText mAdjacentLabel;
+	UIText mHeaderText;
+	UIText mInstructionText;
+
+	RenderObject* mNormalNode = nullptr;
+	RenderObject* mHoveredNode = nullptr;
+	RenderObject* mShopNode = nullptr;
+	RenderObject* mHoveredShop = nullptr;
+	RenderObject* mBossNode = nullptr;
+	RenderObject* mHoveredBoss = nullptr;
+
+	std::vector<RenderObject*> mLegendObjects;
+};
+
 struct Row
 {
 	std::vector<Node*> nodes;
@@ -40,9 +60,12 @@ private:
 
 	RenderObject* pOverworld = nullptr;
 	RenderObject* pLegend = nullptr;
+	RenderObject* pLegendButton = nullptr;
 	RenderObject* pMenuButton = nullptr;
 	RenderObject* pSettingsButton = nullptr;
 	RenderObject* pArmyViewerButton = nullptr;
+
+	std::vector<RenderObject*> mOverworldButtons;
 
 	Mix_Music* mBackgroundMus = nullptr;
 	Mix_Chunk* button_Click_SFX;
@@ -53,14 +76,14 @@ private:
 	SDL_Color RoyalBlue = SDL_Color{ 65, 105, 225 };
 	SDL_Color DarkMagenta = SDL_Color{ 139,0, 139 };
 	SDL_Color Lime = SDL_Color{ 0,255, 0 };
+	SDL_Color Black = SDL_Color{ 0,0,0 };
 
-	UIText* mStandardNodeLabel = nullptr;
-	UIText* mShopNodeLabel = nullptr;
-	UIText* mBossNodeLabel = nullptr;
-	UIText* mInstructionText = nullptr;
+	
 
 	const int maxRows = 4;
 	const int maxNodes = 3;
+	Legend mLegend;
+	bool legendOn = true;
 
 protected:
 
@@ -72,7 +95,8 @@ public:
 	void Load();
 	void LoadNodes();
 	void LoadNodes(int seed);
-	void PopulateLegend();
+	void ShowLegend();
+	void HideLegend();
 	void Update(double dTime, Act act, std::pair<int,int> mousePos) override;
 
 	std::string assignRandomNodeSprite(int num);
