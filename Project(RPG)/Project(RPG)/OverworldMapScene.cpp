@@ -28,10 +28,9 @@ int RandomNumberGenerator(int min, int max)
 }
 void OverworldMapScene::SaveFile()
 {
+
 	std::ofstream file("Savedata.Json");
-
 	nlohmann::json characters;
-
 	for (auto i : mgr->GetPlayer()->GetParty())
 	{
 		characters.push_back({ {"Portrait", i->GetPortraitName()}, {"Object", i->GetObjName()}, {"Name", i->GetClassName(i->GetStats().cClass)}, {"Class", i->GetStats().cClass}, {"Level", i->GetLevel()},
@@ -407,7 +406,7 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 									for (int i = 0; i < number; ++i)
 										enemy.push_back(new Character("portrait", "maleObj", " ", UnitClass::NoClass, 0,  std::make_pair(100, 200), false, std::make_pair(20, 20), std::make_pair(10, 10), std::make_pair(10, 10), std::make_pair(10, 10)));
 
-									mgr->LoadCombatScene(enemy);
+									mgr->LoadCombatScene(enemy, i.seed);
 								}
 								mgr->PlaySFX(button_Click_SFX, 0, 1);
 							}
