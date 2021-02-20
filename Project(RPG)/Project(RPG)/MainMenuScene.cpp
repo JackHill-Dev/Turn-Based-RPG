@@ -44,7 +44,8 @@ MainMenuScene::MainMenuScene(Interface* rng) : Scene(rng)
 
 void MainMenuScene::Load()
 {
-	std::ifstream ifs("Savedata.json");
+
+	//std::ifstream ifs("Savedata.json");
 
 	if (mgr->GetSeed() != 0)
 	{

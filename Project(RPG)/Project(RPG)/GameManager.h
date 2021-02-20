@@ -30,7 +30,7 @@ class GameManager
 
 private:
 	int loadedSeed = 0;
-	std::pair<CombatScene*, std::vector<Character*>> combatInstance;
+	std::pair<CombatScene*, std::pair<std::vector<Character*>, int>> combatInstance;
 	PartyViewerScene* partyViewerInstance;
 	InventoryScene* mInventorySceneInstance;
 	ShopScene* mShopSceneInstance;

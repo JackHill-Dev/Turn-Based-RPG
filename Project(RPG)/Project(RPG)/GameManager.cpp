@@ -104,8 +104,8 @@ void GameManager::LoadScene()
 			loadedSeed = std::rand() % 100; mClassPickerInstance->Load(); break;
 		}
 
-		case Scenes::Overworld: mOverworldInstance->Load(); break;
-		case Scenes::Combat: combatInstance.first->Load(combatInstance.second, 15); break;
+		case Scenes::Overworld: std::ofstream("Savedata.Json").clear(); mOverworldInstance->Load(); break;
+		case Scenes::Combat: combatInstance.first->Load(combatInstance.second.first, combatInstance.second.second); break;
 		case Scenes::Shops: mShopSceneInstance->Load(); break;
 		case Scenes::Party:  partyViewerInstance->Load(); break;
 		case Scenes::SettingsPage: mSettingsSceneInstance->Load(); break;
@@ -185,7 +185,9 @@ void GameManager::LoadSettings()
 	}
 	ifs.close();
 
-
+	mPlayer.GetParty().clear();
+	mPlayer.inventory.clear();
+	mPlayer.ClearGold();
 	std::ifstream is("Savedata.json");
 
 	nlohmann::json loaded = nlohmann::json::parse(is, nullptr, false, false);
@@ -281,7 +283,7 @@ SDL_Texture* GameManager::LoadTexture(std::string path)
 	SDL_FreeSurface(img);
 	//if (IMG_GetError)
 	//	throw std::invalid_argument("could not load image at: " + path);
-	std::cout << IMG_GetError() << std::endl;
+	//std::cout << IMG_GetError() << std::endl;
 	return e;
 }
 
@@ -289,17 +291,18 @@ SDL_Texture* GameManager::LoadTexture(std::string path)
 void GameManager::CreateCard(DefinedCard* card)
 {
 	auto mFont = TTF_OpenFont("Assets/Fonts/ThaleahFat.ttf", 32);
-	int imageWidth = 225;
-	int imageHeight = 225;
 
+	int imageWidth = 225;
+
+	int imageHeight = 225;
 
 	SDL_Texture* base = SDL_CreateTexture(mRnd, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, sheets["card"]->GetCellSize().first, sheets["card"]->GetCellSize().second);
 
 	SDL_SetRenderTarget(mRnd, base);
 
 	SDL_Rect rect;
-	SpriteSheet* obj = sheets["card"];
 
+	SpriteSheet* obj = sheets["card"];
 
 	SDL_Rect crop;
 	crop.x = 0;
@@ -315,27 +318,25 @@ void GameManager::CreateCard(DefinedCard* card)
 	SDL_RenderCopy(mRnd, sheets[card->picture]->GetTexture(), NULL, &rect);
 	SDL_RenderCopy(mRnd, sheets["card"]->GetTexture(), NULL, NULL);
 
-
 	rect.w = 191;
 	rect.h = 76;
 	rect.x = 20;
 	rect.y = 222;
 	SDL_RenderCopy(mRnd,SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, card->description.c_str(), SDL_Color{0,0,0}, rect.w)), NULL, &rect);
-	
-	
+
 	rect.x = 24;
 	rect.y = 10;
 	rect.w = 188;
 	rect.h = 22;
 	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, card->name.c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
-	
+
 	rect.x = 20;
 	rect.y = 184;
 	rect.w = 39;
 	rect.h = 27;
 
 	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->range).c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
-	
+
 	rect.x = 73;
 	rect.y = 184;
 	rect.w = 39;
@@ -349,16 +350,14 @@ void GameManager::CreateCard(DefinedCard* card)
 	rect.h = 27;
 
 	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->intelligenceCost).c_str(), SDL_Color{ 0,0,255 }, rect.w)), NULL, &rect);
-	
+
 	rect.x = 173;
 	rect.y = 184;
 	rect.w = 39;
 	rect.h = 27;
 
 	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->agilityCost).c_str(), SDL_Color{ 0,255,0 }, rect.w)), NULL, &rect);
-	
-	
-	
+
 	rect.x = 10;
 	rect.y = 2;
 	rect.w = 100;
@@ -375,9 +374,5 @@ void GameManager::CreateCard(DefinedCard* card)
 
 	cards.insert({ card->name, new Card(card->damage, card->name, card->range, "cardObj" + std::to_string(cards.size()), card->animation, card->animationLength, card->staminaCost, card->intelligenceCost, card->agilityCost) });
 	SDL_SetRenderTarget(mRnd, NULL);
-
-
-	
-	//SDL_Texture* fontTexture = (SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended(mFont, card.name , SDL_Color{ 0,0,0 }));;
 }
 
