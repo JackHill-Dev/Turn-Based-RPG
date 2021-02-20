@@ -50,6 +50,8 @@ void OverworldMapScene::SaveFile()
 OverworldMapScene::OverworldMapScene(Interface* mObjMgr) : Scene(mObjMgr)
 {
 	pOverworld = AddObject("overworldObj", 640, 360, Map);
+	pLegend = AddObject("legendObj", 1200, 160, UI);
+	pLegend->SetScale({ 0.8, 0.8 });
 	pArmyViewerButton = AddObject("armyViewerButtonObj", 730, 700, UI);
 	pMenuButton = AddObject("menuButtonObj", 440, 700, UI);
 	//saveButton = AddObject("menuButtonObj", 440, 600, UI);
@@ -260,6 +262,13 @@ void OverworldMapScene::LoadNodes(int loadedseed)
 			}
 		}
 	}
+}
+
+void OverworldMapScene::PopulateLegend()
+{
+	mSceneText.clear();
+
+
 }
 	
 

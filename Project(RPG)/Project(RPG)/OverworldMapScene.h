@@ -39,6 +39,7 @@ private:
 	int currentNode = 0;
 
 	RenderObject* pOverworld = nullptr;
+	RenderObject* pLegend = nullptr;
 	RenderObject* pMenuButton = nullptr;
 	RenderObject* pSettingsButton = nullptr;
 	RenderObject* pArmyViewerButton = nullptr;
@@ -53,6 +54,11 @@ private:
 	SDL_Color DarkMagenta = SDL_Color{ 139,0, 139 };
 	SDL_Color Lime = SDL_Color{ 0,255, 0 };
 
+	UIText* mStandardNodeLabel = nullptr;
+	UIText* mShopNodeLabel = nullptr;
+	UIText* mBossNodeLabel = nullptr;
+	UIText* mInstructionText = nullptr;
+
 	const int maxRows = 4;
 	const int maxNodes = 3;
 
@@ -66,6 +72,7 @@ public:
 	void Load();
 	void LoadNodes();
 	void LoadNodes(int seed);
+	void PopulateLegend();
 	void Update(double dTime, Act act, std::pair<int,int> mousePos) override;
 
 	std::string assignRandomNodeSprite(int num);
