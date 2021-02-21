@@ -33,14 +33,32 @@ void OverworldMapScene::SaveFile()
 	nlohmann::json characters;
 	for (auto i : mgr->GetPlayer()->GetParty())
 	{
+		std::string armour = "NONE", weapon = "NONE";
+		if (i->mWeaponEquipSlot != nullptr)
+		{
+			weapon = i->mWeaponEquipSlot->GetName();
+		}
+		if (i->ArmourEquipSlot != nullptr)
+		{
+			armour = i->ArmourEquipSlot->GetName();
+		}
+
 		characters.push_back({ {"Portrait", i->GetPortraitName()}, {"Object", i->GetObjName()}, {"Name", i->GetClassName(i->GetStats().cClass)}, {"Class", i->GetStats().cClass}, {"Level", i->GetLevel()},
 							   {"Experience", i->GetStats().experience}, {"Dead", i->GetDeadStatus()}, 
-								{ "Health", i->GetStats().health}, {"Strength", i->GetStats().strength},{"Intelligence", i->GetStats().intelligence},{"Agility", i->GetStats().agility} });
+							   { "Health", i->GetStats().health}, {"Strength", i->GetStats().strength},{"Intelligence", i->GetStats().intelligence},{"Agility", i->GetStats().agility}, 
+							   {"Weapon", weapon}, {"Armour", armour} });
 	}
 		
+	nlohmann::json playerInventory;
+	for (auto item : mgr->GetPlayer()->inventory)
+	{
+		playerInventory.push_back({item->GetName()});
+	}
+
 	nlohmann::json j;
 	j["Saves"]["Save"]["Seed"] = mgr->GetSeed();
 	j["Saves"]["Save"]["Gold"] = mgr->GetPlayer()->GetGold();
+	j["Saves"]["Save"]["Inventory"] = playerInventory;
 	j["Saves"]["Save"]["Characters"] = characters;
 	j["Saves"]["Save"]["CurrentNode"] = currentNode;
 
