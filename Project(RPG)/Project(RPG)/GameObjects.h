@@ -211,10 +211,10 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		// Card Spritesheets
 
 		{"card", new SpriteSheet("Assets/Sprites/Card/CardTemplateNew.png",230, 322, 230, 322, false)},
-		{"SlashCard", new SpriteSheet("Assets/Sprites/SlashCard.png", 600, 951, 600, 951,false)},
-		{"BowAndArrow", new SpriteSheet("Assets/Sprites/ShootCard.png", 600, 951, 600, 951, false )},
-		{"healCard", new SpriteSheet("Assets/Sprites/HealCard.png", 600, 951, 600, 951, false)},
-		{"magicCard", new SpriteSheet("Assets/Sprites/Magic_Card.png", 600, 951, 600, 951, false)},
+		{"SlashCard", new SpriteSheet("Assets/Sprites/Card/SlashCard.png", 600, 951, 600, 951,false)},
+		{"BowAndArrow", new SpriteSheet("Assets/Sprites/Card/ShootCard.png", 600, 951, 600, 951, false )},
+		{"healCard", new SpriteSheet("Assets/Sprites/Card/HealCard.png", 600, 951, 600, 951, false)},
+		{"magicCard", new SpriteSheet("Assets/Sprites/Card/Magic_Card.png", 600, 951, 600, 951, false)},
 
 		// More Traditional UI Spritesheets
 
@@ -354,16 +354,16 @@ const std::map<std::string, DefinedCard> definedCards
 const std::map<std::string, Item*> definedItems
 {
 	// Weapons
-	{"Dagger",new Weapon("Dagger", "daggerObj", 30, 100)}, // name, spriteName, atk power, cost
-	{"Short Sword", new Weapon("Short Sword", "shortSwordObj", 40, 150)},
-	{"Long Sword", new Weapon("Long Sword", "longSwordObj", 50, 200)}, 
+	{"Dagger",new Weapon("Dagger", "daggerObj", 1, 30, 100)}, // name, spriteName, Level requirement, atk power, cost
+	{"Short Sword", new Weapon("Short Sword", "shortSwordObj", 2, 40, 150)},
+	{"Long Sword", new Weapon("Long Sword", "longSwordObj", 3, 50, 200)}, 
 	// Armour
-	{"Cloth Armour", new Armour("Cloth Armour", "clothArmourObj", 10, 50 )}, // name, spriteName, def, cost
-	{"Leather Armour", new Armour("Leather Armour", "leatherArmourObj", 20, 150 )} ,
-	{"Chainmail Armour",  new Armour("Chainmail Armour", "chainArmourObj", 30, 250 )} ,
+	{"Cloth Armour", new Armour("Cloth Armour", "clothArmourObj", 1, 10, 50 )}, // name, spriteName, def, cost
+	{"Leather Armour", new Armour("Leather Armour", "leatherArmourObj", 2, 20, 150 )} ,
+	{"Chainmail Armour",  new Armour("Chainmail Armour", "chainArmourObj", 3, 30, 250 )} ,
 
 	// Consumables
-	{"Health Potion",  new Consumable("Health Potion", "potionObj", 25, 10)}
+	{"Health Potion",  new Consumable("Health Potion", "potionObj", 1, 25, 10)}
 };
 
 
