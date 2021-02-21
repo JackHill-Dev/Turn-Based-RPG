@@ -130,11 +130,11 @@ bool GameManager::CreateWindow()
 }
 bool GameManager::Init()
 {
-	srand(time(NULL));
-	LoadSettings();
+	srand(time(NULL));	
 	CreateWindow();
 	mInterface.StoreWindow(mWnd);
 	SetUp();
+	LoadSettings();
 
 	mPlayer.SetDeck({new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Heal"]),new Card(*cards["Magic"]), new Card(*cards["Magic"]), new Card(*cards["Shoot"]), new Card(*cards["Shoot"]) });
 
@@ -204,10 +204,49 @@ void GameManager::LoadSettings()
 			mPlayer.SetGold(loaded["Saves"]["Save"]["Gold"].get<int>());
 			mPlayer.currentNode = loaded["Saves"]["Save"]["CurrentNode"].get<int>();
 
+			for (auto i : loaded["Saves"]["Save"]["Inventory"])
+			{
+				std::string tempItem = i[0].get<std::string>();
+				auto invItem = mItems[tempItem]->Clone();
+
+				if (dynamic_cast<Armour*>(invItem))
+				{
+					mPlayer.AddItem(static_cast<Armour*>(invItem));
+				}
+				else if (dynamic_cast<Weapon*>(invItem))
+				{
+					mPlayer.AddItem(static_cast<Weapon*>(invItem));
+				}
+				else if (dynamic_cast<Consumable*>(invItem))
+				{
+					mPlayer.AddItem(static_cast<Consumable*>(invItem));
+				}
+				else
+				{
+					mPlayer.AddItem(invItem);
+				}
+			}
+
 			for (auto i : loaded["Saves"]["Save"]["Characters"])
 			{
+				Weapon* weapon = nullptr;
+				Armour* armour = nullptr;
+				std::string temp = i["Weapon"].get<std::string>();
+				if (!(temp == "NONE"))
+				{
+					auto test = mItems[temp]->Clone();
+					Weapon* testWeapon = static_cast<Weapon*>(test);
+					weapon = testWeapon;
+				}
+				temp = i["Armour"].get<std::string>();
+				if (!(temp == "NONE"))
+				{
+					armour = static_cast<Armour*>(mItems[i["Armour"].get<std::string>()]->Clone());
+				}
 				Character* character = new Character(i["Portrait"].get<std::string>(), i["Object"].get<std::string>(), i["Name"].get<std::string>(), i["Class"].get<UnitClass>(), i["Level"].get<int>(), i["Experience"].get<std::pair<int,int>>(), i["Dead"].get<bool>(),
 														i["Health"].get<std::pair<int, int>>(), i["Strength"].get<std::pair<int, int>>(), i["Intelligence"].get<std::pair<int, int>>(), i["Agility"].get<std::pair<int, int>>());
+				character->mWeaponEquipSlot = weapon;
+				character->ArmourEquipSlot = armour;
 				mPlayer.AddToParty(character);
 			}
 		}
