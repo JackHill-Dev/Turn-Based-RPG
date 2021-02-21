@@ -1,6 +1,6 @@
 #include "Weapon.h"
 
-Weapon::Weapon(std::string name, std::string spriteName, int atk, int cost) : Item(name, cost)
+Weapon::Weapon(std::string name, std::string spriteName, int lvlReq, int atk, int cost) : Item(name, lvlReq, cost)
 {
 	mType = WEAPON;
 	mName = name;

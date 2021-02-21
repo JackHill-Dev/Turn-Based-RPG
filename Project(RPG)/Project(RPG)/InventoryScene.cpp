@@ -4,22 +4,29 @@ InventoryScene::InventoryScene(Interface* mgr) : Scene(mgr)
 {
 	AddObject("ShopBGObj", 640, 360, Background);
 	pCloseBtn = AddObject("CloseBtnObj", 1200, 50, UI);
+	pDrink_SFX = Mix_LoadWAV("Assets/SFX/potiondrinklong.wav");
 	button_SFX = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
 	Init();
 }
 
 InventoryScene::~InventoryScene()
 {
-	pCloseBtn = nullptr;
 	delete pCloseBtn;
+	pCloseBtn = nullptr;
+	
 
-	button_SFX = nullptr;
 	delete button_SFX;
+	button_SFX = nullptr;
+	
+
+	delete pDrink_SFX;
+	pDrink_SFX = nullptr;
 
 	for (auto g : playerInvGrid)
 	{
-		g = nullptr;
 		delete g;
+		g = nullptr;
+		
 	}
 }
 
@@ -130,6 +137,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 								if (c.portrait->InBounds(mousePos.first, mousePos.second) && i._item->GetType() == CONSUMABLE)
 								{
 									c.character->Heal(c.character->GetStats().health, static_cast<Consumable*>(i._item)->mHealAmount);
+									mgr->PlaySFX(pDrink_SFX, 0, 0);
 									i.bPickedUp = false;
 									i.obj->SetVisible(false);
 									

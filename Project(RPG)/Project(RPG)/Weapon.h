@@ -5,7 +5,7 @@ class Weapon :
 {
 public:
     Weapon() {}
-    Weapon(std::string name, std::string spriteName, int atk, int cost);
+    Weapon(std::string name, std::string spriteName, int lvlReq, int atk, int cost);
     int GetAtkPower();
 
     std::string GetDescription() override;

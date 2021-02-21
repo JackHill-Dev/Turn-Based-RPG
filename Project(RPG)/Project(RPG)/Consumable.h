@@ -5,7 +5,7 @@ class Consumable :
 {
 public:
     Consumable() {}
-    Consumable(std::string name,std::string spriteName, int cost, int healAmount);
+    Consumable(std::string name,std::string spriteName, int lvlReq, int cost, int healAmount);
     void OnConsume();
 
     std::string GetDescription() override;

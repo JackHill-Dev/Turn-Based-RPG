@@ -20,14 +20,16 @@ class Item
 {
 public:
 	Item() {}
-	Item(std::string name, int cost);
+	Item(std::string name, int lvlReq, int cost);
 	~Item();
 	virtual Item* Clone() = 0; 
 	virtual std::string GetDescription() = 0;
 	std::string GetName() const;
 	std::string GetObjName() const;
 	int GetCost() const;
+	int GetLvlRequirement() const { return mLevelRequirement; }
 	ItemType GetType() { return mType; }
+	
 	InvPos inventoryPos;
 protected:
 	std::string mName;
@@ -35,7 +37,7 @@ protected:
 	
 	ItemType mType = UNDEFINED;
 	int mCost;
-
+	int mLevelRequirement;
 
 	
 	

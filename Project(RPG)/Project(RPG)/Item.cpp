@@ -1,7 +1,7 @@
 #include "Item.h"
 
 
-Item::Item(std::string name, int cost) : mName(name), mCost(cost)
+Item::Item(std::string name, int lvlReq, int cost) : mName(name), mCost(cost), mLevelRequirement(lvlReq)
 {
 	
 }

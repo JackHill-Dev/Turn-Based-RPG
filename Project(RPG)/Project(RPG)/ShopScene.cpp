@@ -8,32 +8,37 @@ ShopScene::ShopScene(Interface* rng) : Scene(rng)
 {
 	bg_Music = Mix_LoadMUS("Assets/Music/MedievalLoop.mp3");
 	buySell_SFX = Mix_LoadWAV("Assets/SFX/coin.wav");
+	pCantBuy_SFX = Mix_LoadWAV("Assets/SFX/ErrorSound.wav");
 	leave_SFX = Mix_LoadWAV("Assets/SFX/DoorClose.wav");
 	Init();
 }
 
 ShopScene::~ShopScene()
 {
-	bg_Music = nullptr;
 	delete bg_Music;
-
-	buySell_SFX = nullptr;
+	bg_Music = nullptr;
+	
 	delete buySell_SFX;
-
-	button_Click_SFX = nullptr;
+	buySell_SFX = nullptr;
+	
 	delete button_Click_SFX;
-
-	leave_SFX = nullptr;
+	button_Click_SFX = nullptr;
+	
 	delete leave_SFX;
-
-	pExitButton = nullptr;
+	leave_SFX = nullptr;
+	
 	delete pExitButton;
-
-	playerItemHovered = nullptr;
+	pExitButton = nullptr;
+	
 	delete playerItemHovered;
-
-	shopItemHovered = nullptr;
+	playerItemHovered = nullptr;
+	
 	delete shopItemHovered;
+	shopItemHovered = nullptr;
+
+	delete pCantBuy_SFX;
+	pCantBuy_SFX = nullptr;
+	
 }
 
 void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
@@ -107,6 +112,8 @@ void ShopScene::Init()
 
 void ShopScene::Load()
 {
+	mHighestCharacter = mgr->GetPlayer()->GetParty()[0]->GetLevel();
+
 	AddObject(mgr->GetPlayer()->GetParty().at(0)->GetPortraitName(), 505, 225, UI); // Now loads portrait of 1st in party. These need matching in scale to merchant - EH
 
 	mSceneText.clear();
@@ -139,6 +146,7 @@ void ShopScene::SetupShopInv()
 {
 	std::vector<std::string> weaponStrings{"dagger", "shortSword", "longSword" };
 	std::vector<std::string> ArmourStrings{"clothArmour", "leatherArmour", "chainArmour" };
+
 	for (int f = 0; f < 20; ++f)
 	{
 		// TODO: Add level gating
@@ -192,7 +200,6 @@ void ShopScene::ManageShopInventory(std::vector<Item*> inv, Act act, std::pair<i
 			mTooltip.Hide();
 			shopItemHovered = nullptr;
 		}
-		//HandleTooltip(shopItemHovered);
 	}
 	
 	for (ItemObject i : shopInv)
@@ -201,7 +208,7 @@ void ShopScene::ManageShopInventory(std::vector<Item*> inv, Act act, std::pair<i
 		
 		if (act == Act::RClick && i.obj->InBounds(mousePos.first, mousePos.second))
 		{
-			if (!(mgr->GetPlayer()->GetGold() < i._item->GetCost())) // If player can't afford item they can't buy it
+			if (!(mgr->GetPlayer()->GetGold() < i._item->GetCost()) && i._item->GetLvlRequirement() <= mHighestCharacter) // If player can't afford item they can't buy it
 			{
 				mShop.SellItem(i._item);
 				playerInv.push_back(i);
@@ -212,6 +219,10 @@ void ShopScene::ManageShopInventory(std::vector<Item*> inv, Act act, std::pair<i
 				i.obj->SetPos(i._item->inventoryPos.pos);
 				mSceneText[0]->text = "Gold: " + std::to_string(mgr->GetPlayer()->GetGold());; // Display player gold
 				mSceneText[1]->text = "Gold: " + std::to_string(mShop.GetGold());;	// Display shop gold
+			}
+			else
+			{
+				mgr->PlaySFX(pCantBuy_SFX, 0, 0);
 			}
 
 		}

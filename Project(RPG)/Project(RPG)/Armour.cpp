@@ -1,5 +1,5 @@
 #include "Armour.h"
-Armour::Armour(std::string name, std::string spriteName,  int def,int cost) : Item(name, cost)
+Armour::Armour(std::string name, std::string spriteName, int lvlReq, int def,int cost) : Item(name, lvlReq, cost)
 {
 	mType = ARMOUR;
 	mName = name;

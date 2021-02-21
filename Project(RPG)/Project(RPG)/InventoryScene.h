@@ -29,6 +29,7 @@ private:
 private:
 	RenderObject* pCloseBtn;
 	Mix_Chunk* button_SFX;
+	Mix_Chunk* pDrink_SFX;
 	ToolTip mToolTip;
 	std::vector<RenderObject*> playerInvGrid;
 	std::vector<ItemObject> itemObjects;

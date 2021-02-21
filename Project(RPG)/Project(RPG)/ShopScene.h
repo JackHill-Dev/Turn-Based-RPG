@@ -33,8 +33,10 @@ private:
 	Player mShop;
 	UIText mPlayerGoldText;
 	UIText mShopGoldText;
+	// SFX
 	Mix_Music* bg_Music;
 	Mix_Chunk* buySell_SFX;
+	Mix_Chunk* pCantBuy_SFX;
 	Mix_Chunk* button_Click_SFX;
 	Mix_Chunk* leave_SFX;
 	RenderObject* pExitButton;
@@ -43,7 +45,7 @@ private:
 	ItemObject* playerItemHovered;
 	ItemObject* shopItemHovered;
 	bool startOnce = false;
-
+	int mHighestCharacter;
 	//Temp
 	int RandomRange(int min, int max);	
 	std::vector<ItemObject> playerInv;

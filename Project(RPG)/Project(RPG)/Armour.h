@@ -5,7 +5,7 @@ class Armour :
 {
 public:
     Armour() {}
-    Armour(std::string name, std::string spriteName, int def, int cost);
+    Armour(std::string name, std::string spriteName, int lvlReq, int def, int cost);
     int defence = 10;
 
     std::string GetDescription() override;
