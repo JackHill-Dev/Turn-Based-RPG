@@ -116,7 +116,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 						{
 							for (auto& c : characters)
 							{
-								if (c.armourSlot->InBounds(mousePos.first, mousePos.second) && i.bPickedUp && c.character->ArmourEquipSlot == nullptr)
+								if (c.armourSlot->InBounds(mousePos.first, mousePos.second) && i.bPickedUp && c.character->ArmourEquipSlot == nullptr && (dynamic_cast<Armour*>(i._item)))
 								{
 									i.bPickedUp = false;
 									i.obj->SetPos(c.armourSlot->GetPos());
@@ -125,7 +125,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 
 								}
 								else
-									if (c.weaponSlot->InBounds(mousePos.first, mousePos.second) && i.bPickedUp && c.character->mWeaponEquipSlot == nullptr)
+									if (c.weaponSlot->InBounds(mousePos.first, mousePos.second) && i.bPickedUp && c.character->mWeaponEquipSlot == nullptr && (dynamic_cast<Weapon*>(i._item)))
 									{
 										i.bPickedUp = false;
 										i.obj->SetPos(c.weaponSlot->GetPos());

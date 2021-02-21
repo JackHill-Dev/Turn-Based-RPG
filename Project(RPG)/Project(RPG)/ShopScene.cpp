@@ -144,9 +144,8 @@ void ShopScene::Load()
 
 void ShopScene::SetupShopInv()
 {
-	std::vector<std::string> weaponStrings{"dagger", "shortSword", "longSword" };
-	std::vector<std::string> ArmourStrings{"clothArmour", "leatherArmour", "chainArmour" };
-
+	std::vector<std::string> weaponStrings{"Dagger", "Short Sword", "Long Sword" };
+	std::vector<std::string> ArmourStrings{"Cloth Armour", "Leather Armour", "Chainmail Armour" };
 	for (int f = 0; f < 20; ++f)
 	{
 		// TODO: Add level gating
@@ -162,7 +161,7 @@ void ShopScene::SetupShopInv()
 		}
 		else
 		{
-			mShop.AddItem(mgr->RequestItem("healthPotion"));
+			mShop.AddItem(mgr->RequestItem("Health Potion"));
 		}
 	}
 

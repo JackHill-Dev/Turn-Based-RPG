@@ -354,16 +354,16 @@ const std::map<std::string, DefinedCard> definedCards
 const std::map<std::string, Item*> definedItems
 {
 	// Weapons
-	{"dagger",new Weapon("Dagger", "daggerObj", 1, 30, 100)}, // name, spriteName, lvl requirement, atk power, cost
-	{"shortSword", new Weapon("Short sword", "shortSwordObj", 2, 40, 150)},
-	{"longSword", new Weapon("Long Sword", "longSwordObj", 3, 50, 200)}, 
+	{"Dagger",new Weapon("Dagger", "daggerObj", 30, 100)}, // name, spriteName, atk power, cost
+	{"Short Sword", new Weapon("Short Sword", "shortSwordObj", 40, 150)},
+	{"Long Sword", new Weapon("Long Sword", "longSwordObj", 50, 200)}, 
 	// Armour
-	{"clothArmour", new Armour("Cloth Armour", "clothArmourObj", 1, 10, 50 )}, // name, spriteName, def, cost
-	{"leatherArmour", new Armour("Leather Armour", "leatherArmourObj", 2, 20, 150 )} ,
-	{"chainArmour",  new Armour("Chainmail Armour", "chainArmourObj", 3, 30, 250 )} ,
+	{"Cloth Armour", new Armour("Cloth Armour", "clothArmourObj", 10, 50 )}, // name, spriteName, def, cost
+	{"Leather Armour", new Armour("Leather Armour", "leatherArmourObj", 20, 150 )} ,
+	{"Chainmail Armour",  new Armour("Chainmail Armour", "chainArmourObj", 30, 250 )} ,
 
 	// Consumables
-	{"healthPotion",  new Consumable("Health potion", "potionObj", 1, 25, 10)}
+	{"Health Potion",  new Consumable("Health Potion", "potionObj", 25, 10)}
 };
 
 
