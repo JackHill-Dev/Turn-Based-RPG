@@ -434,7 +434,6 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 				t++;
 			}
 			t = 0;
-
 			for (auto button : mOverworldButtons)
 			{
 				if (button->InBounds(mousePos.first, mousePos.second))
@@ -523,7 +522,7 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 							}
 							else
 							{
-								if (true == false)
+								if (IsCombat())
 								{
 									std::vector<Character*> enemy;
 

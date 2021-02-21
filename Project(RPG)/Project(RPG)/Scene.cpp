@@ -69,6 +69,9 @@ void Scene::Draw(SDL_Renderer* rnd)
 			rect.x = obj->GetPos().first  - rect.w/2;
 			rect.y = obj->GetPos().second  - rect.h/2;
 
+			if (obj->GetSheet()->GetTexture() == NULL)
+				std::cout << " Cant load texture:";
+
 			SDL_SetTextureColorMod(obj->GetSheet()->GetTexture(), obj->tint.r, obj->tint.g, obj->tint.b);
 
 			if (obj->IsVisible())

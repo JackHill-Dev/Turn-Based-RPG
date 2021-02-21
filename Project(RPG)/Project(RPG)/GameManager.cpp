@@ -41,6 +41,9 @@ void GameManager::Run()
 			if (SDL_PollEvent(&ev))
 				switch (ev.type)
 				{
+				
+
+					
 				case SDL_KEYUP:
 					if (ev.button.button == SDL_BUTTON_LEFT)
 						act = Act::MouseUp;
@@ -68,9 +71,9 @@ void GameManager::Run()
 
 			SDL_SetRenderTarget(mRnd, texture);
 			SDL_SetRenderDrawColor(mRnd, 0x64, 0x00, 0x00, 0x00);
-	
+			
 			SDL_SetRenderTarget(mRnd, NULL);
-		
+			
 			scenes[mCScene]->SceneUpdate(delta, act, std::make_pair(x, y));
 			scenes[mCScene]->Draw(mRnd);
 			SDL_RenderPresent(mRnd);
@@ -290,13 +293,43 @@ SDL_Texture* GameManager::LoadTexture(std::string path)
 
 void GameManager::CreateCard(DefinedCard* card)
 {
+	Uint32 rmask, gmask, bmask, amask;
+
+	/* SDL interprets each pixel as a 32-bit number, so our masks must depend
+	   on the endianness (byte order) of the machine */
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+	rmask = 0xff000000;
+	gmask = 0x00ff0000;
+	bmask = 0x0000ff00;
+	amask = 0x000000ff;
+#else
+	rmask = 0x000000ff;
+	gmask = 0x0000ff00;
+	bmask = 0x00ff0000;
+	amask = 0xff000000;
+#endif
 	auto mFont = TTF_OpenFont("Assets/Fonts/ThaleahFat.ttf", 32);
 
 	int imageWidth = 225;
 
 	int imageHeight = 225;
 
+
+
+	SDL_Surface* base_S = SDL_CreateRGBSurface(0, sheets["card"]->GetCellSize().first, sheets["card"]->GetCellSize().second,32, rmask, gmask, bmask, amask);
 	SDL_Texture* base = SDL_CreateTexture(mRnd, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, sheets["card"]->GetCellSize().first, sheets["card"]->GetCellSize().second);
+	SDL_Surface* img = IMG_Load(("Assets/Sprites/Card/CardTemplateNew.png"));
+
+	
+	
+	std::string picture = "Assets/Sprites/Card/" + card->picture + ".png";
+	SDL_Surface* pic = IMG_Load(picture.c_str());
+	
+	SDL_BlitScaled(pic, &pic->clip_rect, base_S, &base_S->clip_rect);
+
+	SDL_BlitSurface(img, &img->clip_rect, base_S, &base_S->clip_rect);
+
+	
 
 	SDL_SetRenderTarget(mRnd, base);
 
@@ -315,48 +348,63 @@ void GameManager::CreateCard(DefinedCard* card)
 	rect.x = 0;
 	rect.y = 0;
 
-	SDL_RenderCopy(mRnd, sheets[card->picture]->GetTexture(), NULL, &rect);
-	SDL_RenderCopy(mRnd, sheets["card"]->GetTexture(), NULL, NULL);
+	/*SDL_RenderCopy(mRnd, sheets[card->picture]->GetTexture(), NULL, &rect);
+	SDL_RenderCopy(mRnd, sheets["card"]->GetTexture(), NULL, NULL);*/
+
+
+
+
+
+
+
+
 
 	rect.w = 191;
 	rect.h = 76;
 	rect.x = 20;
 	rect.y = 222;
-	SDL_RenderCopy(mRnd,SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, card->description.c_str(), SDL_Color{0,0,0}, rect.w)), NULL, &rect);
+	SDL_Surface* desc = TTF_RenderText_Blended_Wrapped(mFont, card->description.c_str(), SDL_Color{ 0,0,0 }, rect.w);
+	SDL_BlitScaled(desc, &desc->clip_rect, base_S, &rect);
+
+
 
 	rect.x = 24;
 	rect.y = 10;
 	rect.w = 188;
 	rect.h = 22;
-	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, card->name.c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
+	SDL_Surface* name = TTF_RenderText_Blended_Wrapped(mFont, card->name.c_str(), SDL_Color{ 0,0,0 }, rect.w);
+	SDL_BlitScaled(name, &name->clip_rect, base_S, &rect);
 
 	rect.x = 20;
 	rect.y = 184;
 	rect.w = 39;
 	rect.h = 27;
-
-	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->range).c_str(), SDL_Color{ 0,0,0 }, rect.w)), NULL, &rect);
+	SDL_Surface* range = TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->range).c_str(), SDL_Color{ 0,0,0 }, rect.w);
+	SDL_BlitScaled(range, &range->clip_rect, base_S, &rect);
+	
 
 	rect.x = 73;
 	rect.y = 184;
 	rect.w = 39;
 	rect.h = 27;
-
-	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->staminaCost).c_str(), SDL_Color{ 255,0,0 }, rect.w)), NULL, &rect);
+	SDL_Surface* staminaCost = TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->staminaCost).c_str(), SDL_Color{ 0,0,0 }, rect.w);
+	SDL_BlitScaled(staminaCost, &staminaCost->clip_rect, base_S, &rect);
+	
 
 	rect.x = 123;
 	rect.y = 184;
 	rect.w = 39;
 	rect.h = 27;
+	SDL_Surface* intelligenceCost = TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->intelligenceCost).c_str(), SDL_Color{ 0,0,0 }, rect.w);
+	SDL_BlitScaled(intelligenceCost, &intelligenceCost->clip_rect, base_S, &rect);
 
-	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->intelligenceCost).c_str(), SDL_Color{ 0,0,255 }, rect.w)), NULL, &rect);
 
 	rect.x = 173;
 	rect.y = 184;
 	rect.w = 39;
 	rect.h = 27;
-
-	SDL_RenderCopy(mRnd, SDL_CreateTextureFromSurface(mRnd, TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->agilityCost).c_str(), SDL_Color{ 0,255,0 }, rect.w)), NULL, &rect);
+	SDL_Surface* agilityCost = TTF_RenderText_Blended_Wrapped(mFont, std::to_string(card->agilityCost).c_str(), SDL_Color{ 0,0,0 }, rect.w);
+	SDL_BlitScaled(agilityCost, &agilityCost->clip_rect, base_S, &rect);
 
 	rect.x = 10;
 	rect.y = 2;
@@ -365,14 +413,18 @@ void GameManager::CreateCard(DefinedCard* card)
 
 	obj = new SpriteSheet("", sheets["card"]->GetTextureSize().first, sheets["card"]->GetTextureSize().second, sheets["card"]->GetTextureSize().first, sheets["card"]->GetTextureSize().second, 1);
 
-	obj->SetTexture(base);
-	sheets.insert(std::make_pair("cardSheet_"+ std::to_string(cards.size()), obj));
+	
 
-	objects.insert(std::make_pair("cardObj" + std::to_string(cards.size()), new RenderObject("card1")));
+	obj->SetTexture(SDL_CreateTextureFromSurface(mRnd, base_S));
+	sheets["cardSheet_"+ std::to_string(cards.size())] = obj;
+
+	objects["cardObj" + std::to_string(cards.size())] = new RenderObject("card1");
 
 	objects["cardObj" + std::to_string(cards.size())]->SetTexture(sheets["cardSheet_" + std::to_string(cards.size())]);
 
-	cards.insert({ card->name, new Card(card->damage, card->name, card->range, "cardObj" + std::to_string(cards.size()), card->animation, card->animationLength, card->staminaCost, card->intelligenceCost, card->agilityCost) });
+	cards[card->name] = new Card(card->damage, card->name, card->range, "cardObj" + std::to_string(cards.size()), card->animation, card->animationLength, card->staminaCost, card->intelligenceCost, card->agilityCost) ;
 	SDL_SetRenderTarget(mRnd, NULL);
+	
+	
 }
 

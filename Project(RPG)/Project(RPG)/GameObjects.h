@@ -167,7 +167,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"legend", new SpriteSheet("Assets/Backgrounds/Legend.png", 303, 500, 303, 500, false)},
 		{"mainMenuBG", new SpriteSheet("Assets/Backgrounds/MainMenuBG_720.png",1280, 720, 1280, 720, false)},
 		{"OptionsBackground", new SpriteSheet("Assets/Sprites/Buttons/OptionsBackground.png",	240, 32, 240, 32, false)},
-		{"settingsBg", new SpriteSheet("Assets/Backgrounds/Blank_Map_1280x720_Blurred.png", 1280, 720, 1280, 720, false)},
+		{"settingsBg", new SpriteSheet("Assets/Backgrounds/BlRank_Map_1280x720_Blurred.png", 1280, 720, 1280, 720, false)},
 		{"overworld", new SpriteSheet("Assets/Backgrounds/map.png", 2048, 1536, 2048, 1536, true)},
 		{"scrollBg", new SpriteSheet("Assets/Backgrounds/ResizedScroll.png", 1280, 720, 1280, 720, false)},
 		{"shopBg", new SpriteSheet("Assets/Backgrounds/ShopBg.png",1280, 720, 1280, 720, false)},		
@@ -345,10 +345,10 @@ const std::map<std::string, std::vector<Animation>> definedAnimations
 
 const std::map<std::string, DefinedCard> definedCards
 {
-	{"magicCard",{25, 40, 0, 5, 0, "Magic", "Magically assail the enemy for 5 damage, costs 5 intelligence", "magicCard" ,"MagicObj", 0.75}},
-	{"arrowCard", {25, 10, 0, 0, 5, "Shoot", "Pepper your foe with arrows for 5 damage, costs 5 agility", "BowAndArrow", "ArrowShotObj", 0.75}},
+	{"magicCard",{25, 40, 0, 5, 0, "Magic", "Magically assail the enemy for 5 damage, costs 5 intelligence", "Magic_Card" ,"MagicObj", 0.75}},
+	{"arrowCard", {25, 10, 0, 0, 5, "Shoot", "Pepper your foe with arrows for 5 damage, costs 5 agility", "Shootcard", "ArrowShotObj", 0.75}},
 	{"slashCard",{1.5, 5, 5, 0, 0, "Slash", "Slash the enemy for 10 damage, costs 10 strength", "SlashCard" ,"swordSlashEffectObj", 0.5}},	
-	{"healCard",{1.5, -5, 10, 10, 10, "Heal", "Heal the target for 5 health, costs 10 of all stats", "healCard" ,"healImageObject", 1.25}},
+	{"healCard",{1.5, -5, 10, 10, 10, "Heal", "Heal the target for 5 health, costs 10 of all stats", "HealCard" ,"healImageObject", 1.25}},
 };
 
 const std::map<std::string, Item*> definedItems
