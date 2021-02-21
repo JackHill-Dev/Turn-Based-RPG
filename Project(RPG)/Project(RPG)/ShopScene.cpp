@@ -82,21 +82,21 @@ void ShopScene::PlaceItems(std::vector<Item*> inv)
 
 void ShopScene::Init()
 {
-	AddObject("ShopBGObj", 1280 / 2, 720 / 2, Background);
+	AddObject("ShopBGObj",640, 360, Background);
 	
 	AddObject("merchantPortraitObj", 725, 225, UI);
-	pExitButton = AddObject("exitButtonObj", 620, 600, UI);
+	pExitButton = AddObject("exitButtonObj", 120, 640, UI);
 
 
 	UIText defaultText;
 	defaultText.text = "This is default tooltip text";
 	mTooltip = ToolTip(AddObject("defaultItemObj", 640, 650, UI),
-		AddObject("toolTipBgObj", 640, 650, UI), defaultText, std::make_pair(640, 600));
+		AddObject("toolTipBgObj", 640, 650, UI), defaultText, std::make_pair(600, 600));
 	mTooltip.mDescription.scale = { 140, 100 };
 	mTooltip.mDescription.bWrapped = true;
 
 	playerToolTip = ToolTip(AddObject("defaultItemObj", 640, 650, UI),
-		AddObject("toolTipBgObj", 640, 650, UI), defaultText, std::make_pair(640, 600));
+		AddObject("toolTipBgObj", 640, 650, UI), defaultText, std::make_pair(600, 600));
 	playerToolTip.mDescription.scale = { 140, 100 };
 	playerToolTip.mDescription.bWrapped = true;
 
