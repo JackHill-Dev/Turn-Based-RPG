@@ -43,7 +43,7 @@ void InventoryScene::Load()
 	mLayers[Game].clear();
 	itemObjects.clear();
 	mSceneText.clear();
-
+	characters.clear();
 
 	int i = 0;
 	
@@ -93,127 +93,155 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 	}
 	ItemObject* current = nullptr;
 
-	for (auto& i : itemObjects)
-	{
+	
+	
 		if (act == Act::Click)
 		{
-
-			if (i.obj->InBounds(mousePos.first, mousePos.second) && i._item != nullptr)
+			int temp = 0;
+			for (ItemObject& i : itemObjects)
 			{
-				if (i.bPickedUp)
+				
+				if (temp < itemObjects.size())
 				{
-					for (auto& c : characters)
+					if (i.obj->InBounds(mousePos.first, mousePos.second) && i._item != nullptr)
 					{
-						if (c.armourSlot->InBounds(mousePos.first, mousePos.second) && i.bPickedUp && c.character->ArmourEquipSlot == nullptr)
+						if (i.bPickedUp)
 						{
-							i.bPickedUp = false;
-							i.obj->SetPos(c.armourSlot->GetPos());
-							c.character->SetArmour(static_cast<Armour*>(i._item)); // Equip the armour selected
-
-
-						}
-						else
-						if (c.weaponSlot->InBounds(mousePos.first, mousePos.second) && i.bPickedUp && c.character->mWeaponEquipSlot == nullptr)
-						{
-							i.bPickedUp = false;
-							i.obj->SetPos(c.weaponSlot->GetPos());
-							c.character->SetWeapon(static_cast<Weapon*>(i._item)); // Equip the weapon selected
-
-
-						}
-					}
-					if (i.bPickedUp)
-					{
-						for (auto g : playerInvGrid)
-						{
-							if (g->InBounds(mousePos.first, mousePos.second) && i.bPickedUp)
+							for (auto& c : characters)
 							{
-								i.obj->SetPos(g->GetPos());
+								if (c.armourSlot->InBounds(mousePos.first, mousePos.second) && i.bPickedUp && c.character->ArmourEquipSlot == nullptr)
+								{
+									i.bPickedUp = false;
+									i.obj->SetPos(c.armourSlot->GetPos());
+									c.character->SetArmour(static_cast<Armour*>(i._item)); // Equip the armour selected
+
+
+								}
+								else
+									if (c.weaponSlot->InBounds(mousePos.first, mousePos.second) && i.bPickedUp && c.character->mWeaponEquipSlot == nullptr)
+									{
+										i.bPickedUp = false;
+										i.obj->SetPos(c.weaponSlot->GetPos());
+										c.character->SetWeapon(static_cast<Weapon*>(i._item)); // Equip the weapon selected
+
+
+									}
+								
+								if (c.portrait->InBounds(mousePos.first, mousePos.second) && i._item->GetType() == CONSUMABLE)
+								{
+									c.character->Heal(c.character->GetStats().health, static_cast<Consumable*>(i._item)->mHealAmount);
+									i.bPickedUp = false;
+									i.obj->SetVisible(false);
+									
+									mLayers[Game].erase(std::find_if(mLayers[Game].begin(), mLayers[Game].end(), [&i](RenderObject* iobj) {return iobj == i.obj; }));
+									itemObjects.erase(std::find_if(itemObjects.begin(), itemObjects.end(), [&i](ItemObject& iobj) {return iobj._item == i._item; }));
+									
+									mgr->GetPlayer()->RemoveItem(i._item);
+									
+								}
+							}
+							if (i.bPickedUp)
+							{
+								for (auto g : playerInvGrid)
+								{
+									if (g->InBounds(mousePos.first, mousePos.second) && i.bPickedUp)
+									{
+										i.obj->SetPos(g->GetPos());
+										i.bPickedUp = false;
+										mgr->GetPlayer()->AddItem(i._item);
+									}
+								}
+							}
+							if (i.bPickedUp)
+							{
+								i.obj->SetPos(playerInvGrid[mgr->GetPlayer()->inventory.size()]->GetPos());
 								i.bPickedUp = false;
 								mgr->GetPlayer()->AddItem(i._item);
 							}
 						}
-					}
-					if (i.bPickedUp)
-					{
-						i.obj->SetPos(playerInvGrid[mgr->GetPlayer()->inventory.size()]->GetPos());
-						i.bPickedUp = false;
-						mgr->GetPlayer()->AddItem(i._item);
+						else
+						{
+							i.bPickedUp = true;
+
+							bool partyItem = false;
+							for (auto& c : characters)
+							{
+								if (c.character->ArmourEquipSlot == i._item && !partyItem)
+								{
+									c.character->SetArmour(nullptr); // Unequip armour
+									partyItem = true;
+								}
+
+								if (c.character->mWeaponEquipSlot == i._item && !partyItem)
+								{
+									c.character->SetWeapon(nullptr); // Unequip weapon
+									partyItem = true;
+								}
+
+
+							}
+
+							if (!partyItem && i._item->GetType() != CONSUMABLE)
+							{
+								// Once equipped remove from global player inventory
+								if (i._item != nullptr)
+									mgr->GetPlayer()->RemoveItem(i._item);
+							}
+
+
+						}
 					}
 				}
-				else
-				{
-					i.bPickedUp = true;
-
-					bool partyItem = false;
-					for (auto& c : characters)
-					{
-						if (c.character->ArmourEquipSlot == i._item && !partyItem)
-						{
-							c.character->SetArmour(nullptr); // Unequip armour
-							partyItem = true;
-						}
-
-						if (c.character->mWeaponEquipSlot == i._item && !partyItem)
-						{
-							c.character->SetWeapon(nullptr); // Unequip weapon
-							partyItem = true;
-						}
-					}
-					if (!partyItem)
-					{
-						// Once equipped remove from global player inventory
-						mgr->GetPlayer()->RemoveItem(i._item);
-					}
-
-
-				}
+				temp++;
 			}
 		}
 
 
 		if (act == Act::MouseUpdate)
 		{
-			if (pCloseBtn->InBounds(mousePos.first, mousePos.second))
+			for (auto& i : itemObjects)
 			{
-				pCloseBtn->Tint({ 0,255,0 });
-			}
-			else
-			{
-				pCloseBtn->Untint();
-			}
+				if (pCloseBtn->InBounds(mousePos.first, mousePos.second))
+				{
+					pCloseBtn->Tint({ 0,255,0 });
+				}
+				else
+				{
+					pCloseBtn->Untint();
+				}
 
 
-			if (i.bPickedUp)
-			{
-				// While item is picked up stay at the mouse's screen position
-				i.obj->SetPos(std::make_pair(mousePos.first / i.obj->sceneScale.first, mousePos.second / i.obj->sceneScale.second));
-				current = nullptr;
-			}
+				if (i.bPickedUp)
+				{
+					// While item is picked up stay at the mouse's screen position
+					i.obj->SetPos(std::make_pair(mousePos.first / i.obj->sceneScale.first, mousePos.second / i.obj->sceneScale.second));
+					current = nullptr;
+				}
 
-			if (i.obj->InBounds(mousePos.first, mousePos.second))
-			{
-				current = &i;
+				if (i.obj->InBounds(mousePos.first, mousePos.second))
+				{
+					current = &i;
 
-			}
+				}
 
-			if (current != nullptr)
-			{
-				mToolTip.pItemImage->SetTexture(current->obj->GetSheet());
-				mToolTip.mDescription.text = current->_item->GetDescription();
+				if (current != nullptr)
+				{
+					mToolTip.pItemImage->SetTexture(current->obj->GetSheet());
+					mToolTip.mDescription.text = current->_item->GetDescription();
 
-				mToolTip.SetPos({ current->obj->GetPos().first - 120, current->obj->GetPos().second });
+					mToolTip.SetPos({ current->obj->GetPos().first - 120, current->obj->GetPos().second });
 
-				mToolTip.Show();
+					mToolTip.Show();
 
-			}
-			else
-			{
-				mToolTip.Hide();
-				current = nullptr;
+				}
+				else
+				{
+					mToolTip.Hide();
+					current = nullptr;
+				}
 			}
 		}
-	}
+	
 
 }
 

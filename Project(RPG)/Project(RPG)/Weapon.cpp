@@ -14,10 +14,7 @@ int Weapon::GetAtkPower()
 	return mAttackPower;
 }
 
-void Weapon::SetAtkPower(int atk)
-{
-	mAttackPower = atk;
-}
+
 
 std::string Weapon::GetDescription()
 {
