@@ -1,6 +1,6 @@
 ﻿  InventoryScene.cpp
 C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Globals.h(56,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\InventoryScene.cpp(62,56): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Uni\AGCP\TurnBasedRPG\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\InventoryScene.cpp(65,56): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.27.29110\include\utility(248,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
           with
           [

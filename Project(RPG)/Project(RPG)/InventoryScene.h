@@ -15,7 +15,7 @@ struct characterInventory
 };
 
 class InventoryScene :
-    public Scene
+	public Scene
 {
 public:
 	InventoryScene(Interface* mgr);
@@ -25,16 +25,19 @@ protected:
 	void Update(double dTime, Act act, std::pair<int, int> mousePos) override;
 private:
 	void Init();
-	std::vector<RenderObject*> DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY, int gridBoundsX);
+	void DrawGrid(int offsetX, int offsetY, int gridBoundsX);
 private:
 	RenderObject* pCloseBtn;
 	Mix_Chunk* button_SFX;
 	Mix_Chunk* pDrink_SFX;
 	ToolTip mToolTip;
-	std::vector<RenderObject*> playerInvGrid;
+	std::vector< std::pair<RenderObject*, ItemObject*>> playerInvGrid;
 	std::vector<ItemObject> itemObjects;
 	std::vector<characterInventory> characters;
 	std::vector<Character*> mParty;
-
+	// temp
+	int it = 1;
+	int pos;
+	std::vector<RenderObject*>::iterator freePos;
 };
 
