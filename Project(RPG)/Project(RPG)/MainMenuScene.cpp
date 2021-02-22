@@ -102,7 +102,6 @@ void MainMenuScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 		if (start->InBounds(mouse.first, mouse.second) && start->IsVisible() == true)
 		{
 			mgr->PlaySFX(confirm_SFX, 0, 1);
-			mgr->GetPlayer()->GetInventory().clear();
 			mgr->LoadScene(Scenes::ClassPicker);
 			OnLeave(start);
 		}

@@ -471,12 +471,6 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 		{
 			mgr->PlaySFX(button_Click_SFX, 0, 1);
 			mgr->GetPlayer()->GetParty().clear();
-			//for (auto invItem : mgr->GetPlayer()->GetInventory())
-			//{
-			//	delete invItem;
-			//}
-			auto inv = mgr->GetPlayer()->GetInventory();
-			
 			for (auto &item : mgr->GetPlayer()->GetInventory())
 			{
 				delete item;
