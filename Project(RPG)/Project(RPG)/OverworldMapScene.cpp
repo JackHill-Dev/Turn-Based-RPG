@@ -50,7 +50,7 @@ void OverworldMapScene::SaveFile()
 	}
 		
 	nlohmann::json playerInventory;
-	for (auto item : mgr->GetPlayer()->inventory)
+	for (auto item : mgr->GetPlayer()->GetInventory())
 	{
 		playerInventory.push_back({item->GetName()});
 	}
@@ -410,7 +410,7 @@ void OverworldMapScene::Load()
 	{
 		HideLegend();
 	}
-	
+
 	currentNode = mgr->GetPlayer()->currentNode;
 	for (auto i : map[currentNode].adjacentNodes)
 		i->obj->tint = { 0,0,255 };
@@ -470,9 +470,21 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 		if (pMenuButton->InBounds(mousePos.first, mousePos.second))
 		{
 			mgr->PlaySFX(button_Click_SFX, 0, 1);
-			mgr->LoadScene(Scenes::MainMenu);
 			mgr->GetPlayer()->GetParty().clear();
+			//for (auto invItem : mgr->GetPlayer()->GetInventory())
+			//{
+			//	delete invItem;
+			//}
+			auto inv = mgr->GetPlayer()->GetInventory();
+			
+			for (auto &item : mgr->GetPlayer()->GetInventory())
+			{
+				delete item;
+			}
+			mgr->GetPlayer()->GetInventory().clear();
 			pMenuButton->Untint();
+			mgr->LoadScene(Scenes::MainMenu);
+			
 		}
 
 		else if (pArmyViewerButton->InBounds(mousePos.first, mousePos.second))
