@@ -64,20 +64,20 @@ void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 			pExitButton->Untint();
 		}
 	}
-	ManagePlayerInventory(mgr->GetPlayer()->inventory, act, mousePos);
-	ManageShopInventory(mShop.inventory, act, mousePos);
+	ManagePlayerInventory(mgr->GetPlayer()->GetInventory(), act, mousePos);
+	ManageShopInventory(mShop.GetInventory(), act, mousePos);
 }
 
 void ShopScene::PlaceItems(std::vector<Item*> inv)
 {
-	for (auto i : mgr->GetPlayer()->inventory)
+	for (auto i : mgr->GetPlayer()->GetInventory())
 	{
 		// Display item to screen and set its render object to the correct image
 		playerInv.push_back(ItemObject(i, AddObject(i->GetObjName(), i->inventoryPos.pos.first, i->inventoryPos.pos.second, Game)));
 		
 	}
 
-	for (auto i : mShop.inventory)
+	for (auto i : mShop.GetInventory())
 	{
 		// Display item to screen and set its render object to the correct image
 		shopInv.push_back(ItemObject(i, AddObject(i->GetObjName(), i->inventoryPos.pos.first, i->inventoryPos.pos.second, Game)));
@@ -139,7 +139,7 @@ void ShopScene::Load()
 	mLayers[Game].clear();
 	playerInv.clear();
 	shopInv.clear();
-	PlaceItems(mgr->GetPlayer()->inventory);
+	PlaceItems(mgr->GetPlayer()->GetInventory());
 }
 
 void ShopScene::SetupShopInv()
@@ -296,8 +296,8 @@ void ShopScene::GenerateGrids()
 	DrawGrid(4, 5, 80, 110); // Draw item frames for player inventory
 	DrawGrid(4, 5, 880, 110); // Draw item frames for shop inventory
 
-	PlaceItems(mgr->GetPlayer()->inventory);
-	PlaceItems(mShop.inventory);
+	PlaceItems(mgr->GetPlayer()->GetInventory());
+	PlaceItems(mShop.GetInventory());
 }
 
 

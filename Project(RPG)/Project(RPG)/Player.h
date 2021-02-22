@@ -12,6 +12,7 @@ public:
 	std::deque<Card*> deck;
 	int GetGold();
 	std::vector<Character*>& GetParty() { return mPartyMembers; }
+	std::vector<Item*>& GetInventory() { return inventory; }
 	void SellItem(Item* item);
 	void SetGold(int amount);
 	void ClearGold() { mGold = 0; }
@@ -31,13 +32,14 @@ public:
 	void AddItem(Item* item);
 	void RemoveItem(Item* item);
 
-	std::vector<Item*> inventory;
+	
 	// Shop position grid pos calculation
 	void SetInitialGridPos(int pos);
 	void GeneratePositions();
 private:
-	//Inventory mInventory;
+
 	std::vector<Character*> mPartyMembers;
+	std::vector<Item*> inventory;
 	int mPartyExperiencePool = 0;
 	int mGold = 0;
 

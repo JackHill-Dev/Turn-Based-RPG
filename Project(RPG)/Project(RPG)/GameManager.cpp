@@ -189,7 +189,7 @@ void GameManager::LoadSettings()
 	ifs.close();
 
 	mPlayer.GetParty().clear();
-	mPlayer.inventory.clear();
+	mPlayer.GetInventory().clear();
 	mPlayer.ClearGold();
 	std::ifstream is("Savedata.json");
 
