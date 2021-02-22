@@ -48,10 +48,7 @@ ClassPickerScene::ClassPickerScene(Interface* mObjMgr) : Scene(mObjMgr)
 
 void ClassPickerScene::Load()
 {
-
 	PartyCount = 0;
-	mgr->GetPlayer()->GetParty().clear();
-	mgr->GetPlayer()->ClearGold();
 	SetUpClassView(CharacterPickerState::ClassView);
 	mgr->FadeInMusic(bg_Music, -1, mgr->fadeTime);	
 }
