@@ -46,11 +46,14 @@ void InventoryScene::Init()
 void InventoryScene::Load()
 {
 	mParty = mgr->GetPlayer()->GetParty();
+
 	// To avoid items duplicating clear the layer they are on
 	mLayers[Game].clear();
 	itemObjects.clear();
 	mSceneText.clear();
 	characters.clear();
+
+	
 
 	int i = 0;
 	
@@ -78,7 +81,7 @@ void InventoryScene::Load()
 	}
 	i = 0;
 	// Draw the player's inventory 
-	for (Item* item : mgr->GetPlayer()->inventory)
+	for (Item* item : mgr->GetPlayer()->GetInventory())
 	{
 		itemObjects.push_back(ItemObject(item, AddObject(item->GetObjName(), playerInvGrid[i]->GetPos().first, playerInvGrid[i]->GetPos().second, Game)));
 		++i;
@@ -134,7 +137,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 
 									}
 								
-								if (c.portrait->InBounds(mousePos.first, mousePos.second) && i._item->GetType() == CONSUMABLE)
+								if (c.portrait->InBounds(mousePos.first, mousePos.second) && i._item->GetType() == CONSUMABLE && dynamic_cast<Consumable*>(i._item))
 								{
 									c.character->Heal(c.character->GetStats().health, static_cast<Consumable*>(i._item)->mHealAmount);
 									mgr->PlaySFX(pDrink_SFX, 0, 0);
@@ -160,12 +163,13 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 									}
 								}
 							}
+							
 							if (i.bPickedUp)
 							{
-								i.obj->SetPos(playerInvGrid[mgr->GetPlayer()->inventory.size()]->GetPos());
+								i.obj->SetPos(playerInvGrid[mgr->GetPlayer()->GetInventory().size()]->GetPos());
 								i.bPickedUp = false;
 								mgr->GetPlayer()->AddItem(i._item);
-							}
+							}							
 						}
 						else
 						{
