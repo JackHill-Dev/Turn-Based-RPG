@@ -308,15 +308,15 @@ const std::map<std::string, std::vector<Animation>> definedAnimations
 
 		{"daemonSpr",
 			{
-				Animation("LookUp", {std::make_pair(0,0)}),
+				Animation("LookDown", {std::make_pair(0,0)}),
 				Animation("LookLeft", {std::make_pair(1,0)}),
 				Animation("LookRight", {std::make_pair(2,0)}),
-				Animation("LookDown", {std::make_pair(4,0)}),
+				Animation("LookUp", {std::make_pair(4,0)}),
 
-				Animation("WalkUp", {std::make_pair(0,0), std::make_pair(0,1),std::make_pair(0,2),std::make_pair(0,3), std::make_pair(0,4)}),
+				Animation("WalkDown", {std::make_pair(0,0), std::make_pair(0,1),std::make_pair(0,2),std::make_pair(0,3), std::make_pair(0,4)}),
 				Animation("WalkLeft", {std::make_pair(1,0),std::make_pair(1,1),std::make_pair(1,2), std::make_pair(1,3), std::make_pair(1,4)}),
 				Animation("WalkRight", {std::make_pair(2,0),std::make_pair(2,1),std::make_pair(2,2),std::make_pair(2,3),std::make_pair(2,4)}),
-				Animation("WalkDown", {std::make_pair(4,0),std::make_pair(4,1),std::make_pair(4,2),std::make_pair(4,3),std::make_pair(4,4)}),
+				Animation("WalkUp", {std::make_pair(4,0),std::make_pair(4,1),std::make_pair(4,2),std::make_pair(4,3),std::make_pair(4,4)}),
 			}
 		},
 
