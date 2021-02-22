@@ -125,6 +125,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 										mCharacterStats.pop_back();
 										mCharacterStats.pop_back();
 										mCharacterStats.pop_back();
+										
 										break;
 
 									default:
@@ -132,7 +133,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 										break;
 								}
 							}
-							mCharacters.pop_back();
+							
 
 							// Clears gold from previous background choice - EH
 							if (currentPartyGold.size() != 0)
@@ -161,6 +162,7 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 					SetUpClassView(CharacterPickerState::MageView);
 					break;
 				case CharacterPickerState::BackgroundView:
+					mCharacters.pop_back();
 					SetUpClassView(CharacterPickerState::BackgroundView);
 					break;
 				case CharacterPickerState::VillagerView:
