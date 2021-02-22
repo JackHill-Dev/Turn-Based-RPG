@@ -470,12 +470,6 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int,int> mousePo
 		if (pMenuButton->InBounds(mousePos.first, mousePos.second))
 		{
 			mgr->PlaySFX(button_Click_SFX, 0, 1);
-			mgr->GetPlayer()->GetParty().clear();
-			for (auto &item : mgr->GetPlayer()->GetInventory())
-			{
-				delete item;
-			}
-			mgr->GetPlayer()->GetInventory().clear();
 			pMenuButton->Untint();
 			mgr->LoadScene(Scenes::MainMenu);
 			

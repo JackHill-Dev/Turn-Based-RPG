@@ -99,9 +99,26 @@ void MainMenuScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 	
 	if (act == Act::Click)
 	{
+		// This also disposes of previous gamestate data - EH
 		if (start->InBounds(mouse.first, mouse.second) && start->IsVisible() == true)
 		{
 			mgr->PlaySFX(confirm_SFX, 0, 1);
+
+			for (auto& member : mgr->GetPlayer()->GetParty())
+			{
+				delete member;
+			}
+
+			mgr->GetPlayer()->GetParty().clear();
+			mgr->GetPlayer()->ClearGold();
+
+			for (auto& item : mgr->GetPlayer()->GetInventory())
+			{
+				delete item;
+			}
+
+			mgr->GetPlayer()->GetInventory().clear();
+
 			mgr->LoadScene(Scenes::ClassPicker);
 			OnLeave(start);
 		}
