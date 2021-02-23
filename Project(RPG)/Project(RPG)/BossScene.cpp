@@ -12,7 +12,14 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 	if (fightScene <= 0)
 	{
 
-
+		for (auto& c : team)
+		{
+			c.visualStats.SetVisibility(true);
+		}
+		for (auto& c : enemy)
+		{
+			c.visualStats.SetVisibility(true);
+		}
 
 
 		for (auto e : mLayers[Effects])
@@ -460,13 +467,19 @@ void BossScene::Load()
 
 	for (auto i : mgr->GetPlayer()->GetParty())
 	{
-		i->GetStats().strength.first = i->GetStats().strength.second;
-		Unit unit = Unit(i, &mapp[v][9], AddObject(i->GetObjName(), 0, 0, Game), AddObject("portrait", 250, 125 + 150 * v, UI));
+	
+		UIText* health = new UIText();
+		UIText* movement = new UIText();
+		UIText* str = new UIText();
+		UIText* intel = new UIText();
+		UIText* agil = new UIText();
 
-
-		unit.healthBar.SetObjects(AddObject("barBgObj", 250, 125 + 70 + 150 * v, UI), AddObject("barFillObj", 250, 125 + 70 + 150 * v, UI));
-		unit.healthBar.Scale(std::make_pair(0.6, 0.6));
-		unit.healthBar.OnChange((unit.character->GetStats().health.second - unit.character->GetStats().health.first) / unit.character->GetStats().health.second * 100);
+		mSceneText.push_back(health);
+		mSceneText.push_back(movement);
+		mSceneText.push_back(str);
+		mSceneText.push_back(intel);
+		mSceneText.push_back(agil);
+		Unit unit = Unit(i, &mapp[v][9], AddObject(i->GetObjName(), 0, 0, Game), AddObject("portrait", 250, 125 + 150 * v, UI), UIStats(std::make_pair(250, 125 + 150 * v + 75), health, movement, str, intel, agil));
 
 
 		//unit.object->scale = std::make_pair(0.5f, 0.5f);
@@ -476,12 +489,19 @@ void BossScene::Load()
 	}
 	v = 0;
 
+	UIText* health = new UIText();
+	UIText* movement = new UIText();
+	UIText* str = new UIText();
+	UIText* intel = new UIText();
+	UIText* agil = new UIText();
 
+	mSceneText.push_back(health);
+	mSceneText.push_back(movement);
+	mSceneText.push_back(str);
+	mSceneText.push_back(intel);
+	mSceneText.push_back(agil);
 
-
-
-
-	Unit boss = Unit(new Character("", "", "", UnitClass::NoClass, 0, std::make_pair(1000, 3000), false, std::make_pair(30,30), std::make_pair(25,25), std::make_pair(25,25), std::make_pair(25,25)), &mapp[4][3], AddObject("daemonBoss", 500, 500, Game), AddObject("daemonBoss", 500, 500, Game));
+	Unit boss = Unit(new Character("", "", "", UnitClass::NoClass, 0, std::make_pair(1000, 3000), false, std::make_pair(25,25), std::make_pair(25,25), std::make_pair(25,25), std::make_pair(25,25)), &mapp[4][3], AddObject("daemonBoss", 500, 500, Game), AddObject("daemonBoss", 1000, 250, Game), UIStats(std::make_pair(1000, 250 + 75), health, movement, str, intel, agil));
 	boss.object->scale = { 2,2 };
 	enemy.push_back(boss);
 	for (int i = 0; i < 5; i++)
@@ -520,7 +540,14 @@ void BossScene::Cast(Unit* caster, Unit* target, const std::pair<Card*, RenderOb
 		//PlayFightAnimation();
 		fightScene = card->first->GetEffect().second;
 
-
+		for (auto& c : team)
+		{
+			c.visualStats.SetVisibility(false);
+		}
+		for (auto& c : enemy)
+		{
+			c.visualStats.SetVisibility(false);
+		}
 
 		if (playerTurn)
 		{
