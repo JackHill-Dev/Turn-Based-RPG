@@ -105,7 +105,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 	ItemObject* current = nullptr;
 
 
-
+	
 	if (act == Act::Click)
 	{
 		int temp = 0;
@@ -124,6 +124,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 							{
 								i.bPickedUp = false;
 								i.obj->SetPos(c.armourSlot->GetPos());
+								playerInvGrid[temp].second = nullptr;
 								c.character->SetArmour(static_cast<Armour*>(i._item)); // Equip the armour selected
 
 
@@ -133,6 +134,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 								{
 									i.bPickedUp = false;
 									i.obj->SetPos(c.weaponSlot->GetPos());
+									playerInvGrid[temp].second = nullptr;
 									c.character->SetWeapon(static_cast<Weapon*>(i._item)); // Equip the weapon selected
 
 
@@ -142,6 +144,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 							{
 								c.character->Heal(c.character->GetStats().health, static_cast<Consumable*>(i._item)->mHealAmount);
 								mgr->PlaySFX(pDrink_SFX, 0, 0);
+								playerInvGrid[temp].second = nullptr;
 								i.bPickedUp = false;
 								//i.obj->SetVisible(false);
 
@@ -152,19 +155,22 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 
 							}
 						}
-						if (i.bPickedUp)
+						
+						// if inbound of a grid renderobject then place it there
+						for (auto& g : playerInvGrid)
 						{
-							// if inbound of a grid renderobject then place it there
-							for (auto& g : playerInvGrid)
+							if (g.first->InBounds(mousePos.first, mousePos.second) && i.bPickedUp && g.second == nullptr)
 							{
-								if (g.first->InBounds(mousePos.first, mousePos.second) && i.bPickedUp && g.second == nullptr)
-								{
-									i.obj->SetPos(g.first->GetPos());
-									i.bPickedUp = false;
-									g.second = &i;
-									mgr->GetPlayer()->AddItem(i._item);
-								}
+								i.obj->SetPos(g.first->GetPos());
+								g.second = &i;
+								i.bPickedUp = false;
+							
+								mgr->GetPlayer()->AddItem(i._item);
+								
 							}
+							else
+								g.second = nullptr;;
+							
 						}
 						//if (i.bPickedUp)
 						//{
@@ -190,8 +196,12 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 					}
 					else
 					{
+						if(!i.bPickedUp)
 						i.bPickedUp = true;
+						
 						playerInvGrid[temp].second = nullptr;
+
+						
 						bool partyItem = false;
 						for (auto& c : characters)
 						{
@@ -215,19 +225,23 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 							// Once equipped remove from global player inventory
 							if (i._item != nullptr)
 							{
-								//playerInvGrid[temp].second = nullptr;
-								auto index = std::find_if(playerInvGrid.begin(), playerInvGrid.end(), [&i](std::pair<RenderObject*, ItemObject*> p) { return i._item == p.second->_item; });
-								/*if (index != playerInvGrid.end())
+							
+								/*auto index = std::find_if(playerInvGrid.begin(), playerInvGrid.end(), [&i](std::pair<RenderObject*, ItemObject*> p) { return i._item == p.second->_item; });
+								if (index != playerInvGrid.end())
 									index->second = nullptr;*/
+								playerInvGrid[temp].second = nullptr;
 								mgr->GetPlayer()->RemoveItem(i._item);
+								
 
 							}
 						}
+						
 
 
 					}
 				}
 			}
+
 			temp++;
 		}
 	}
@@ -257,7 +271,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 			if (i.obj->InBounds(mousePos.first, mousePos.second))
 			{
 				current = &i;
-
+				
 			}
 
 			if (current != nullptr)
@@ -269,11 +283,14 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 
 				mToolTip.Show();
 
+				
+
 			}
 			else
 			{
 				mToolTip.Hide();
 				current = nullptr;
+				
 			}
 		}
 	}

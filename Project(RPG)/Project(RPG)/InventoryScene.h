@@ -38,6 +38,7 @@ private:
 	// temp
 	int it = 1;
 	int pos;
+	bool bHasitemPickedUp = false;
 	std::vector<RenderObject*>::iterator freePos;
 };
 
