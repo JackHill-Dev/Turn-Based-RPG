@@ -27,6 +27,7 @@ private:
 	void Init();
 	void DrawGrid(int offsetX, int offsetY, int gridBoundsX);
 private:
+	bool itemPickedUp = false;
 	RenderObject* pCloseBtn;
 	Mix_Chunk* button_SFX;
 	Mix_Chunk* pDrink_SFX;

@@ -48,6 +48,7 @@ void InventoryScene::Init()
 
 void InventoryScene::Load()
 {
+	itemPickedUp = false;
 	mParty = mgr->GetPlayer()->GetParty();
 	// To avoid items duplicating clear the layer they are on
 	mLayers[Game].clear();
@@ -126,6 +127,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 								i.obj->SetPos(c.armourSlot->GetPos());
 								playerInvGrid[temp].second = nullptr;
 								c.character->SetArmour(static_cast<Armour*>(i._item)); // Equip the armour selected
+								itemPickedUp = false;
 
 
 							}
@@ -137,7 +139,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 									playerInvGrid[temp].second = nullptr;
 									c.character->SetWeapon(static_cast<Weapon*>(i._item)); // Equip the weapon selected
 
-
+									itemPickedUp = false;
 								}
 
 							if (c.portrait->InBounds(mousePos.first, mousePos.second) && i._item->GetType() == CONSUMABLE)
@@ -147,7 +149,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 								playerInvGrid[temp].second = nullptr;
 								i.bPickedUp = false;
 								//i.obj->SetVisible(false);
-
+								itemPickedUp = false;
 								mLayers[Game].erase(std::find_if(mLayers[Game].begin(), mLayers[Game].end(), [&i](RenderObject* iobj) {return iobj == i.obj; }));
 								itemObjects.erase(std::find_if(itemObjects.begin(), itemObjects.end(), [&i](ItemObject& iobj) {return iobj._item == i._item; }));
 
@@ -155,7 +157,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 
 							}
 						}
-						
+
 						// if inbound of a grid renderobject then place it there
 						for (auto& g : playerInvGrid)
 						{
@@ -164,13 +166,12 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 								i.obj->SetPos(g.first->GetPos());
 								g.second = &i;
 								i.bPickedUp = false;
-							
+								itemPickedUp = false;
 								mgr->GetPlayer()->AddItem(i._item);
-								
+
 							}
-							else
-								g.second = nullptr;;
-							
+
+
 						}
 						//if (i.bPickedUp)
 						//{
@@ -196,53 +197,73 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 					}
 					else
 					{
-						if(!i.bPickedUp)
-						i.bPickedUp = true;
-						
-						playerInvGrid[temp].second = nullptr;
-
-						
-						bool partyItem = false;
-						for (auto& c : characters)
+						if (!itemPickedUp)
 						{
-							if (c.character->ArmourEquipSlot == i._item && !partyItem)
+							if (!i.bPickedUp)
+								i.bPickedUp = true;
+
+							itemPickedUp = true;
+							auto spot = std::find_if(playerInvGrid.begin(), playerInvGrid.end(), [i](std::pair<RenderObject*, ItemObject*> t)
+								{
+									if (t.second == nullptr) return false;
+
+									return t.second->_item == i._item;
+
+
+								});
+
+							if (spot != playerInvGrid.end())
 							{
-								c.character->SetArmour(nullptr); // Unequip armour
-								partyItem = true;
+								int index = spot - playerInvGrid.begin();
+								playerInvGrid.at(index).second = nullptr;
 							}
 
-							if (c.character->mWeaponEquipSlot == i._item && !partyItem)
+
+
+
+
+							bool partyItem = false;
+							for (auto& c : characters)
 							{
-								c.character->SetWeapon(nullptr); // Unequip weapon
-								partyItem = true;
+								if (c.character->ArmourEquipSlot == i._item && !partyItem)
+								{
+									c.character->SetArmour(nullptr); // Unequip armour
+									partyItem = true;
+								}
+
+								if (c.character->mWeaponEquipSlot == i._item && !partyItem)
+								{
+									c.character->SetWeapon(nullptr); // Unequip weapon
+									partyItem = true;
+								}
+
+
 							}
+
+							if (!partyItem)
+							{
+								// Once equipped remove from global player inventory
+								if (i._item != nullptr)
+								{
+
+									/*auto index = std::find_if(playerInvGrid.begin(), playerInvGrid.end(), [&i](std::pair<RenderObject*, ItemObject*> p) { return i._item == p.second->_item; });
+									if (index != playerInvGrid.end())
+										index->second = nullptr;*/
+									playerInvGrid[temp].second = nullptr;
+									mgr->GetPlayer()->RemoveItem(i._item);
+
+
+								}
+							}
+
 
 
 						}
-
-						if (!partyItem)
-						{
-							// Once equipped remove from global player inventory
-							if (i._item != nullptr)
-							{
-							
-								/*auto index = std::find_if(playerInvGrid.begin(), playerInvGrid.end(), [&i](std::pair<RenderObject*, ItemObject*> p) { return i._item == p.second->_item; });
-								if (index != playerInvGrid.end())
-									index->second = nullptr;*/
-								playerInvGrid[temp].second = nullptr;
-								mgr->GetPlayer()->RemoveItem(i._item);
-								
-
-							}
-						}
-						
-
-
 					}
 				}
-			}
 
-			temp++;
+				temp++;
+			}
 		}
 	}
 
