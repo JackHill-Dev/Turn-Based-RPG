@@ -12,7 +12,16 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 	
 	if (fightScene <= 0)
 	{
-	
+		
+		for (auto& c : team)
+		{
+			c.visualStats.SetVisibility(true);
+		}
+		for (auto& c : enemy)
+		{
+			c.visualStats.SetVisibility(true);
+		}
+
 		for (auto e : mLayers[Effects])
 		{
 			delete(e);
@@ -52,6 +61,10 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 					mgr->LoadScene(Scenes::WinLoseStateScreen);
 				}
 			}
+			else
+			{
+				i.Update();
+			}
 		}
 				
 		for (auto i : enemy)
@@ -60,6 +73,10 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 			{
 				mgr->GetPlayer()->AddToXpPool(i.character->GetStats().experience.first);
 				RemoveUnit(&i);
+			}
+			else
+			{
+				i.Update();
 			}
 		}
 
@@ -456,12 +473,16 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 
 void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 {
+	for (auto t : mSceneText)
+		delete t;
+	mSceneText.clear();
 	playerTurn = false;
 	mgr->PlayMusic(combat_music, -1);
 	int v = 0;
 	enemyHand.clear();
 	playerhand.clear();
 	enemy.clear(); team.clear();
+	
 	for (auto &layer : mLayers)
 	{
 		for (auto obj : layer)
@@ -533,13 +554,19 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 
 	for (auto i : mgr->GetPlayer()->GetParty())
 	{
-		i->GetStats().strength.first = i->GetStats().strength.second;
-		Unit unit = Unit(i, &mapp[v][9], AddObject(i->GetObjName(), 0, 0, Game), AddObject("portrait", 250, 125+150*v, UI));
 
+		UIText* health = new UIText();
+		UIText* movement = new UIText();
+		UIText* str = new UIText();
+		UIText* intel = new UIText();
+		UIText* agil = new UIText();
 
-		unit.healthBar.SetObjects(AddObject("barBgObj", 250, 125 + 70 + 150 * v, UI), AddObject("barFillObj", 250, 125 + 70 + 150 * v, UI));
-		unit.healthBar.Scale(std::make_pair(0.6, 0.6));
-		unit.healthBar.OnChange((unit.character->GetStats().health.second - unit.character->GetStats().health.first)/ unit.character->GetStats().health.second * 100);
+		mSceneText.push_back(health);
+		mSceneText.push_back(movement);
+		mSceneText.push_back(str);
+		mSceneText.push_back(intel);
+		mSceneText.push_back(agil);
+		Unit unit = Unit(i, &mapp[v][9], AddObject(i->GetObjName(), 0, 0, Game), AddObject("portrait", 250, 125+150*v, UI), UIStats(std::make_pair(250, 125 + 150 * v + 75), health, movement, str, intel, agil));
 
 
 		//unit.object->scale = std::make_pair(0.5f, 0.5f);
@@ -551,13 +578,23 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 
 	for(auto i : enemyTeam)
 	{
-		Unit unit = Unit(i, &mapp[9-v][0], AddObject(i->GetObjName(), 0, 0, Game),AddObject("portrait", 1000, 125+150*v, UI));
+
+		UIText* health = new UIText();
+		UIText* movement = new UIText();
+		UIText* str = new UIText();
+		UIText* intel = new UIText();
+		UIText* agil = new UIText();
+
+		mSceneText.push_back(health);
+		mSceneText.push_back(movement);
+		mSceneText.push_back(str);
+		mSceneText.push_back(intel);
+		mSceneText.push_back(agil);
+		Unit unit = Unit(i, &mapp[9-v][0], AddObject(i->GetObjName(), 0, 0, Game),AddObject("portrait", 1000, 125+150*v, UI), UIStats(std::make_pair(1000, 125 + 150 * v + 75), health, movement, str, intel, agil));
 
 		// Arbitrary experience to grant to player from defeating said unit in combat. - EH
 		i->GetStats().experience.first = 100;
 
-		unit.healthBar.SetObjects(AddObject("barBgObj", 1000, 125 + 70 + 150 * v, UI), AddObject("barFillObj", 1000, 125 + 70 + 150 * v, UI));
-		unit.healthBar.Scale(std::make_pair(0.6, 0.6));
 		unit.profile->scale = std::make_pair(0.3f, 0.3f);
 		enemy.push_back(unit);
 		v++;
@@ -604,6 +641,14 @@ void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  Rende
 		//PlayFightAnimation();
 		fightScene = card->first->GetEffect().second;
 
+		for (auto& c : team)
+		{
+			c.visualStats.SetVisibility(false);
+		}
+		for (auto& c : enemy)
+		{
+			c.visualStats.SetVisibility(false);
+		}
 
 
 		if (playerTurn)
@@ -648,6 +693,7 @@ void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  Rende
 
 void CombatScene::RemoveUnit(Unit* unit)
 {
+	unit->visualStats.SetVisibility(false);
 		auto p = std::find(mLayers[Game].begin(), mLayers[Game].end(), unit->object);
 		mLayers[Game].erase(p);
 		mLayers[UI].erase(std::find(mLayers[UI].begin(), mLayers[UI].end(), unit->profile));

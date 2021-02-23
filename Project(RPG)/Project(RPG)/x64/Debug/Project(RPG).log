@@ -1,42 +1,41 @@
-﻿  BossScene.cpp
+﻿  CombatScene.cpp
 F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Globals.h(56,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(134,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(215,20): warning C4244: 'initializing': conversion from '_Ty1' to 'float', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(186,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(282,20): warning C4244: 'initializing': conversion from '_Ty1' to 'float', possible loss of data
           with
           [
               _Ty1=double
           ]
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(271,22): warning C4244: 'initializing': conversion from '_Ty1' to 'float', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(338,22): warning C4244: 'initializing': conversion from '_Ty1' to 'float', possible loss of data
           with
           [
               _Ty1=double
           ]
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(336,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(469,155): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(489,59): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(547,16): warning C4244: 'initializing': conversion from '_Ty1' to 'float', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(420,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(613,17): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(676,16): warning C4244: 'initializing': conversion from '_Ty1' to 'float', possible loss of data
           with
           [
               _Ty1=double
           ]
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(634,46): warning C4267: '-=': conversion from 'size_t' to '_Ty1', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(764,46): warning C4267: '-=': conversion from 'size_t' to '_Ty1', possible loss of data
           with
           [
               _Ty1=int
           ]
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(650,24): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(667,44): warning C4267: '-=': conversion from 'size_t' to '_Ty1', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(780,24): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(797,44): warning C4267: '-=': conversion from 'size_t' to '_Ty1', possible loss of data
           with
           [
               _Ty1=int
           ]
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(698,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(700,15): warning C4244: 'initializing': conversion from '_Ty1' to 'float', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(832,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(834,15): warning C4244: 'initializing': conversion from '_Ty1' to 'float', possible loss of data
           with
           [
               _Ty1=double
           ]
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(778,30): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(916,30): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333\include\utility(246,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
           with
           [
@@ -126,6 +125,26 @@ F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\P
               _Other1=int &,
               _Other2=int
           ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333\include\utility(313,39): warning C4244: '=': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=float
+          ]
+          and
+          [
+              _Ty1=int
+          ]
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.h(37): message : see reference to function template instantiation 'std::pair<int,int> &std::pair<int,int>::operator =<float,float,0>(std::pair<float,float> &&) noexcept' being compiled
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.h(37): message : see reference to function template instantiation 'std::pair<int,int> &std::pair<int,int>::operator =<float,float,0>(std::pair<float,float> &&) noexcept' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333\include\utility(314,39): warning C4244: '=': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=float
+          ]
+          and
+          [
+              _Ty2=int
+          ]
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333\include\utility(246,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
           with
           [
@@ -135,8 +154,8 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.2
           [
               _Ty1=float
           ]
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.h(102): message : see reference to function template instantiation 'std::pair<float,float>::pair<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.h(102): message : see reference to function template instantiation 'std::pair<float,float>::pair<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.h(166): message : see reference to function template instantiation 'std::pair<float,float>::pair<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.h(166): message : see reference to function template instantiation 'std::pair<float,float>::pair<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333\include\utility(246,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
           with
           [
@@ -155,8 +174,8 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.2
           [
               _Ty1=float
           ]
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(410): message : see reference to function template instantiation 'std::pair<float,float> &std::pair<float,float>::operator =<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(410): message : see reference to function template instantiation 'std::pair<float,float> &std::pair<float,float>::operator =<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(501): message : see reference to function template instantiation 'std::pair<float,float> &std::pair<float,float>::operator =<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(501): message : see reference to function template instantiation 'std::pair<float,float> &std::pair<float,float>::operator =<int,int,0>(std::pair<int,int> &&) noexcept' being compiled
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333\include\utility(314,39): warning C4244: '=': conversion from '_Ty' to '_Ty2', possible loss of data
           with
           [
@@ -175,8 +194,8 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.2
           [
               _Ty1=float
           ]
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(423): message : see reference to function template instantiation 'std::pair<float,float> &std::pair<float,float>::operator =<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\BossScene.cpp(423): message : see reference to function template instantiation 'std::pair<float,float> &std::pair<float,float>::operator =<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(514): message : see reference to function template instantiation 'std::pair<float,float> &std::pair<float,float>::operator =<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\CombatScene.cpp(514): message : see reference to function template instantiation 'std::pair<float,float> &std::pair<float,float>::operator =<double,double,0>(std::pair<double,double> &&) noexcept' being compiled
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333\include\utility(314,39): warning C4244: '=': conversion from '_Ty' to '_Ty2', possible loss of data
           with
           [
