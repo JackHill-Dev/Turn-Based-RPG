@@ -148,7 +148,6 @@ void ShopScene::SetupShopInv()
 	std::vector<std::string> ArmourStrings{"Cloth Armour", "Leather Armour", "Chainmail Armour" };
 	for (int f = 0; f < 20; ++f)
 	{
-		// TODO: Add level gating
 		int i = RandomRange(0, 99);
 		int j = RandomRange(0, 2);
 		if (i >= 0 && i <= 24)
@@ -290,7 +289,7 @@ void ShopScene::GenerateGrids()
 	mShop.SetInitialGridPos(880);
 
 	mShop.GeneratePositions(); 
-	mgr->GetPlayer()->GeneratePositions();
+	//mgr->GetPlayer()->GeneratePositions();
 	SetupShopInv();
 
 	DrawGrid(4, 5, 80, 110); // Draw item frames for player inventory
