@@ -134,8 +134,9 @@ bool GameManager::Init()
 	CreateWindow();
 	mInterface.StoreWindow(mWnd);
 	SetUp();
+	mPlayer.GeneratePositions(); // Not the best solution but this makes sure the grid positions in the shop are generated before save data comes in - JP
 	LoadSettings();
-
+	
 	mPlayer.SetDeck({new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Heal"]),new Card(*cards["Magic"]), new Card(*cards["Magic"]), new Card(*cards["Shoot"]), new Card(*cards["Shoot"]) });
 
 	mMainMenuSceneInstance = new MainMenuScene(&mInterface);
