@@ -486,7 +486,7 @@ void BossScene::Load()
 	enemy.push_back(boss);
 	for (int i = 0; i < 5; i++)
 	{
-		enemyHand.push_back(std::make_pair(new Card(5, "Slash", 1, "cardObj", "BossAttackObj", 0.5, 5, 0, 0), nullptr));
+		enemyHand.push_back(std::make_pair(new Card(5, "Slash", 1.5, "cardObj", "BossAttackObj", 0.5, 5, 0, 0), nullptr));
 
 	}
 
@@ -507,7 +507,7 @@ void BossScene::Cast(Unit* caster, Unit* target, const std::pair<Card*, RenderOb
 	auto dist = GetDistance(caster->occupiedTile, target->occupiedTile);
 	target->object->Untint();
 	caster->object->Untint();
-	if (dist <= card->first->Values().range &&
+	if (dist <= card->first->Values().range + 1 &&
 		stats->strength.first >= card->first->Values().stamCost)
 	{
 		mgr->PlaySFX(slash_sfx, 0, 1);
