@@ -46,10 +46,12 @@ private:
 	ItemObject* shopItemHovered;
 	bool startOnce = false;
 	int mHighestCharacter;
-	//Temp
+	
 	int RandomRange(int min, int max);	
 	std::vector<ItemObject> playerInv;
 	std::vector<ItemObject> shopInv;
+
+	UIText buyControlsTxt;
 
 	
 };

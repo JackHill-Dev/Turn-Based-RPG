@@ -129,10 +129,17 @@ void ShopScene::Load()
 	mShopGoldText.pos = std::make_pair(680, 415);
 	mShopGoldText.textColor = SDL_Color{ 255, 215, 0 }; // Gold
 	
+	
+	buyControlsTxt.text = "Right click to buy or sell";
+	buyControlsTxt.pos = std::make_pair(620, 470);
+	buyControlsTxt.scale = std::make_pair(264, 64);
+	buyControlsTxt.textColor = SDL_Color{ 255,255,255 };
+
 	mSceneText.push_back(&mPlayerGoldText);
-	mSceneText.push_back(& mShopGoldText);
+	mSceneText.push_back(&mShopGoldText);
 	mSceneText.push_back(&mTooltip.mDescription);
 	mSceneText.push_back(&playerToolTip.mDescription);
+	mSceneText.push_back(&buyControlsTxt);
 
 	mgr->FadeInMusic(bg_Music, -1, mgr->fadeTime);
 

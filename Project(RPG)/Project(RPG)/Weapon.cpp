@@ -21,6 +21,7 @@ std::string Weapon::GetDescription()
 	std::ostringstream desc; 
 	desc << "Name: " << mName << std::endl;
 	desc << "Atk Power: " << mAttackPower << std::endl;
+	desc << "Lvl req. " << mLevelRequirement << std::endl; 
 	desc << "Cost: " << mCost;
 	return desc.str();
 }

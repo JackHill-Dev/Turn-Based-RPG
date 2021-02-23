@@ -94,7 +94,7 @@ void Scene::Draw(SDL_Renderer* rnd)
 		if (!t->bWrapped)
 			fontTexture = SDL_CreateTextureFromSurface(rnd, TTF_RenderText_Blended(mFont, t->text.c_str(), t->textColor));
 		else
-			fontTexture = SDL_CreateTextureFromSurface(rnd, TTF_RenderText_Blended_Wrapped(mFont, t->text.c_str(), t->textColor, 200));
+			fontTexture = SDL_CreateTextureFromSurface(rnd, TTF_RenderText_Blended_Wrapped(mFont, t->text.c_str(), t->textColor, 300));
 
 	    if(t->isVisible)
 			SDL_RenderCopy(rnd, fontTexture, nullptr, &rect);
