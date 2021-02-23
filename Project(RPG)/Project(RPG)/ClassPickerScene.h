@@ -57,8 +57,14 @@ private:
 	SDL_Color Lime = SDL_Color{ 0, 255, 0 };
 
 	bool isFocused = false;
+	const bool mBaseDeadStatus = false;
 
 	int PartyCount = 0;
+	const int mBaseLevel = 1;
+	const int mVillagerGold = 50;
+	const int mScholarGold = 100;
+	const int mNobleGold = 150;
+	const int maxPartySize = 3;
 
 	// Allows these factors to be consistent and easily changed during playtesting and polish phase - EH
 	const std::pair<int, int> mStatBuff = {2, 2};
@@ -69,25 +75,10 @@ private:
 	const std::pair<int, int> mBaseClassStat = { 10,10 };
 	const std::pair<int, int> mBaseHealth{ 10,10 };
 
-	const int mBaseLevel = 1;
-	const bool mBaseDeadStatus = false;
-	const int mVillagerGold = 50;
-	const int mScholarGold = 100;
-	const int mNobleGold = 150;
-	const int maxPartySize = 3;
-	
-protected:
-
-public:
-
-	ClassPickerScene(Interface* mObjMgr);
-
-	void Load();
+	void GeneratePartyFromChoices();
 
 	void OnHover(RenderObject* rObj);
 	void OnLeave(RenderObject* rObj);
-
-	void Update(double dTime, Act act, std::pair<int, int> mousePos) override;
 
 	void SetUpClassView(CharacterPickerState originState);
 	void SetUpWarriorView(CharacterPickerState originState);
@@ -99,7 +90,14 @@ public:
 	void SetUpScholarView(CharacterPickerState originState);
 	void SetUpNobleView(CharacterPickerState originState);
 
-	void GeneratePartyFromChoices();
+protected:
 
+public:
+
+	ClassPickerScene(Interface* mObjMgr);
+
+	void Load();
+	void Update(double dTime, Act act, std::pair<int, int> mousePos) override;
+	
 };
 
