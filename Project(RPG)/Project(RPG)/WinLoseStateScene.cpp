@@ -29,25 +29,24 @@ void WinLoseStateScene::SetUpButtons()
 	pRejectButton = AddObject("resetButtonObj", 480, 510, UI);
 	pRejectButton->SetVisible(false);
 
-	StrengthButton = AddObject("upButtonObj", 840, 400, UI);
+	pStrengthButton = AddObject("upButtonObj", 840, 400, UI);
 
-	AgilityButton = AddObject("upButtonObj", 840, 430, UI);
+	pAgilityButton = AddObject("upButtonObj", 840, 430, UI);
 
-	IntelligenceButton = AddObject("upButtonObj", 840, 460, UI);
+	pIntelligenceButton = AddObject("upButtonObj", 840, 460, UI);
 
-
-	pStatButtons.push_back(StrengthButton);
-	pStatButtons.push_back(AgilityButton);
-	pStatButtons.push_back(IntelligenceButton);
+	pStatButtons.push_back(pStrengthButton);
+	pStatButtons.push_back(pAgilityButton);
+	pStatButtons.push_back(pIntelligenceButton);
 
 	pAllButtons.push_back(pMenuButton);
 	pAllButtons.push_back(pQuitButton);
 	pAllButtons.push_back(pContinueButton);
 	pAllButtons.push_back(pConfirmButton);
 	pAllButtons.push_back(pRejectButton);
-	pAllButtons.push_back(StrengthButton);
-	pAllButtons.push_back(AgilityButton);
-	pAllButtons.push_back(IntelligenceButton);
+	pAllButtons.push_back(pStrengthButton);
+	pAllButtons.push_back(pAgilityButton);
+	pAllButtons.push_back(pIntelligenceButton);
 
 	for (auto button : pAllButtons)
 	{
@@ -61,14 +60,14 @@ void WinLoseStateScene::PickState()
 {
 	std::vector<Character*> party = mgr->GetPlayer()->GetParty();
 
-	firstCharacter = new PlayerCharacter;
-	SecondCharacter = new PlayerCharacter;
-	ThirdCharacter = new PlayerCharacter;
+	pFirstCharacter = new PlayerCharacter;
+	pSecondCharacter = new PlayerCharacter;
+	pThirdCharacter = new PlayerCharacter;
 	pTargetCharacter = new PlayerCharacter;
 
 	for (auto member : party)
 	{
-		names.push_back(member->GetClassName(member->GetClass()));
+		mNames.push_back(member->GetClassName(member->GetClass()));
 	}
 
 	pCharacters.clear();
@@ -76,26 +75,26 @@ void WinLoseStateScene::PickState()
 	pLeftSprite = AddObject(party[0]->GetObjName(), 320, 360, UI);
 	pLeftSprite->SetScale(std::make_pair(2, 2));
 	pLeftSprite->SetVisible(false);
-	firstCharacter->pCharacter = mgr->GetPlayer()->GetParty().at(0);
-	firstCharacter->rObj = pLeftSprite;
+	pFirstCharacter->pCharacter = mgr->GetPlayer()->GetParty().at(0);
+	pFirstCharacter->rObj = pLeftSprite;
 	pLeftSprite = nullptr;
-	pCharacters.push_back(firstCharacter);
+	pCharacters.push_back(pFirstCharacter);
 
 	pCentreSprite = AddObject(party[1]->GetObjName(), 640, 360, UI);
 	pCentreSprite->SetScale(std::make_pair(2, 2));
 	pCentreSprite->SetVisible(false);
-	SecondCharacter->pCharacter = party[1];
-	SecondCharacter->rObj = pCentreSprite;
+	pSecondCharacter->pCharacter = party[1];
+	pSecondCharacter->rObj = pCentreSprite;
 	pCentreSprite = nullptr;
-	pCharacters.push_back(SecondCharacter);
+	pCharacters.push_back(pSecondCharacter);
 
 	pRightSprite = AddObject(party[2]->GetObjName(), 960, 360, UI);
 	pRightSprite->SetScale(std::make_pair(2, 2));
 	pRightSprite->SetVisible(false);
-	ThirdCharacter->pCharacter = party[2];
-	ThirdCharacter->rObj = pRightSprite;
+	pThirdCharacter->pCharacter = party[2];
+	pThirdCharacter->rObj = pRightSprite;
 	pRightSprite = nullptr;
-	pCharacters.push_back(ThirdCharacter);
+	pCharacters.push_back(pThirdCharacter);
 
 	if (std::any_of(party.begin(), party.end(), [party](Character* pCharacter)
 		{
@@ -104,10 +103,10 @@ void WinLoseStateScene::PickState()
 	{
 		mgr->PlaySFX(Victory_Sfx, 0, 1);
 		mgr->FadeInMusic(Victory_Music, -1, mgr->fadeTime);
-		dividedXp = mgr->GetPlayer()->GetXpPool() / pCharacters.size();
+		mDividedXp = mgr->GetPlayer()->GetXpPool() / pCharacters.size();
 		for (auto character : pCharacters)
 		{
-			character->pCharacter->modStat(character->pCharacter->GetStats().experience, { dividedXp, 0 });
+			character->pCharacter->modStat(character->pCharacter->GetStats().experience, { mDividedXp, 0 });
 		}
 		if (mgr->GetPlayer()->GetGameCleared() == false)
 		{
@@ -197,7 +196,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 			mgr->LoadScene(Scenes::Overworld);
 
 			pCharacters.clear();
-			names.clear();
+			mNames.clear();
 			
 
 			for (auto button : pAllButtons)
@@ -231,14 +230,14 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 			}
 		}
 
-		if (StrengthButton->InBounds(mousePos.first, mousePos.second) && StrengthButton->IsVisible() == true)
+		if (pStrengthButton->InBounds(mousePos.first, mousePos.second) && pStrengthButton->IsVisible() == true)
 		{
-			if (statPoints != 0)
+			if (mStatPoints != 0)
 			{
-				--statPoints;
-				++strPoints;
-				mSceneText[2]->text = "STAT POINTS: " + std::to_string(statPoints);
-				mSceneText[3]->text = "STRENGTH:" + mSceneText[3]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().strength.second + strPoints);
+				--mStatPoints;
+				++mStrPoints;
+				mSceneText[2]->text = "STAT POINTS: " + std::to_string(mStatPoints);
+				mSceneText[3]->text = "STRENGTH:" + mSceneText[3]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().strength.second + mStrPoints);
 			}
 			else
 			{
@@ -247,14 +246,14 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 			}
 		}
 
-		if (AgilityButton->InBounds(mousePos.first, mousePos.second) && AgilityButton->IsVisible() == true)
+		if (pAgilityButton->InBounds(mousePos.first, mousePos.second) && pAgilityButton->IsVisible() == true)
 		{
-			if (statPoints != 0)
+			if (mStatPoints != 0)
 			{
-				--statPoints;
-				++agiPoints;
-				mSceneText[2]->text = "STAT POINTS: " + std::to_string(statPoints);
-				mSceneText[4]->text = "AGILITY:" + mSceneText[4]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().agility.second + agiPoints);
+				--mStatPoints;
+				++mAgiPoints;
+				mSceneText[2]->text = "STAT POINTS: " + std::to_string(mStatPoints);
+				mSceneText[4]->text = "AGILITY:" + mSceneText[4]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().agility.second + mAgiPoints);
 			}
 			else
 			{
@@ -263,14 +262,14 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 			}
 		}
 
-		if (IntelligenceButton->InBounds(mousePos.first, mousePos.second) && IntelligenceButton->IsVisible() == true)
+		if (pIntelligenceButton->InBounds(mousePos.first, mousePos.second) && pIntelligenceButton->IsVisible() == true)
 		{
-			if (statPoints != 0)
+			if (mStatPoints != 0)
 			{
-				--statPoints;
-				++intPoints;
-				mSceneText[2]->text = "STAT POINTS: " + std::to_string(statPoints);
-				mSceneText[5]->text = "INTELLIGENCE:" + mSceneText[5]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().intelligence.second + intPoints);
+				--mStatPoints;
+				++mIntPoints;
+				mSceneText[2]->text = "STAT POINTS: " + std::to_string(mStatPoints);
+				mSceneText[5]->text = "INTELLIGENCE:" + mSceneText[5]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().intelligence.second + mIntPoints);
 			}
 			else
 			{
@@ -281,27 +280,27 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 
 		if (pRejectButton->InBounds(mousePos.first, mousePos.second) && pRejectButton->IsVisible() == true)
 		{
-				statPoints = 2;
-				strPoints = 0;
-				agiPoints = 0;
-				intPoints = 0;
-				mSceneText[2]->text = "STAT POINTS: " + std::to_string(statPoints);
-				mSceneText[3]->text = "STRENGTH:" + mSceneText[3]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().strength.second + strPoints);
-				mSceneText[4]->text = "AGILITY:" + mSceneText[4]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().agility.second + agiPoints);
-				mSceneText[5]->text = "INTELLIGENCE:" + mSceneText[5]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().intelligence.second + intPoints);
+				mStatPoints = 2;
+				mStrPoints = 0;
+				mAgiPoints = 0;
+				mIntPoints = 0;
+				mSceneText[2]->text = "STAT POINTS: " + std::to_string(mStatPoints);
+				mSceneText[3]->text = "STRENGTH:" + mSceneText[3]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().strength.second + mStrPoints);
+				mSceneText[4]->text = "AGILITY:" + mSceneText[4]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().agility.second + mAgiPoints);
+				mSceneText[5]->text = "INTELLIGENCE:" + mSceneText[5]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().intelligence.second + mIntPoints);
 		}
 
 		if (pConfirmButton->InBounds(mousePos.first, mousePos.second) && pConfirmButton->IsVisible() == true)
 		{
-			if (statPoints == 0)
+			if (mStatPoints == 0)
 			{
-				pTargetCharacter->pCharacter->modStat(pTargetCharacter->pCharacter->GetStats().strength, { strPoints, strPoints });
-				pTargetCharacter->pCharacter->modStat(pTargetCharacter->pCharacter->GetStats().agility, { agiPoints, agiPoints });
-				pTargetCharacter->pCharacter->modStat(pTargetCharacter->pCharacter->GetStats().intelligence, { intPoints, intPoints });
+				pTargetCharacter->pCharacter->modStat(pTargetCharacter->pCharacter->GetStats().strength, { mStrPoints, mStrPoints });
+				pTargetCharacter->pCharacter->modStat(pTargetCharacter->pCharacter->GetStats().agility, { mAgiPoints, mAgiPoints });
+				pTargetCharacter->pCharacter->modStat(pTargetCharacter->pCharacter->GetStats().intelligence, { mIntPoints, mIntPoints });
 				pTargetCharacter->pCharacter->LevelUp(pTargetCharacter->pCharacter->GetStats().level, pTargetCharacter->pCharacter->GetStats().health);
-				strPoints = 0;
-				agiPoints = 0;
-				intPoints = 0;
+				mStrPoints = 0;
+				mAgiPoints = 0;
+				mIntPoints = 0;
 				SetUpWinState();
 			}
 			else
@@ -337,7 +336,6 @@ void WinLoseStateScene::SetUpWinState()
 	pCharacters[0]->rObj->SetPos({320, 360});
 	pCharacters[1]->rObj->SetPos({640, 360});
 	pCharacters[2]->rObj->SetPos({960, 360});
-
 
 	for (auto character : pCharacters)
 	{
@@ -375,36 +373,35 @@ void WinLoseStateScene::SetUpWinState()
 	mHeaderInstruction.pos = std::make_pair<int>(640, 270);
 	mHeaderInstruction.SetTextScale(250, 40);
 
-	mFlavourText1.text = names[0];
+	mFlavourText1.text = mNames[0];
 	mFlavourText1.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText1.pos = std::make_pair<int>(320, 410);
 	mFlavourText1.SetTextScale(100, 30);
 
-	mFlavourText4.text = "XP + " + std::to_string(dividedXp);
+	mFlavourText4.text = "XP + " + std::to_string(mDividedXp);
 	mFlavourText4.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText4.pos = std::make_pair<int>(320, 440);
 	mFlavourText4.SetTextScale(100, 30);
 
-	mFlavourText2.text = names[1];
+	mFlavourText2.text = mNames[1];
 	mFlavourText2.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText2.pos = std::make_pair<int>(640, 410);
 	mFlavourText2.SetTextScale(100, 30);
 
-	mFlavourText5.text = "XP + " + std::to_string(dividedXp);
+	mFlavourText5.text = "XP + " + std::to_string(mDividedXp);
 	mFlavourText5.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText5.pos = std::make_pair<int>(640, 440);
 	mFlavourText5.SetTextScale(100, 30);
 
-	mFlavourText3.text = names[2];
+	mFlavourText3.text = mNames[2];
 	mFlavourText3.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText3.pos = std::make_pair<int>(960, 410);
 	mFlavourText3.SetTextScale(100, 30);
 
-	mFlavourText6.text = "XP + " + std::to_string(dividedXp);
+	mFlavourText6.text = "XP + " + std::to_string(mDividedXp);
 	mFlavourText6.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText6.pos = std::make_pair<int>(960, 440);
 	mFlavourText6.SetTextScale(100, 30);
-
 
 	mFooterInstruction.text = "PLEASE SELECT YOUR CHOICE WITH THE LEFT MOUSE BUTTON";
 	mFooterInstruction.textColor = SDL_Color{ 0,0,0 };
@@ -424,7 +421,6 @@ void WinLoseStateScene::SetUpWinState()
 
 void WinLoseStateScene::SetUpLoseState()
 {
-
 	for (auto character : pCharacters)
 	{
 		character->rObj->tint = DimGray;
@@ -448,17 +444,17 @@ void WinLoseStateScene::SetUpLoseState()
 	mHeaderInstruction.pos = std::make_pair<int>(640, 270);
 	mHeaderInstruction.SetTextScale(250, 40);
 
-	mFlavourText1.text = names[0];
+	mFlavourText1.text = mNames[0];
 	mFlavourText1.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText1.pos = std::make_pair<int>(320, 410);
 	mFlavourText1.SetTextScale(100, 30);
 
-	mFlavourText2.text = names[1];
+	mFlavourText2.text = mNames[1];
 	mFlavourText2.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText2.pos = std::make_pair<int>(640, 410);
 	mFlavourText2.SetTextScale(100, 30);
 
-	mFlavourText3.text = names[2];
+	mFlavourText3.text = mNames[2];
 	mFlavourText3.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText3.pos = std::make_pair<int>(960, 410);
 	mFlavourText3.SetTextScale(100, 30);
@@ -474,13 +470,12 @@ void WinLoseStateScene::SetUpLoseState()
 	mSceneText.push_back(&mFlavourText2);
 	mSceneText.push_back(&mFlavourText3);
 	mSceneText.push_back(&mFooterInstruction);
-
 }
 
 void WinLoseStateScene::SetUpLevelUpState(PlayerCharacter* &pc)
 {
 	pTargetCharacter = pc;
-	statPoints = 2;
+	mStatPoints = 2;
 
 	for (auto character : pCharacters)
 	{
@@ -511,22 +506,22 @@ void WinLoseStateScene::SetUpLevelUpState(PlayerCharacter* &pc)
 	mHeaderInstruction.pos = std::make_pair<int>(640, 270);
 	mHeaderInstruction.SetTextScale(250, 40);
 
-	mFlavourText1.text = "STAT POINTS: " + std::to_string(statPoints);
+	mFlavourText1.text = "STAT POINTS: " + std::to_string(mStatPoints);
 	mFlavourText1.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText1.pos = std::make_pair<int>(640, 310);
 	mFlavourText1.SetTextScale(100, 30);
 
-	mFlavourText2.text = "STRENGTH:" + mFlavourText2.addTab() + std::to_string(pc->pCharacter->GetStats().strength.second + strPoints);
+	mFlavourText2.text = "STRENGTH:" + mFlavourText2.addTab() + std::to_string(pc->pCharacter->GetStats().strength.second + mStrPoints);
 	mFlavourText2.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText2.pos = std::make_pair<int>(640, 400);
 	mFlavourText2.SetTextScale(300, 30);
 
-	mFlavourText3.text = "AGILITY:" + mFlavourText3.addTab() + std::to_string(pc->pCharacter->GetStats().agility.second + agiPoints);
+	mFlavourText3.text = "AGILITY:" + mFlavourText3.addTab() + std::to_string(pc->pCharacter->GetStats().agility.second + mAgiPoints);
 	mFlavourText3.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText3.pos = std::make_pair<int>(640, 430);
 	mFlavourText3.SetTextScale(300, 30);
 
-	mFlavourText4.text = "INTELLIGENCE:" + mFlavourText4.addTab() + std::to_string(pc->pCharacter->GetStats().intelligence.second + intPoints);
+	mFlavourText4.text = "INTELLIGENCE:" + mFlavourText4.addTab() + std::to_string(pc->pCharacter->GetStats().intelligence.second + mIntPoints);
 	mFlavourText4.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText4.pos = std::make_pair<int>(640, 460);
 	mFlavourText4.SetTextScale(300, 30);
