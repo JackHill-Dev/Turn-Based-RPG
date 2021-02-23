@@ -711,7 +711,7 @@ void CombatScene::RunAi()
 							for (auto e : team)
 							{
 								auto path = CalculatePath(i.occupiedTile, e.occupiedTile);
-								if (path.size() <= stats->movement.first && GetDistance(path.back(),e.occupiedTile) <= c.first->Values().range)
+								if (!path.empty() && path.size() <= stats->movement.first && GetDistance(path.back(),e.occupiedTile) <= c.first->Values().range)
 								{
 									i.SetTarget(path);
 									validAction = true;
