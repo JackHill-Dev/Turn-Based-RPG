@@ -130,6 +130,17 @@ bool GameManager::CreateWindow()
 }
 bool GameManager::Init()
 {
+	std::ifstream ifs("Settings.json");
+	if (ifs.is_open())
+	{
+		Json jf = Json::parse(ifs);
+		mSettings.mMasterVolume = jf["Audio"]["master-volume"].get<int>();
+		mSettings.w = jf["Display"]["Width"].get<int>();
+		mSettings.h = jf["Display"]["Height"].get<int>();
+		mSettings.bIsFullScreen = jf["Display"]["fullscreen"].get<bool>();
+
+	}
+	ifs.close();
 	srand(time(NULL));	
 	CreateWindow();
 	mInterface.StoreWindow(mWnd);
@@ -176,17 +187,7 @@ bool GameManager::Init()
 }
 void GameManager::LoadSettings()
 {
-	std::ifstream ifs("Settings.json");
-	if (ifs.is_open())
-	{
-		Json jf = Json::parse(ifs);
-		mSettings.mMasterVolume = jf["Audio"]["master-volume"].get<int>();
-		mSettings.w = jf["Display"]["Width"].get<int>();
-		mSettings.h = jf["Display"]["Height"].get<int>();
-		mSettings.bIsFullScreen = jf["Display"]["fullscreen"].get<bool>();
-
-	}
-	ifs.close();
+	
 
 	mPlayer.GetParty().clear();
 	mPlayer.GetInventory().clear();
