@@ -53,7 +53,6 @@ void ClassPickerScene::Load()
 	mgr->FadeInMusic(bg_Music, -1, mgr->fadeTime);	
 }
 
-
 void ClassPickerScene::OnHover(RenderObject* rObj)
 {
 	rObj->Tint(Lime);
@@ -64,7 +63,7 @@ void ClassPickerScene::OnLeave(RenderObject* rObj)
 	rObj->Untint();
 }
 
-// Handles mouse events such as hovering and navigation between scenes. 
+// Handles mouse events such as hovering and navigation between scenes - EH
 void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
 	if (act == Act::MouseUpdate)
@@ -134,13 +133,11 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 								}
 							}
 							
-
 							// Clears gold from previous background choice - EH
 							if (currentPartyGold.size() != 0)
 							{
 								currentPartyGold.pop_back();
 							}
-
 
 							SetUpBackgroundView(CharacterPickerState::ClassView);
 						}
@@ -155,35 +152,39 @@ void ClassPickerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 				case CharacterPickerState::WarriorView:
 					SetUpClassView(CharacterPickerState::WarriorView);
 					break;
+
 				case CharacterPickerState::RogueView:
 					SetUpClassView(CharacterPickerState::RogueView);
 					break;
+
 				case CharacterPickerState::MageView:
 					SetUpClassView(CharacterPickerState::MageView);
 					break;
+
 				case CharacterPickerState::BackgroundView:
 					mCharacters.pop_back();
 					SetUpClassView(CharacterPickerState::BackgroundView);
 					break;
+
 				case CharacterPickerState::VillagerView:
 					SetUpBackgroundView(CharacterPickerState::VillagerView);
 					break;
+
 				case CharacterPickerState::ScholarView:
 					SetUpBackgroundView(CharacterPickerState::ScholarView);
 					break;
+
 				case CharacterPickerState::NobleView:
 					SetUpBackgroundView(CharacterPickerState::NobleView);
 					break;
 			}
-
 			pBackBtn->Untint();
 		}
 		if (pWarriorIcon->InBounds(mousePos.first, mousePos.second) && pWarriorIcon->IsVisible())
 		{
 			mgr->PlaySFX(confirm_SFX, 0, 1);
 			OnLeave(pWarriorIcon);
-			SetUpWarriorView(CharacterPickerState::ClassView);
-			
+			SetUpWarriorView(CharacterPickerState::ClassView);		
 		}
 
 		if (pRogueIcon->InBounds(mousePos.first, mousePos.second) && pRogueIcon->IsVisible())
@@ -361,7 +362,6 @@ void ClassPickerScene::SetUpClassView(CharacterPickerState originState)
 
 	isFocused = false;
 
-
 	pWarriorIcon->SetPos(std::make_pair(320, 360));
 	pRogueIcon->SetPos(std::make_pair(640, 360));
 	pMageIcon->SetPos(std::make_pair(960, 360));
@@ -459,7 +459,6 @@ void ClassPickerScene::SetUpWarriorView(CharacterPickerState originState)
 	mSceneText.push_back(&mFlavourText3);
 	mSceneText.push_back(&mFooterInstruction);
 
-
 }
 
 void ClassPickerScene::SetUpRogueView(CharacterPickerState originState)
@@ -514,7 +513,6 @@ void ClassPickerScene::SetUpRogueView(CharacterPickerState originState)
 	mSceneText.push_back(&mFlavourText2);
 	mSceneText.push_back(&mFlavourText3);
 	mSceneText.push_back(&mFooterInstruction);
-
 }
 
 void ClassPickerScene::SetUpMageView(CharacterPickerState originState)
@@ -691,7 +689,6 @@ void ClassPickerScene::SetUpVillagerView(CharacterPickerState originState)
 	mSceneText.push_back(&mFlavourText3);
 	mSceneText.push_back(&mFlavourText4);
 	mSceneText.push_back(&mFooterInstruction);
-
 }
 
 void ClassPickerScene::SetUpScholarView(CharacterPickerState originState)
@@ -808,6 +805,7 @@ void ClassPickerScene::GeneratePartyFromChoices()
 {
 	// Collects all the gold from choices - EH
 	int partyGold = std::accumulate(currentPartyGold.begin(), currentPartyGold.end(), 0);
+
 	mgr->GetPlayer()->SetGold(partyGold);
 	currentPartyGold.clear();
 
@@ -816,36 +814,35 @@ void ClassPickerScene::GeneratePartyFromChoices()
 	// Modifies stats of the correct party member in the characters vector. Stat count is used as an index and is incremented in accordance to how many stats the choice modifies - EH
 	for (int i = 0; i < maxPartySize; ++i)
 	{
-
 		// Modifies stats of the correct party member in the characters vector. Stat count is used as an index and is incremented in accordance to how many stats the choice modifies. Scholar currently doesn't modify stats - EH
 		switch (mCharacters[i]->GetBackground())
 		{
 
-		case UnitBackground::Villager:
+			case UnitBackground::Villager:
 
-			mCharacters[i]->modStat(mCharacters[i]->GetStats().intelligence, mCharacterStats[statCount]);
-			++statCount;
-			mCharacters[i]->modStat(mCharacters[i]->GetStats().strength, mCharacterStats[statCount]);
-			++statCount;
-			mCharacters[i]->modStat(mCharacters[i]->GetStats().agility, mCharacterStats[statCount]);
-			++statCount;
-			break;
+				mCharacters[i]->modStat(mCharacters[i]->GetStats().intelligence, mCharacterStats[statCount]);
+				++statCount;
+				mCharacters[i]->modStat(mCharacters[i]->GetStats().strength, mCharacterStats[statCount]);
+				++statCount;
+				mCharacters[i]->modStat(mCharacters[i]->GetStats().agility, mCharacterStats[statCount]);
+				++statCount;
+				break;
 
-		case UnitBackground::Scholar:
+			case UnitBackground::Scholar:
 
-			break;
+				break;
 
-		case UnitBackground::Noble:
+			case UnitBackground::Noble:
 
-			mCharacters[i]->modStat(mCharacters[i]->GetStats().strength, mCharacterStats[statCount]);
-			++statCount;
-			mCharacters[i]->modStat(mCharacters[i]->GetStats().agility, mCharacterStats[statCount]);
-			++statCount;
-			mCharacters[i]->modStat(mCharacters[i]->GetStats().intelligence, mCharacterStats[statCount]);
-			++statCount;
-			break;
-		default:
-			std::cout << "Error in adding background stats!! " << std::endl;
+				mCharacters[i]->modStat(mCharacters[i]->GetStats().strength, mCharacterStats[statCount]);
+				++statCount;
+				mCharacters[i]->modStat(mCharacters[i]->GetStats().agility, mCharacterStats[statCount]);
+				++statCount;
+				mCharacters[i]->modStat(mCharacters[i]->GetStats().intelligence, mCharacterStats[statCount]);
+				++statCount;
+				break;
+			default:
+				std::cout << "Error in adding background stats!! " << std::endl;
 		}
 	}
 
