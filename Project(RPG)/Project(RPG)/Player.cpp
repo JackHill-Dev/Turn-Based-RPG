@@ -27,6 +27,11 @@ void Player::AddToXpPool(const int& xp)
 	mPartyExperiencePool += xp;
 }
 
+void Player::AddGoldLoot(const int& goldLoot)
+{
+	mGoldLoot += goldLoot;
+}
+
 void Player::AddToParty(Character* character)
 {
 	GetParty().push_back(character);
