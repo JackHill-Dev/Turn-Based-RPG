@@ -12,6 +12,7 @@ std::string Armour::GetDescription()
 	std::ostringstream desc;
 	desc << "Name: " << mName << std::endl;
 	desc << "Defence: " << defence << std::endl;
+	desc << "Lvl Req. " << mLevelRequirement << std::endl;
 	desc << "Cost: " << mCost;
 
 	return desc.str();

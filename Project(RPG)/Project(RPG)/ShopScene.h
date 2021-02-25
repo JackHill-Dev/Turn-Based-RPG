@@ -22,7 +22,7 @@ protected:
 private:
 	
 
-	void PlaceItems(std::vector<Item*> inv);
+	void PlaceItems();
 	void SetupShopInv(); // For testing
 	void ManageShopInventory(std::vector<Item*> inv, Act act, std::pair<int, int> mousePos);
 	void ManagePlayerInventory(std::vector<Item*> inv, Act act, std::pair<int, int> mousePos);
@@ -46,10 +46,12 @@ private:
 	ItemObject* shopItemHovered;
 	bool startOnce = false;
 	int mHighestCharacter;
-	//Temp
+	
 	int RandomRange(int min, int max);	
 	std::vector<ItemObject> playerInv;
 	std::vector<ItemObject> shopInv;
+
+	UIText buyControlsTxt;
 
 	
 };

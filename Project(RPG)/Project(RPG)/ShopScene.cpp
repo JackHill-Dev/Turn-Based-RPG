@@ -68,16 +68,16 @@ void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 	ManageShopInventory(mShop.GetInventory(), act, mousePos);
 }
 
-void ShopScene::PlaceItems(std::vector<Item*> inv)
+void ShopScene::PlaceItems()
 {
 	for (auto i : mgr->GetPlayer()->GetInventory())
 	{
 		// Display item to screen and set its render object to the correct image
-		playerInv.push_back(ItemObject(i, AddObject(i->GetObjName(), i->inventoryPos.pos.first, i->inventoryPos.pos.second, Game)));
+		playerInv.push_back(ItemObject(i, AddObject(i->GetObjName(), i->inventoryPos.pos.first , i->inventoryPos.pos.second * mgr->GetSettings().h , Game)));
 		
 	}
 
-	for (auto i : mShop.GetInventory())
+	for (auto& i : mShop.GetInventory())
 	{
 		// Display item to screen and set its render object to the correct image
 		shopInv.push_back(ItemObject(i, AddObject(i->GetObjName(), i->inventoryPos.pos.first, i->inventoryPos.pos.second, Game)));
@@ -129,17 +129,38 @@ void ShopScene::Load()
 	mShopGoldText.pos = std::make_pair(680, 415);
 	mShopGoldText.textColor = SDL_Color{ 255, 215, 0 }; // Gold
 	
+	
+	buyControlsTxt.text = "Right click to buy or sell";
+	buyControlsTxt.pos = std::make_pair(620, 470);
+	buyControlsTxt.scale = std::make_pair(264, 64);
+	buyControlsTxt.textColor = SDL_Color{ 255,255,255 };
+
 	mSceneText.push_back(&mPlayerGoldText);
-	mSceneText.push_back(& mShopGoldText);
+	mSceneText.push_back(&mShopGoldText);
 	mSceneText.push_back(&mTooltip.mDescription);
 	mSceneText.push_back(&playerToolTip.mDescription);
+	mSceneText.push_back(&buyControlsTxt);
 
 	mgr->FadeInMusic(bg_Music, -1, mgr->fadeTime);
 
 	mLayers[Game].clear();
+	
+
+
+	// Refresh / Regenerate shop inventory
+	mShop.GetInventory().clear();
+	mShop.ClearGridPositions();
+	mShop.GeneratePositions();
+	SetupShopInv();
+	//--------------------------------------
+	
+
 	playerInv.clear();
 	shopInv.clear();
-	PlaceItems(mgr->GetPlayer()->GetInventory());
+
+	PlaceItems();
+
+	
 }
 
 void ShopScene::SetupShopInv()
@@ -148,7 +169,6 @@ void ShopScene::SetupShopInv()
 	std::vector<std::string> ArmourStrings{"Cloth Armour", "Leather Armour", "Chainmail Armour" };
 	for (int f = 0; f < 20; ++f)
 	{
-		// TODO: Add level gating
 		int i = RandomRange(0, 99);
 		int j = RandomRange(0, 2);
 		if (i >= 0 && i <= 24)
@@ -290,14 +310,14 @@ void ShopScene::GenerateGrids()
 	mShop.SetInitialGridPos(880);
 
 	mShop.GeneratePositions(); 
-	mgr->GetPlayer()->GeneratePositions();
+	//mgr->GetPlayer()->GeneratePositions();
 	SetupShopInv();
 
 	DrawGrid(4, 5, 80, 110); // Draw item frames for player inventory
 	DrawGrid(4, 5, 880, 110); // Draw item frames for shop inventory
 
-	PlaceItems(mgr->GetPlayer()->GetInventory());
-	PlaceItems(mShop.GetInventory());
+	PlaceItems();
+	//PlaceItems(mShop.GetInventory());
 }
 
 

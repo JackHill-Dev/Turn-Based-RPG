@@ -36,6 +36,8 @@ public:
 	// Shop position grid pos calculation
 	void SetInitialGridPos(int pos);
 	void GeneratePositions();
+
+	void ClearGridPositions() { gridPositions.clear(); }
 private:
 
 	std::vector<Character*> mPartyMembers;

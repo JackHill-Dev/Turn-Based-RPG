@@ -130,12 +130,24 @@ bool GameManager::CreateWindow()
 }
 bool GameManager::Init()
 {
+	std::ifstream ifs("Settings.json");
+	if (ifs.is_open())
+	{
+		Json jf = Json::parse(ifs);
+		mSettings.mMasterVolume = jf["Audio"]["master-volume"].get<int>();
+		mSettings.w = jf["Display"]["Width"].get<int>();
+		mSettings.h = jf["Display"]["Height"].get<int>();
+		mSettings.bIsFullScreen = jf["Display"]["fullscreen"].get<bool>();
+
+	}
+	ifs.close();
 	srand(time(NULL));	
 	CreateWindow();
 	mInterface.StoreWindow(mWnd);
 	SetUp();
+	mPlayer.GeneratePositions(); // Not the best solution but this makes sure the grid positions in the shop are generated before save data comes in - JP
 	LoadSettings();
-
+	
 	mPlayer.SetDeck({new Card(*cards["Slash"]), new Card(*cards["Magic"]), new Card(*cards["Slash"]), new Card(*cards["Heal"]),new Card(*cards["Magic"]), new Card(*cards["Magic"]), new Card(*cards["Shoot"]), new Card(*cards["Shoot"]) });
 
 	mMainMenuSceneInstance = new MainMenuScene(&mInterface);
@@ -176,17 +188,7 @@ bool GameManager::Init()
 }
 void GameManager::LoadSettings()
 {
-	std::ifstream ifs("Settings.json");
-	if (ifs.is_open())
-	{
-		Json jf = Json::parse(ifs);
-		mSettings.mMasterVolume = jf["Audio"]["master-volume"].get<int>();
-		mSettings.w = jf["Display"]["Width"].get<int>();
-		mSettings.h = jf["Display"]["Height"].get<int>();
-		mSettings.bIsFullScreen = jf["Display"]["fullscreen"].get<bool>();
-
-	}
-	ifs.close();
+	
 
 	mPlayer.GetParty().clear();
 	mPlayer.GetInventory().clear();
