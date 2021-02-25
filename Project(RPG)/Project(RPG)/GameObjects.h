@@ -148,7 +148,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"armour", new SpriteSheet("Assets/Sprites/armour.png",76, 72, 76, 72, false)},
 		{"defaultItem", new SpriteSheet("Assets/Sprites/helmet.png", 32, 32, 32, 32, false)},
 		{"leatherArmour", new SpriteSheet("Assets/Sprites/Items/leatherArmour.png",64, 64, 64, 64, false)},
-		{"chainArmour", new SpriteSheet("Assets/Sprites/Items/plateArmour.png",64, 64, 64, 64, false)},
+		{"chainArmour", new SpriteSheet("Assets/Sprites/Items/chainmail.png",64, 64, 64, 64, false)},
 		{"clothArmour", new SpriteSheet("Assets/Sprites/Items/clothArmour.png",64, 64, 64, 64, false)},
 		{"potion", new SpriteSheet("Assets/Sprites/Items/healthPotion.png",48, 48, 48, 48, false)},
 		{"dagger", new SpriteSheet("Assets/Sprites/Items/dagger.png",64, 64, 64, 64, false)},
