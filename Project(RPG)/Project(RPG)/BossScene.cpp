@@ -28,28 +28,52 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 		}
 		mLayers[Effects].clear();
 
-		// Lose Condition - EH
-		if (team.size() <= 0)
-		{
-			mgr->LoadScene(Scenes::WinLoseStateScreen);
-		}
-
 		// Win Condition
 		if (enemy.size() <= 0)
 		{
+			for (auto i : team)
+				RemoveUnit(&i);
+
+			for (auto i : enemy)
+				RemoveUnit(&i);
+
 			// Flips a bool in player to display the 'Game Cleared' state. Woo! - EH
 			mgr->GetPlayer()->GameCleared();
 			mgr->LoadScene(Scenes::WinLoseStateScreen);
 		}
 
 
-
 		for (auto i : team)
+		{
 			if (i.character->GetHealth() <= 0)
+			{
+				i.character->Die();
 				RemoveUnit(&i);
+
+				// Lose Condition - EH
+				if (team.size() <= 0)
+				{
+					for (auto i : enemy)
+						RemoveUnit(&i);
+
+					for (auto i : team)
+						RemoveUnit(&i);
+					mgr->LoadScene(Scenes::WinLoseStateScreen);
+				}
+			}
+		}
+
 		for (auto i : enemy)
+		{
 			if (i.character->GetHealth() <= 0)
+			{
 				RemoveUnit(&i);
+			}
+			else
+			{
+				i.Update();
+			}
+		}
 		bool scenebusy = false;
 		if (playerTurn)
 		{
@@ -95,6 +119,11 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 						{
 							i.character->GetStats().movement.first = i.character->GetStats().movement.second;
 							i.character->GetStats().strength.first = i.character->GetStats().strength.second;
+
+						}
+						for (int i = 0; i < 5; i++)
+						{
+							enemyHand.push_back(std::make_pair(new Card(5, "Slash", 1.5, "cardObj", "BossAttackObj", 0.5, 5, 0, 0), nullptr));
 
 						}
 					}
@@ -506,7 +535,7 @@ void BossScene::Load()
 	enemy.push_back(boss);
 	for (int i = 0; i < 5; i++)
 	{
-		enemyHand.push_back(std::make_pair(new Card(5, "Slash", 1.5, "cardObj", "BossAttackObj", 0.5, 5, 0, 0), nullptr));
+		enemyHand.push_back(std::make_pair(new Card(5, "BossAttack", 1.5, "cardObj", "BossAttackObj", 1, 5, 0, 0), nullptr));
 
 	}
 
