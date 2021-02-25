@@ -176,9 +176,9 @@ public:
     };
 	void Load(std::vector<Character*> enemyTeam, int seed);
     CombatScene(Interface* objmg);
+	virtual ~CombatScene();
     void Update(double dTime, Act act,std::pair<int, int> mouse) override;
 private:
-	void PlayFightAnimation();
 	void RunAi();
 	void Cast(Unit* caster, Unit* target, const std::pair<Card*, RenderObject*>* card);
 	void RemoveUnit(Unit* unit);
@@ -206,13 +206,8 @@ private:
 	std::vector<std::pair<Card*, RenderObject*>> enemyHand;
 	Mix_Music* combat_music;
 	Mix_Chunk* slash_sfx;
-	RenderObject* fightSceneTeamCharacter;
-	RenderObject* fightSceneEnemyCharacter;
-	RenderObject* fightSceneBg;
+
 	std::pair<Card*, RenderObject*> hoveredCard;
-	ProgressBar healthbar;
-
-
 
 	std::vector<Card*> deck;
 

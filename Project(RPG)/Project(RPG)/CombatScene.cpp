@@ -6,7 +6,46 @@
 CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 {
 	
-} 
+}
+CombatScene::~CombatScene()
+{
+	for (auto& obj : hovered)
+	{
+		obj = nullptr;
+	}
+
+	endTurn = nullptr;
+	pExit = nullptr;
+
+	character = nullptr;
+	target = nullptr;
+
+
+	selectedCard->first = nullptr;
+	selectedCard->second = nullptr;
+	selectedCard = nullptr;
+
+	for (auto& hand : playerhand)
+	{
+		hand.first = nullptr;
+		hand.second = nullptr;
+	}
+	for (auto& hand : enemyHand)
+	{
+		hand.first = nullptr;
+		hand.second = nullptr;
+	}
+
+	combat_music = nullptr;
+	slash_sfx = nullptr;
+
+	hoveredCard.first = nullptr;
+	hoveredCard.second = nullptr;
+
+	
+
+}
+
 
 void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 {
@@ -618,15 +657,6 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 	std::srand(time(NULL));
 }
 
-void CombatScene::PlayFightAnimation()
-{
-	fightSceneTeamCharacter->SetVisible(true);
-	fightSceneEnemyCharacter->SetVisible(true);
-	fightSceneBg->SetVisible(true);
-	fightScene = 0.5f;
-	
-
-}
 
 void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  RenderObject*>* card)
 {

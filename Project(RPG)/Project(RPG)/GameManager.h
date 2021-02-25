@@ -71,7 +71,8 @@ private:
 public:
 
 	GameManager() {}
-
+	~GameManager();
+	
 	bool Init();
 	void Run();
 	void Quit();	

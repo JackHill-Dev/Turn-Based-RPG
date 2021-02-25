@@ -82,14 +82,7 @@ void GameManager::Run()
 
 		//SDL_Delay(16);
 	}
-	for (auto& i : definedSheets)
-		delete i.second;
-	for (auto& i : definedObjects)
-		delete i.second;
-	for (auto& i : definedItems)
-	{
-		delete i.second;
-	}
+	
 	Mix_CloseAudio(); // Shuts down and cleans up the whole mixer API. Ensures all music and sfx are disposed of. Mix_Quit doesn't necessarily handle everything. - EH
 	SDL_DestroyRenderer(mRnd);
 	SDL_DestroyWindow(mWnd);
@@ -135,6 +128,63 @@ bool GameManager::CreateWindow()
 	SDL_SetWindowResizable(mWnd,SDL_TRUE);
 	SDL_ShowWindow(mWnd);
 	return true;
+}
+GameManager::~GameManager()
+{
+	for (auto& obj : objects)
+		obj.second = nullptr;
+
+	for (auto& sheet : sheets)
+		sheet.second = nullptr;
+
+	for (auto& item : mItems)
+		item.second = nullptr;
+
+	for (auto& i : definedSheets)
+		delete i.second;
+	for (auto& i : definedObjects)
+		delete i.second;
+	for (auto& i : definedItems)
+	{
+		delete i.second;
+	}
+
+
+	for (auto& character : combatInstance.second.first)
+	{
+		delete character;
+		character = nullptr;
+	}
+
+	delete partyViewerInstance;
+	partyViewerInstance = nullptr;
+
+	delete mInventorySceneInstance;
+	mInventorySceneInstance = nullptr;
+
+	delete mShopSceneInstance;
+	mShopSceneInstance = nullptr;
+
+	delete mMainMenuSceneInstance;
+	mMainMenuSceneInstance = nullptr;
+
+	delete mOverworldInstance;
+	mOverworldInstance = nullptr;
+
+	delete mSettingsSceneInstance;
+	mSettingsSceneInstance = nullptr;
+
+	delete mClassPickerInstance;
+	mClassPickerInstance = nullptr;
+
+	delete mBossSceneInstance;
+	mBossSceneInstance = nullptr;
+
+	delete mWinLoseStateSceneInstance;
+	mWinLoseStateSceneInstance = nullptr;
+
+	currentScene = nullptr;
+
 }
 bool GameManager::Init()
 {

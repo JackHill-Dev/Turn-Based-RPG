@@ -19,7 +19,7 @@ class InventoryScene :
 {
 public:
 	InventoryScene(Interface* mgr);
-	~InventoryScene();
+	virtual ~InventoryScene();
 	void Load();
 protected:
 	void Update(double dTime, Act act, std::pair<int, int> mousePos) override;

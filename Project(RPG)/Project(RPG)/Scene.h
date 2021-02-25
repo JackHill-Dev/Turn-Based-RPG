@@ -98,7 +98,7 @@ protected:
 	Interface* mgr;
 public:
 	Scene(Interface* objmg);
-	~Scene();
+	virtual ~Scene();
 	void SceneUpdate(double dTime, Act act, std::pair<int, int> mousePos);
 
 	void Draw(SDL_Renderer* rnd);

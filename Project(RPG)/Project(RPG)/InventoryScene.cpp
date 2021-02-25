@@ -11,20 +11,15 @@ InventoryScene::InventoryScene(Interface* mgr) : Scene(mgr)
 
 InventoryScene::~InventoryScene()
 {
-	delete pCloseBtn;
 	pCloseBtn = nullptr;
 
-
-	delete button_SFX;
 	button_SFX = nullptr;
 
-
-	delete pDrink_SFX;
 	pDrink_SFX = nullptr;
 
 	for (auto& g : playerInvGrid)
 	{
-		delete g.first;
+
 		g.first = nullptr;
 
 		g.second = nullptr;

@@ -15,28 +15,28 @@ ShopScene::ShopScene(Interface* rng) : Scene(rng)
 
 ShopScene::~ShopScene()
 {
-	delete bg_Music;
+
 	bg_Music = nullptr;
 	
-	delete buySell_SFX;
+
 	buySell_SFX = nullptr;
 	
-	delete button_Click_SFX;
+
 	button_Click_SFX = nullptr;
 	
-	delete leave_SFX;
+
 	leave_SFX = nullptr;
 	
-	delete pExitButton;
+
 	pExitButton = nullptr;
 	
-	delete playerItemHovered;
+
 	playerItemHovered = nullptr;
 	
-	delete shopItemHovered;
+
 	shopItemHovered = nullptr;
 
-	delete pCantBuy_SFX;
+
 	pCantBuy_SFX = nullptr;
 	
 }
