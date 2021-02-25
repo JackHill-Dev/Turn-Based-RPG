@@ -134,7 +134,7 @@ void Character::SetWeapon(Weapon* weapon)
 			mStats.agility.second -= mWeaponEquipSlot->GetAtkPower();
 		}
 
-		if (mWeaponEquipSlot->GetName().find("Staff") != std::string::npos)
+		else if (mWeaponEquipSlot->GetName().find("Staff") != std::string::npos)
 		{
 			mStats.intelligence.first -= mWeaponEquipSlot->GetAtkPower();
 			mStats.intelligence.second -= mWeaponEquipSlot->GetAtkPower();
