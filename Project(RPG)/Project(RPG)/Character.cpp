@@ -50,6 +50,12 @@ std::string Character::GetClassName(UnitClass uClass)
 	}
 }
 
+bool Character::SetDeadStatus(bool dead)
+{
+	isDead = dead; 
+	return isDead;
+}
+
 void Character::modStat(std::pair<int, int>& statToMod, std::pair<int,int> statMod)
 {
 	statToMod.first += statMod.first;
