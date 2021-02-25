@@ -19,6 +19,9 @@ public:
 	void AddToXpPool(const int& xp);
 	int& GetXpPool() { return mPartyExperiencePool; }
 	void ClearXpPool() { mPartyExperiencePool = 0; }
+	void AddGoldLoot(const int& goldLoot);
+	int& GetGoldLoot() { return mGoldLoot; }
+	void ClearGoldLoot(){ mGoldLoot = 0; }
 	void GameCleared() { gameCleared = true; }
 	bool GetGameCleared() { return gameCleared; }
 	void AddToParty(Character* character);
@@ -43,6 +46,7 @@ private:
 	std::vector<Character*> mPartyMembers;
 	std::vector<Item*> inventory;
 	int mPartyExperiencePool = 0;
+	int mGoldLoot = 0;
 	int mGold = 0;
 
 	// Grid pos variables
