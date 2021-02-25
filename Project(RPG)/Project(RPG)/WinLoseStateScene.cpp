@@ -103,6 +103,7 @@ void WinLoseStateScene::PickState()
 	{
 		mgr->PlaySFX(Victory_Sfx, 0, 1);
 		mgr->FadeInMusic(Victory_Music, -1, mgr->fadeTime);
+		mgr->GetPlayer()->SetGold(mgr->GetPlayer()->GetGoldLoot());
 		mDividedXp = mgr->GetPlayer()->GetXpPool() / pCharacters.size();
 		for (auto character : pCharacters)
 		{
@@ -189,6 +190,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 		{
 			mgr->PlaySFX(Button_Sfx, 0, 1);
 			mgr->GetPlayer()->ClearXpPool();
+			mgr->GetPlayer()->ClearGoldLoot();
 			for (auto character : pCharacters)
 			{
 				delete character;
@@ -403,6 +405,11 @@ void WinLoseStateScene::SetUpWinState()
 	mFlavourText6.pos = std::make_pair<int>(960, 440);
 	mFlavourText6.SetTextScale(100, 30);
 
+	mGoldLootText.text = "GOLD FOUND: " + std::to_string(mgr->GetPlayer()->GetGoldLoot());
+	mGoldLootText.textColor = SDL_Color{ 0,0,0 };
+	mGoldLootText.pos = std::make_pair<int>(640, 470);
+	mGoldLootText.SetTextScale(200, 40);
+
 	mFooterInstruction.text = "PLEASE SELECT YOUR CHOICE WITH THE LEFT MOUSE BUTTON";
 	mFooterInstruction.textColor = SDL_Color{ 0,0,0 };
 	mFooterInstruction.pos = std::make_pair<int>(640, 550);
@@ -416,6 +423,7 @@ void WinLoseStateScene::SetUpWinState()
 	mSceneText.push_back(&mFlavourText4);
 	mSceneText.push_back(&mFlavourText5);
 	mSceneText.push_back(&mFlavourText6);
+	mSceneText.push_back(&mGoldLootText);
 	mSceneText.push_back(&mFooterInstruction);
 }
 

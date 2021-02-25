@@ -23,6 +23,7 @@ private:
 	UIText mFlavourText4;
 	UIText mFlavourText5;
 	UIText mFlavourText6;
+	UIText mGoldLootText;
 	UIText mFooterInstruction;
 
 	RenderObject* pBackground = nullptr;
