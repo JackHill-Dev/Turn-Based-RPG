@@ -82,6 +82,14 @@ void GameManager::Run()
 
 		//SDL_Delay(16);
 	}
+	for (auto& i : definedSheets)
+		delete i.second;
+	for (auto& i : definedObjects)
+		delete i.second;
+	for (auto& i : definedItems)
+	{
+		delete i.second;
+	}
 	Mix_CloseAudio(); // Shuts down and cleans up the whole mixer API. Ensures all music and sfx are disposed of. Mix_Quit doesn't necessarily handle everything. - EH
 	SDL_DestroyRenderer(mRnd);
 	SDL_DestroyWindow(mWnd);
@@ -283,6 +291,7 @@ bool GameManager::SetUp()
 		sheets[i.first] = i.second;
 		sheets[i.first]->SetTexture(LoadTexture(i.second->mFilePath));
 	}
+	
 	//Add animations to sheets
 	for (auto i : definedAnimations)
 	{
@@ -305,12 +314,11 @@ bool GameManager::SetUp()
 		}
 		//objects[i.first]->Init(mgrs);
 	}
-
+	
 	for (auto i : definedCards)
 	{
 		CreateCard(&i.second);
 	}
-
 	for (auto i : definedItems)
 	{
 		mItems[i.first] = i.second;
