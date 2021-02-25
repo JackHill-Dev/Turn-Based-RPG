@@ -45,6 +45,12 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"daggerObj",new RenderObject("dagger")},
 		{"shortSwordObj",new RenderObject("shortSword")},
 		{"longSwordObj",new RenderObject("longSword")},
+		{"compoundBowObj", new RenderObject("compoundBow")},
+		{"enchantersStaffObj", new RenderObject("enchantersStaff")},
+		{"holyBowObj", new RenderObject("holyBow")},
+		{"seraphStaffObj", new RenderObject("seraphStaff")},
+		{"simpleBowObj", new RenderObject("simpleBow")},
+		{"simpleStaffObj", new RenderObject("simpleStaff")},
 
 		// Background Objects
 
@@ -154,6 +160,12 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"dagger", new SpriteSheet("Assets/Sprites/Items/dagger.png",64, 64, 64, 64, false)},
 		{"shortSword", new SpriteSheet("Assets/Sprites/Items/shortSword.png",64, 64, 64, 64, false)},
 		{"longSword", new SpriteSheet("Assets/Sprites/Items/longSword.png",64, 64, 64, 64, false)},
+		{"compoundBow", new SpriteSheet("Assets/Sprites/Items/CompoundBow.png", 64, 64, 64, 64, false)},
+		{"enchantersStaff", new SpriteSheet("Assets/Sprites/Items/EnchantersStaff.png", 64, 64, 64, 64, false)},
+		{"holyBow", new SpriteSheet("Assets/Sprites/Items/HolyBow.png", 64, 64, 64, 64, false)},
+		{"seraphStaff", new SpriteSheet("Assets/Sprites/Items/SeraphStaff.png", 64, 64, 64, 64, false)},
+		{"simpleBow", new SpriteSheet("Assets/Sprites/Items/SimpleBow.png", 64, 64, 64, 64, false)},
+		{"simpleStaff", new SpriteSheet("Assets/Sprites/Items/SimpleStaff.png", 64, 64, 64, 64, false)},
 
 		
 
@@ -349,21 +361,29 @@ const std::map<std::string, DefinedCard> definedCards
 	{"arrowCard", {25, 10, 0, 0, 5, "Shoot", "Pepper your foe with arrows for 5 damage, costs 5 agility", "Shootcard", "ArrowShotObj", 0.75}},
 	{"slashCard",{1.5, 5, 5, 0, 0, "Slash", "Slash the enemy for 10 damage, costs 10 strength", "SlashCard" ,"swordSlashEffectObj", 0.5}},	
 	{"healCard",{1.5, -5, 10, 10, 10, "Heal", "Heal the target for 5 health, costs 10 of all stats", "HealCard" ,"healImageObject", 1.25}},
+	{"bossCard",{ 1.5, 10, 5, 0, 0, "BossAttack", "The Boss cleaves it's foe for 10 damage, costs 5 strength", "SlashCard", "BossAttackObj", 1}},
 };
 
 const std::map<std::string, Item*> definedItems
 {
 	// Weapons
-	{"Dagger",new Weapon("Dagger", "daggerObj", 1, 30, 100)}, // name, spriteName, Level requirement, atk power, cost
-	{"Short Sword", new Weapon("Short Sword", "shortSwordObj", 2, 40, 150)},
-	{"Long Sword", new Weapon("Long Sword", "longSwordObj", 3, 50, 200)}, 
+	{"Dagger",new Weapon("Dagger", "daggerObj", 1, 3, 100)}, // name, spriteName, Level requirement, atk power, cost
+	{"Short Sword", new Weapon("Short Sword", "shortSwordObj", 2, 7, 150)},
+	{"Long Sword", new Weapon("Long Sword", "longSwordObj", 3, 10, 200)}, 
+	{"Simple Bow", new Weapon("Simple Bow", "simpleBowObj", 1, 3, 100)},
+	{"Compound Bow", new Weapon("Compound Bow", "compoundBowObj", 2, 7, 150)},
+	{"Holy Bow", new Weapon("Holy Bow", "holyBowObj", 3, 10, 200)},
+	{"Simple Staff", new Weapon("Simple Staff", "simpleStaffObj", 1, 3, 100)},
+	{"Enchanters Staff", new Weapon("Enchanters Staff", "enchantersStaffObj", 2, 7, 150)},
+	{"Seraph Staff", new Weapon("Seraph Staff", "seraphStaffObj", 3, 10, 200)},
+
 	// Armour
-	{"Cloth Armour", new Armour("Cloth Armour", "clothArmourObj", 1, 10, 50 )}, // name, spriteName, def, cost
-	{"Leather Armour", new Armour("Leather Armour", "leatherArmourObj", 2, 20, 150 )} ,
-	{"Chainmail Armour",  new Armour("Chainmail Armour", "chainArmourObj", 3, 30, 250 )} ,
+	{"Cloth Armour", new Armour("Cloth Armour", "clothArmourObj", 1, 5, 50 )}, // name, spriteName, def, cost
+	{"Leather Armour", new Armour("Leather Armour", "leatherArmourObj", 2, 10, 150 )} ,
+	{"Chainmail Armour",  new Armour("Chainmail Armour", "chainArmourObj", 3, 20, 250 )} ,
 
 	// Consumables
-	{"Health Potion",  new Consumable("Health Potion", "potionObj", 1, 25, 10)}
+	{"Health Potion",  new Consumable("Health Potion", "potionObj", 1, 150, 20)}
 };
 
 
