@@ -166,11 +166,11 @@ void ShopScene::Load()
 void ShopScene::SetupShopInv()
 {
 	std::vector<std::string> weaponStrings{"Dagger", "Short Sword", "Long Sword", "Simple Bow", "Compound Bow", "Holy Bow", "Simple Staff", "Enchanters Staff", "Seraph Staff",};
-	std::vector<std::string> ArmourStrings{"Cloth Armour", "Leather Armour", "Chainmail Armour" };
+	std::vector<std::string> ArmourStrings{"Cloth Armour", "Leather Armour", "Chainmail Armour" , "Plate Armour"};
 	for (int f = 0; f < 20; ++f)
 	{
 		int i = RandomRange(0, 99);
-		int j = RandomRange(0, 2);
+		int j = RandomRange(0, 3);
 		if (i >= 0 && i <= 45)
 		{
 			mShop.AddItem(mgr->RequestItem(weaponStrings[RandomRange(0,8)]));

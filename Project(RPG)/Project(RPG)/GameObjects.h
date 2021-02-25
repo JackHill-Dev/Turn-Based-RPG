@@ -41,6 +41,7 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"clothArmourObj",new RenderObject("clothArmour")},
 		{"leatherArmourObj",new RenderObject("leatherArmour")},
 		{"chainArmourObj",new RenderObject("chainArmour")},
+		{"plateArmourObj",new RenderObject("plateArmour")},
 		{"potionObj",new RenderObject("potion")},
 		{"daggerObj",new RenderObject("dagger")},
 		{"shortSwordObj",new RenderObject("shortSword")},
@@ -155,6 +156,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"defaultItem", new SpriteSheet("Assets/Sprites/helmet.png", 32, 32, 32, 32, false)},
 		{"leatherArmour", new SpriteSheet("Assets/Sprites/Items/leatherArmour.png",64, 64, 64, 64, false)},
 		{"chainArmour", new SpriteSheet("Assets/Sprites/Items/chainmail.png",64, 64, 64, 64, false)},
+		{"plateArmour", new SpriteSheet("Assets/Sprites/Items/Plate_Armour.png",64, 64, 64, 64, false)},
 		{"clothArmour", new SpriteSheet("Assets/Sprites/Items/clothArmour.png",64, 64, 64, 64, false)},
 		{"potion", new SpriteSheet("Assets/Sprites/Items/healthPotion.png",48, 48, 48, 48, false)},
 		{"dagger", new SpriteSheet("Assets/Sprites/Items/dagger.png",64, 64, 64, 64, false)},
@@ -381,6 +383,7 @@ const std::map<std::string, Item*> definedItems
 	{"Cloth Armour", new Armour("Cloth Armour", "clothArmourObj", 1, 5, 50 )}, // name, spriteName, def, cost
 	{"Leather Armour", new Armour("Leather Armour", "leatherArmourObj", 2, 10, 150 )} ,
 	{"Chainmail Armour",  new Armour("Chainmail Armour", "chainArmourObj", 3, 20, 250 )} ,
+	{"Plate Armour",  new Armour("Plate Armour", "plateArmourObj", 4, 30, 300 )} ,
 
 	// Consumables
 	{"Health Potion",  new Consumable("Health Potion", "potionObj", 1, 150, 20)}
