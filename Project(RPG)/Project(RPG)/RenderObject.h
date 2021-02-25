@@ -7,7 +7,6 @@
 class RenderObject
 {
 private:
-	std::string mName;
 	bool mVisible;
 	bool bIsActive = true;
 	SpriteSheet* mSheet;
@@ -18,12 +17,14 @@ public:
 	bool bPickedUp = false;
 	std::pair<float, float> sceneScale = std::make_pair(1, 1);
 	std::pair<float, float> scale;
+	std::string path;
+	SDL_Color tint = { 255,255,255 }; //white
+
 	void Untint();
 	void Tint(SDL_Colour tkint);
-	std::string path;
 	RenderObject() {}
 	RenderObject(std::string sprSheet, std::pair<float, float> scale = std::make_pair(1,1));
-	SDL_Color tint = { 255,255,255 }; //white
+	
 	SDL_Color GetTint() { return tint; }
 	virtual bool Update(double dTime, Act act, std::pair<int, int> mouse);
 	bool Init();

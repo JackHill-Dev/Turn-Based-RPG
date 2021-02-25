@@ -15,7 +15,7 @@ private:
 	bool* running;											// A pointer to the boolean that says whether its running or not, quit sets this to false
 	Scenes* currentScene;										// A pointer to the currentsceneIndex
 	Scenes prevScene;
-	std::pair< std::vector<Character*>, int>* currentCombat;
+	std::pair<std::vector<Character*>, int>* currentCombat;
 	std::vector<Character*>* currentEnemies;				
 	std::map<std::string, RenderObject*>* objects;			// A pointer to the renderobjects
 	std::map<std::string, Item*>* items;			// A pointer to the renderobjects

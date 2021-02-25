@@ -7,19 +7,17 @@
 class SpriteSheet
 {
 
-
-
 private:
 	SDL_Texture* mTexture;
 	const float mCellSizeX;
 	const float mCellSizeY;
-	//const int mCellCount;
 	std::pair<int, int> textureSize;
 	std::map<std::string,Animation> anims;
 public:
 	const bool fillScreen;
-	bool SetTexture(SDL_Texture* texture);
 	const std::string mFilePath;
+
+	bool SetTexture(SDL_Texture* texture);
 	std::pair<float, float> GetTextureSize();
 	SpriteSheet(std::string path, int textureSizeX, int textureSizeY, float nCellSizeX, float nCellSizeY ,bool fillScreen);
 	SDL_Texture* GetTexture();
