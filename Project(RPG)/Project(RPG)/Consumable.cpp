@@ -16,6 +16,7 @@ std::string Consumable::GetDescription()
 	std::ostringstream desc;
 	desc << "Name: " << mName << std::endl;
 	desc << "Heals " << mHealAmount << " health" << std::endl;
-	desc << "Lvl Req. " << mLevelRequirement;
+	desc << "Lvl Req. " << mLevelRequirement << std::endl;
+	desc << "Cost: " << mCost;
 	return desc.str();
 }

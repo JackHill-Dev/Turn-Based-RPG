@@ -480,7 +480,7 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 		delete t;
 	mSceneText.clear();
 	playerTurn = false;
-	mgr->PlayMusic(combat_music, -1);
+	
 	int v = 0;
 	enemyHand.clear();
 	playerhand.clear();
@@ -499,6 +499,8 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 
 
 	combat_music = Mix_LoadMUS("Assets/Music/Combat_Music.wav");
+	mgr->FadeInMusic(combat_music, -1, mgr->fadeTime);
+
 	slash_sfx = Mix_LoadWAV("Assets/SFX/slash.wav");
 	endTurn = AddObject("EndTurnButtonObj", centre.first, 30, UI);
 	endTurn->scale = std::make_pair(1, 1);

@@ -20,7 +20,22 @@ std::string Weapon::GetDescription()
 {
 	std::ostringstream desc; 
 	desc << "Name: " << mName << std::endl;
-	desc << "Atk Power: " << mAttackPower << std::endl;
+
+	if (mName.find("Bow") != std::string::npos)
+	{
+		desc << "Agility + " << mAttackPower << std::endl;
+	}
+
+	else if (mName.find("Staff") != std::string::npos)
+	{
+		desc << "Intelligence + " << mAttackPower << std::endl;
+	}
+
+	else
+	{
+		desc << "Strength + " << mAttackPower << std::endl;
+	}
+
 	desc << "Lvl req. " << mLevelRequirement << std::endl; 
 	desc << "Cost: " << mCost;
 	return desc.str();
