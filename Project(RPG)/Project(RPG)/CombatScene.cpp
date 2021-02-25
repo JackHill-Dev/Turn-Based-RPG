@@ -661,7 +661,10 @@ void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  Rende
 		if (playerTurn)
 		{
 
-			mLayers[UI].erase(std::find(mLayers[UI].begin(), mLayers[UI].end(), card->second));
+
+			auto cardInd = std::find(mLayers[UI].begin(), mLayers[UI].end(), card->second);
+			mLayers[UI].erase(cardInd);
+			delete* cardInd;
 			playerhand.erase(std::find_if(playerhand.begin(), playerhand.end(), [card](std::pair<Card*, RenderObject*> cd)
 
 				{
@@ -670,7 +673,11 @@ void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  Rende
 					//	//reorder cards
 					//	//playerhand[i].second->SetPos({ center.fi100 * i- playerhand.size()/2 * 100,650 });
 					//}
-					return(card->first == cd.first);
+					if (card->first == cd.first)
+					{
+						delete card;
+						return(true);
+					}
 				})
 			);
 
@@ -689,7 +696,11 @@ void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  Rende
 			enemyHand.erase(std::find_if(enemyHand.begin(), enemyHand.end(), [card](std::pair<Card*, RenderObject*> cd)
 				{
 
-					return(card->first == cd.first);
+					if (card->first == cd.first)
+					{
+						delete card;
+						return(true);
+					}
 				})
 			);
 		}
