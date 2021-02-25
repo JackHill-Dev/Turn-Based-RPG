@@ -50,6 +50,7 @@ public:
 	std::string GetPortraitName() { return mPortraitName; }
 	std::string GetObjName() { return objectName; }
 	bool GetDeadStatus() { return isDead; }
+	bool SetDeadStatus(bool dead);
 
 	void modStat(std::pair<int, int>& statToMod, std::pair<int,int> statMod);
 	void LevelUp(int &level, std::pair<int, int> &characterHealth);

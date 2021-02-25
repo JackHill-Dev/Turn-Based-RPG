@@ -58,6 +58,11 @@ void OverworldMapScene::Load()
 		i->obj->tint = { 0,0,255 };
 	}
 
+	for (auto character : mgr->GetPlayer()->GetParty())
+	{
+		character->SetDeadStatus(false);
+	}
+
 	mMap[mCurrentNode].obj->tint = { 255,0,0 };
 
 }
