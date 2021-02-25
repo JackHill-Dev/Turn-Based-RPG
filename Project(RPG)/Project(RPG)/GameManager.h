@@ -52,31 +52,29 @@ private:
 	std::map<std::string, SpriteSheet*> sheets; // This is where the spritesheets are stored
 	std::map<std::string, Card*> cards;
 	std::map<std::string, Item*> mItems;
+	std::vector<Scene*> scenes;
+	Scene* currentScene;
+	Settings mSettings;
 
 	Interface mInterface{&loadedSeed,&bRunning, &objects, &mCScene, &combatInstance.second, &mPlayer, &mSettings, &mItems};
 
 	SDL_Texture* LoadTexture(std::string path); //Moved it here for now
 	void CreateCard(DefinedCard* card);
 	void LoadScene();
+
+	void LoadSettings();
+
+	bool SetUp();
+	bool CreateWindow();
+
 	
 public:
 
 	GameManager() {}
 
 	bool Init();
-
 	void Run();
 	void Quit();	
-	
-private:
-
-	void LoadSettings();
-	
-	bool SetUp();
-	bool CreateWindow();
-	std::vector<Scene*> scenes;
-	Scene* currentScene;
-	Settings mSettings;
 
 };
 

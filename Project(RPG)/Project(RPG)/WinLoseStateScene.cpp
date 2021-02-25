@@ -237,7 +237,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 				--mStatPoints;
 				++mStrPoints;
 				mSceneText[2]->text = "STAT POINTS: " + std::to_string(mStatPoints);
-				mSceneText[3]->text = "STRENGTH:" + mSceneText[3]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().strength.second + mStrPoints);
+				mSceneText[3]->text = "STRENGTH:" + mSceneText[3]->AddTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().strength.second + mStrPoints);
 			}
 			else
 			{
@@ -253,7 +253,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 				--mStatPoints;
 				++mAgiPoints;
 				mSceneText[2]->text = "STAT POINTS: " + std::to_string(mStatPoints);
-				mSceneText[4]->text = "AGILITY:" + mSceneText[4]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().agility.second + mAgiPoints);
+				mSceneText[4]->text = "AGILITY:" + mSceneText[4]->AddTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().agility.second + mAgiPoints);
 			}
 			else
 			{
@@ -269,7 +269,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 				--mStatPoints;
 				++mIntPoints;
 				mSceneText[2]->text = "STAT POINTS: " + std::to_string(mStatPoints);
-				mSceneText[5]->text = "INTELLIGENCE:" + mSceneText[5]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().intelligence.second + mIntPoints);
+				mSceneText[5]->text = "INTELLIGENCE:" + mSceneText[5]->AddTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().intelligence.second + mIntPoints);
 			}
 			else
 			{
@@ -285,9 +285,9 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 				mAgiPoints = 0;
 				mIntPoints = 0;
 				mSceneText[2]->text = "STAT POINTS: " + std::to_string(mStatPoints);
-				mSceneText[3]->text = "STRENGTH:" + mSceneText[3]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().strength.second + mStrPoints);
-				mSceneText[4]->text = "AGILITY:" + mSceneText[4]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().agility.second + mAgiPoints);
-				mSceneText[5]->text = "INTELLIGENCE:" + mSceneText[5]->addTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().intelligence.second + mIntPoints);
+				mSceneText[3]->text = "STRENGTH:" + mSceneText[3]->AddTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().strength.second + mStrPoints);
+				mSceneText[4]->text = "AGILITY:" + mSceneText[4]->AddTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().agility.second + mAgiPoints);
+				mSceneText[5]->text = "INTELLIGENCE:" + mSceneText[5]->AddTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().intelligence.second + mIntPoints);
 		}
 
 		if (pConfirmButton->InBounds(mousePos.first, mousePos.second) && pConfirmButton->IsVisible() == true)
@@ -423,6 +423,7 @@ void WinLoseStateScene::SetUpLoseState()
 {
 	for (auto character : pCharacters)
 	{
+		character->rObj->SetVisible(true);
 		character->rObj->tint = DimGray;
 	}
 
@@ -511,17 +512,17 @@ void WinLoseStateScene::SetUpLevelUpState(PlayerCharacter* &pc)
 	mFlavourText1.pos = std::make_pair<int>(640, 310);
 	mFlavourText1.SetTextScale(100, 30);
 
-	mFlavourText2.text = "STRENGTH:" + mFlavourText2.addTab() + std::to_string(pc->pCharacter->GetStats().strength.second + mStrPoints);
+	mFlavourText2.text = "STRENGTH:" + mFlavourText2.AddTab() + std::to_string(pc->pCharacter->GetStats().strength.second + mStrPoints);
 	mFlavourText2.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText2.pos = std::make_pair<int>(640, 400);
 	mFlavourText2.SetTextScale(300, 30);
 
-	mFlavourText3.text = "AGILITY:" + mFlavourText3.addTab() + std::to_string(pc->pCharacter->GetStats().agility.second + mAgiPoints);
+	mFlavourText3.text = "AGILITY:" + mFlavourText3.AddTab() + std::to_string(pc->pCharacter->GetStats().agility.second + mAgiPoints);
 	mFlavourText3.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText3.pos = std::make_pair<int>(640, 430);
 	mFlavourText3.SetTextScale(300, 30);
 
-	mFlavourText4.text = "INTELLIGENCE:" + mFlavourText4.addTab() + std::to_string(pc->pCharacter->GetStats().intelligence.second + mIntPoints);
+	mFlavourText4.text = "INTELLIGENCE:" + mFlavourText4.AddTab() + std::to_string(pc->pCharacter->GetStats().intelligence.second + mIntPoints);
 	mFlavourText4.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText4.pos = std::make_pair<int>(640, 460);
 	mFlavourText4.SetTextScale(300, 30);
