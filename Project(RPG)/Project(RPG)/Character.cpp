@@ -107,16 +107,44 @@ void Character::SetWeapon(Weapon* weapon)
 
 	if (weapon != nullptr)
 	{
-		mStats.agility.first += weapon->GetAtkPower();
-		mStats.agility.second += weapon->GetAtkPower();
+		if (weapon->GetName().find("Bow") != std::string::npos)
+		{
+			mStats.agility.first += weapon->GetAtkPower();
+			mStats.agility.second += weapon->GetAtkPower();
+		}
+
+		else if (weapon->GetName().find("Staff") != std::string::npos)
+		{
+			mStats.intelligence.first += weapon->GetAtkPower();
+			mStats.intelligence.second += weapon->GetAtkPower();
+		}
+
+		else
+		{
+			mStats.strength.first += weapon->GetAtkPower();
+			mStats.strength.second += weapon->GetAtkPower();
+		}
 	}
 
 	else
 	{
-		mStats.agility.first -= mWeaponEquipSlot->GetAtkPower();
-		mStats.agility.second -= mWeaponEquipSlot->GetAtkPower();
-	}
+		if (mWeaponEquipSlot->GetName().find("Bow") != std::string::npos)
+		{
+			mStats.agility.first -= mWeaponEquipSlot->GetAtkPower();
+			mStats.agility.second -= mWeaponEquipSlot->GetAtkPower();
+		}
 
+		if (mWeaponEquipSlot->GetName().find("Staff") != std::string::npos)
+		{
+			mStats.intelligence.first -= mWeaponEquipSlot->GetAtkPower();
+			mStats.intelligence.second -= mWeaponEquipSlot->GetAtkPower();
+		}
+		else
+		{
+			mStats.strength.first -= mWeaponEquipSlot->GetAtkPower();
+			mStats.strength.second -= mWeaponEquipSlot->GetAtkPower();
+		}
+	}
 
 	mWeaponEquipSlot = weapon;
 }
