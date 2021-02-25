@@ -18,8 +18,9 @@ Scene::~Scene()
 {
 	for (UIText* t : mSceneText)
 	{
-		t = nullptr;
 		delete t;
+		t = nullptr;
+		
 	}
 }
 

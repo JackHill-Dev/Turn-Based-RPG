@@ -68,16 +68,16 @@ void ShopScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 	ManageShopInventory(mShop.GetInventory(), act, mousePos);
 }
 
-void ShopScene::PlaceItems(std::vector<Item*> inv)
+void ShopScene::PlaceItems()
 {
 	for (auto i : mgr->GetPlayer()->GetInventory())
 	{
 		// Display item to screen and set its render object to the correct image
-		playerInv.push_back(ItemObject(i, AddObject(i->GetObjName(), i->inventoryPos.pos.first, i->inventoryPos.pos.second, Game)));
+		playerInv.push_back(ItemObject(i, AddObject(i->GetObjName(), i->inventoryPos.pos.first , i->inventoryPos.pos.second * mgr->GetSettings().h , Game)));
 		
 	}
 
-	for (auto i : mShop.GetInventory())
+	for (auto& i : mShop.GetInventory())
 	{
 		// Display item to screen and set its render object to the correct image
 		shopInv.push_back(ItemObject(i, AddObject(i->GetObjName(), i->inventoryPos.pos.first, i->inventoryPos.pos.second, Game)));
@@ -144,9 +144,23 @@ void ShopScene::Load()
 	mgr->FadeInMusic(bg_Music, -1, mgr->fadeTime);
 
 	mLayers[Game].clear();
+	
+
+
+	// Refresh / Regenerate shop inventory
+	mShop.GetInventory().clear();
+	mShop.ClearGridPositions();
+	mShop.GeneratePositions();
+	SetupShopInv();
+	//--------------------------------------
+	
+
 	playerInv.clear();
 	shopInv.clear();
-	PlaceItems(mgr->GetPlayer()->GetInventory());
+
+	PlaceItems();
+
+	
 }
 
 void ShopScene::SetupShopInv()
@@ -302,8 +316,8 @@ void ShopScene::GenerateGrids()
 	DrawGrid(4, 5, 80, 110); // Draw item frames for player inventory
 	DrawGrid(4, 5, 880, 110); // Draw item frames for shop inventory
 
-	PlaceItems(mgr->GetPlayer()->GetInventory());
-	PlaceItems(mShop.GetInventory());
+	PlaceItems();
+	//PlaceItems(mShop.GetInventory());
 }
 
 

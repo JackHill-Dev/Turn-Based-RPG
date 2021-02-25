@@ -22,7 +22,7 @@ protected:
 private:
 	
 
-	void PlaceItems(std::vector<Item*> inv);
+	void PlaceItems();
 	void SetupShopInv(); // For testing
 	void ManageShopInventory(std::vector<Item*> inv, Act act, std::pair<int, int> mousePos);
 	void ManagePlayerInventory(std::vector<Item*> inv, Act act, std::pair<int, int> mousePos);

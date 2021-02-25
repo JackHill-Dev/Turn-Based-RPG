@@ -188,10 +188,10 @@
     <ClInclude Include="ClassPickerScene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="BossScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="WinLoseStateScene.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="BossScene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>

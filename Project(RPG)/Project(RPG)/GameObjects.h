@@ -150,7 +150,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"leatherArmour", new SpriteSheet("Assets/Sprites/Items/leatherArmour.png",64, 64, 64, 64, false)},
 		{"chainArmour", new SpriteSheet("Assets/Sprites/Items/plateArmour.png",64, 64, 64, 64, false)},
 		{"clothArmour", new SpriteSheet("Assets/Sprites/Items/clothArmour.png",64, 64, 64, 64, false)},
-		{"potion", new SpriteSheet("Assets/Sprites/potion.png",48, 48, 48, 48, false)},
+		{"potion", new SpriteSheet("Assets/Sprites/Items/healthPotion.png",48, 48, 48, 48, false)},
 		{"dagger", new SpriteSheet("Assets/Sprites/Items/dagger.png",64, 64, 64, 64, false)},
 		{"shortSword", new SpriteSheet("Assets/Sprites/Items/shortSword.png",64, 64, 64, 64, false)},
 		{"longSword", new SpriteSheet("Assets/Sprites/Items/longSword.png",64, 64, 64, 64, false)},
@@ -174,7 +174,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"tile", new SpriteSheet("Assets/grass-tile.png", 32, 32, 32, 32, false)},	
 		{"toolTipBg", new SpriteSheet("Assets/Backgrounds/TooltipBackground.png", 48, 48, 48, 48, false)},
 		{"tile", new SpriteSheet("Assets/grass-tile.png", 32, 32, 32, 32, false)},		
-		{"stone-tile", new SpriteSheet("Assets/stone-tile.png", 32, 32, 32, 32, false)},
+		{"stone-tile", new SpriteSheet("Assets/Backgrounds/stone-tile.png", 32, 32, 32, 32, false)},
 		{"tree", new SpriteSheet("Assets/Sprites/baum.png", 128,128,128,128,false)},
 
 		
