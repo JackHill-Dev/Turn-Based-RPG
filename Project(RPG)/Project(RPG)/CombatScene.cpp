@@ -2,6 +2,7 @@
 #include <deque>
 #include <chrono>
 
+
 CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 {
 	
@@ -71,6 +72,8 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 		{
 			if (i.character->GetHealth() <= 0)
 			{
+				srand(time(NULL));
+				mgr->GetPlayer()->AddGoldLoot(std::rand() % 50 + 15);
 				mgr->GetPlayer()->AddToXpPool(i.character->GetStats().experience.first);
 				RemoveUnit(&i);
 			}
@@ -612,6 +615,7 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 	}
 	std::srand(time(NULL));
 }
+
 void CombatScene::PlayFightAnimation()
 {
 	fightSceneTeamCharacter->SetVisible(true);
@@ -621,6 +625,7 @@ void CombatScene::PlayFightAnimation()
 	
 
 }
+
 void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  RenderObject*>* card)
 {
 	auto d = card->first->GetEffect();
@@ -719,6 +724,7 @@ void CombatScene::RemoveUnit(Unit* unit)
 	
 	//delete unit.character;
 }
+
 void CombatScene::RunAi()
 {
 
