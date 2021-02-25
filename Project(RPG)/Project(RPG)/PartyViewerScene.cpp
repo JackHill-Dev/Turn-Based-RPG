@@ -9,6 +9,14 @@ PartyViewerScene::PartyViewerScene(Interface* mgr) : Scene(mgr)
 	mInventoryBtn = AddObject("inventoryButtonObj", 640, 700, UI);
 	button_SFX = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
 	mMenuMusic = Mix_LoadMUS("Assets/Music/MenuMusic.mp3");
+
+	characterCards.reserve(3);
+
+	for (int i = 0; i < characterCards.capacity(); ++i)
+	{
+		characterCards.emplace_back(CharacterCard());
+	}
+
 	Init();
 
 }
@@ -98,46 +106,48 @@ void PartyViewerScene::GetCharacterStatistics()
 {
 	int offsetX = 390;
 	int offsetY = 330;
+	int i = 0;
 	for (Character* c  : mParty) 
 	{
-		CharacterCard cc;
 
-		cc.name = new UIText{ "Name: " + c->GetClassName(c->GetClass()), std::make_pair(offsetX, offsetY), std::make_pair<float,float>(160, 60), SDL_Color{31,30,29} };
+		characterCards[i].name =  UIText{ "Name: " + c->GetClassName(c->GetClass()), std::make_pair(offsetX, offsetY), std::make_pair<float,float>(160, 60), SDL_Color{31,30,29} };
 		offsetY += 50;
 
 		//+" Next: " + std::to_string(c->GetStats().experience.second - c->GetStats().experience.first + "XP"
-		cc.level = new UIText{ "Level: " + std::to_string(c->GetStats().level) + " XP: " + std::to_string(c->GetStats().experience.first) + "/" + std::to_string(c->GetStats().experience.second), std::make_pair(offsetX, offsetY), std::make_pair<float,float>(160, 60), SDL_Color{31,30,29} };
+		characterCards[i].level =  UIText{ "Level: " + std::to_string(c->GetStats().level) + " XP: " + std::to_string(c->GetStats().experience.first) + "/" + std::to_string(c->GetStats().experience.second), std::make_pair(offsetX, offsetY), std::make_pair<float,float>(160, 60), SDL_Color{31,30,29} };
 		offsetY += 50;
-		cc.health = new UIText{ "Health: " + std::to_string(c->GetStats().health.first) + "/" + std::to_string(c->GetStats().health.second), std::make_pair(offsetX, offsetY), std::make_pair<float,float>(160, 60), SDL_Color{178,34,34} };
+		characterCards[i].health =  UIText{ "Health: " + std::to_string(c->GetStats().health.first) + "/" + std::to_string(c->GetStats().health.second), std::make_pair(offsetX, offsetY), std::make_pair<float,float>(160, 60), SDL_Color{178,34,34} };
 		offsetY += 50;
 
-		cc.strength = DrawStat("Strength", c->GetStats().strength.second, SDL_Color{ 151,112,15 }, std::make_pair(offsetX, offsetY));
+		characterCards[i].strength = DrawStat("Strength", c->GetStats().strength.second, SDL_Color{ 151,112,15 }, std::make_pair(offsetX, offsetY));
 	
 		offsetY += 50;
-		cc.agility = DrawStat("Agility", c->GetStats().agility.second, SDL_Color{ 0,100,0 }, std::make_pair(offsetX, offsetY));
+		characterCards[i].agility = DrawStat("Agility", c->GetStats().agility.second, SDL_Color{ 0,100,0 }, std::make_pair(offsetX, offsetY));
 
 		offsetY += 50;
-		cc.intelligence = DrawStat("Intelligence", c->GetStats().intelligence.second, SDL_Color{ 50,50,150 }, std::make_pair(offsetX, offsetY));
+		characterCards[i].intelligence = DrawStat("Intelligence", c->GetStats().intelligence.second, SDL_Color{ 50,50,150 }, std::make_pair(offsetX, offsetY));
 
 		offsetY += 50;
-		cc.movement = DrawStat("Movement", c->GetStats().movement.second, SDL_Color{ 31,30,29 }, std::make_pair(offsetX, offsetY));
+		characterCards[i].movement = DrawStat("Movement", c->GetStats().movement.second, SDL_Color{ 31,30,29 }, std::make_pair(offsetX, offsetY));
 
-		mSceneText.push_back(cc.name);
-		mSceneText.push_back(cc.level);
-		mSceneText.push_back(cc.health);
-		mSceneText.push_back(cc.intelligence);
-		mSceneText.push_back(cc.agility);
-		mSceneText.push_back(cc.strength);
-		mSceneText.push_back(cc.movement);
+		mSceneText.push_back(&characterCards[i].name);
+		mSceneText.push_back(&characterCards[i].level);
+		mSceneText.push_back(&characterCards[i].health);
+		mSceneText.push_back(&characterCards[i].intelligence);
+		mSceneText.push_back(&characterCards[i].agility);
+		mSceneText.push_back(&characterCards[i].strength);
+		mSceneText.push_back(&characterCards[i].movement);
 
 		offsetX += 250;
 		offsetY = 330;
+
+		++i;
 	}
 }
 
-UIText* PartyViewerScene::DrawStat(std::string statName, int stat, SDL_Color textColor, std::pair<int, int> pos)
+UIText PartyViewerScene::DrawStat(std::string statName, int stat, SDL_Color textColor, std::pair<int, int> pos)
 {
 	std::string statTxt = statName + ": " + std::to_string(stat);
-	return new UIText{ statTxt, pos, std::make_pair<float,float>(160, 60), textColor };
+	return  UIText{ statTxt, pos, std::make_pair<float,float>(160, 60), textColor };
 }
 
