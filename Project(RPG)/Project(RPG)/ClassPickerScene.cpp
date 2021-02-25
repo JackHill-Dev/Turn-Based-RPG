@@ -672,7 +672,7 @@ void ClassPickerScene::SetUpVillagerView(CharacterPickerState originState)
 	mFlavourText3.pos = std::make_pair<int>(640, 430);
 	mFlavourText3.SetTextScale(200, 40);
 
-	mFlavourText4.text = "A COMMONER LIVES A SIMPLE LIFE WON WITH THEIR OWN HANDS";
+	mFlavourText4.text = "A VILLAGER LIVES A SIMPLE LIFE WON WITH THEIR OWN HANDS";
 	mFlavourText4.textColor = SDL_Color{ 0,0,0 };
 	mFlavourText4.pos = std::make_pair<int>(640, 460);
 	mFlavourText4.SetTextScale(600, 50);
