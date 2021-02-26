@@ -977,7 +977,8 @@ std::vector<CombatScene::tile*> CombatScene::CalculatePath(tile* start, tile* en
 	std::reverse(path.begin(), path.end());
 	if (!end->availiable)
 		path.erase(path.end() - 1);
-	
+	for (auto& n : map)
+		delete n;
 	return path;
 }
 
