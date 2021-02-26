@@ -27,13 +27,13 @@ public:
 		UIText* strength;
 		UIText* intelligence;
 		UIText* agility;
-
-		UIStats(std::pair<float, float> position, UIText* health, UIText* movement, UIText* strength, UIText* intelligence, UIText* agility) : health(health), movement(movement), strength(strength), intelligence(intelligence), agility(agility)
+		RenderObject* object;
+		UIStats(std::pair<float, float> position, UIText* health, UIText* movement, UIText* strength, UIText* intelligence, UIText* agility, RenderObject* object) : health(health), movement(movement), strength(strength), intelligence(intelligence), agility(agility), object(object)
 		{
 
 			float scale = 25;
 
-		
+			object->SetPos(std::make_pair(position.first + 10, position.second));
 			health->pos = std::make_pair(position.first - 50, position.second);
 			health->SetTextScale(scale, scale);
 			health->textColor = SDL_Color{255, 0, 0};

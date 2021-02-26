@@ -610,7 +610,7 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 		mSceneText.push_back(str);
 		mSceneText.push_back(intel);
 		mSceneText.push_back(agil);
-		Unit unit = Unit(i, &mapp[v][9], AddObject(i->GetObjName(), 0, 0, Game), AddObject("portrait", 250, 125+150*v, UI), UIStats(std::make_pair(250, 125 + 150 * v + 75), health, movement, str, intel, agil));
+		Unit unit = Unit(i, &mapp[v][9], AddObject(i->GetObjName(), 0, 0, Game), AddObject("portrait", 250, 125+150*v, UI), UIStats(std::make_pair(250, 125 + 150 * v + 75), health, movement, str, intel, agil, AddObject("statBackgroundObj", 250, 125 + 150 * v, UI)));
 
 
 		//unit.object->scale = std::make_pair(0.5f, 0.5f);
@@ -634,7 +634,7 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 		mSceneText.push_back(str);
 		mSceneText.push_back(intel);
 		mSceneText.push_back(agil);
-		Unit unit = Unit(i, &mapp[9-v][0], AddObject(i->GetObjName(), 0, 0, Game),AddObject("portrait", 1000, 125+150*v, UI), UIStats(std::make_pair(1000, 125 + 150 * v + 75), health, movement, str, intel, agil));
+		Unit unit = Unit(i, &mapp[9-v][0], AddObject(i->GetObjName(), 0, 0, Game),AddObject("portrait", 1000, 125+150*v, UI), UIStats(std::make_pair(1000, 125 + 150 * v + 75), health, movement, str, intel, agil, AddObject("statBackgroundObj", 1000, 125 + 150 * v, UI)));
 
 		// Arbitrary experience to grant to player from defeating said unit in combat. - EH
 		i->GetStats().experience.first = 100;
