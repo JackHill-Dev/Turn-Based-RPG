@@ -511,7 +511,7 @@ void BossScene::Load()
 		mSceneText.push_back(str);
 		mSceneText.push_back(intel);
 		mSceneText.push_back(agil);
-		Unit unit = Unit(i, &mapp[v][9], AddObject(i->GetObjName(), 0, 0, Game), AddObject("portrait", 250, 125 + 150 * v, UI), UIStats(std::make_pair(250, 125 + 150 * v + 75), health, movement, str, intel, agil));
+		Unit unit = Unit(i, &mapp[v][9], AddObject(i->GetObjName(), 0, 0, Game), AddObject("portrait", 250, 125 + 150 * v, UI), UIStats(std::make_pair(250, 125 + 150 * v + 75), health, movement, str, intel, agil,AddObject("statBackgroundObj", 250, 125 + 150 * v, UI)));
 
 
 		//unit.object->scale = std::make_pair(0.5f, 0.5f);
@@ -533,7 +533,7 @@ void BossScene::Load()
 	mSceneText.push_back(intel);
 	mSceneText.push_back(agil);
 
-	Unit boss = Unit(new Character("", "", "", UnitClass::NoClass, 0, std::make_pair(1000, 3000), false, std::make_pair(25,25), std::make_pair(25,25), std::make_pair(25,25), std::make_pair(25,25)), &mapp[4][3], AddObject("daemonBoss", 500, 500, Game), AddObject("daemonBoss", 1000, 250, Game), UIStats(std::make_pair(1000, 250 + 75), health, movement, str, intel, agil));
+	Unit boss = Unit(new Character("", "", "", UnitClass::NoClass, 0, std::make_pair(1000, 3000), false, std::make_pair(25,25), std::make_pair(25,25), std::make_pair(25,25), std::make_pair(25,25)), &mapp[4][3], AddObject("daemonBoss", 500, 500, Game), AddObject("daemonBoss", 1000, 250, Game), UIStats(std::make_pair(1000, 250 + 75), health, movement, str, intel, agil,AddObject("statBackgroundObj", 250, 125 + 150 * v, UI)));
 	boss.object->scale = { 2,2 };
 	enemy.push_back(boss);
 	for (int i = 0; i < 5; i++)
@@ -584,24 +584,15 @@ void BossScene::Cast(Unit* caster, Unit* target, const std::pair<Card*, RenderOb
 		if (playerTurn)
 		{
 
-			auto cardInd = std::find(mLayers[UI].begin(), mLayers[UI].end(), card->second);
-			mLayers[UI].erase(cardInd);
-			delete* cardInd;
-			playerhand.erase(std::find_if(playerhand.begin(), playerhand.end(), [card](std::pair<Card*, RenderObject*> cd)
-
+			for (int i = 0; i < playerhand.size(); ++i)
+			{
+				if (playerhand[i].second == card->second)
 				{
-					//for (int i = 0; i < playerhand.size(); i++)
-					//{
-					//	//reorder cards
-					//	//playerhand[i].second->SetPos({ center.fi100 * i- playerhand.size()/2 * 100,650 });
-					//}
-					if (card->first == cd.first)
-					{
-						delete card;
-						return(true);
-					}
-				})
-			);
+					mLayers[UI].erase(std::find(mLayers[UI].begin(), mLayers[UI].end(), card->second));
+					playerhand[i].first = nullptr;
+					playerhand.erase(playerhand.begin() + i);
+				}
+			}
 
 
 
@@ -615,16 +606,16 @@ void BossScene::Cast(Unit* caster, Unit* target, const std::pair<Card*, RenderOb
 		}
 		else
 		{
-			enemyHand.erase(std::find_if(enemyHand.begin(), enemyHand.end(), [card](std::pair<Card*, RenderObject*> cd)
+
+			for (int i = 0; i < enemyHand.size(); ++i)
+			{
+				if (enemyHand[i].first == card->first)
 				{
 
-					if (card->first == cd.first)
-					{
-						delete card;
-						return(true);
-					}
-				})
-			);
+					enemyHand[i].first = nullptr;
+					enemyHand.erase(enemyHand.begin() + i);
+				}
+			}
 		}
 
 

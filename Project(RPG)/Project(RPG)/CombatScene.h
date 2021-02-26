@@ -53,6 +53,7 @@ public:
 		}
 		void SetVisibility(bool visible)
 		{
+			object->SetVisible(visible);
 			health->isVisible = visible;
 			movement->isVisible = visible;
 			strength->isVisible = visible;
