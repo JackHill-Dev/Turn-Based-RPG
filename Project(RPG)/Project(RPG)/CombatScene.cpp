@@ -693,8 +693,9 @@ void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  Rende
 
 
 			auto cardInd = std::find(mLayers[UI].begin(), mLayers[UI].end(), card->second);
-			mLayers[UI].erase(cardInd);
 			delete* cardInd;
+			mLayers[UI].erase(cardInd);
+			
 			playerhand.erase(std::find_if(playerhand.begin(), playerhand.end(), [card](std::pair<Card*, RenderObject*> cd)
 
 				{
