@@ -691,26 +691,15 @@ void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  Rende
 		if (playerTurn)
 		{
 
-
-			auto cardInd = std::find(mLayers[UI].begin(), mLayers[UI].end(), card->second);
-			delete* cardInd;
-			mLayers[UI].erase(cardInd);
-			
-			playerhand.erase(std::find_if(playerhand.begin(), playerhand.end(), [card](std::pair<Card*, RenderObject*> cd)
-
+			for (int i = 0; i < playerhand.size(); ++i)
+			{
+				if (playerhand[i].second == card->second)
 				{
-					//for (int i = 0; i < playerhand.size(); i++)
-					//{
-					//	//reorder cards
-					//	//playerhand[i].second->SetPos({ center.fi100 * i- playerhand.size()/2 * 100,650 });
-					//}
-					if (card->first == cd.first)
-					{
-						delete card;
-						return(true);
-					}
-				})
-			);
+					mLayers[UI].erase(std::find(mLayers[UI].begin(), mLayers[UI].end(), card->second));
+					playerhand[i].first = nullptr;
+					playerhand.erase(playerhand.begin() + i);
+				}
+			}
 
 
 
@@ -724,16 +713,16 @@ void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  Rende
 		}
 		else
 		{
-			enemyHand.erase(std::find_if(enemyHand.begin(), enemyHand.end(), [card](std::pair<Card*, RenderObject*> cd)
-				{
 
-					if (card->first == cd.first)
-					{
-						delete card;
-						return(true);
-					}
-				})
-			);
+			for (int i = 0; i < enemyHand.size(); ++i)
+			{
+				if (enemyHand[i].first == card->first)
+				{
+					
+					enemyHand[i].first = nullptr;
+					enemyHand.erase(enemyHand.begin() + i);
+				}
+			}
 		}
 
 		
