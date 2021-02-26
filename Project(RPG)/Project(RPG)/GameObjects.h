@@ -191,7 +191,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"tile", new SpriteSheet("Assets/grass-tile.png", 32, 32, 32, 32, false)},		
 		{"stone-tile", new SpriteSheet("Assets/Backgrounds/stone-tile.png", 32, 32, 32, 32, false)},
 		{"tree", new SpriteSheet("Assets/Sprites/baum.png", 128,128,128,128,false)},
-		{"statBackground", new SpriteSheet("Assets/Backgrounds/CombatStatsBackground", 350, 121, 350, 121, false)},
+		{"statBackground", new SpriteSheet("Assets/Backgrounds/CombatStatsBackground.png", 350, 121, 350, 121, false)},
 
 		
 		// Button Spritesheets		

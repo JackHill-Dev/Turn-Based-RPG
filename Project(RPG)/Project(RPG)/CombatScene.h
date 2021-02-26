@@ -34,6 +34,7 @@ public:
 			float scale = 25;
 
 			object->SetPos(std::make_pair(position.first + 10, position.second));
+			object->scale = std::make_pair(0.6, 0.4);
 			health->pos = std::make_pair(position.first - 50, position.second);
 			health->SetTextScale(scale, scale);
 			health->textColor = SDL_Color{255, 0, 0};
