@@ -225,7 +225,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 										if (mapp[i][x].square->InBounds(mouse.first, mouse.second) && &mapp[i][x] != character->occupiedTile)
 										{
 											auto path = CalculatePath(character->occupiedTile, &mapp[i][x]);
-											int distance = path.size();
+											int distance = path.size()-1;
 											if (distance <= character->character->GetStats().movement.first)
 											{
 												character->SetTarget(path);
@@ -459,16 +459,16 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 										if (!found && mapp[i][t].square->InBounds(mouse.first, mouse.second) )
 										{
 											auto path = CalculatePath(character->occupiedTile, &mapp[i][t]);
-											int distance = path.size();
+											int distance = path.size()-1;
 											
 
 											found = true;
 											
 
 
-											for (int x = 0; x < path.size(); x++)
+											for (int x = 1; x < path.size(); x++)
 											{
-												if(path[x] != character->occupiedTile && path[x]->availiable && x < character->character->GetStats().movement.first)
+												if(path[x] != character->occupiedTile && path[x]->availiable && x-1 < character->character->GetStats().movement.first)
 													path[x]->square->tint = SDL_Color{ 0,255,0 };
 												else
 													path[x]->square->tint = SDL_Color{ 255,0,0 };
