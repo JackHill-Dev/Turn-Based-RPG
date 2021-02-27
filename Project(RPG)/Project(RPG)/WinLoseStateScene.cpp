@@ -208,7 +208,10 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 		}
 		else
 		{
-			if (pContinueButton->IsVisible() == true)
+			if (pContinueButton->InBounds(mousePos.first, mousePos.second) && pContinueButton->IsVisible() == true && std::any_of(pCharacters.begin(), pCharacters.end(), [](PlayerCharacter* pc)
+				{
+					return pc->pCharacter->hasLevelled == true;
+				}))
 			{
 				mgr->PlaySFX(Error_Sfx, 0, 1);
 				mSceneText[8]->text = "PLEASE LEVEL UP ALL CHARACTERS";
