@@ -149,24 +149,6 @@ void Character::SetWeapon(Weapon* weapon)
 	mWeaponEquipSlot = weapon;
 }
 
-void Character::UpdateCharacter()
-{
-	//Armour* armour = static_cast<Armour*>(ArmourEquipSlot._item);
-	//Weapon* weapon = static_cast<Weapon*>(mWeaponEquipSlot._item);
-
-	//if (ArmourEquipSlot._item == nullptr)
-	//{
-	//	mStats.movement = std::make_pair(5, 5);
-	//	mStats.health = std::make_pair(15, 15);
-	//}
-	//if (mWeaponEquipSlot._item == nullptr)
-	//{
-	//	mStats.agility = std::make_pair(10, 10);
-	//}
-
-	
-}
-
 bool Character::ModHealth(int mod)
 {
 	mStats.health.first -= mod;
