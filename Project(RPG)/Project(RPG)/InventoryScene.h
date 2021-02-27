@@ -29,8 +29,10 @@ private:
 private:
 	bool itemPickedUp = false;
 	RenderObject* pCloseBtn;
-	Mix_Chunk* button_SFX;
+	Mix_Chunk* pButton_SFX;
 	Mix_Chunk* pDrink_SFX;
+	Mix_Chunk* pGrab_SFX;
+	Mix_Chunk* pDrop_SFX;
 	ToolTip mToolTip;
 	std::vector< std::pair<RenderObject*, ItemObject*>> playerInvGrid;
 	std::vector<ItemObject> itemObjects;
