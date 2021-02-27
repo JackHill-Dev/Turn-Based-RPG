@@ -32,6 +32,7 @@ public:
 	RenderObject* getObj();
 	void Assign(RenderObject* object);
 	std::string GetObjName() { return objectName; };
+	std::string GetCardName() { return name; };
 
 };
 
