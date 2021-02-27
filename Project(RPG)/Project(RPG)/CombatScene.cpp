@@ -131,9 +131,6 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 			}
 		}
 
-		
-		
-
 		bool scenebusy = false;
 		if (playerTurn)
 		{
@@ -255,8 +252,10 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
 									{
 										mgr->PlaySFX(pButtonClick_SFX, 0, 1);
-
-										if (i.character->GetStats().strength.first > 5)
+										
+										if ((i.character->GetStats().strength.first >= selectedCard->first->Values().stamCost) 
+										   && (i.character->GetStats().agility.first >= selectedCard->first->Values().agilCost) 
+										   && (i.character->GetStats().intelligence.first >= selectedCard->first->Values().intCost))
 										{
 											character = &i;
 											character->object->tint = SDL_Color{ 255,255,0 };
