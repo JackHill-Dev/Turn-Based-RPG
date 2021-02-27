@@ -161,6 +161,18 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 
 	if (act == Act::Click)
 	{
+		for (auto& character : pCharacters)
+		{
+			if (character->rObj->InBounds(mousePos.first, mousePos.second) && character->pCharacter->hasLevelled == true)
+			{
+				if (character->rObj->IsVisible() == true)
+				{
+					mgr->PlaySFX(Button_Sfx, 0, 1);
+					SetUpLevelUpState(character);
+				}
+			}
+		}
+
 		if (pMenuButton->InBounds(mousePos.first, mousePos.second))
 		{
 			if (pMenuButton->IsVisible() == true)
@@ -173,7 +185,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 			}
 		}
 
-		if (pQuitButton->InBounds(mousePos.first, mousePos.second))
+		else if (pQuitButton->InBounds(mousePos.first, mousePos.second))
 		{
 			if (pQuitButton->IsVisible() == true)
 			{
@@ -182,7 +194,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 			}
 		}
 
-		if (pContinueButton->InBounds(mousePos.first, mousePos.second) && pContinueButton->IsVisible() == true &&
+		else if (pContinueButton->InBounds(mousePos.first, mousePos.second) && pContinueButton->IsVisible() == true &&
 			std::all_of(pCharacters.begin(), pCharacters.end(), [](PlayerCharacter* pc)
 				{
 					return pc->pCharacter->hasLevelled == false;
@@ -219,21 +231,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 			}
 		}
 
-		for (auto& character : pCharacters)
-		{
-			if (character->rObj->InBounds(mousePos.first, mousePos.second) && character->pCharacter->hasLevelled == true)
-			{
-				if (character->rObj->IsVisible() == true)
-				{
-					mgr->PlaySFX(Button_Sfx, 0, 1);
-					for (auto character : pCharacters)
-					{
-						std::cout << "AHH" << std::endl;
-					}
-					SetUpLevelUpState(character);
-				}
-			}
-		}
+		
 
 		if (pStrengthButton->InBounds(mousePos.first, mousePos.second) && pStrengthButton->IsVisible() == true)
 		{
@@ -252,7 +250,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 			}
 		}
 
-		if (pAgilityButton->InBounds(mousePos.first, mousePos.second) && pAgilityButton->IsVisible() == true)
+		else if (pAgilityButton->InBounds(mousePos.first, mousePos.second) && pAgilityButton->IsVisible() == true)
 		{
 			if (mStatPoints != 0)
 			{
@@ -269,7 +267,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 			}
 		}
 
-		if (pIntelligenceButton->InBounds(mousePos.first, mousePos.second) && pIntelligenceButton->IsVisible() == true)
+		else if (pIntelligenceButton->InBounds(mousePos.first, mousePos.second) && pIntelligenceButton->IsVisible() == true)
 		{
 			if (mStatPoints != 0)
 			{
@@ -286,7 +284,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 			}
 		}
 
-		if (pRejectButton->InBounds(mousePos.first, mousePos.second) && pRejectButton->IsVisible() == true)
+		else if (pRejectButton->InBounds(mousePos.first, mousePos.second) && pRejectButton->IsVisible() == true)
 		{
 				mgr->PlaySFX(Button_Sfx, 0, 1);
 				mStatPoints = 2;
@@ -299,7 +297,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 				mSceneText[5]->text = "INTELLIGENCE:" + mSceneText[5]->AddTab() + std::to_string(pTargetCharacter->pCharacter->GetStats().intelligence.second + mIntPoints);
 		}
 
-		if (pConfirmButton->InBounds(mousePos.first, mousePos.second) && pConfirmButton->IsVisible() == true)
+		else if (pConfirmButton->InBounds(mousePos.first, mousePos.second) && pConfirmButton->IsVisible() == true)
 		{
 			if (mStatPoints == 0)
 			{
