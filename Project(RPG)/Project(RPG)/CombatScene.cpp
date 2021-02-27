@@ -63,10 +63,12 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 		for (auto& c : team)
 		{
 			c.visualStats.SetVisibility(true);
+			c.object->SetVisible(true);
 		}
 		for (auto& c : enemy)
 		{
 			c.visualStats.SetVisibility(true);
+			c.object->SetVisible(true);
 		}
 
 		for (auto e : mLayers[Effects])
@@ -743,7 +745,8 @@ void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  Rende
 
 void CombatScene::RemoveUnit(Unit* unit)
 {
-	unit->visualStats.SetVisibility(false);
+		unit->visualStats.SetVisibility(false);
+		unit->visualStats.object->SetVisible(false);
 		auto p = std::find(mLayers[Game].begin(), mLayers[Game].end(), unit->object);
 		mLayers[Game].erase(p);
 		mLayers[UI].erase(std::find(mLayers[UI].begin(), mLayers[UI].end(), unit->profile));
