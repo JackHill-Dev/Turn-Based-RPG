@@ -64,7 +64,6 @@ private:
 	Mix_Chunk* button_Click_SFX;
 	Mix_Chunk* confirm_SFX;
 	Mix_Chunk* back_SFX;
-	Mix_Chunk* shop_Entry_SFX;
 
 	SDL_Color Lime = SDL_Color{ 0,255, 0 };
 	SDL_Color Black = SDL_Color{ 0,0,0 };

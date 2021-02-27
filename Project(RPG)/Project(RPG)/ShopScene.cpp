@@ -10,6 +10,7 @@ ShopScene::ShopScene(Interface* rng) : Scene(rng)
 	buySell_SFX = Mix_LoadWAV("Assets/SFX/coin.wav");
 	pCantBuy_SFX = Mix_LoadWAV("Assets/SFX/ErrorSound.wav");
 	leave_SFX = Mix_LoadWAV("Assets/SFX/DoorClose.wav");
+	shop_Entry_SFX = Mix_LoadWAV("Assets/SFX/DoorOpen.wav");
 	Init();
 }
 
@@ -141,6 +142,7 @@ void ShopScene::Load()
 	mSceneText.push_back(&playerToolTip.mDescription);
 	mSceneText.push_back(&buyControlsTxt);
 
+	mgr->PlaySFX(shop_Entry_SFX, 0, 1);
 	mgr->FadeInMusic(bg_Music, -1, mgr->fadeTime);
 
 	mLayers[Game].clear();
