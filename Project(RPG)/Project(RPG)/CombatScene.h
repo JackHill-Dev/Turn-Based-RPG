@@ -31,25 +31,25 @@ public:
 		UIStats(std::pair<float, float> position, UIText* health, UIText* movement, UIText* strength, UIText* intelligence, UIText* agility, RenderObject* object) : health(health), movement(movement), strength(strength), intelligence(intelligence), agility(agility), object(object)
 		{
 
-			float scale = 25;
+			float scale = 30;
 
-			object->SetPos(std::make_pair(position.first + 10, position.second));
-			object->scale = std::make_pair(0.6, 0.4);
-			health->pos = std::make_pair(position.first - 50, position.second);
+			object->SetPos(std::make_pair(position.first, position.second));
+			object->scale = std::make_pair(0.7, 0.4);
+			health->pos = std::make_pair(position.first - 80, position.second);
 			health->SetTextScale(scale, scale);
-			health->textColor = SDL_Color{255, 0, 0};
-			movement->pos = std::make_pair(position.first - 20, position.second);
+			health->textColor = SDL_Color{178, 34, 34};
+			movement->pos = std::make_pair(position.first -40, position.second);
 			movement->SetTextScale(scale, scale);
-			movement->textColor = SDL_Color{ 0, 0, 0 };
-			strength->pos = std::make_pair(position.first +10, position.second);
+			movement->textColor = SDL_Color{ 31, 30, 29 };
+			strength->pos = std::make_pair(position.first, position.second);
 			strength->SetTextScale(scale, scale);
-			strength->textColor = SDL_Color{ 255, 255, 0 };
+			strength->textColor = SDL_Color{ 151, 112, 15 };
 			intelligence->pos = std::make_pair(position.first + 40, position.second);
 			intelligence->SetTextScale(scale, scale);
-			intelligence->textColor = SDL_Color{ 0, 0, 255 };
-			agility->pos = std::make_pair(position.first + 70, position.second);
+			intelligence->textColor = SDL_Color{ 50, 50, 150 };
+			agility->pos = std::make_pair(position.first + 80, position.second);
 			agility->SetTextScale(scale, scale);
-			agility->textColor = SDL_Color{ 0, 255, 0 };
+			agility->textColor = SDL_Color{ 0, 100, 0 };
 		}
 		void SetVisibility(bool visible)
 		{
@@ -64,17 +64,11 @@ public:
 		{
 			auto s = character->GetStats();
 
-			
-
 			health->text = std::to_string(s.health.first) + "/" + std::to_string(s.health.second);
 			movement->text = std::to_string(s.movement.first) + "/" + std::to_string(s.movement.second);
 			strength->text = std::to_string(s.strength.first) + "/" + std::to_string(s.strength.second);
 			intelligence->text = std::to_string(s.intelligence.first) + "/" + std::to_string(s.intelligence.second);
 			agility->text = std::to_string(s.agility.first) + "/" + std::to_string(s.agility.second);
-			//movement->text = s.movement.first + "/" + s.movement.second;
-			//strength->text = s.strength.first + "/" + s.strength.second;
-			//intelligence->text = s.intelligence.first + "/" + s.intelligence.second;
-			//agility->text = s.agility.first + "/" + s.agility.second;
 		}
 
 	};
