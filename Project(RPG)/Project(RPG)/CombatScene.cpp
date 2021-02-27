@@ -258,19 +258,33 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 								}
 								break;
 							case(Selection::Enemy):
-								for (auto& i: team)
+								if (selectedCard->first->Values().damage < 0)
 								{
-									if(i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second) && &i != character)
-									target = &i;
-								}
-								for (auto& i : enemy)
-									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
+
+									for (auto& i : team)
 									{
-										target = &i;
-										
+										if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second) && &i != character)
+										{
+											target = &i;
+											mgr->PlaySFX(pButtonClick_SFX, 0, 1);
+										}
 									}
+								}
+								else
+								{
+									for (auto& i : enemy)
+									{
+										if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
+										{
+											target = &i;
+											mgr->PlaySFX(pButtonClick_SFX, 0, 2);
+										}
+									}
+								}
+
 								if (target == nullptr)
 								{
+									mgr->PlaySFX(pError_SFX, 0, 1);
 									character->object->Untint();
 									character = nullptr;
 									selectedCard->second->Untint();
@@ -279,12 +293,13 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 								}
 								else
 								{
-									Cast(character, target,selectedCard);
+									Cast(character, target, selectedCard);
 									target = nullptr;
 									character = nullptr;
 									selectedCard = nullptr;
 									current = Selection::Any;
 								}
+								
 								break;
 							}
 
