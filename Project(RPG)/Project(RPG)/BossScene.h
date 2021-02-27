@@ -2,11 +2,13 @@
 #include "Scene.h"
 #include "Card.h"
 #include <deque>
-#include "ProgressBar.h"
+
 class BossScene :
 	public Scene
 {
+
 public:
+
 	struct tile
 	{
 		RenderObject* square = NULL;
@@ -170,50 +172,58 @@ public:
 		}
 
 	};
+
 	void Load();
 	BossScene(Interface* objmg);
+	virtual ~BossScene();
 	void Update(double dTime, Act act, std::pair<int, int> mouse) override;
+
 private:
-	void PlayFightAnimation();
+
 	void RunAi();
 	void Cast(Unit* caster, Unit* target, const std::pair<Card*, RenderObject*>* card);
 	void RemoveUnit(Unit* unit);
-	std::vector<Character> chars{};
-	std::vector<Card*> playerHand{};
-
 	std::vector<tile*> CalculatePath(tile* start, tile* end);
 	void RemoveCard(std::pair<Card*, RenderObject*>* cd);;
 	double GetDistance(tile* start, tile* end) { return std::abs(std::sqrt(std::pow(end->pos.first - start->pos.first, 2) + std::pow(end->pos.second - start->pos.second, 2))) / 32; }
-	const int gridTileLength = 10;
 
-	double fightScene = 0;
-	RenderObject* endTurn;
-	RenderObject* pExit;
-	bool playerTurn = false; // Is it the players turn
-	std::deque<RenderObject*> hovered;
 	typedef BossScene::tile tile;
 	typedef BossScene::Unit Unit;
-	Unit* character = nullptr;
-	Unit* target;
-	std::pair<Card*, RenderObject*>* selectedCard = nullptr;
-	std::deque <Unit> team{};
-	std::deque <Unit> enemy{};
+	
+	std::vector<Character> chars{};
+	std::vector<Card*> playerHand{};
 	std::vector<std::pair<Card*, RenderObject*>> playerhand;
 	std::vector<std::pair<Card*, RenderObject*>> enemyHand;
-	Mix_Music* combat_music;
-	Mix_Chunk* slash_sfx;
-	RenderObject* fightSceneTeamCharacter;
-	RenderObject* fightSceneEnemyCharacter;
-	RenderObject* fightSceneBg;
-	std::pair<Card*, RenderObject*> hoveredCard;
-	ProgressBar healthbar;
-
 	std::vector<Card*> deck;
 
+	std::pair<Card*, RenderObject*>* selectedCard = nullptr;
+	std::pair<Card*, RenderObject*> hoveredCard;
 	std::pair<double, double> centre = { 640,360 };
+
+	std::deque<RenderObject*> hovered;
+	std::deque <Unit> team{};
+	std::deque <Unit> enemy{};
+
 	enum Selection { Team, Enemy, Ground, UICard, Any };
 	Selection current = Any;
-
 	tile mapp[10][10];
+
+	RenderObject* endTurn;
+	RenderObject* pExit;
+	Unit* character = nullptr;
+	Unit* target;
+
+	const int gridTileLength = 10;
+	double fightScene = 0;
+	bool playerTurn = false; // Is it the players turn
+		
+	Mix_Music* pCombat_music;
+	Mix_Chunk* pSlash_sfx;
+	Mix_Chunk* pMagic_SFX;
+	Mix_Chunk* pShoot_SFX;
+	Mix_Chunk* pHeal_SFX;
+	Mix_Chunk* pButtonClick_SFX;
+	Mix_Chunk* pError_SFX;
+	
 };
 
