@@ -239,6 +239,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 		{
 			if (mStatPoints != 0)
 			{
+				mgr->PlaySFX(Button_Sfx, 0, 1);
 				--mStatPoints;
 				++mStrPoints;
 				mSceneText[2]->text = "STAT POINTS: " + std::to_string(mStatPoints);
@@ -255,6 +256,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 		{
 			if (mStatPoints != 0)
 			{
+				mgr->PlaySFX(Button_Sfx, 0, 1);
 				--mStatPoints;
 				++mAgiPoints;
 				mSceneText[2]->text = "STAT POINTS: " + std::to_string(mStatPoints);
@@ -271,6 +273,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 		{
 			if (mStatPoints != 0)
 			{
+				mgr->PlaySFX(Button_Sfx, 0, 1);
 				--mStatPoints;
 				++mIntPoints;
 				mSceneText[2]->text = "STAT POINTS: " + std::to_string(mStatPoints);
@@ -285,6 +288,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 
 		if (pRejectButton->InBounds(mousePos.first, mousePos.second) && pRejectButton->IsVisible() == true)
 		{
+				mgr->PlaySFX(Button_Sfx, 0, 1);
 				mStatPoints = 2;
 				mStrPoints = 0;
 				mAgiPoints = 0;
@@ -299,6 +303,7 @@ void WinLoseStateScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 		{
 			if (mStatPoints == 0)
 			{
+				mgr->PlaySFX(Button_Sfx, 0, 1);
 				pTargetCharacter->pCharacter->modStat(pTargetCharacter->pCharacter->GetStats().strength, { mStrPoints, mStrPoints });
 				pTargetCharacter->pCharacter->modStat(pTargetCharacter->pCharacter->GetStats().agility, { mAgiPoints, mAgiPoints });
 				pTargetCharacter->pCharacter->modStat(pTargetCharacter->pCharacter->GetStats().intelligence, { mIntPoints, mIntPoints });
