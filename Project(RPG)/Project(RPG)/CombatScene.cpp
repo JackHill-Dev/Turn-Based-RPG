@@ -417,7 +417,10 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 									{
 										found = true;
 										i.object->tint = SDL_Color{ 0,255,0 };
+										i.profile->tint = SDL_Color{ 0, 255, 0 };
+
 										hovered.push_back(i.object);
+										hovered.push_back(i.profile);
 									}
 						}
 						else
@@ -456,13 +459,20 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 									if (i.object->InBounds(mouse.first, mouse.second))
 									{
 										i.object->tint = SDL_Color{ 0, 255, 0 };
+										i.profile->tint = SDL_Color{ 0, 255, 0 };
+
+										
 										hovered.push_back(i.object);
+										hovered.push_back(i.profile);
 										
 									}
 								for (auto& i : team)
 									if (i.object->InBounds(mouse.first, mouse.second) && &i != character)
 									{
 										i.object->tint = SDL_Color{ 0, 255, 0 };
+										i.profile->tint = SDL_Color{ 0, 255, 0 };
+
+										hovered.push_back(i.profile);
 										hovered.push_back(i.object);
 
 									}
