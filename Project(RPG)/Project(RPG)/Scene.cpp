@@ -82,24 +82,36 @@ void Scene::Draw(SDL_Renderer* rnd)
 
 
 		});
-
-	for (auto t : mSceneText)
+	// TODO - Surface from UIText isn't being freed.
+	for (auto& t : mSceneText)
 	{
 		rect.w = t->scale.first;
 		rect.h = t->scale.second;
 				  
 		rect.x = t->pos.first - rect.w/2;
 		rect.y = t->pos.second - rect.h/2;
-	
-		SDL_Texture* fontTexture = nullptr;
+		
+		mFontTexture = nullptr;
+		SDL_Surface* tempTextSurface = nullptr;
+
 		if (!t->bWrapped)
-			fontTexture = SDL_CreateTextureFromSurface(rnd, TTF_RenderText_Blended(mFont, t->text.c_str(), t->textColor));
+		{
+			tempTextSurface = TTF_RenderText_Blended(mFont, t->text.c_str(), t->textColor);
+			mFontTexture = SDL_CreateTextureFromSurface(rnd, tempTextSurface);
+			SDL_FreeSurface(tempTextSurface);
+		}
 		else
-			fontTexture = SDL_CreateTextureFromSurface(rnd, TTF_RenderText_Blended_Wrapped(mFont, t->text.c_str(), t->textColor, 300));
+		{
+			tempTextSurface = TTF_RenderText_Blended_Wrapped(mFont, t->text.c_str(), t->textColor, 300);
+			mFontTexture = SDL_CreateTextureFromSurface(rnd, tempTextSurface);
+			SDL_FreeSurface(tempTextSurface);
+		}
 
 	    if(t->isVisible)
-			SDL_RenderCopy(rnd, fontTexture, nullptr, &rect);
+			SDL_RenderCopy(rnd, mFontTexture, nullptr, &rect);
 	}
+
+	mFontTexture = nullptr;
 
 	
 	++counter;
