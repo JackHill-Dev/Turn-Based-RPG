@@ -90,7 +90,7 @@ void ShopScene::Init()
 {
 	AddObject("ShopBGObj",640, 360, Background);
 	
-	AddObject("merchantPortraitObj", 725, 225, UI);
+	AddObject("merchantPortraitObj", 725, 225, UI)->SetScale({0.87,0.87});
 	pExitButton = AddObject("exitButtonObj", 120, 640, UI);
 
 
@@ -115,7 +115,7 @@ void ShopScene::Load()
 {
 	mHighestCharacter = mgr->GetPlayer()->GetParty()[0]->GetLevel();
 
-	AddObject(mgr->GetPlayer()->GetParty().at(0)->GetPortraitName(), 505, 225, UI); // Now loads portrait of 1st in party. These need matching in scale to merchant - EH
+	AddObject(mgr->GetPlayer()->GetParty().at(0)->GetPortraitName(), 505, 225, UI)->SetScale({1.2,1.2}); // Now loads portrait of 1st in party. These need matching in scale to merchant - EH
 
 	mSceneText.clear();
 
@@ -155,13 +155,9 @@ void ShopScene::Load()
 	mShop.GeneratePositions();
 	SetupShopInv();
 	//--------------------------------------
-	std::vector<Item*> tempPlayerInventory;
-	std::copy(mgr->GetPlayer()->GetInventory().begin(), mgr->GetPlayer()->GetInventory().end(), std::back_inserter(tempPlayerInventory));
-	mgr->GetPlayer()->GetInventory().clear();
-	mgr->GetPlayer()->ClearGridPositions();
-	mgr->GetPlayer()->GeneratePositions();
-	std::copy(tempPlayerInventory.begin(), tempPlayerInventory.end(), std::back_inserter(mgr->GetPlayer()->GetInventory()));
-	tempPlayerInventory.clear();
+
+	RegeneratePlayerInventory();
+
 	playerInv.clear();
 	shopInv.clear();
 
@@ -324,7 +320,6 @@ void ShopScene::GenerateGrids()
 	DrawGrid(4, 5, 880, 110); // Draw item frames for shop inventory
 
 	PlaceItems();
-	//PlaceItems(mShop.GetInventory());
 }
 
 
@@ -345,22 +340,30 @@ void ShopScene::DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY
 	}
 }
 
-void ShopScene::HandleTooltip(ItemObject* hovered)
+void ShopScene::RegeneratePlayerInventory()
 {
-	if (hovered != nullptr)
-	{
-		//current->OnHover();
-		mTooltip.pItemImage->SetTexture(hovered->obj->GetSheet());
-		mTooltip.mDescription.text = hovered->_item->GetDescription();
+	std::vector<Item*> tempPlayerInventory;
+	std::copy(mgr->GetPlayer()->GetInventory().begin(), mgr->GetPlayer()->GetInventory().end(), std::back_inserter(tempPlayerInventory));
+	mgr->GetPlayer()->GetInventory().clear();
+	mgr->GetPlayer()->ClearGridPositions();
+	mgr->GetPlayer()->GeneratePositions();
 
-		mTooltip.Show();
-	}
-	else
+	std::for_each(tempPlayerInventory.begin(), tempPlayerInventory.end(), [](Item* i)
+		{
+			i->inventoryPos.pos = { 0,0 };
+			i->inventoryPos.gridPosFilled = false;
+
+		});
+
+	for (auto& i : tempPlayerInventory)
 	{
-		mTooltip.Hide();
-	
+		mgr->GetPlayer()->AddItem(i);
 	}
+
+
+	tempPlayerInventory.clear();
 }
+
 
 
 
