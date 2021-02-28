@@ -90,7 +90,7 @@ void ShopScene::Init()
 {
 	AddObject("ShopBGObj",640, 360, Background);
 	
-	AddObject("merchantPortraitObj", 725, 225, UI);
+	AddObject("merchantPortraitObj", 725, 225, UI)->SetScale({0.87,0.87});
 	pExitButton = AddObject("exitButtonObj", 120, 640, UI);
 
 
@@ -115,7 +115,7 @@ void ShopScene::Load()
 {
 	mHighestCharacter = mgr->GetPlayer()->GetParty()[0]->GetLevel();
 
-	AddObject(mgr->GetPlayer()->GetParty().at(0)->GetPortraitName(), 505, 225, UI); // Now loads portrait of 1st in party. These need matching in scale to merchant - EH
+	AddObject(mgr->GetPlayer()->GetParty().at(0)->GetPortraitName(), 505, 225, UI)->SetScale({1.2,1.2}); // Now loads portrait of 1st in party. These need matching in scale to merchant - EH
 
 	mSceneText.clear();
 
