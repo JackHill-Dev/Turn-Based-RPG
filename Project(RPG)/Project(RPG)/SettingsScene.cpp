@@ -11,6 +11,7 @@ SettingsScene::SettingsScene(Interface* mgr) : Scene(mgr)
 
 void SettingsScene::Load()
 {
+	Setup();
 }
 
 
@@ -43,6 +44,13 @@ void SettingsScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 		{
 			mgr->PlaySFX(button_Click_SFX, 0, 1);
 			mgr->LoadPreviousScene();
+			CleanText(mSceneText);
+			CleanSFX(pEffects);
+			//for (auto& obj : pObjects)
+			//{
+			//	obj->CleanTexture(obj->GetSheet());
+			//}
+			pEffects.clear();
 			settingsCloseBtn->Untint();
 		}
 
@@ -83,29 +91,41 @@ void SettingsScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 
 		for (int i = 0; i < resOptions.size(); ++i)
 		{
+			
 			if (resOptions[i].obj->InBounds(mousePos.first, mousePos.second) && resOptions[i].obj->IsActive())
 			{
 				mSceneText[4]->text = resOptions[i].ResOption.text; //  This changes the text of the collapsed dropdown
 				mgr->GetSettings().w = resOptions[i].w;
 				mgr->GetSettings().h = resOptions[i].h;
-
+				
 			}
+			CleanText(mSceneText);
 		}
 	}
 }
 
 void SettingsScene::Setup()
 {
-	AddObject("settingsBgObj", 635, 360, Background);
+	
 	settingsCloseBtn = AddObject("CloseBtnObj",50, 50, UI);
 	dropdownCollapsed = AddObject("resCollapsedObj", 640, 300, UI);
 	ApplyBtn = AddObject("ApplyBtnObj", 640, 550, UI);
 	checkBox = AddObject("checkBoxObj", 720, 200, UI);
 	checkBox->SetScale(std::make_pair(0.5, 0.5));
 
+	pObjects.push_back(AddObject("settingsBgObj", 635, 360, Background));
+	pObjects.push_back(dropdownCollapsed);
+	pObjects.push_back(ApplyBtn);
+	pObjects.push_back(checkBox);
+	pObjects.push_back(settingsCloseBtn);
+
 	confirm_SFX = Mix_LoadWAV("Assets/SFX/confirmSound.wav");
 	back_SFX = Mix_LoadWAV("Assets/SFX/BackSound.wav");
 	button_Click_SFX = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
+
+	pEffects.push_back(confirm_SFX);
+	pEffects.push_back(back_SFX);
+	pEffects.push_back(button_Click_SFX);
 
 	if (mgr->GetSettings().bIsFullScreen)
 		checkBox->SetAnim("Checked");
@@ -115,9 +135,9 @@ void SettingsScene::Setup()
 
 void SettingsScene::SetupResOptions()
 {
-	resOptions.push_back({ nullptr, UIText{"1920 X 1080", std::make_pair(0,0),std::make_pair(70,50), SDL_Color{0,0,0}}, 1920, 1080 });
-	resOptions.push_back({ nullptr, UIText{"1280 X 720", std::make_pair(0,0), std::make_pair(70,50), SDL_Color{0,0,0}}, 1280, 720 });
-	resOptions.push_back({ nullptr, UIText{"800 X 600", std::make_pair(0,0),  std::make_pair(70,50), SDL_Color{0,0,0}}, 800, 600 });
+	resOptions.push_back({ nullptr, UIText{nullptr, nullptr,"1920 X 1080", std::make_pair(0,0),std::make_pair(70,50), SDL_Color{0,0,0}}, 1920, 1080 });
+	resOptions.push_back({ nullptr, UIText{nullptr, nullptr,"1280 X 720", std::make_pair(0,0), std::make_pair(70,50), SDL_Color{0,0,0}}, 1280, 720 });
+	resOptions.push_back({ nullptr, UIText{nullptr, nullptr, "800 X 600", std::make_pair(0,0),  std::make_pair(70,50), SDL_Color{0,0,0}}, 800, 600 });
 	int offsetY = 332;
 	for (int i = 0; i < resOptions.size(); ++i)
 	{
@@ -125,7 +145,7 @@ void SettingsScene::SetupResOptions()
 		resOptions[i].obj->SetVisible(false);
 		resOptions[i].obj->SetActive(false);
 		resOptions[i].ResOption.isVisible = false;
-		resOptions[i].ResOption.pos = std::make_pair(640, offsetY); //resOptions[i].obj->GetPos();
+		resOptions[i].ResOption.pos = std::make_pair(640, offsetY); 
 		mSceneText.push_back(&resOptions[i].ResOption);
 		offsetY += 32;
 	}
@@ -137,10 +157,7 @@ void SettingsScene::SetupResOptions()
 	fullScreenTxt.textColor = SDL_Color{ 0,0,0 };
 	fullScreenTxt.text = "Fullscreen";
 	mSceneText.push_back(&fullScreenTxt);
-
-	mSceneText.push_back(&currentRes);
-
-	
+	mSceneText.push_back(&currentRes);	
 }
 
 

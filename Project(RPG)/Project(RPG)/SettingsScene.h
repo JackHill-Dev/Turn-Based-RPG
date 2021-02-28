@@ -26,9 +26,13 @@ private:
     RenderObject* dropdownCollapsed;
     RenderObject* settingsCloseBtn;
 
+    std::vector<RenderObject*> pObjects;
+
     Mix_Chunk* confirm_SFX;
     Mix_Chunk* back_SFX;
     Mix_Chunk* button_Click_SFX;
+
+    std::vector<Mix_Chunk*> pEffects;
 
     UIText currentRes;
     UIText fullScreenTxt;
