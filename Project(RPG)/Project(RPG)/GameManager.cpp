@@ -7,7 +7,7 @@ void GameManager::Run()
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, 0);
 	Act act;
 
-	mInterface.SetMasterVolume(-1, 16, 8);
+	mInterface.SetMasterVolume(-1, 16, 16);
 
 
 	SDL_Texture* texture = SDL_CreateTexture(mRnd, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, mSettings.w, mSettings.h);
