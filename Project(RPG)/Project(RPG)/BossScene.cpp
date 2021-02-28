@@ -649,6 +649,7 @@ void BossScene::Cast(Unit* caster, Unit* target, const std::pair<Card*, RenderOb
 	target->profile->Untint();
 	caster->object->Untint();
 	caster->profile->Untint();
+
 	if (dist <= card->first->Values().range + 1 &&
 		stats->strength.first >= card->first->Values().stamCost)
 	{

@@ -686,6 +686,7 @@ void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  Rende
 	target->profile->Untint();
 	caster->object->Untint();
 	caster->profile->Untint();
+
 	if (dist <= card->first->Values().range && 
 		stats->strength.first >= card->first->Values().stamCost && stats->intelligence.first >= card->first->Values().intCost && stats->agility.first >= card->first->Values().agilCost)
 	{
