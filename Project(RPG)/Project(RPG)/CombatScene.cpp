@@ -217,6 +217,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 										mgr->PlaySFX(pButtonClick_SFX, 0, 1);
 										character = &i;
 										character->object->tint = SDL_Color{ 255,255,0 };
+										character->profile->tint = SDL_Color{ 255,255,0 };
 										if (selectedCard != nullptr)
 											current = Selection::Enemy;
 										current = Selection::Ground;
@@ -242,6 +243,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 											}
 										}
 								character->object->Untint();
+								character->profile->Untint();
 								character = nullptr;
 								mgr->PlaySFX(pButtonClick_SFX, 0, 1);
 								current = Selection::Any;
@@ -259,6 +261,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 										{
 											character = &i;
 											character->object->tint = SDL_Color{ 255,255,0 };
+											character->profile->tint = SDL_Color{ 255,255,0 };
 											current = Selection::Enemy;
 										}
 										
@@ -291,7 +294,6 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 										if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
 										{
 											target = &i;
-											mgr->PlaySFX(pButtonClick_SFX, 0, 2);
 										}
 									}
 								}
@@ -300,6 +302,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 								{
 									mgr->PlaySFX(pError_SFX, 0, 1);
 									character->object->Untint();
+									character->profile->Untint();
 									character = nullptr;
 									selectedCard->second->Untint();
 									selectedCard = nullptr;
@@ -413,7 +416,9 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 								}
 
 							if (!found)
+							{
 								for (auto& i : team)
+								{
 									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
 									{
 										found = true;
@@ -423,6 +428,21 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 										hovered.push_back(i.object);
 										hovered.push_back(i.profile);
 									}
+								}
+
+								for (auto& i : enemy)
+								{
+									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
+									{
+										found = true;
+										i.object->tint = SDL_Color{ 255, 0, 0 };
+										i.profile->tint = SDL_Color{ 255, 0, 0 };
+
+										hovered.push_back(i.object);
+										hovered.push_back(i.profile);
+									}
+								}
+							}
 						}
 						else
 							switch (current)
@@ -444,13 +464,17 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 										{
 
 											i.object->tint = SDL_Color{ 0, 255, 0 };
+											i.profile->tint = SDL_Color{ 0,255,0 };
 										}
 										else
+										{
 											i.object->tint = SDL_Color{ 255, 0, 0 };
+											i.profile->tint = SDL_Color{255, 0, 0 };
+										}
 
 
 										hovered.push_back(i.object);
-										
+										hovered.push_back(i.profile);
 									}
 
 								break;
@@ -659,7 +683,9 @@ void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  Rende
 	auto stats = &caster->character->GetStats();
 	auto dist = GetDistance(caster->occupiedTile, target->occupiedTile);
 	target->object->Untint();
+	target->profile->Untint();
 	caster->object->Untint();
+	caster->profile->Untint();
 	if (dist <= card->first->Values().range && 
 		stats->strength.first >= card->first->Values().stamCost && stats->intelligence.first >= card->first->Values().intCost && stats->agility.first >= card->first->Values().agilCost)
 	{
