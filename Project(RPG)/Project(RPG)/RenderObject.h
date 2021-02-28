@@ -34,7 +34,6 @@ public:
 	void SetPos(std::pair<float, float> nPos);
 	void SetScale(std::pair<float, float> nScale) { scale = nScale; }
 	void SetTexture(SpriteSheet* nSheet);
-	void CleanTexture(SpriteSheet* sheet);
 	void SetVisible(const bool vis);
 	void SetActive(const bool active) { bIsActive = active; }
 	SpriteSheet* GetSheet();

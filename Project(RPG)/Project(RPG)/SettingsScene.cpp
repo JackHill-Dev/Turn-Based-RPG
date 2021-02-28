@@ -44,13 +44,6 @@ void SettingsScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 		{
 			mgr->PlaySFX(button_Click_SFX, 0, 1);
 			mgr->LoadPreviousScene();
-			CleanText(mSceneText);
-			CleanSFX(pEffects);
-			//for (auto& obj : pObjects)
-			//{
-			//	obj->CleanTexture(obj->GetSheet());
-			//}
-			pEffects.clear();
 			settingsCloseBtn->Untint();
 		}
 
@@ -99,33 +92,22 @@ void SettingsScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 				mgr->GetSettings().h = resOptions[i].h;
 				
 			}
-			CleanText(mSceneText);
 		}
 	}
 }
 
 void SettingsScene::Setup()
 {
-	
+	AddObject("settingsBgObj", 635, 360, Background);
 	settingsCloseBtn = AddObject("CloseBtnObj",50, 50, UI);
 	dropdownCollapsed = AddObject("resCollapsedObj", 640, 300, UI);
 	ApplyBtn = AddObject("ApplyBtnObj", 640, 550, UI);
 	checkBox = AddObject("checkBoxObj", 720, 200, UI);
 	checkBox->SetScale(std::make_pair(0.5, 0.5));
 
-	pObjects.push_back(AddObject("settingsBgObj", 635, 360, Background));
-	pObjects.push_back(dropdownCollapsed);
-	pObjects.push_back(ApplyBtn);
-	pObjects.push_back(checkBox);
-	pObjects.push_back(settingsCloseBtn);
-
 	confirm_SFX = Mix_LoadWAV("Assets/SFX/confirmSound.wav");
 	back_SFX = Mix_LoadWAV("Assets/SFX/BackSound.wav");
 	button_Click_SFX = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
-
-	pEffects.push_back(confirm_SFX);
-	pEffects.push_back(back_SFX);
-	pEffects.push_back(button_Click_SFX);
 
 	if (mgr->GetSettings().bIsFullScreen)
 		checkBox->SetAnim("Checked");

@@ -36,28 +36,6 @@ void Scene::SceneUpdate(double dTime, Act act, std::pair<int, int> mousePos)
 	
 }
 
-void Scene::CleanMusic(Mix_Music* music)
-{
-	
-	Mix_FreeMusic(music);
-}
-
-void Scene::CleanSFX(std::vector<Mix_Chunk*> fx)
-{
-	for (auto& effect : fx)
-	{
-		Mix_FreeChunk(effect);
-	}
-}
-
-void Scene::CleanText(std::vector<UIText*> sceneText)
-{
-	for (auto& text : sceneText)
-	{
-		SDL_DestroyTexture(text->mFontTexture);
-	}
-}
-
 void Scene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
 	

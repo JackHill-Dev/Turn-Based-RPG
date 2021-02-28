@@ -96,10 +96,6 @@ protected:
 	std::vector<std::vector<RenderObject*>> mLayers;
 	std::vector<UIText*> mSceneText;
 
-	void CleanMusic(Mix_Music* music);
-	void CleanSFX(std::vector<Mix_Chunk*> fx);
-	void CleanText(std::vector<UIText*> sceneText);
-
 	virtual void Update(double dTime, Act act, std::pair<int, int> mousePos);
 	
 	Interface* mgr;

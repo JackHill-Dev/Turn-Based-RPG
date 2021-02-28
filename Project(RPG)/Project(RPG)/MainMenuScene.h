@@ -33,7 +33,6 @@ private:
     Mix_Chunk* confirm_SFX;
     Mix_Chunk* back_SFX;
 
-    std::vector<Mix_Chunk*> pEffects;
     RenderObject* pMenuBg;
 
     // Main menu buttons
