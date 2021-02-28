@@ -74,7 +74,7 @@ void ShopScene::PlaceItems()
 	for (auto i : mgr->GetPlayer()->GetInventory())
 	{
 		// Display item to screen and set its render object to the correct image
-		playerInv.push_back(ItemObject(i, AddObject(i->GetObjName(), i->inventoryPos.pos.first , i->inventoryPos.pos.second * mgr->GetSettings().h , Game)));
+		playerInv.push_back(ItemObject(i, AddObject(i->GetObjName(), i->inventoryPos.pos.first , i->inventoryPos.pos.second , Game)));
 		
 	}
 
@@ -155,8 +155,13 @@ void ShopScene::Load()
 	mShop.GeneratePositions();
 	SetupShopInv();
 	//--------------------------------------
-	
-
+	std::vector<Item*> tempPlayerInventory;
+	std::copy(mgr->GetPlayer()->GetInventory().begin(), mgr->GetPlayer()->GetInventory().end(), std::back_inserter(tempPlayerInventory));
+	mgr->GetPlayer()->GetInventory().clear();
+	mgr->GetPlayer()->ClearGridPositions();
+	mgr->GetPlayer()->GeneratePositions();
+	std::copy(tempPlayerInventory.begin(), tempPlayerInventory.end(), std::back_inserter(mgr->GetPlayer()->GetInventory()));
+	tempPlayerInventory.clear();
 	playerInv.clear();
 	shopInv.clear();
 
