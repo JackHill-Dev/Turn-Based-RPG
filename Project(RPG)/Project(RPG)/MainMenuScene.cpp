@@ -8,10 +8,16 @@ MainMenuScene::MainMenuScene(Interface* rng) : Scene(rng)
 {
 
 	// Get all main menu button objects
-	start  = AddObject("newGameButtonObj", 110, 100, UI);
-	LoadButton = AddObject("ContinueButtonObj", 110, 170, UI);
-	settings = AddObject("settingsBtnObj", 110, 240, UI);
-	quit = AddObject("quitBtnObj", 110, 310, UI);
+	pMenuBg = AddObject("gameLogoMenuObj", 640, 380, UI);
+	pMenuBg->SetScale({ 0.6, 0.8 });
+	start  = AddObject("newGameButtonObj", 640, 370, UI);
+	start->SetScale({ 1.5,1.2 });
+	LoadButton = AddObject("ContinueButtonObj", 640, 440, UI);
+	LoadButton->SetScale({ 1.5,1.2 });
+	settings = AddObject("settingsBtnObj", 640, 510, UI);
+	settings->SetScale({ 1.5,1.2 });
+	quit = AddObject("quitBtnObj", 640, 580, UI);
+	quit->SetScale({ 1.5,1.2 });
 
 
 	buttons.push_back(start);
@@ -35,9 +41,8 @@ MainMenuScene::MainMenuScene(Interface* rng) : Scene(rng)
 	}
 	else
 	{
-		settings->SetPos({ 110,170 });
-		quit->SetPos({ 110,240 });
-		LoadButton->SetPos({110,310});
+		settings->SetPos({ 640,440 });
+		quit->SetPos({ 640,510 });
 		LoadButton->SetVisible(false);
 	}
 }
@@ -45,20 +50,17 @@ MainMenuScene::MainMenuScene(Interface* rng) : Scene(rng)
 void MainMenuScene::Load()
 {
 
-	//std::ifstream ifs("Savedata.json");
-
 	if (mgr->GetSeed() != 0)
 	{
-		LoadButton->SetPos({110,170});
-		settings->SetPos({110,240});
-		quit->SetPos({110,310});
+		LoadButton->SetPos({640,440});
+		settings->SetPos({640,510});
+		quit->SetPos({640,580});
 		LoadButton->SetVisible(true);
 	}
 	else
 	{
-		settings->SetPos({ 110,170 });
-		quit->SetPos({ 110,240 });
-		LoadButton->SetPos({ 110,310 });
+		settings->SetPos({ 640,440 });
+		quit->SetPos({ 640,510 });
 		LoadButton->SetVisible(false);
 	}
 
