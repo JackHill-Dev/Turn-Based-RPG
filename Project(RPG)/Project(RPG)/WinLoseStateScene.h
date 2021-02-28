@@ -24,6 +24,10 @@ private:
 	UIText mFlavourText5;
 	UIText mFlavourText6;
 	UIText mGoldLootText;
+	UIText mLevelUpText1;
+	UIText mLevelUpText2;
+	UIText mLevelUpText3;
+
 	UIText mFooterInstruction;
 
 	RenderObject* pBackground = nullptr;

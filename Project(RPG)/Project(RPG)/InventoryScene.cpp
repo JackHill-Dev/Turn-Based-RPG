@@ -5,7 +5,9 @@ InventoryScene::InventoryScene(Interface* mgr) : Scene(mgr)
 	AddObject("ShopBGObj", 640, 360, Background);
 	pCloseBtn = AddObject("CloseBtnObj", 1200, 50, UI);
 	pDrink_SFX = Mix_LoadWAV("Assets/SFX/potiondrinklong.wav");
-	button_SFX = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
+	pButton_SFX = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
+	pGrab_SFX = Mix_LoadWAV("Assets/SFX/zapsplat_pick_up.wav");
+	pDrop_SFX = Mix_LoadWAV("Assets/SFX/zapsplat_drop.wav");
 	Init();
 }
 
@@ -13,9 +15,13 @@ InventoryScene::~InventoryScene()
 {
 	pCloseBtn = nullptr;
 
-	button_SFX = nullptr;
+	pButton_SFX = nullptr;
 
 	pDrink_SFX = nullptr;
+
+	pGrab_SFX = nullptr;
+
+	pDrop_SFX = nullptr;
 
 	for (auto& g : playerInvGrid)
 	{
@@ -97,7 +103,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 
 	if (act == Act::Click && pCloseBtn->InBounds(mousePos.first, mousePos.second))
 	{
-		mgr->PlaySFX(button_SFX, 0, 1);
+		mgr->PlaySFX(pButton_SFX, 0, 1);
 		mgr->LoadPreviousScene();
 		pCloseBtn->Untint();
 	}
@@ -121,6 +127,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 						{
 							if (c.armourSlot->InBounds(mousePos.first, mousePos.second) && i.bPickedUp && c.character->ArmourEquipSlot == nullptr && (dynamic_cast<Armour*>(i._item)))
 							{
+								mgr->PlaySFX(pDrop_SFX, 0, 1);
 								i.bPickedUp = false;
 								i.obj->SetPos(c.armourSlot->GetPos());
 								playerInvGrid[temp].second = nullptr;
@@ -132,6 +139,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 							else
 								if (c.weaponSlot->InBounds(mousePos.first, mousePos.second) && i.bPickedUp && c.character->mWeaponEquipSlot == nullptr && (dynamic_cast<Weapon*>(i._item)))
 								{
+									mgr->PlaySFX(pDrop_SFX, 0, 1);
 									i.bPickedUp = false;
 									i.obj->SetPos(c.weaponSlot->GetPos());
 									playerInvGrid[temp].second = nullptr;
@@ -161,6 +169,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 						{
 							if (g.first->InBounds(mousePos.first, mousePos.second) && i.bPickedUp && g.second == nullptr)
 							{
+								mgr->PlaySFX(pDrop_SFX, 0, 1);
 								i.obj->SetPos(g.first->GetPos());
 								g.second = &i;
 								i.bPickedUp = false;
@@ -198,7 +207,11 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 						if (!itemPickedUp)
 						{
 							if (!i.bPickedUp)
+							{
 								i.bPickedUp = true;
+							}
+
+							mgr->PlaySFX(pGrab_SFX, 0, 1);
 
 							itemPickedUp = true;
 							auto spot = std::find_if(playerInvGrid.begin(), playerInvGrid.end(), [i](std::pair<RenderObject*, ItemObject*> t)
@@ -215,10 +228,6 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 								int index = spot - playerInvGrid.begin();
 								playerInvGrid.at(index).second = nullptr;
 							}
-
-
-
-
 
 							bool partyItem = false;
 							for (auto& c : characters)
@@ -254,12 +263,9 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 								}
 							}
 
-
-
 						}
 					}
 				}
-
 				temp++;
 			}
 		}
@@ -268,16 +274,18 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 
 	if (act == Act::MouseUpdate)
 	{
+		if (pCloseBtn->InBounds(mousePos.first, mousePos.second))
+		{
+			pCloseBtn->Tint({ 0,255,0 });
+		}
+		else
+		{
+			pCloseBtn->Untint();
+		}
+
 		for (auto& i : itemObjects)
 		{
-			if (pCloseBtn->InBounds(mousePos.first, mousePos.second))
-			{
-				pCloseBtn->Tint({ 0,255,0 });
-			}
-			else
-			{
-				pCloseBtn->Untint();
-			}
+			
 
 
 			if (i.bPickedUp)
@@ -302,23 +310,17 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 
 				mToolTip.Show();
 
-				
-
 			}
 			else
 			{
 				mToolTip.Hide();
-				current = nullptr;
-				
+				current = nullptr;				
 			}
 		}
 	}
 
 
 }
-
-
-
 
 void InventoryScene::DrawGrid(int offsetX, int offsetY, int gridBoundsX)
 {

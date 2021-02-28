@@ -3,7 +3,58 @@
 
 BossScene::BossScene(Interface* objmg) : Scene(objmg)
 {
+	pCombat_music = Mix_LoadMUS("Assets/Music/Boss.mp3");
 
+	pSlash_sfx = Mix_LoadWAV("Assets/SFX/slash.wav");
+	pMagic_SFX = Mix_LoadWAV("Assets/SFX/zapsplat_magic_impact_hard_.wav");
+	pHeal_SFX = Mix_LoadWAV("Assets/SFX/Healchoir.wav");
+	pShoot_SFX = Mix_LoadWAV("Assets/SFX/fork_media_warfare_arrow_pass_by.wav");
+	pButtonClick_SFX = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
+	pError_SFX = Mix_LoadWAV("Assets/SFX/ErrorSound.wav");
+}
+
+BossScene::~BossScene()
+{
+	for (auto& obj : hovered)
+	{
+		obj = nullptr;
+	}
+
+	endTurn = nullptr;
+	pExit = nullptr;
+
+	character = nullptr;
+	target = nullptr;
+
+	if (this->selectedCard != nullptr)
+	{
+		selectedCard->first = nullptr;
+		selectedCard->second = nullptr;
+		selectedCard = nullptr;
+	}
+
+
+	for (auto& hand : playerhand)
+	{
+		hand.first = nullptr;
+		hand.second = nullptr;
+	}
+	for (auto& hand : enemyHand)
+	{
+		hand.first = nullptr;
+		hand.second = nullptr;
+	}
+
+	pCombat_music = nullptr;
+	pSlash_sfx = nullptr;
+	pMagic_SFX = nullptr;
+	pHeal_SFX = nullptr;
+	pShoot_SFX = nullptr;
+	pButtonClick_SFX = nullptr;
+	pError_SFX = nullptr;
+
+	hoveredCard.first = nullptr;
+	hoveredCard.second = nullptr;
 }
 
 void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
@@ -15,10 +66,12 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 		for (auto& c : team)
 		{
 			c.visualStats.SetVisibility(true);
+			c.object->SetVisible(true);
 		}
 		for (auto& c : enemy)
 		{
 			c.visualStats.SetVisibility(true);
+			c.object->SetVisible(true);
 		}
 
 
@@ -74,6 +127,7 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 				i.Update();
 			}
 		}
+
 		bool scenebusy = false;
 		if (playerTurn)
 		{
@@ -108,6 +162,9 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 
 					if (endTurn->InBounds(mouse.first, mouse.second))
 					{
+						mgr->PlaySFX(pButtonClick_SFX, 0, 1);
+						endTurn->Untint();
+
 						for (int i = 0; i < playerhand.size(); ++i)
 						{
 							mLayers[UI].erase(std::find(mLayers[UI].begin(), mLayers[UI].end(), playerhand[i].second));
@@ -123,8 +180,7 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 						}
 						for (int i = 0; i < 5; i++)
 						{
-							enemyHand.push_back(std::make_pair(new Card(5, "Slash", 1.5, "cardObj", "BossAttackObj", 0.5, 5, 0, 0), nullptr));
-
+							enemyHand.push_back(std::make_pair(new Card(5, "BossAttack", 1.5, "cardObj", "BossAttackObj", 1, 5, 0, 0), nullptr));
 						}
 					}
 					else
@@ -136,12 +192,12 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 							for (auto& i : playerhand)
 								if (i.second->InBounds(mouse.first, mouse.second))
 								{
+									mgr->PlaySFX(pButtonClick_SFX, 0, 1);
 									selectedCard = &i;
 									found = true;
 									i.second->tint = SDL_Color{ 255,255,0 };
 									hovered.push_back(i.second);
 
-									//hovered->tint = SDL_Color{ 255,255,0 };
 									current = Selection::Team;
 								}
 
@@ -149,8 +205,10 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 								for (auto& i : team)
 									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
 									{
+										mgr->PlaySFX(pButtonClick_SFX, 0, 1);
 										character = &i;
 										character->object->tint = SDL_Color{ 255,255,0 };
+										character->profile->tint = SDL_Color{ 255,255,0 };
 										if (selectedCard != nullptr)
 											current = Selection::Enemy;
 										current = Selection::Ground;
@@ -176,7 +234,9 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 											}
 										}
 								character->object->Untint();
+								character->profile->Untint();
 								character = nullptr;
+								mgr->PlaySFX(pButtonClick_SFX, 0, 1);
 								current = Selection::Any;
 
 								break;
@@ -184,31 +244,57 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 								for (auto& i : team)
 									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
 									{
-										if (i.character->GetStats().strength.first > 5)
+										mgr->PlaySFX(pButtonClick_SFX, 0, 1);
+
+										if ((i.character->GetStats().strength.first >= selectedCard->first->Values().stamCost)
+											&& (i.character->GetStats().agility.first >= selectedCard->first->Values().agilCost)
+											&& (i.character->GetStats().intelligence.first >= selectedCard->first->Values().intCost))
 										{
 											character = &i;
 											character->object->tint = SDL_Color{ 255,255,0 };
+											character->profile->tint = SDL_Color{ 255,255,0 };
 											current = Selection::Enemy;
 										}
 
 									}
 								if (character == nullptr)
 								{
+									mgr->PlaySFX(pError_SFX, 0, 1);
 									selectedCard->second->Untint();
 									selectedCard = nullptr;
 									current = Selection::Any;
 								}
 								break;
 							case(Selection::Enemy):
-								for (auto& i : enemy)
-									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
-									{
-										target = &i;
 
+								if (selectedCard->first->Values().damage < 0)
+								{
+
+									for (auto& i : team)
+									{
+										if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second) && &i != character)
+										{
+											target = &i;
+										}
 									}
+								}
+
+								else
+								{
+									for (auto& i : enemy)
+									{
+										if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
+										{
+											target = &i;
+										}
+									}
+								}
+
 								if (target == nullptr)
 								{
+									mgr->PlaySFX(pError_SFX, 0, 1);
 									character->object->Untint();
+									character->profile->Untint();
 									character = nullptr;
 									selectedCard->second->Untint();
 									selectedCard = nullptr;
@@ -230,19 +316,22 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 				else
 					if (act == Act::MouseUpdate)
 					{
+						if (endTurn->InBounds(mouse.first, mouse.second))
+						{
+							endTurn->Tint({ 0,255,0 });
+						}
+						else
+						{
+							endTurn->Untint();
+						}
+
 						if (hoveredCard.first != nullptr)
 						{
 							hoveredCard.second->scale = std::make_pair(0.42f, 0.42f);
 							hoveredCard.second->SetPos({ hoveredCard.second->GetPos().first, 650 });
 
-
-
-
-
 							hoveredCard.first = nullptr;
 							hoveredCard.second = nullptr;
-
-
 
 							for (int i = 0; i < playerhand.size(); ++i)
 							{
@@ -278,7 +367,6 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 						hovered.clear();
 						if (current == Selection::Any)
 						{
-
 							bool found = false;
 
 							for (auto& i : playerhand)
@@ -293,10 +381,9 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 
 									}
 									found = true;
-									//i.second->tint = SDL_Color{ 0,255,0 };
+									
 									hovered.push_back(i.second);
 									hoveredCard = i;
-
 
 									int offset = -60;
 
@@ -316,17 +403,36 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 
 									}
 
-
 								}
 
 							if (!found)
+							{
 								for (auto& i : team)
+								{
 									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
 									{
 										found = true;
 										i.object->tint = SDL_Color{ 0,255,0 };
+										i.profile->tint = SDL_Color{ 0, 255, 0 };
+
 										hovered.push_back(i.object);
+										hovered.push_back(i.profile);
 									}
+								}
+
+								for (auto& i : enemy)
+								{
+									if (i.object->InBounds(mouse.first, mouse.second) || i.profile->InBounds(mouse.first, mouse.second))
+									{
+										found = true;
+										i.object->tint = SDL_Color{ 255, 0, 0 };
+										i.profile->tint = SDL_Color{ 255, 0, 0 };
+
+										hovered.push_back(i.object);
+										hovered.push_back(i.profile);
+									}
+								}
+							}
 						}
 						else
 							switch (current)
@@ -341,13 +447,16 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 										{
 
 											i.object->tint = SDL_Color{ 0, 255, 0 };
+											i.profile->tint = SDL_Color{ 0,255,0 };
 										}
 										else
+										{
 											i.object->tint = SDL_Color{ 255, 0, 0 };
-
+											i.profile->tint = SDL_Color{ 255, 0, 0 };
+										}
 
 										hovered.push_back(i.object);
-
+										hovered.push_back(i.profile);
 									}
 
 								break;
@@ -357,6 +466,20 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 									if (i.object->InBounds(mouse.first, mouse.second))
 									{
 										i.object->tint = SDL_Color{ 0, 255, 0 };
+										i.profile->tint = SDL_Color{ 0, 255, 0 };
+
+										hovered.push_back(i.object);
+										hovered.push_back(i.profile);
+
+									}
+
+								for (auto& i : team)
+									if (i.object->InBounds(mouse.first, mouse.second) && &i != character)
+									{
+										i.object->tint = SDL_Color{ 0, 255, 0 };
+										i.profile->tint = SDL_Color{ 0, 255, 0 };
+
+										hovered.push_back(i.profile);
 										hovered.push_back(i.object);
 
 									}
@@ -371,10 +494,7 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 											auto path = CalculatePath(character->occupiedTile, &mapp[i][t]);
 											int distance = path.size();
 
-
 											found = true;
-
-
 
 											for (int x = 0; x < path.size(); x++)
 											{
@@ -383,22 +503,11 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 												else
 													path[x]->square->tint = SDL_Color{ 255,0,0 };
 
-
-
-
-
-
-
-
-
 												hovered.push_back(path[x]->square);
 											}
 										}
-
 								break;
 							}
-
-
 					}
 			}
 		}
@@ -419,8 +528,6 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 	}
 	else
 		fightScene -= (dTime / 1000);
-
-
 }
 
 void BossScene::Load()
@@ -442,16 +549,11 @@ void BossScene::Load()
 		layer.clear();
 	}
 
-	combat_music = Mix_LoadMUS("Assets/Music/Boss.mp3");
-	mgr->FadeInMusic(combat_music, -1, mgr->fadeTime);
-	slash_sfx = Mix_LoadWAV("Assets/SFX/slash.wav");
-	endTurn = AddObject("EndTurnButtonObj", centre.first, 30, UI);
+	mgr->FadeInMusic(pCombat_music, -1, mgr->fadeTime);
+
+	endTurn = AddObject("EndTurnButtonObj", centre.first, 40, UI);
 	endTurn->scale = std::make_pair(1, 1);
 	AddObject("forestBGObj", 640, 360, Background);
-
-
-
-
 
 	for (double i = 0; i < gridTileLength; i++)
 	{
@@ -493,10 +595,6 @@ void BossScene::Load()
 		}
 	}
 
-
-
-
-
 	for (auto i : mgr->GetPlayer()->GetParty())
 	{
 	
@@ -512,9 +610,7 @@ void BossScene::Load()
 		mSceneText.push_back(intel);
 		mSceneText.push_back(agil);
 		Unit unit = Unit(i, &mapp[v][9], AddObject(i->GetObjName(), 0, 0, Game), AddObject("portrait", 250, 125 + 150 * v, UI), UIStats(std::make_pair(250, 125 + 150 * v + 75), health, movement, str, intel, agil,AddObject("statBackgroundObj", 250, 125 + 150 * v, UI)));
-
-
-		//unit.object->scale = std::make_pair(0.5f, 0.5f);
+		
 		unit.profile->scale = std::make_pair(0.3f, 0.3f);
 		team.push_back(unit);
 		v++;
@@ -543,33 +639,50 @@ void BossScene::Load()
 	}
 
 }
-void BossScene::PlayFightAnimation()
-{
-	fightSceneTeamCharacter->SetVisible(true);
-	fightSceneEnemyCharacter->SetVisible(true);
-	fightSceneBg->SetVisible(true);
-	fightScene = 0.5f;
 
-
-}
 void BossScene::Cast(Unit* caster, Unit* target, const std::pair<Card*, RenderObject*>* card)
 {
 	auto d = card->first->GetEffect();
 	auto stats = &caster->character->GetStats();
 	auto dist = GetDistance(caster->occupiedTile, target->occupiedTile);
 	target->object->Untint();
+	target->profile->Untint();
 	caster->object->Untint();
+	caster->profile->Untint();
 	if (dist <= card->first->Values().range + 1 &&
 		stats->strength.first >= card->first->Values().stamCost)
 	{
-		mgr->PlaySFX(slash_sfx, 0, 1);
+		if (card->first->GetCardName().find("Slash") != std::string::npos)
+		{
+			mgr->PlaySFX(pSlash_sfx, 0, 1);
+		}
+
+		else if (card->first->GetCardName().find("Magic") != std::string::npos)
+		{
+			mgr->PlaySFX(pMagic_SFX, 0, 1);
+		}
+
+		else if (card->first->GetCardName().find("Shoot") != std::string::npos)
+		{
+			mgr->PlaySFX(pShoot_SFX, 0, 1);
+		}
+
+		else if (card->first->GetCardName().find("Heal") != std::string::npos)
+		{
+			mgr->PlaySFX(pHeal_SFX, 0, 1);
+		}
+
+		else
+		{
+			mgr->PlaySFX(pSlash_sfx, 0, 1);
+		}
+
 		card->first->Cast(caster->character, target->character);
 		caster->character->GetStats().strength.first -= card->first->Values().stamCost;
 		caster->character->GetStats().intelligence.first -= card->first->Values().intCost;
 		caster->character->GetStats().agility.first -= card->first->Values().agilCost;
 
 		AddObject(card->first->GetEffect().first, centre.first, centre.second, Effects);
-		//PlayFightAnimation();
 		fightScene = card->first->GetEffect().second;
 
 		for (auto& c : team)
@@ -594,8 +707,6 @@ void BossScene::Cast(Unit* caster, Unit* target, const std::pair<Card*, RenderOb
 				}
 			}
 
-
-
 			for (int i = 0; i < playerhand.size(); ++i)
 			{
 				float x = 100 * (i - ((float)playerhand.size() / 2 - 0.5f));
@@ -606,7 +717,6 @@ void BossScene::Cast(Unit* caster, Unit* target, const std::pair<Card*, RenderOb
 		}
 		else
 		{
-
 			for (int i = 0; i < enemyHand.size(); ++i)
 			{
 				if (enemyHand[i].first == card->first)
@@ -618,17 +728,16 @@ void BossScene::Cast(Unit* caster, Unit* target, const std::pair<Card*, RenderOb
 			}
 		}
 
-
 	}
 }
 
 void BossScene::RemoveUnit(Unit* unit)
 {
+	unit->visualStats.SetVisibility(false);
+	unit->visualStats.object->SetVisible(false);
 	auto p = std::find(mLayers[Game].begin(), mLayers[Game].end(), unit->object);
 	mLayers[Game].erase(p);
-	//mLayers[UI].erase(std::find(mLayers[UI].begin(), mLayers[UI].end(), unit->profile));
 	delete unit->object;
-	//delete unit->profile;
 	unit->occupiedTile->availiable = true;
 	auto i = std::find_if(team.begin(), team.end(), [unit](Unit u) {
 		return (u.character == unit->character);
@@ -646,9 +755,8 @@ void BossScene::RemoveUnit(Unit* unit)
 			std::cout << "Error, enemy not found error 01";
 		enemy.erase(i);
 	}
-
-	//delete unit.character;
 }
+
 void BossScene::RunAi()
 {
 
@@ -732,11 +840,7 @@ void BossScene::RunAi()
 				}
 			}
 		}
-
-
-
 	}
-
 
 	if (!validAction)
 	{
@@ -746,11 +850,9 @@ void BossScene::RunAi()
 			mLayers[UI].erase(std::find(mLayers[UI].begin(), mLayers[UI].end(), playerhand[i].second));
 
 		}
+
 		playerhand.clear();
-
-
 		std::vector<Card*> temp;
-
 		std::sample(mgr->GetPlayer()->deck.begin(), mgr->GetPlayer()->deck.end(), std::back_inserter(temp), 5, std::mt19937{ std::random_device{}() });
 
 		for (int i = 0; i < temp.size(); ++i)
@@ -768,9 +870,7 @@ void BossScene::RunAi()
 			i.character->GetStats().movement.first = i.character->GetStats().movement.second;
 		}
 		playerTurn = true;
-
 	}
-
 }
 
 std::vector<BossScene::tile*> BossScene::CalculatePath(tile* start, tile* end)
@@ -790,17 +890,9 @@ std::vector<BossScene::tile*> BossScene::CalculatePath(tile* start, tile* end)
 
 	std::vector<pathNode*> map;
 
-
-
-
-
-
-
 	for (int i = 0; i < gridTileLength; i++)
 		for (int t = 0; t < gridTileLength; t++)
 			map.push_back(new pathNode(&mapp[i][t]));
-
-
 
 	std::vector<pathNode*> open;
 	std::vector<pathNode*> closed;

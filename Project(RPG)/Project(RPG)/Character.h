@@ -59,7 +59,6 @@ public:
 	void SetClassName(UnitClass uClass);
 	void SetArmour(Armour* armour);
 	void SetWeapon(Weapon* weapon);
-	void UpdateCharacter();
 
 	bool ModHealth(int mod);
 	void Heal(std::pair<int,int>& health, int healValue);

@@ -33,6 +33,8 @@ private:
     Mix_Chunk* confirm_SFX;
     Mix_Chunk* back_SFX;
 
+    RenderObject* pMenuBg;
+
     // Main menu buttons
     RenderObject* start;
     RenderObject* quit;

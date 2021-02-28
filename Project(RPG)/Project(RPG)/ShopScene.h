@@ -38,6 +38,7 @@ private:
 	Mix_Chunk* buySell_SFX;
 	Mix_Chunk* pCantBuy_SFX;
 	Mix_Chunk* button_Click_SFX;
+	Mix_Chunk* shop_Entry_SFX;
 	Mix_Chunk* leave_SFX;
 	RenderObject* pExitButton;
 	ToolTip mTooltip;

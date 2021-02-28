@@ -16,7 +16,6 @@ OverworldMapScene::OverworldMapScene(Interface* mObjMgr) : Scene(mObjMgr)
 	mOverworldButtons.push_back(pLegendButton);
 	mOverworldButtons.push_back(pSettingsButton);
 	mOverworldButtons.push_back(pMenuButton);
-
 	mBackgroundMus = Mix_LoadMUS("Assets/Music/Overworld.mp3");
 	
 	Init();
@@ -27,7 +26,6 @@ void OverworldMapScene::Init()
 	confirm_SFX = Mix_LoadWAV("Assets/SFX/confirmSound.wav");
 	back_SFX = Mix_LoadWAV("Assets/SFX/BackSound.wav");
 	button_Click_SFX = Mix_LoadWAV("Assets/SFX/GenericClick.wav");
-	shop_Entry_SFX = Mix_LoadWAV("Assets/SFX/DoorOpen.wav");
 }
 
 void OverworldMapScene::Load()
@@ -275,7 +273,6 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 						else
 							if (i.shop)
 							{
-								mgr->PlaySFX(shop_Entry_SFX, 0, 1);
 								mgr->LoadScene(Scenes::Shops);
 							}
 							else
