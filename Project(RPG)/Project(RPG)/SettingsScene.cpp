@@ -11,7 +11,7 @@ SettingsScene::SettingsScene(Interface* mgr) : Scene(mgr)
 
 void SettingsScene::Load()
 {
-	Setup();
+	//Setup();
 }
 
 

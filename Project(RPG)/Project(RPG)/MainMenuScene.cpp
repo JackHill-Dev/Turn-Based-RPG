@@ -130,11 +130,8 @@ void MainMenuScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 			{
 				delete item;
 			}
-
 			mgr->GetPlayer()->GetInventory().clear();
-			SDL_Delay(1000);
-			CleanMusic(mStartMus);
-			CleanSFX(pEffects);
+			
 			pEffects.clear();
 			mgr->LoadScene(Scenes::ClassPicker);
 			OnLeave(start);
@@ -142,16 +139,13 @@ void MainMenuScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 
 		else if (quit->InBounds(mouse.first, mouse.second) && quit->IsVisible() == true)
 		{
-			CleanMusic(mStartMus);
-			CleanSFX(pEffects);
+			
 			mgr->Quit();
 		}
 		
 		else if (settings->InBounds(mouse.first, mouse.second) && settings->IsVisible() == true)
 		{
 			mgr->PlaySFX(confirm_SFX, 0, 1);
-			SDL_Delay(1000);
-			CleanSFX(pEffects);
 			mgr->LoadScene(Scenes::SettingsPage);			
 			OnLeave(settings);
 		}

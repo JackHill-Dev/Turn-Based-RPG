@@ -38,6 +38,7 @@ void Scene::SceneUpdate(double dTime, Act act, std::pair<int, int> mousePos)
 
 void Scene::CleanMusic(Mix_Music* music)
 {
+	
 	Mix_FreeMusic(music);
 }
 
@@ -130,7 +131,7 @@ void Scene::Draw(SDL_Renderer* rnd)
 
 	    if(t->isVisible)
 			SDL_RenderCopy(rnd, t->mFontTexture, nullptr, &rect);
-
+		SDL_DestroyTexture(t->mFontTexture);
 		t->mFontTexture = nullptr;
 	}
 
