@@ -36,6 +36,27 @@ void Scene::SceneUpdate(double dTime, Act act, std::pair<int, int> mousePos)
 	
 }
 
+void Scene::CleanMusic(Mix_Music* music)
+{
+	Mix_FreeMusic(music);
+}
+
+void Scene::CleanSFX(std::vector<Mix_Chunk*> fx)
+{
+	for (auto& effect : fx)
+	{
+		Mix_FreeChunk(effect);
+	}
+}
+
+void Scene::CleanText(std::vector<UIText*> sceneText)
+{
+	for (auto& text : sceneText)
+	{
+		SDL_DestroyTexture(text->mFontTexture);
+	}
+}
+
 void Scene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 {
 	
@@ -91,27 +112,29 @@ void Scene::Draw(SDL_Renderer* rnd)
 		rect.x = t->pos.first - rect.w/2;
 		rect.y = t->pos.second - rect.h/2;
 		
-		mFontTexture = nullptr;
-		SDL_Surface* tempTextSurface = nullptr;
+		t->mFontTexture = nullptr;
+		t->mTempTextSurface = nullptr;
 
 		if (!t->bWrapped)
 		{
-			tempTextSurface = TTF_RenderText_Blended(mFont, t->text.c_str(), t->textColor);
-			mFontTexture = SDL_CreateTextureFromSurface(rnd, tempTextSurface);
-			SDL_FreeSurface(tempTextSurface);
+			t->mTempTextSurface = TTF_RenderText_Blended(mFont, t->text.c_str(), t->textColor);
+			t->mFontTexture = SDL_CreateTextureFromSurface(rnd, t->mTempTextSurface);
+			SDL_FreeSurface(t->mTempTextSurface);
 		}
 		else
 		{
-			tempTextSurface = TTF_RenderText_Blended_Wrapped(mFont, t->text.c_str(), t->textColor, 300);
-			mFontTexture = SDL_CreateTextureFromSurface(rnd, tempTextSurface);
-			SDL_FreeSurface(tempTextSurface);
+			t->mTempTextSurface = TTF_RenderText_Blended_Wrapped(mFont, t->text.c_str(), t->textColor, 300);
+			t->mFontTexture = SDL_CreateTextureFromSurface(rnd, t->mTempTextSurface);
+			SDL_FreeSurface(t->mTempTextSurface);
 		}
 
 	    if(t->isVisible)
-			SDL_RenderCopy(rnd, mFontTexture, nullptr, &rect);
+			SDL_RenderCopy(rnd, t->mFontTexture, nullptr, &rect);
+
+		t->mFontTexture = nullptr;
 	}
 
-	mFontTexture = nullptr;
+	
 
 	
 	++counter;
