@@ -49,6 +49,11 @@ void RenderObject::SetTexture(SpriteSheet* nSheet)
 	mSheet = nSheet;
 }
 
+void RenderObject::CleanTexture(SpriteSheet* sheet)
+{
+	SDL_DestroyTexture(sheet->GetTexture());	
+}
+
 void RenderObject::SetVisible(const bool vis)
 {
 	mVisible = vis;
