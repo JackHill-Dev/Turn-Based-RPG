@@ -364,10 +364,10 @@ const std::map<std::string, std::vector<Animation>> definedAnimations
 const std::map<std::string, DefinedCard> definedCards
 {
 	// Name,  Range, damage, costs(STR, INT AGI) , card name, flavour, picture, animation object, animation length
-	{"magicCard",{3, 7, 0, 5, 0, "Magic", "Magically assail the enemy for 7 damage, costs 5 intelligence", "Magic_Card" ,"MagicObj", 0.75}},
+	{"magicCard",{4, 7, 0, 5, 0, "Magic", "Magically assail the enemy for 7 damage, costs 5 intelligence", "Magic_Card" ,"MagicObj", 0.75}},
 	{"arrowCard", {5, 5, 0, 0, 5, "Shoot", "Pepper your foe with arrows for 5 damage, costs 5 agility", "Shootcard", "ArrowShotObj", 0.75}},
 	{"slashCard",{1.5, 10, 5, 0, 0, "Slash", "Slash the enemy for 10 damage, costs 5 strength", "SlashCard" ,"swordSlashEffectObj", 0.5}},	
-	{"healCard",{1.5, -10, 0, 10, 0, "Heal", "Heal the target for 15 health, costs 10 intelligence", "HealCard" ,"healImageObject", 1.25}},
+	{"healCard",{1.5, -15, 0, 10, 0, "Heal", "Heal the target for 15 health, costs 10 intelligence", "HealCard" ,"healImageObject", 1.25}},
 	{"bossCard",{ 1.5, 10, 5, 0, 0, "BossAttack", "The Boss cleaves it's foe for 10 damage, costs 5 strength", "SlashCard", "BossAttackObj", 1}},
 };
 
@@ -391,7 +391,7 @@ const std::map<std::string, Item*> definedItems
 	{"Plate Armour",  new Armour("Plate Armour", "plateArmourObj", 4, 30, 300 )} ,
 
 	// Consumables
-	{"Health Potion",  new Consumable("Health Potion", "potionObj", 1, 150, 20)}
+	{"Health Potion",  new Consumable("Health Potion", "potionObj", 1, 100, 20)}
 };
 
 

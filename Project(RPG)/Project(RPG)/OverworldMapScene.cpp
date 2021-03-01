@@ -285,8 +285,19 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 									// This seeds on current time to ensure enemy stats are random and different from other enemies - EH
 									srand(time(0));
 									for (int i = 0; i < number; ++i)
-									{									
-										enemy.push_back(new Character("portrait", "maleObj", " ", UnitClass::NoClass, 0, std::make_pair(100, 200), false, ScaleEnemyStats(), ScaleEnemyStats(), ScaleEnemyStats(), ScaleEnemyStats()));
+									{	
+										//if (mgr->GetPlayer()->GetParty()[0]->GetLevel() == 1)
+										//{
+										//	enemy.push_back(new Character("portrait", "maleObj", " ", UnitClass::NoClass, 0, std::make_pair(100, 200), false, ScaleEnemyStats(), ScaleEnemyStats(), std::make_pair(0, 0), std::make_pair(0, 0)));
+										//}
+										//else if (mgr->GetPlayer()->GetParty()[0]->GetLevel() == 2)
+										//{
+										//	enemy.push_back(new Character("portrait", "maleObj", " ", UnitClass::NoClass, 0, std::make_pair(100, 200), false, ScaleEnemyStats(), ScaleEnemyStats(), ScaleEnemyStats(), std::make_pair(0, 0)));
+										//}
+										//else
+										//{
+											enemy.push_back(new Character("portrait", "maleObj", " ", UnitClass::NoClass, 0, std::make_pair(100, 200), false, ScaleEnemyStats(), ScaleEnemyStats(), ScaleEnemyStats(), ScaleEnemyStats()));
+										//}
 									}
 
 									mgr->LoadCombatScene(enemy, i.seed);
@@ -452,10 +463,10 @@ bool OverworldMapScene::IsCombat()
 std::pair<int, int> OverworldMapScene::ScaleEnemyStats()
 {	
 	int randomStat = 0;
-	while (randomStat < 5)
-	{
-		randomStat = (rand() % 10) + (3 * (mgr->GetPlayer()->GetParty()[0]->GetLevel()));
-	}
+	//while (randomStat < 5)
+	//{
+		randomStat = (rand() % 8) + (2 * (mgr->GetPlayer()->GetParty()[0]->GetLevel()));
+	//}
 	return std::make_pair(randomStat, randomStat);
 }
 
