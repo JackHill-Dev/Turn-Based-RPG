@@ -55,6 +55,7 @@ const std::map<std::string,RenderObject*> definedObjects
 
 		// Background Objects
 
+		{"castleBackgroundObj", new RenderObject("castleBackground")},
 		{"characterFrameObj",new RenderObject("characterFrame")},
 		{"forestBGObj",new RenderObject("forestBG")},
 		{"forestFightSceneBg", new RenderObject("fightSceneForest")},
@@ -175,6 +176,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 
 		// Background Spritesheets
 
+		{"castleBackground", new SpriteSheet("Assets/Backgrounds/CastleInterior1.png", 1920, 1080, 1920, 1080, false)},
 		{"characterFrame", new SpriteSheet("Assets/Backgrounds/CharacterFrame.png",228, 624, 228, 624, false)},
 		{"fightSceneForest", new SpriteSheet("Assets/ForestFight.png",700, 400, 700, 400, false)},
 		{"forestBG", new SpriteSheet("Assets/forestbackground.png",1280, 720, 1280, 720, false)},

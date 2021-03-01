@@ -553,7 +553,7 @@ void BossScene::Load()
 
 	endTurn = AddObject("EndTurnButtonObj", centre.first, 40, UI);
 	endTurn->scale = std::make_pair(1, 1);
-	AddObject("forestBGObj", 640, 360, Background);
+	AddObject("castleBackgroundObj", 640, 360, Background);
 
 	for (double i = 0; i < gridTileLength; i++)
 	{
