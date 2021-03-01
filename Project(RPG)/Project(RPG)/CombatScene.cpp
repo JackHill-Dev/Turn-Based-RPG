@@ -695,12 +695,8 @@ void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  Rende
 	if (dist <= card->first->Values().range && 
 		stats->strength.first >= card->first->Values().stamCost && stats->intelligence.first >= card->first->Values().intCost && stats->agility.first >= card->first->Values().agilCost)
 	{
-		if (card->first->GetCardName().find("Slash") != std::string::npos)
-		{
-			mgr->PlaySFX(pSlash_sfx, 0, 1);
-		}
 
-		else if (card->first->GetCardName().find("Magic") != std::string::npos)
+		if (card->first->GetCardName().find("Magic") != std::string::npos)
 		{
 			mgr->PlaySFX(pMagic_SFX, 0, 1);
 		}
@@ -765,7 +761,7 @@ void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  Rende
 			{
 				if (enemyHand[i].first == card->first)
 				{
-					
+					delete enemyHand[i].first;
 					enemyHand[i].first = nullptr;
 					enemyHand.erase(enemyHand.begin() + i);
 				}
@@ -1022,20 +1018,17 @@ std::pair<Card*, RenderObject*> CombatScene::GateEnemyDeckByLevel()
 {
 	int v = std::rand() % 10 + mgr->GetPlayer()->GetParty()[0]->GetLevel();
 
-	if (v >= 0 && v < 4)
+	if (v < 4)
 	{
 		return std::make_pair(new Card(5, "Slash", 1, "cardObj", "swordSlashEffectObj", 0.5, 5, 0, 0), nullptr);
 	}
 
-	if (v >= 4 && v < 8)
+	else if (v < 8)
 	{
 		return std::make_pair(new Card(5, "Magic", 3, "cardObj", "MagicObj", 0.75, 0, 5, 0), nullptr);
 	}
-
-	if (v >= 8 && v <= 10)
-	{
+	else
 		return std::make_pair(new Card(5, "Shoot", 5, "cardObj", "ArrowShotObj", 0.75, 0, 0, 5), nullptr);
-	}
 }
 
 
