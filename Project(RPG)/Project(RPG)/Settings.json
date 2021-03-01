@@ -5,6 +5,6 @@
  "Display": {
   "Height": 720,
   "Width": 1280,
-  "fullscreen": false
+  "fullscreen": true
  }
 }

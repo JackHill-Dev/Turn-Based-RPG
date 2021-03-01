@@ -550,6 +550,8 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 
 void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 {
+	for (auto t : mapp)
+		t->availiable = true;
 	for (auto t : mSceneText)
 		delete t;
 	mSceneText.clear();
@@ -585,7 +587,7 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 			mapp[(int)i][(int)x].square->SetAnim("Grass");
 
 
-			if (std::rand() % 10 == 4)
+			if ( x != 9 && x != 0 &&std::rand() % 10 == 4)
 			{
 				auto tree = AddObject("TreeObj", mapp[(int)i][(int)x].pos.first, mapp[(int)i][(int)x].pos.second, Game);
 				mapp[(int)i][(int)x].availiable = false;
