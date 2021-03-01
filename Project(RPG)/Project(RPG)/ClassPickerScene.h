@@ -73,7 +73,7 @@ private:
 	const std::pair<int, int> mBaseClassBuff = { 12, 12 };
 	const std::pair<int, int> mBaseClassDebuff = { 9,9 };
 	const std::pair<int, int> mBaseClassStat = { 10,10 };
-	const std::pair<int, int> mBaseHealth{ 10,10 };
+	const std::pair<int, int> mBaseHealth{ 15,15 };
 
 	void GeneratePartyFromChoices();
 
