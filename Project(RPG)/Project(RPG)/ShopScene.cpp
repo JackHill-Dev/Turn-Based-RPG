@@ -211,7 +211,6 @@ void ShopScene::ManageShopInventory(std::vector<Item*> inv, Act act, std::pair<i
 		}
 		if (shopItemHovered != nullptr)
 		{
-			//current->OnHover();
 			mTooltip.pItemImage->SetTexture(shopItemHovered->obj->GetSheet());
 			mTooltip.mDescription.text = shopItemHovered->_item->GetDescription(false);
 
@@ -239,6 +238,8 @@ void ShopScene::ManageShopInventory(std::vector<Item*> inv, Act act, std::pair<i
 				mgr->GetPlayer()->AddItem(i._item);// Add bought item to player's inventory
 				mgr->PlaySFX(buySell_SFX, 0, 1);
 				i.obj->SetPos(i._item->inventoryPos.pos);
+				i.obj->Untint();
+				mTooltip.Hide();
 				mSceneText[0]->text = "Gold: " + std::to_string(mgr->GetPlayer()->GetGold());; // Display player gold
 				mSceneText[1]->text = "Gold: " + std::to_string(mShop.GetGold());;	// Display shop gold
 			}
