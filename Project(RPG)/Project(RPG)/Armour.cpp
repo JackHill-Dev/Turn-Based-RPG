@@ -7,13 +7,16 @@ Armour::Armour(std::string name, std::string spriteName, int lvlReq, int def,int
 	mObjName = spriteName;
 }
 
-std::string Armour::GetDescription()
+std::string Armour::GetDescription(const bool& sell)
 {
 	std::ostringstream desc;
 	desc << "Name: " << mName << std::endl;
 	desc << "Health + " << defence << std::endl;
 	desc << "Lvl Req. " << mLevelRequirement << std::endl;
-	desc << "Cost: " << mCost;
+	if(sell)
+		desc << "Cost: " << mCost * 0.8;
+	else
+		desc << "Cost: " << mCost;
 
 	return desc.str();
 }

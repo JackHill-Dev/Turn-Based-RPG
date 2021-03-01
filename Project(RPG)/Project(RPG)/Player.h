@@ -13,7 +13,7 @@ public:
 	int GetGold();
 	std::vector<Character*>& GetParty() { return mPartyMembers; }
 	std::vector<Item*>& GetInventory() { return inventory; }
-	void SellItem(Item* item);
+	void SellItem(Item* item, bool sell);
 	void SetGold(int amount);
 	void ClearGold() { mGold = 0; }
 	void AddToXpPool(const int& xp);

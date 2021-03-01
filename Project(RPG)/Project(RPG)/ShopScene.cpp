@@ -213,7 +213,7 @@ void ShopScene::ManageShopInventory(std::vector<Item*> inv, Act act, std::pair<i
 		{
 			//current->OnHover();
 			mTooltip.pItemImage->SetTexture(shopItemHovered->obj->GetSheet());
-			mTooltip.mDescription.text = shopItemHovered->_item->GetDescription();
+			mTooltip.mDescription.text = shopItemHovered->_item->GetDescription(false);
 
 			mTooltip.Show();
 		}
@@ -232,7 +232,7 @@ void ShopScene::ManageShopInventory(std::vector<Item*> inv, Act act, std::pair<i
 		{
 			if (!(mgr->GetPlayer()->GetGold() < i._item->GetCost()) && i._item->GetLvlRequirement() <= mHighestCharacter) // If player can't afford item they can't buy it
 			{
-				mShop.SellItem(i._item);
+				mShop.SellItem(i._item, true);
 				playerInv.push_back(i);
 				shopInv.erase(std::remove_if(shopInv.begin(), shopInv.end(), [&i](ItemObject item_) {return item_._item == i._item; }));
 				mgr->GetPlayer()->SetGold(-i._item->GetCost());	// Remove cost of item from player's gold
@@ -271,7 +271,7 @@ void ShopScene::ManagePlayerInventory(std::vector<Item*> inv, Act act, std::pair
 		if (playerItemHovered != nullptr)
 		{
 			playerToolTip.pItemImage->SetTexture(playerItemHovered->obj->GetSheet());
-			playerToolTip.mDescription.text = playerItemHovered->_item->GetDescription();
+			playerToolTip.mDescription.text = playerItemHovered->_item->GetDescription(true); // When selling show the reduced sellback price
 
 			playerToolTip.Show();
 		}
@@ -293,10 +293,10 @@ void ShopScene::ManagePlayerInventory(std::vector<Item*> inv, Act act, std::pair
 		{
 			if (!(mShop.GetGold() < i._item->GetCost())) // Can only sell to the shop if the shop can give you the moeny for the item
 			{
-				mgr->GetPlayer()->SellItem(i._item);	 // Remove item from player's inventory and add to its gold
+				mgr->GetPlayer()->SellItem(i._item, false);	 // Remove item from player's inventory and add to its gold
 				shopInv.push_back(i);
 				playerInv.erase(std::remove_if(playerInv.begin(), playerInv.end(), [&i](ItemObject nI) { return nI._item == i._item; })); // remove from local container as well
-				mShop.SetGold(-i._item->GetCost());	 // Remove cost of sold item from shop gold
+				mShop.SetGold(-(i._item->GetCost() * 0.8));	 // Remove cost of sold item from shop gold
 				mShop.AddItem(i._item); // Add sold item to shop inventory
 				mgr->PlaySFX(buySell_SFX, 0, 1); // Play buy sfx on channel 1 and don't loop
 				i.obj->SetPos(i._item->inventoryPos.pos); // Update the render object position 

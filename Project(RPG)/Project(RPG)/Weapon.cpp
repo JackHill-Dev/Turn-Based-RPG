@@ -16,7 +16,7 @@ int Weapon::GetAtkPower()
 
 
 
-std::string Weapon::GetDescription()
+std::string Weapon::GetDescription(const bool& sell)
 {
 	std::ostringstream desc; 
 	desc << "Name: " << mName << std::endl;
@@ -37,6 +37,9 @@ std::string Weapon::GetDescription()
 	}
 
 	desc << "Lvl req. " << mLevelRequirement << std::endl; 
-	desc << "Cost: " << mCost;
+	if (sell)
+		desc << "Cost: " << mCost * 0.8;
+	else 
+		desc << "Cost: " << mCost;
 	return desc.str();
 }
