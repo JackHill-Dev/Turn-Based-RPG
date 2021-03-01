@@ -1,7 +1,7 @@
 #include "CombatScene.h"
 #include <deque>
 #include <chrono>
-
+int debug = 0;
 CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 {
 	pCombat_music = Mix_LoadMUS("Assets/Music/Combat_Music.wav");
@@ -174,7 +174,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 						}
 						playerhand.clear();
 						playerTurn = false;
-
+						debug = 0;
 						for (auto& i : team)
 						{
 							i.object->Untint();
@@ -676,7 +676,6 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 	std::srand(time(NULL));
 	for (int i = 0; i < 5; i++)
 	{
-		std::srand(time(NULL));
 		enemyHand.push_back(GateEnemyDeckByLevel());		
 	}
 
@@ -757,6 +756,10 @@ void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  Rende
 		}
 		else
 		{
+			debug++;
+			if (debug > 5)
+				std::cout << "Casted more than 5!";
+
 			for (int i = 0; i < enemyHand.size(); ++i)
 			{
 				if (enemyHand[i].first == card->first)
@@ -1016,6 +1019,8 @@ std::vector<CombatScene::tile*> CombatScene::CalculatePath(tile* start, tile* en
 
 std::pair<Card*, RenderObject*> CombatScene::GateEnemyDeckByLevel()
 {
+	if (enemyHand.size() > 5)
+		std::cout << "Has too many cards!";
 	int v = std::rand() % 10 + mgr->GetPlayer()->GetParty()[0]->GetLevel();
 
 	if (v < 4)
