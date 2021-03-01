@@ -552,8 +552,8 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 {
 	for(int i = 0; i < 10; i++)
 	{
-		for (auto t : mapp[i])
-			t.availiable = true;
+		for (int t = 0; t < 10; t++)
+			mapp[i][t].availiable = true;
 	}
 	for (auto t : mSceneText)
 		delete t;
