@@ -354,15 +354,16 @@ void WinLoseStateScene::SetUpWinState()
 			character->rObj->tint = Gold;
 			character->pCharacter->hasLevelled = true;
 		}
+		else if (character->pCharacter->GetDeadStatus() == true && character->pCharacter->hasLevelled == false)
+		{
+			character->rObj->tint = DimGray;
+		}
 		else
 		{
 			character->rObj->Untint();
 		}
 
-		if (character->pCharacter->GetDeadStatus() == true && character->pCharacter->hasLevelled != false)
-		{
-			character->rObj->tint = DimGray;
-		}
+		
 
 	}
 
