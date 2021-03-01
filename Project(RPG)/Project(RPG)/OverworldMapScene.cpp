@@ -282,10 +282,10 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 									std::vector<Character*> enemy;
 
 									int number = std::rand() % 4 + 1;
-
+									// This seeds on current time to ensure enemy stats are random and different from other enemies - EH
+									srand(time(0));
 									for (int i = 0; i < number; ++i)
-									{
-										srand(time(0)); // This seeds on current time to ensure enemy stats are random and different from other enemies - EH
+									{									
 										enemy.push_back(new Character("portrait", "maleObj", " ", UnitClass::NoClass, 0, std::make_pair(100, 200), false, ScaleEnemyStats(), ScaleEnemyStats(), ScaleEnemyStats(), ScaleEnemyStats()));
 									}
 
