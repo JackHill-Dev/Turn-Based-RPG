@@ -40,7 +40,15 @@ public:
 	void SetInitialGridPos(int pos);
 	void GeneratePositions();
 
-	void ClearGridPositions() { gridPositions.clear(); }
+	void ClearGridPositions() 
+	{
+		gridPositions.clear();
+		for (auto& item : inventory)
+		{
+			item->inventoryPos.pos = { 0,0 };
+			item->inventoryPos.gridPosFilled = false;
+		}
+	}
 private:
 
 	std::vector<Character*> mPartyMembers;

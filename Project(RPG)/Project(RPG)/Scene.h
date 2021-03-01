@@ -13,6 +13,8 @@
 
 struct UIText
 {
+	SDL_Texture* mFontTexture = nullptr;
+	SDL_Surface* mTempTextSurface = nullptr;
 	std::string text;
 	std::pair<int, int> pos;
 	std::pair<float, float> scale = std::make_pair(70,50);
@@ -88,6 +90,7 @@ private:
 	std::string name;
 	int counter = 0;
 	SDL_Surface* mSurface = nullptr;
+	
 	TTF_Font* mFont;
 protected:
 	std::vector<std::vector<RenderObject*>> mLayers;
@@ -102,6 +105,7 @@ public:
 	void SceneUpdate(double dTime, Act act, std::pair<int, int> mousePos);
 
 	void Draw(SDL_Renderer* rnd);
+	
 	
 	void Clear(SDL_Renderer* rnd);
 	RenderObject* AddObject(std::string obj, double x, double y, Layer layerNum);
