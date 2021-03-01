@@ -5,7 +5,6 @@
 CombatScene::CombatScene(Interface* objmg) : Scene(objmg)
 {
 	pCombat_music = Mix_LoadMUS("Assets/Music/Combat_Music.wav");
-
 	pSlash_sfx = Mix_LoadWAV("Assets/SFX/slash.wav");
 	pMagic_SFX = Mix_LoadWAV("Assets/SFX/zapsplat_magic_impact_hard_.wav");
 	pHeal_SFX = Mix_LoadWAV("Assets/SFX/Healchoir.wav");

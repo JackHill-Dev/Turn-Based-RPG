@@ -95,6 +95,8 @@ void GameManager::Quit()
 }
 void GameManager::LoadScene()
 {
+	for (int i = 0; i < 7; i++)
+		Mix_UnregisterAllEffects(i);
 	switch (mCScene)
 	{
 		case Scenes::MainMenu:

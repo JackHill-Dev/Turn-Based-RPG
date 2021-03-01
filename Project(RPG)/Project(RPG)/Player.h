@@ -13,7 +13,7 @@ public:
 	int GetGold();
 	std::vector<Character*>& GetParty() { return mPartyMembers; }
 	std::vector<Item*>& GetInventory() { return inventory; }
-	void SellItem(Item* item);
+	void SellItem(Item* item, bool sell);
 	void SetGold(int amount);
 	void ClearGold() { mGold = 0; }
 	void AddToXpPool(const int& xp);
@@ -40,7 +40,15 @@ public:
 	void SetInitialGridPos(int pos);
 	void GeneratePositions();
 
-	void ClearGridPositions() { gridPositions.clear(); }
+	void ClearGridPositions() 
+	{
+		gridPositions.clear();
+		for (auto& item : inventory)
+		{
+			item->inventoryPos.pos = { 0,0 };
+			item->inventoryPos.gridPosFilled = false;
+		}
+	}
 private:
 
 	std::vector<Character*> mPartyMembers;

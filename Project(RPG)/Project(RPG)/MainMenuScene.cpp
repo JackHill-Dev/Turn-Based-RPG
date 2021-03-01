@@ -27,10 +27,12 @@ MainMenuScene::MainMenuScene(Interface* rng) : Scene(rng)
 	// Get Background object
 	AddObject("mainMenuBGObj", 640, 360, Background);
 
+	
+
 	mStartMus = Mix_LoadMUS("Assets/Music/GameStart.mp3");
 	confirm_SFX = Mix_LoadWAV("Assets/SFX/confirmSound.wav");
 	back_SFX = Mix_LoadWAV("Assets/SFX/BackSound.wav");
-	
+
 	mgr->FadeInMusic(mStartMus, -1, mgr->fadeTime); // Cheeky solution as this one starts as current scene without using load scene method - EH
 
 	buttons.push_back(LoadButton);
@@ -49,6 +51,10 @@ MainMenuScene::MainMenuScene(Interface* rng) : Scene(rng)
 
 void MainMenuScene::Load()
 {
+	
+	mStartMus = Mix_LoadMUS("Assets/Music/GameStart.mp3");
+	confirm_SFX = Mix_LoadWAV("Assets/SFX/confirmSound.wav");
+	back_SFX = Mix_LoadWAV("Assets/SFX/BackSound.wav");
 
 	if (mgr->GetSeed() != 0)
 	{
@@ -118,28 +124,28 @@ void MainMenuScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 			{
 				delete item;
 			}
-
 			mgr->GetPlayer()->GetInventory().clear();
-
+			
 			mgr->LoadScene(Scenes::ClassPicker);
 			OnLeave(start);
 		}
 
 		else if (quit->InBounds(mouse.first, mouse.second) && quit->IsVisible() == true)
 		{
+			
 			mgr->Quit();
 		}
 		
 		else if (settings->InBounds(mouse.first, mouse.second) && settings->IsVisible() == true)
 		{
 			mgr->PlaySFX(confirm_SFX, 0, 1);
-			mgr->LoadScene(Scenes::SettingsPage);
+			mgr->LoadScene(Scenes::SettingsPage);			
 			OnLeave(settings);
 		}
 		else if (LoadButton->InBounds(mouse.first, mouse.second) && LoadButton->IsVisible() == true)
 		{
 			mgr->PlaySFX(confirm_SFX, 0, 1);
-			mgr->LoadScene(Scenes::Overworld);
+			mgr->LoadScene(Scenes::Overworld);			
 			OnLeave(LoadButton);
 		}
 

@@ -304,7 +304,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 			if (current != nullptr)
 			{
 				mToolTip.pItemImage->SetTexture(current->obj->GetSheet());
-				mToolTip.mDescription.text = current->_item->GetDescription();
+				mToolTip.mDescription.text = current->_item->GetDescription(true);
 
 				mToolTip.SetPos({ current->obj->GetPos().first - 120, current->obj->GetPos().second });
 

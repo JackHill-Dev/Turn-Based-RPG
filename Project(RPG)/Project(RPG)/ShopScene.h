@@ -28,8 +28,8 @@ private:
 	void ManagePlayerInventory(std::vector<Item*> inv, Act act, std::pair<int, int> mousePos);
 	void GenerateGrids();
 	void DrawGrid(int gridWidth, int gridHeight, int offsetX, int offsetY);
-	void HandleTooltip(ItemObject* hovered);
-
+	void RegeneratePlayerInventory(); // This function accomodates for the change in resolution
+	
 	Player mShop;
 	UIText mPlayerGoldText;
 	UIText mShopGoldText;

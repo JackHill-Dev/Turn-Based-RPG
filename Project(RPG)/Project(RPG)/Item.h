@@ -23,7 +23,7 @@ public:
 	Item(std::string name, int lvlReq, int cost);
 	~Item();
 	virtual Item* Clone() = 0; 
-	virtual std::string GetDescription() = 0;
+	virtual std::string GetDescription(const bool& sell) = 0;
 	std::string GetName() const;
 	std::string GetObjName() const;
 	int GetCost() const;

@@ -115,9 +115,15 @@ int Player::GetGold()
 	return mGold;
 }
 
-void Player::SellItem(Item* item)
+void Player::SellItem(Item* item, bool sell)
 {
-	SetGold(item->GetCost());
+	if(sell)
+		SetGold(item->GetCost());
+	else
+	{
+		int percentReduce =  (item->GetCost() * 0.8);
+		SetGold(percentReduce);
+	}
 	RemoveItem(item);
 
 }
