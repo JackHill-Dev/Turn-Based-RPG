@@ -120,7 +120,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 			if (i.character->GetHealth() <= 0)
 			{
 				srand(time(NULL));
-				mgr->GetPlayer()->AddGoldLoot(std::rand() % 50 + 15);
+				mgr->GetPlayer()->AddGoldLoot(std::rand() % 50 + 50);
 				mgr->GetPlayer()->AddToXpPool(i.character->GetStats().experience.first);
 				RemoveUnit(&i);
 			}
@@ -1020,12 +1020,12 @@ std::pair<Card*, RenderObject*> CombatScene::GateEnemyDeckByLevel()
 
 	if (v < 4)
 	{
-		return std::make_pair(new Card(5, "Slash", 1, "cardObj", "swordSlashEffectObj", 0.5, 5, 0, 0), nullptr);
+		return std::make_pair(new Card(5, "Slash", 1.5, "cardObj", "swordSlashEffectObj", 0.5, 5, 0, 0), nullptr);
 	}
 
 	else if (v < 8)
 	{
-		return std::make_pair(new Card(5, "Magic", 3, "cardObj", "MagicObj", 0.75, 0, 5, 0), nullptr);
+		return std::make_pair(new Card(5, "Magic", 4, "cardObj", "MagicObj", 0.75, 0, 5, 0), nullptr);
 	}
 	else
 		return std::make_pair(new Card(5, "Shoot", 5, "cardObj", "ArrowShotObj", 0.75, 0, 0, 5), nullptr);
