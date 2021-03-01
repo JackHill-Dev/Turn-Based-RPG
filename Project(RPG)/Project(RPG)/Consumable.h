@@ -10,7 +10,7 @@ public:
 
     std::string GetDescription(const bool& sell) override;
     Item* Clone() override { return new Consumable(*this); }
-    int mHealAmount = 10;
+    int mHealAmount = 20;
 private:
    
 
