@@ -897,6 +897,7 @@ void CombatScene::RunAi()
 			delete enemyHand[i].first;
 
 		}
+		enemyHand.clear();
 		for (int i = 0; i < playerhand.size(); ++i)
 		{
 			mLayers[UI].erase(std::find(mLayers[UI].begin(), mLayers[UI].end(), playerhand[i].second));
