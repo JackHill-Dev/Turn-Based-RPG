@@ -188,7 +188,7 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 						}
 						for (int i = 0; i < 5; i++)
 						{
-							enemyHand.push_back(std::make_pair(new Card(1, "Slash", 1, "cardObj", "swordSlashEffectObj", 0.5, 5, 0, 0), nullptr));
+							enemyHand.push_back(GateEnemyDeckByLevel());
 						}
 					}
 					else
@@ -670,12 +670,13 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 		v++;
 	}
 
+	std::srand(time(NULL));
 	for (int i = 0; i < 5; i++)
 	{
-		enemyHand.push_back(std::make_pair(new Card(5, "Slash", 1, "cardObj", "swordSlashEffectObj", 0.5, 5,0,0), nullptr));
-		
+		std::srand(time(NULL));
+		enemyHand.push_back(GateEnemyDeckByLevel());		
 	}
-	std::srand(time(NULL));
+
 }
 
 void CombatScene::Cast(Unit* caster, Unit* target, const std::pair<Card*,  RenderObject*>* card)
@@ -1012,6 +1013,26 @@ std::vector<CombatScene::tile*> CombatScene::CalculatePath(tile* start, tile* en
 	for (auto& n : map)
 		delete n;
 	return path;
+}
+
+std::pair<Card*, RenderObject*> CombatScene::GateEnemyDeckByLevel()
+{
+	int v = std::rand() % 10 + mgr->GetPlayer()->GetParty()[0]->GetLevel();
+
+	if (v >= 0 && v < 4)
+	{
+		return std::make_pair(new Card(5, "Slash", 1, "cardObj", "swordSlashEffectObj", 0.5, 5, 0, 0), nullptr);
+	}
+
+	if (v >= 4 && v < 8)
+	{
+		return std::make_pair(new Card(5, "Magic", 3, "cardObj", "MagicObj", 0.75, 0, 5, 0), nullptr);
+	}
+
+	if (v >= 8 && v <= 10)
+	{
+		return std::make_pair(new Card(5, "Shoot", 5, "cardObj", "ArrowShotObj", 0.75, 0, 0, 5), nullptr);
+	}
 }
 
 
