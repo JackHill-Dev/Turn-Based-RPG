@@ -82,6 +82,7 @@ private:
 	void OnLeave(RenderObject* rObj);
 	bool IsCombat();
 	double Uniform();
+	std::pair<int, int> ScaleEnemyStats();
 
 protected:
 
