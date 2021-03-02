@@ -756,6 +756,7 @@ void BossScene::RemoveUnit(Unit* unit)
 {
 	unit->visualStats.SetVisibility(false);
 	unit->visualStats.object->SetVisible(false);
+	unit->profile->SetVisible(false);
 	auto p = std::find(mLayers[Game].begin(), mLayers[Game].end(), unit->object);
 	mLayers[Game].erase(p);
 	delete unit->object;
@@ -888,6 +889,8 @@ void BossScene::RunAi()
 		for (auto i : team)
 		{
 			i.character->GetStats().strength.first = i.character->GetStats().strength.second;
+			i.character->GetStats().intelligence.first = i.character->GetStats().intelligence.second;
+			i.character->GetStats().agility.first = i.character->GetStats().agility.second;
 			i.character->GetStats().movement.first = i.character->GetStats().movement.second;
 		}
 		playerTurn = true;
