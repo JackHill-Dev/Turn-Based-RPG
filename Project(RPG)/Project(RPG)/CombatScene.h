@@ -184,9 +184,10 @@ private:
 	void Cast(Unit* caster, Unit* target, const std::pair<Card*, RenderObject*>* card);
 	void RemoveUnit(Unit* unit);
 	std::vector<tile*> CalculatePath(tile* start, tile* end);
-	void RemoveCard(std::pair<Card*, RenderObject*>* cd);;
 	double GetDistance(tile* start, tile* end) { return std::abs(std::sqrt(std::pow(end->pos.first - start->pos.first, 2) + std::pow(end->pos.second - start->pos.second, 2))) / 32; }
 	std::pair<Card*, RenderObject*> GateEnemyDeckByLevel();
+	bool OutOfRange(Unit* caster, Unit* target, const std::pair<Card*, RenderObject*>* card);
+
 	typedef CombatScene::tile tile;
 	typedef CombatScene::Unit Unit;
 

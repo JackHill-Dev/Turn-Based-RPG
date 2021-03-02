@@ -478,12 +478,20 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 
 								break;
 							case(Selection::Enemy):
-
 								for (auto& i : enemy)
 									if (i.object->InBounds(mouse.first, mouse.second))
 									{
-										i.object->tint = SDL_Color{ 0, 255, 0 };
-										i.profile->tint = SDL_Color{ 0, 255, 0 };
+										
+										if (OutOfRange(character, &i, selectedCard) == true)
+										{
+											i.object->tint = SDL_Color{ 105,105,105 };
+											i.profile->tint = SDL_Color{ 105,105,105 };
+										}
+										else
+										{
+											i.object->tint = SDL_Color{ 0, 255, 0 };
+											i.profile->tint = SDL_Color{ 0, 255, 0 };
+										}
 
 										
 										hovered.push_back(i.object);
@@ -493,8 +501,17 @@ void CombatScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 								for (auto& i : team)
 									if (i.object->InBounds(mouse.first, mouse.second) && &i != character)
 									{
-										i.object->tint = SDL_Color{ 0, 255, 0 };
-										i.profile->tint = SDL_Color{ 0, 255, 0 };
+
+										if (OutOfRange(character, &i, selectedCard) == true)
+										{
+											i.object->tint = SDL_Color{ 105,105,105 };
+											i.profile->tint = SDL_Color{ 105,105,105 };
+										}
+										else
+										{
+											i.object->tint = SDL_Color{ 0, 255, 0 };
+											i.profile->tint = SDL_Color{ 0, 255, 0 };
+										}
 
 										hovered.push_back(i.profile);
 										hovered.push_back(i.object);
@@ -1039,6 +1056,20 @@ std::pair<Card*, RenderObject*> CombatScene::GateEnemyDeckByLevel()
 	}
 	else
 		return std::make_pair(new Card(5, "Shoot", 5, "cardObj", "ArrowShotObj", 0.75, 0, 0, 5), nullptr);
+}
+
+bool CombatScene::OutOfRange(Unit* caster, Unit* target, const std::pair<Card*, RenderObject*>* card)
+{
+	auto dist = GetDistance(caster->occupiedTile, target->occupiedTile);
+
+	if (dist > card->first->Values().range)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}	
 }
 
 
