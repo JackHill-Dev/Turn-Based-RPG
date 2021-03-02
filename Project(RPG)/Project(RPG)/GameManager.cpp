@@ -93,7 +93,7 @@ void GameManager::Run()
 				scenes[mCScene]->Draw(mRnd);
 
 
-				SDL_Texture* obj = objects["forestBGObj"]->GetSheet()->GetTexture();
+				SDL_Texture* obj = objects["OverlayObj"]->GetSheet()->GetTexture();
 
 			
 
