@@ -26,6 +26,7 @@ const std::map<std::string,RenderObject*> definedObjects
 		
 		// Portrait Objects 
 
+		{"bossPortraitObj", new RenderObject("bossPortrait")},
 		{"ClericObj",new RenderObject("cleric")},
 		{"merchantPortraitObj",new RenderObject("merchantPortrait")},
 		{"playerPortraitObj",new RenderObject("playerPortrait")},
@@ -145,6 +146,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 
 		// Portrait Spritesheets
 
+		{"bossPortrait", new SpriteSheet("Assets/Sprites/Portraits/BalzathorCropped.png", 357, 364, 357, 364, false)},
 		{"cleric", new SpriteSheet("Assets/Sprites/Portraits/Cleric.png",177, 243, 177, 243, false)},
 		{"malePortrait", new SpriteSheet("Assets/Portrait.png",	357, 364, 357, 364, false)},
 		{"merchantPortrait", new SpriteSheet("Assets/Sprites/Portraits/MerchantPortrait.png",210, 330, 210, 330, false)},
