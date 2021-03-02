@@ -552,6 +552,11 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 
 void BossScene::Load()
 {
+	for (int i = 0; i < 10; i++)
+	{
+		for (int t = 0; t < 10; t++)
+			mapp[i][t].availiable = true;
+	}
 	for (auto t : mSceneText)
 		delete t;
 	mSceneText.clear();
@@ -812,6 +817,12 @@ void BossScene::RunAi()
 
 					if (!validAction)
 					{
+						for (int i = 0; i < enemyHand.size(); ++i)
+						{
+							delete enemyHand[i].first;
+
+						}
+						enemyHand.clear();
 						for (auto c : validCards)
 						{
 							for (auto e : team)
