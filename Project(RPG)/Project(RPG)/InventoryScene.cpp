@@ -54,6 +54,7 @@ void InventoryScene::Load()
 
 	// To avoid items duplicating clear the layer they are on
 	mLayers[Game].clear();
+	mLayers[Map].clear();
 	itemObjects.clear();
 	mSceneText.clear();
 	characters.clear();
@@ -68,7 +69,7 @@ void InventoryScene::Load()
 	{
 		// Dynamically work out the x pos of the portraits and equip slots based how the amount in the party
 		int xOffset = 640 + ((i - (mParty.size()) / 2) * 300);
-		characters.push_back(characterInventory(c, AddObject(c->GetPortraitName(), xOffset, 180, Game), AddObject("itemFrameObj", xOffset - 150, 230, Game), AddObject("itemFrameObj", xOffset - 150, 120, Game)));
+		characters.push_back(characterInventory(c, AddObject(c->GetPortraitName(), xOffset, 180, Game), AddObject("itemFrameObj", xOffset - 150, 230, Map), AddObject("itemFrameObj", xOffset - 150, 120, Map)));
 
 		// if a character has an equip slot filled then draw them to the screen and add them the the scene's item objects
 		if (c->ArmourEquipSlot != nullptr)

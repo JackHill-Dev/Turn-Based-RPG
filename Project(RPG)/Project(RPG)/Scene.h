@@ -54,7 +54,7 @@ struct ToolTip
 		pBackground->SetVisible(false);
 		pItemImage->SetVisible(false);
 		mDescription.isVisible = false;
-
+		mDescription.textColor = SDL_Color{ 255,255,255 };
 
 	}
 

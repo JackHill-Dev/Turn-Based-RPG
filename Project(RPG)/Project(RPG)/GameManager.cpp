@@ -42,7 +42,7 @@ void GameManager::Run()
 		else
 			if (overlayOpacity > 0)
 			{
-				overlayOpacity -= delta * 0.000001;
+				overlayOpacity -= delta * 0.00001;
 			}
 		
 		
