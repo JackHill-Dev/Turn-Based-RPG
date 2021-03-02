@@ -114,6 +114,10 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 					mgr->LoadScene(Scenes::WinLoseStateScreen);
 				}
 			}
+			else
+			{
+				i.Update();
+			}
 		}
 
 		for (auto i : enemy)
