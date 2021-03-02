@@ -654,7 +654,9 @@ void BossScene::Load()
 	mSceneText.push_back(intel);
 	mSceneText.push_back(agil);
 
-	Unit boss = Unit(new Character("", "", "", UnitClass::NoClass, 0, std::make_pair(1000, 3000), false, std::make_pair(60,60), std::make_pair(25,25), std::make_pair(25,25), std::make_pair(25,25)), &mapp[4][3], AddObject("daemonBoss", 500, 500, Game), AddObject("daemonBoss", 1000, 250, Game), UIStats(std::make_pair(1000, 250 + 75), health, movement, str, intel, agil,AddObject("statBackgroundObj", 250, 125 + 150 * v, UI)));
+	Unit boss = Unit(new Character("", "", "", UnitClass::NoClass, 0, std::make_pair(1000, 3000), false, std::make_pair(60,60), std::make_pair(25,25), std::make_pair(25,25), std::make_pair(25,25)), &mapp[4][3], AddObject("daemonBoss", 500, 500, Game), AddObject("bossPortraitObj", 1000, 250, Game), UIStats(std::make_pair(1000, 250 + 75), health, movement, str, intel, agil,AddObject("statBackgroundObj", 250, 125 + 150 * v, UI)));
+	
+	boss.profile->scale = std::make_pair(0.3f, 0.3f);
 	boss.object->scale = { 2,2 };
 	enemy.push_back(boss);
 	for (int i = 0; i < 5; i++)

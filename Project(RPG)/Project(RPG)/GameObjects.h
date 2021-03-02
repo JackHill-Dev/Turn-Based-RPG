@@ -26,6 +26,7 @@ const std::map<std::string,RenderObject*> definedObjects
 		
 		// Portrait Objects 
 
+		{"bossPortraitObj", new RenderObject("bossPortrait")},
 		{"ClericObj",new RenderObject("cleric")},
 		{"merchantPortraitObj",new RenderObject("merchantPortrait")},
 		{"playerPortraitObj",new RenderObject("playerPortrait")},
@@ -65,6 +66,7 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"legendObj", new RenderObject("legend")},
 		{"mainMenuBGObj",new RenderObject("mainMenuBG")},
 		{"OptionsBackgroundObj", new RenderObject("OptionsBackground")},
+		{"OverlayObj", new RenderObject("overlay")},
 		{"overworldObj", new RenderObject("overworld")},
 		{"scrollBgObj", new RenderObject("scrollBg")},
 		{"settingsBgObj", new RenderObject("settingsBg")},
@@ -145,6 +147,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 
 		// Portrait Spritesheets
 
+		{"bossPortrait", new SpriteSheet("Assets/Sprites/Portraits/BalzathorCropped.png", 357, 364, 357, 364, false)},
 		{"cleric", new SpriteSheet("Assets/Sprites/Portraits/Cleric.png",177, 243, 177, 243, false)},
 		{"malePortrait", new SpriteSheet("Assets/Portrait.png",	357, 364, 357, 364, false)},
 		{"merchantPortrait", new SpriteSheet("Assets/Sprites/Portraits/MerchantPortrait.png",210, 330, 210, 330, false)},
@@ -187,6 +190,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"mainMenuBG", new SpriteSheet("Assets/Backgrounds/MainMenuBG_720.png",1280, 720, 1280, 720, false)},
 		{"OptionsBackground", new SpriteSheet("Assets/Sprites/Buttons/OptionsBackground.png",	240, 32, 240, 32, false)},
 		{"settingsBg", new SpriteSheet("Assets/Backgrounds/Blank_Map_1280x720_Blurred.png", 1280, 720, 1280, 720, false)},
+		{"overlay", new SpriteSheet("Assets/Backgrounds/Overlay.png", 1280, 720, 1280, 720, false)},
 		{"overworld", new SpriteSheet("Assets/Backgrounds/map.png", 2048, 1536, 2048, 1536, true)},
 		{"scrollBg", new SpriteSheet("Assets/Backgrounds/ResizedScroll.png", 1280, 720, 1280, 720, false)},
 		{"shopBg", new SpriteSheet("Assets/Backgrounds/ShopBg.png",1280, 720, 1280, 720, false)},		

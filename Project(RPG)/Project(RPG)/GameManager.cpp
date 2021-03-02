@@ -96,7 +96,7 @@ void GameManager::Run()
 				
 
 
-				SDL_Texture* obj = objects["forestBGObj"]->GetSheet()->GetTexture();
+				SDL_Texture* obj = objects["OverlayObj"]->GetSheet()->GetTexture();
 
 			
 
