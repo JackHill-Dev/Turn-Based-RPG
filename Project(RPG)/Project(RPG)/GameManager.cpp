@@ -8,7 +8,7 @@ void GameManager::Run()
 	Act act;
 
 	mInterface.SetMasterVolume(-1, 16, 16);
-
+	float overlayOpacity = 0;
 
 	SDL_Texture* texture = SDL_CreateTexture(mRnd, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, mSettings.w, mSettings.h);
 	SDL_Event ev;
@@ -26,59 +26,83 @@ void GameManager::Run()
 		srand(delta);
 		if (mCScene != lastSceneIndex)
 		{
-			LoadScene();
+			if (overlayOpacity < 255)
+			{
+
+				overlayOpacity += delta*0.00001;
+			}
+			else
+			{
+				LoadScene();
+				lastSceneIndex = mCScene;
+			}
 		}
-		lastSceneIndex = mCScene;
-
-		if (delta > 1000 / 60.0) // 60 fps cap
-		{
-			//std::cout << "fps: " << 1000 / delta << std::endl;
-
-			b = a;
-
-			int x, y;
-			act = Act::Blank;
-			if (SDL_PollEvent(&ev))
-				switch (ev.type)
-				{
-				
-
-					
-				case SDL_KEYUP:
-					if (ev.button.button == SDL_BUTTON_LEFT)
-						act = Act::MouseUp;
-
-
-					break;
-				case SDL_MOUSEBUTTONDOWN:
-					//auto e = ev.button.button;
-					if (ev.button.button == SDL_BUTTON_LEFT)
-						act = Act::Click;
-					else
-						act = Act::RClick;
-					SDL_GetMouseState(&x, &y);
-
-					break;
-				case SDL_MOUSEMOTION:
-					SDL_GetMouseState(&x, &y);
-					act = Act::MouseUpdate;
-					break;
-				
-				}
+		else
+			if (overlayOpacity > 0)
+			{
+				overlayOpacity -= delta * 0.00001;
+			}
+		
 		
 
-			SDL_RenderClear(mRnd);
+			if (delta > 1000 / 60.0 ) // 60 fps cap
+			{
+				//std::cout << "fps: " << 1000 / delta << std::endl;
 
-			SDL_SetRenderTarget(mRnd, texture);
-			SDL_SetRenderDrawColor(mRnd, 0x64, 0x00, 0x00, 0x00);
+				b = a;
+
+				int x, y;
+				act = Act::Blank;
+				if (SDL_PollEvent(&ev) && overlayOpacity <= 0)
+					switch (ev.type)
+					{
+
+
+
+					case SDL_KEYUP:
+						if (ev.button.button == SDL_BUTTON_LEFT)
+							act = Act::MouseUp;
+
+
+						break;
+					case SDL_MOUSEBUTTONDOWN:
+						//auto e = ev.button.button;
+						if (ev.button.button == SDL_BUTTON_LEFT)
+							act = Act::Click;
+						else
+							act = Act::RClick;
+						SDL_GetMouseState(&x, &y);
+
+						break;
+					case SDL_MOUSEMOTION:
+						SDL_GetMouseState(&x, &y);
+						act = Act::MouseUpdate;
+						break;
+
+					}
+
+
+				SDL_RenderClear(mRnd);
+
+				SDL_SetRenderTarget(mRnd, texture);
+				SDL_SetRenderDrawColor(mRnd, 0x64, 0x00, 0x00, 0x00);
+
+				SDL_SetRenderTarget(mRnd, NULL);
+
+				scenes[mCScene]->SceneUpdate(delta, act, std::make_pair(x, y));
+				scenes[mCScene]->Draw(mRnd);
+
+
+				auto obj = objects["forestBGObj"]->GetSheet()->GetTexture();
+				SDL_SetTextureBlendMode(obj, SDL_BLENDMODE_BLEND);
+				SDL_SetTextureAlphaMod(obj, overlayOpacity);
+
+				SDL_RenderCopy(mRnd, obj, NULL, NULL);
+
+				SDL_RenderPresent(mRnd);
+			}
 			
-			SDL_SetRenderTarget(mRnd, NULL);
-			
-			scenes[mCScene]->SceneUpdate(delta, act, std::make_pair(x, y));
-			scenes[mCScene]->Draw(mRnd);
-			SDL_RenderPresent(mRnd);
 		
-		}
 
 		//SDL_Delay(16);
 	}
