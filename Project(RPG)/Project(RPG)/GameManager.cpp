@@ -88,12 +88,15 @@ void GameManager::Run()
 				SDL_SetRenderDrawColor(mRnd, 0x64, 0x00, 0x00, 0x00);
 
 				SDL_SetRenderTarget(mRnd, NULL);
-
+				if(overlayOpacity <= 0)
 				scenes[mCScene]->SceneUpdate(delta, act, std::make_pair(x, y));
 				scenes[mCScene]->Draw(mRnd);
 
 
-				auto obj = objects["forestBGObj"]->GetSheet()->GetTexture();
+				SDL_Texture* obj = objects["forestBGObj"]->GetSheet()->GetTexture();
+
+			
+
 				SDL_SetTextureBlendMode(obj, SDL_BLENDMODE_BLEND);
 				SDL_SetTextureAlphaMod(obj, overlayOpacity);
 
