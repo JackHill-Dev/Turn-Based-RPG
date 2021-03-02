@@ -170,7 +170,7 @@ void ShopScene::SetupShopInv()
 {
 	std::vector<std::string> weaponStrings{"Dagger", "Short Sword", "Long Sword", "Simple Bow", "Compound Bow", "Holy Bow", "Simple Staff", "Enchanters Staff", "Seraph Staff",};
 	std::vector<std::string> ArmourStrings{"Cloth Armour", "Leather Armour", "Chainmail Armour" , "Plate Armour"};
-	for (int f = 0; f < 20; ++f)
+	for (int f = 0; f < 15; ++f)
 	{
 		int i = RandomRange(0, 99);
 		int j = RandomRange(0, 3);
