@@ -280,8 +280,18 @@ void OverworldMapScene::Update(double dTime, Act act, std::pair<int, int> mouseP
 								if (IsCombat())
 								{
 									std::vector<Character*> enemy;
+									int number = 0;
 
-									int number = std::rand() % 4 + 1;
+									// Protects new players by ensuring you aren't outnumbered at first level
+									if (mgr->GetPlayer()->GetParty()[0]->GetLevel() == 1)
+									{
+										number = std::rand() % 3 + 1;
+									}
+									else
+									{
+										number = std::rand() % 4 + 1;
+									}
+
 									// This seeds on current time to ensure enemy stats are random and different from other enemies - EH
 									srand(time(0));
 									const int& healthOffset = 5;
