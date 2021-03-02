@@ -184,7 +184,7 @@ void BossScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 						}
 						for (int i = 0; i < 5; i++)
 						{
-							enemyHand.push_back(std::make_pair(new Card(5, "BossAttack", 1.5, "cardObj", "BossAttackObj", 1, 5, 0, 0), nullptr));
+							enemyHand.push_back(std::make_pair(new Card(10, "BossAttack", 1.5, "cardObj", "BossAttackObj", 1, 5, 0, 0), nullptr));
 						}
 					}
 					else
@@ -979,7 +979,8 @@ std::vector<BossScene::tile*> BossScene::CalculatePath(tile* start, tile* end)
 
 bool BossScene::OutOfRange(Unit* caster, Unit* target, const std::pair<Card*, RenderObject*>* card)
 {
-	auto dist = GetDistance(caster->occupiedTile, target->occupiedTile);
+	double offset = - 1.0; // Boss is a large unit so he occupies more space than a tile.
+	auto dist = GetDistance(caster->occupiedTile, target->occupiedTile) + offset;
 
 	if (dist > card->first->Values().range)
 	{
