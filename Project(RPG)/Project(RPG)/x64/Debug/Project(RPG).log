@@ -3,36 +3,36 @@ F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\P
 F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\Globals.h(56,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
 F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.h(11,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(26,9): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(32,36): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(43,38): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(101,33): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(231,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(447,114): warning C4244: 'argument': conversion from '_Ty2' to 'int', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(33,35): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(45,39): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(104,33): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(234,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(450,114): warning C4244: 'argument': conversion from '_Ty2' to 'int', possible loss of data
           with
           [
               _Ty2=float
           ]
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(447,77): warning C4244: 'argument': conversion from '_Ty1' to 'int', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(450,77): warning C4244: 'argument': conversion from '_Ty1' to 'int', possible loss of data
           with
           [
               _Ty1=float
           ]
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(448,164): warning C4244: 'argument': conversion from '_Ty2' to 'int', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(451,164): warning C4244: 'argument': conversion from '_Ty2' to 'int', possible loss of data
           with
           [
               _Ty2=float
           ]
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(448,127): warning C4244: 'argument': conversion from '_Ty1' to 'int', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(451,127): warning C4244: 'argument': conversion from '_Ty1' to 'int', possible loss of data
           with
           [
               _Ty1=float
           ]
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(542,100): warning C4244: 'argument': conversion from '_Ty2' to 'int', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(545,100): warning C4244: 'argument': conversion from '_Ty2' to 'int', possible loss of data
           with
           [
               _Ty2=float
           ]
-F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(542,60): warning C4244: 'argument': conversion from '_Ty1' to 'int', possible loss of data
+F:\Test\AdvancedGamesConsoleProject2\AdvancedGamesConsoleProject2\Project(RPG)\Project(RPG)\GameManager.cpp(545,60): warning C4244: 'argument': conversion from '_Ty1' to 'int', possible loss of data
           with
           [
               _Ty1=float

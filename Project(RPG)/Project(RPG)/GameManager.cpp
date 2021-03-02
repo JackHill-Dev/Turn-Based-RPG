@@ -26,21 +26,23 @@ void GameManager::Run()
 		srand(delta);
 		if (mCScene != lastSceneIndex)
 		{
+			
 			if (overlayOpacity < 255)
 			{
 
-				overlayOpacity += delta*0.00001;
+				overlayOpacity += delta*0.0001;
 			}
 			else
 			{
-				LoadScene();
 				lastSceneIndex = mCScene;
+				LoadScene();
+				
 			}
 		}
 		else
 			if (overlayOpacity > 0)
 			{
-				overlayOpacity -= delta * 0.00001;
+				overlayOpacity -= delta * 0.000001;
 			}
 		
 		
@@ -88,9 +90,10 @@ void GameManager::Run()
 				SDL_SetRenderDrawColor(mRnd, 0x64, 0x00, 0x00, 0x00);
 
 				SDL_SetRenderTarget(mRnd, NULL);
-				if(overlayOpacity <= 0)
-				scenes[mCScene]->SceneUpdate(delta, act, std::make_pair(x, y));
-				scenes[mCScene]->Draw(mRnd);
+				if (overlayOpacity <= 0)
+					scenes[mCScene]->SceneUpdate(delta, act, std::make_pair(x, y));
+					scenes[mCScene]->Draw(mRnd);
+				
 
 
 				SDL_Texture* obj = objects["forestBGObj"]->GetSheet()->GetTexture();
