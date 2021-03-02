@@ -658,9 +658,9 @@ void CombatScene::Load(std::vector<Character*> enemyTeam, int seed)
 		mSceneText.push_back(str);
 		mSceneText.push_back(intel);
 		mSceneText.push_back(agil);
-		Unit unit = Unit(i, &mapp[v][9], AddObject(i->GetObjName(), 0, 0, Game), AddObject("portrait", 250, 125+150*v, UI), UIStats(std::make_pair(250, 125 + 150 * v + 75), health, movement, str, intel, agil, AddObject("statBackgroundObj", 250, 125 + 150 * v, UI)));
+		Unit unit = Unit(i, &mapp[v][9], AddObject(i->GetObjName(), 0, 0, Game), AddObject(i->GetPortraitName(), 250, 125+150*v, UI), UIStats(std::make_pair(250, 125 + 150 * v + 75), health, movement, str, intel, agil, AddObject("statBackgroundObj", 250, 125 + 150 * v, UI)));
 
-		unit.profile->scale = std::make_pair(0.3f, 0.3f);
+		unit.profile->scale = std::make_pair(0.6f, 0.47f);
 		team.push_back(unit);
 		v++;
 	}
