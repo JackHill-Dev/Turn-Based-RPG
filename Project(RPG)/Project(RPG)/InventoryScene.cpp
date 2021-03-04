@@ -64,12 +64,8 @@ void InventoryScene::Load()
 
 		delete a.obj;
 	}
-
 	itemObjects.clear();
 	characters.clear();
-
-	
-
 	int i = 0;
 
 

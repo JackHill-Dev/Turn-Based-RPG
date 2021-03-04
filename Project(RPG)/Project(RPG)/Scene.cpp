@@ -117,9 +117,7 @@ void Scene::Draw(SDL_Renderer* rnd)
 
 	
 	++counter;
-	SDL_RenderSetScale(rnd,
-		resolutionScaleX,
-		resolutionScaleY);
+	
 }
 // When mouse is inside bounds of a render object in current scene
 
