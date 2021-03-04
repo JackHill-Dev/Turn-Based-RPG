@@ -55,14 +55,16 @@ void InventoryScene::Load()
 	// To avoid items duplicating clear the layer they are on
 	for (auto a : mLayers[Game])
 		delete a;
-	mLayers[Game].clear();
 	for (auto a : mLayers[Map])
 		delete a;
-	mLayers[Map].clear();
-	for (auto a : itemObjects)
+	/*for (auto a : itemObjects)
 	{
-		delete a.obj;
-	}
+		delete a._item;
+	}*/
+	mLayers[Game].clear();
+
+	mLayers[Map].clear();
+	
 	itemObjects.clear();
 	characters.clear();
 
@@ -188,27 +190,7 @@ void InventoryScene::Update(double dTime, Act act, std::pair<int, int> mousePos)
 
 
 						}
-						//if (i.bPickedUp)
-						//{
-							// if not placed a grid and then snap back to grid and make sure items don't overlap
-							//pos = mgr->GetPlayer()->inventory.size() + it;
-
-							//auto& pos = *std::find_if(playerInvGrid.begin(), playerInvGrid.end(), [](std::pair<RenderObject*, ItemObject*> p) {return p.second == nullptr; });
-
-
-							/*if (pos >= playerInvGrid.size())
-							{
-								pos = 0;
-								it = 0;
-							}*/
-							//i.obj->SetPos(pos.first->GetPos());
-							//pos.second = &i;
-							//it++;
-
-							//i.taken = true;
-							//i.bPickedUp = false;
-							//mgr->GetPlayer()->AddItem(i._item);
-						//}
+						
 					}
 					else
 					{
