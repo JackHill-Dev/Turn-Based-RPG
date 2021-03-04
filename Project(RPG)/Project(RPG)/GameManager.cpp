@@ -27,7 +27,7 @@ void GameManager::Run()
 		if (mCScene != lastSceneIndex)
 		{
 			
-			if (overlayOpacity < 255)
+			if (overlayOpacity < 255 && (lastSceneIndex == Combat || lastSceneIndex == Boss || lastSceneIndex == Overworld || lastSceneIndex == MainMenu))
 			{
 
 				overlayOpacity += delta*0.0001;
