@@ -145,6 +145,8 @@ void ShopScene::Load()
 	mgr->PlaySFX(shop_Entry_SFX, 0, 1);
 	mgr->FadeInMusic(bg_Music, -1, mgr->fadeTime);
 
+	for (auto a : mLayers[Game])
+		delete a;
 	mLayers[Game].clear();
 	
 

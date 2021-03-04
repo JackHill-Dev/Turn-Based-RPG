@@ -72,6 +72,8 @@ void PartyViewerScene::Init()
 
 void PartyViewerScene::Load()
 {
+	for (auto a : mLayers[Game])
+		delete a;
 	mLayers[Game].clear();
 	mParty = mgr->GetPlayer()->GetParty();
 	GetCharacterPortraits();
