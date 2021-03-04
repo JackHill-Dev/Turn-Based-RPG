@@ -53,10 +53,19 @@ void InventoryScene::Load()
 	mParty = mgr->GetPlayer()->GetParty();
 
 	// To avoid items duplicating clear the layer they are on
+	for (auto a : mLayers[Game])
+		delete a;
 	mLayers[Game].clear();
+	for (auto a : mLayers[Map])
+		delete a;
 	mLayers[Map].clear();
+	for (auto a : itemObjects)
+	{
+
+		delete a.obj;
+	}
+
 	itemObjects.clear();
-	mSceneText.clear();
 	characters.clear();
 
 	
