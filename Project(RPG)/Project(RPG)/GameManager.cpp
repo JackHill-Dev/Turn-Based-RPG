@@ -102,9 +102,15 @@ void GameManager::Run()
 
 				SDL_SetTextureBlendMode(obj, SDL_BLENDMODE_BLEND);
 				SDL_SetTextureAlphaMod(obj, overlayOpacity);
+				int w, h;
 
+				SDL_GetRendererOutputSize(mRnd, &w, &h);
+				float resolutionScaleX = 1 + ((float)w - 1280) / 1280;
+				float resolutionScaleY = 1 + ((float)h - 720) / 720;
 				SDL_RenderCopy(mRnd, obj, NULL, NULL);
-
+				SDL_RenderSetScale(mRnd,
+					resolutionScaleX,
+					resolutionScaleY);
 				SDL_RenderPresent(mRnd);
 			}
 			

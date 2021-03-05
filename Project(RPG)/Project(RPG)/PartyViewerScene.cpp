@@ -57,7 +57,7 @@ void PartyViewerScene::Update(double dTime, Act act, std::pair<int, int> mousePo
 		mgr->LoadScene(Scenes::InventoryScreen); // Inventory screen
 		mInventoryBtn->Untint();
 	}
-	
+
 	mSceneText.clear();
 
 	GetCharacterStatistics();
