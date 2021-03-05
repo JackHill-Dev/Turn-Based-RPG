@@ -817,28 +817,7 @@ void BossScene::RunAi()
 							}
 						}
 
-					if (!validAction)
-					{
-						for (int i = 0; i < enemyHand.size(); ++i)
-						{
-							delete enemyHand[i].first;
-
-						}
-						enemyHand.clear();
-						for (auto c : validCards)
-						{
-							for (auto e : team)
-							{
-								auto path = CalculatePath(i.occupiedTile, e.occupiedTile);
-								if (!path.empty() && path.size() <= stats->movement.first && GetDistance(path.back(), e.occupiedTile) <= c.first->Values().range)
-								{
-									i.SetTarget(path);
-									validAction = true;
-									stats->movement.first -= path.size();
-								}
-							}
-						}
-					}
+					
 				}
 			}
 
