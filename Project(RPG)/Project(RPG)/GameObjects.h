@@ -4,10 +4,7 @@
 #include "RenderObject.h"
 #include "SpriteSheet.h"
 #include "Animation.h"
-#include "Item.h"
-#include "Armour.h"
-#include "Weapon.h"
-#include "Consumable.h"
+
 // Define objects with an identifier and a render object that refers to a specific spritesheet.
 const std::map<std::string,RenderObject*> definedObjects
 {
@@ -367,38 +364,7 @@ const std::map<std::string, std::vector<Animation>> definedAnimations
 	}
 };
 
-const std::map<std::string, DefinedCard> definedCards
-{
-	// Name,  Range, damage, costs(STR, INT AGI) , card name, flavour, picture, animation object, animation length
-	{"magicCard",{4, 7, 0, 5, 0, "Magic", "Magically assail the enemy for 7 damage, costs 5 intelligence", "Magic_Card" ,"MagicObj", 0.75}},
-	{"arrowCard", {5, 5, 0, 0, 5, "Shoot", "Pepper your foe with arrows for 5 damage, costs 5 agility", "Shootcard", "ArrowShotObj", 0.75}},
-	{"slashCard",{1.5, 10, 5, 0, 0, "Slash", "Slash the enemy for 10 damage, costs 5 strength", "SlashCard" ,"swordSlashEffectObj", 0.5}},	
-	{"healCard",{1.5, -15, 0, 10, 0, "Heal", "Heal the target for 15 health, costs 10 intelligence", "HealCard" ,"healImageObject", 1.25}},
-	{"bossCard",{ 1.5, 10, 5, 0, 0, "BossAttack", "The Boss cleaves it's foe for 10 damage, costs 5 strength", "SlashCard", "BossAttackObj", 1}},
-};
 
-const std::map<std::string, Item*> definedItems
-{
-	// Weapons
-	{"Dagger",new Weapon("Dagger", "daggerObj", 1, 3, 100)}, // name, spriteName, Level requirement, atk power, cost
-	{"Short Sword", new Weapon("Short Sword", "shortSwordObj", 2, 7, 150)},
-	{"Long Sword", new Weapon("Long Sword", "longSwordObj", 3, 10, 200)}, 
-	{"Simple Bow", new Weapon("Simple Bow", "simpleBowObj", 1, 3, 100)},
-	{"Compound Bow", new Weapon("Compound Bow", "compoundBowObj", 2, 7, 150)},
-	{"Holy Bow", new Weapon("Holy Bow", "holyBowObj", 3, 10, 200)},
-	{"Simple Staff", new Weapon("Simple Staff", "simpleStaffObj", 1, 3, 100)},
-	{"Enchanters Staff", new Weapon("Enchanters Staff", "enchantersStaffObj", 2, 7, 150)},
-	{"Seraph Staff", new Weapon("Seraph Staff", "seraphStaffObj", 3, 10, 200)},
-
-	// Armour
-	{"Cloth Armour", new Armour("Cloth Armour", "clothArmourObj", 1, 5, 50 )}, // name, spriteName, def, cost
-	{"Leather Armour", new Armour("Leather Armour", "leatherArmourObj", 2, 10, 150 )} ,
-	{"Chainmail Armour",  new Armour("Chainmail Armour", "chainArmourObj", 3, 20, 250 )} ,
-	{"Plate Armour",  new Armour("Plate Armour", "plateArmourObj", 4, 30, 300 )} ,
-
-	// Consumables
-	{"Health Potion",  new Consumable("Health Potion", "potionObj", 1, 100, 20)}
-};
 
 
 

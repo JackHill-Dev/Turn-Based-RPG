@@ -4,7 +4,6 @@ SpriteSheet::SpriteSheet(std::string path, int textureSizeX, int textureSizeY, f
 {
 	if(!anims.count("default"))
 		anims.insert(std::make_pair("default", Animation("default", { std::make_pair(0,0) })));
-	//anims["default"] =  Animation("default", { std::make_pair(0,0) });
 }
 
 SDL_Texture* SpriteSheet::GetTexture()

@@ -64,14 +64,11 @@ void Scene::Draw(SDL_Renderer* rnd)
 			crop.h = obj->GetSheet()->GetCellSize().second;
 
 
-			rect.w = obj->GetSheet()->GetCellSize().first * (obj->scale.first);// *resolutionScaleX); //scaling currentky buggy with inbounds, need to fix -T
-			rect.h = obj->GetSheet()->GetCellSize().second * (obj->scale.second);// *resolutionScaleY);
+			rect.w = obj->GetSheet()->GetCellSize().first * (obj->scale.first);
+			rect.h = obj->GetSheet()->GetCellSize().second * (obj->scale.second);
 
 			rect.x = obj->GetPos().first  - rect.w/2;
 			rect.y = obj->GetPos().second  - rect.h/2;
-
-		/*	if (obj->GetSheet()->GetTexture() == NULL)
-				std::cout << " Cant load texture:";*/
 
 			SDL_SetTextureColorMod(obj->GetSheet()->GetTexture(), obj->tint.r, obj->tint.g, obj->tint.b);
 
@@ -82,7 +79,6 @@ void Scene::Draw(SDL_Renderer* rnd)
 
 
 		});
-	// TODO - Surface from UIText isn't being freed.
 	for (auto& t : mSceneText)
 	{
 		rect.w = t->scale.first;
@@ -112,12 +108,8 @@ void Scene::Draw(SDL_Renderer* rnd)
 		SDL_DestroyTexture(t->mFontTexture);
 		t->mFontTexture = nullptr;
 	}
-
 	
-
-	
-	++counter;
-	
+	++counter;	
 }
 // When mouse is inside bounds of a render object in current scene
 
