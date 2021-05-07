@@ -17,7 +17,7 @@ bool NoughtsAndCrossesScene::hasWon()
     return false;
 }
 
-NoughtsAndCrossesScene::NoughtsAndCrossesScene(Interface* mObjMgr)
+NoughtsAndCrossesScene::NoughtsAndCrossesScene(Interface* mObjMgr) : Scene(mObjMgr)
 {
 }
 
