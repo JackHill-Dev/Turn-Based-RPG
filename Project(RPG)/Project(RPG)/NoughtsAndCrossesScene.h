@@ -26,10 +26,22 @@ private:
 	UIText mTurnText;
 	UIText mWinnerText;
 
-	std::vector<BoardPiece> mBoardPieces;
-	RenderObject* mWinnerTextBackground;
-	RenderObject* mLeaveButton;
-	RenderObject* mRematchButton;
+	std::vector<BoardPiece> pBoardPieces;
+	RenderObject* pGameBackground;
+	RenderObject* pWinnerTextBackground;
+	RenderObject* pLeaveButton;
+	RenderObject* pRematchButton;
+
+	PlayerInfo mPlayer1;
+	PlayerInfo mPlayer2;
+
+	double mTopHeight = 220;
+	double mMidHeght = 420;
+	double mBottomHeight = 620;
+
+	double mLeftPos = 440;
+	double mMiddlePos = 640;
+	double mRightPos = 840;
 
 protected:
 
