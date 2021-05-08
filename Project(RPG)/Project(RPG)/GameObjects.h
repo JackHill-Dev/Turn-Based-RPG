@@ -11,7 +11,7 @@ const std::map<std::string,RenderObject*> definedObjects
 	{
 		// Background Objects
 
-		{"OverlayObj", new RenderObject("overlay")},
+		{"ChalkBoardObj", new RenderObject("ChalkBoard")},
 		{"tictactoeObj", new RenderObject("tictactoe")},
 
 		// Button Objects
@@ -21,6 +21,7 @@ const std::map<std::string,RenderObject*> definedObjects
 		{"JoinButtonObj", new RenderObject("JoinButton")},
 		{"LeaveGameButtonObj", new RenderObject("LeaveGameButton")},
 		{"RematchButtonObj", new RenderObject("RematchButton")},
+		{"QuitButtonObj", new RenderObject("QuitButton")},
 
 		// General UI Objects
 
@@ -42,7 +43,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 	{
 		// Background Spritesheets
 
-		{"overlay", new SpriteSheet("Assets/Backgrounds/Overlay.png", 1920, 1080, 1920, 1080, false)},
+		{"ChalkBoard", new SpriteSheet("Assets/Backgrounds/ChalkBoard.png", 1920, 1080, 1920, 1080, false)},
 		{"tictactoe", new SpriteSheet("Assets/Backgrounds/Tic_tac_toe.png", 1200, 1067, 1200, 1067, false)},
 		
 		// Button Spritesheets		
@@ -52,6 +53,7 @@ const std::map<std::string, SpriteSheet*> definedSheets
 		{"JoinButton", new SpriteSheet("Assets/Sprites/Buttons/JoinButton.png", 200, 85, 200, 85, false)},
 		{"LeaveGameButton", new SpriteSheet("Assets/Sprites/Buttons/LeaveGameButton.png", 300, 101, 300, 101, false)},
 		{"RematchButton", new SpriteSheet("Assets/Sprites/Buttons/RematchButton.png", 300, 101, 300, 101, false)},
+		{"QuitButton", new SpriteSheet("Assets/Sprites/Buttons/quit_resized.png", 200, 55, 200, 55, false)},
 
 		// General UI Spritesheets
 		
@@ -69,12 +71,13 @@ const std::map<std::string, SpriteSheet*> definedSheets
 const std::map<std::string, std::vector<Animation>> definedAnimations
 {
 	{
-		// Effects Animations
+		/* Effects Animations
 
 		{"Magic", {Animation("default", {std::make_pair(0,0), std::make_pair(1,0),std::make_pair(2,0),std::make_pair(3,0),std::make_pair(4,0),std::make_pair(5,0),std::make_pair(6,0)})}},
 		{"swordSlashEffect", {Animation("default", {std::make_pair(0,0), std::make_pair(1,0),std::make_pair(2,0),std::make_pair(3,0),std::make_pair(4,0),std::make_pair(5,0),std::make_pair(6,0)})}},
 		{"ArrowShot", {Animation("default", {std::make_pair(3,0), std::make_pair(4,0),std::make_pair(5,0),std::make_pair(6,0),std::make_pair(7,0)})}},
 		{"health", {Animation("default", {std::make_pair(2,0),std::make_pair(3,0),std::make_pair(4,0),std::make_pair(5,0),std::make_pair(6,0),std::make_pair(7,0),std::make_pair(8,0), std::make_pair(9,0)})}},
 		{"BossAttack", {Animation("default", {std::make_pair(0,0),std::make_pair(1,0),std::make_pair(2,0),std::make_pair(3,0),std::make_pair(4,0),std::make_pair(5,0), std::make_pair(6,0)})}},
+		*/
 	}
 };
