@@ -26,12 +26,14 @@ private:
     Mix_Chunk* back_SFX;
 
     RenderObject* pMenuBg;
+    RenderObject* pNoughtsAndCrossesGraphic;
+    RenderObject* pBanner;
 
     // Main menu buttons
-    RenderObject* start;
-    RenderObject* quit;
-    RenderObject* settings;
-    RenderObject* ApplyBtn;
+    RenderObject* pStartButton;
+    RenderObject* pQuitButton;
+    RenderObject* pHostGameButton;
+    RenderObject* pJoinGameButton;
     std::vector<RenderObject*> buttons;
 
 };
