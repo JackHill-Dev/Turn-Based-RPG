@@ -6,6 +6,7 @@
 #include "Globals.h"
 #include "Scene.h"
 #include "MainMenuScene.h"
+#include "NoughtsAndCrossesScene.h"
 #include "Interface.h"
 #include "Player.h"
 #include "json.hpp"
@@ -16,6 +17,7 @@ class GameManager
 private:
 
 	MainMenuScene* mMainMenuSceneInstance;
+	NoughtsAndCrossesScene* mNoughtsAndCrossesSceneInstance;
 
 	bool bRunning= true;
 	Scenes mCScene = Scenes::MainMenu;

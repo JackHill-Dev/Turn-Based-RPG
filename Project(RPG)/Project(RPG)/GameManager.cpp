@@ -68,27 +68,17 @@ void GameManager::Run()
 				SDL_RenderClear(mRnd);
 
 				SDL_SetRenderTarget(mRnd, texture);
-				SDL_SetRenderDrawColor(mRnd, 0x64, 0x00, 0x00, 0x00);
+				SDL_SetRenderDrawColor(mRnd, 0x00, 0x00, 0x00, 0x00);
 
 				SDL_SetRenderTarget(mRnd, NULL);
-				if (overlayOpacity <= 0)
-					scenes[mCScene]->SceneUpdate(delta, act, std::make_pair(x, y));
-					scenes[mCScene]->Draw(mRnd);
-				
+				scenes[mCScene]->SceneUpdate(delta, act, std::make_pair(x, y));
+				scenes[mCScene]->Draw(mRnd);
 
-
-				SDL_Texture* obj = objects["OverlayObj"]->GetSheet()->GetTexture();
-
-			
-
-				SDL_SetTextureBlendMode(obj, SDL_BLENDMODE_BLEND);
-				SDL_SetTextureAlphaMod(obj, overlayOpacity);
 				int w, h;
 
 				SDL_GetRendererOutputSize(mRnd, &w, &h);
 				float resolutionScaleX = 1 + ((float)w - 1280) / 1280;
 				float resolutionScaleY = 1 + ((float)h - 720) / 720;
-				SDL_RenderCopy(mRnd, obj, NULL, NULL);
 				SDL_RenderSetScale(mRnd,
 					resolutionScaleX,
 					resolutionScaleY);
@@ -114,11 +104,13 @@ void GameManager::LoadScene()
 	{
 		case Scenes::MainMenu:
 		{
-			mMainMenuSceneInstance->Load(); break;
+			mMainMenuSceneInstance->Load(); 
+			break;
 		}
 
 		case Scenes::NoughtsAndCrosses:
 		{
+			mNoughtsAndCrossesSceneInstance->Load();
 			break;
 		}
 
@@ -165,6 +157,9 @@ bool GameManager::Init()
 	
 	mMainMenuSceneInstance = new MainMenuScene(&mInterface);
 	scenes.push_back(mMainMenuSceneInstance); // 0
+
+	mNoughtsAndCrossesSceneInstance = new NoughtsAndCrossesScene(&mInterface);
+	scenes.push_back(mNoughtsAndCrossesSceneInstance); // 1
 
 	currentScene->Clear(mRnd);
 	mInterface.LoadScene(Scenes::MainMenu);
