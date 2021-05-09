@@ -12,12 +12,14 @@ public:
 	bool isNought = false;
 	bool isCrosses = false;
 	int winTally = 0;
+	int loseTally = 0;
 
 private:
 
 	void AssignNought();
 	void AssignCross();
 	void PlayerWon();
+	void PlayerLoss();
 	void ResetTally();
 
 };

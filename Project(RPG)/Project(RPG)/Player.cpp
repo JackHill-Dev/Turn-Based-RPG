@@ -23,7 +23,13 @@ void Player::PlayerWon()
 	++winTally;
 }
 
+void Player::PlayerLoss()
+{
+	++loseTally;
+}
+
 void Player::ResetTally()
 {
 	winTally = 0;
+	loseTally = 0;
 }
