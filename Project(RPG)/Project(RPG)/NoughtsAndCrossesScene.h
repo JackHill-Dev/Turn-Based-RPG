@@ -31,6 +31,17 @@ class NoughtsAndCrossesScene : public Scene
 private:
 
 	std::vector<BoardPiece> pBoardPieces;
+
+	BoardPiece TopLeft;
+	BoardPiece TopCentre;
+	BoardPiece TopRight;
+	BoardPiece MidLeft;
+	BoardPiece MidCentre;
+	BoardPiece MidRight;
+	BoardPiece BottomLeft;
+	BoardPiece BottomCentre;
+	BoardPiece BottomRight;
+
 	RenderObject* pGameBackground;
 
 	RenderObject* pLeaveButton;
@@ -41,7 +52,7 @@ private:
 	ScoreBoard mBoard;
 
 	double mTopHeight = 220;
-	double mMidHeght = 420;
+	double mMidHeight = 420;
 	double mBottomHeight = 620;
 
 	double mLeftPos = 440;
@@ -51,6 +62,8 @@ private:
 	// true = nought, false = cross (So host will set it to true and client will have false)
 	bool mPlayerTurn = true; 
 	SDL_Color Black = SDL_Color{ 0,0,0 };
+	SDL_Color Lime = SDL_Color{ 0,255,0 };
+	SDL_Color Gray = SDL_Color{ 128,128,128 };
 
 protected:
 
@@ -63,7 +76,7 @@ public:
 	void ChangeTurn();
 
 	// Will check what symbol the player has, then reveal that RenderObject from the tile that's been clicked
-	void DrawSymbol();
+	void DrawSymbol(BoardPiece& selectedPiece);
 
 	// Will assign one player as 'X' and the other as 'O'
 	void AssignSymbol();

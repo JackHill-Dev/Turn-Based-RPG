@@ -10,79 +10,69 @@ NoughtsAndCrossesScene::NoughtsAndCrossesScene(Interface* mObjMgr) : Scene(mObjM
     pRematchButton = AddObject("RematchButtonObj", 1130, 650, Layer::UI);
     pRematchButton->SetScale(std::make_pair<float, float>(0.8, 0.65));
     pRematchButton->SetVisible(false);
-   
-}
 
-void NoughtsAndCrossesScene::Load()
-{
-    SetUpUI();
-    SetUpBoardPieces();
-}
-
-void NoughtsAndCrossesScene::SetUpBoardPieces()
-{
-    BoardPiece TopLeft;
     TopLeft.mPiece = AddObject("BoardPieceObj", mLeftPos, mTopHeight, Layer::Game);
     TopLeft.mNought = AddObject("NoughtObj", mLeftPos, mTopHeight, Layer::UI);
     TopLeft.mNought->SetVisible(false);
     TopLeft.mCross = AddObject("CrossObj", mLeftPos, mTopHeight, Layer::UI);
     TopLeft.mCross->SetVisible(false);
 
-    BoardPiece TopCentre;
+   
     TopCentre.mPiece = AddObject("BoardPieceObj", mMiddlePos, mTopHeight, Layer::Game);
     TopCentre.mNought = AddObject("NoughtObj", mMiddlePos, mTopHeight, Layer::UI);
     TopCentre.mNought->SetVisible(false);
     TopCentre.mCross = AddObject("CrossObj", mMiddlePos, mTopHeight, Layer::UI);
     TopCentre.mCross->SetVisible(false);
 
-    BoardPiece TopRight;
+    
     TopRight.mPiece = AddObject("BoardPieceObj", mRightPos, mTopHeight, Layer::Game);
     TopRight.mNought = AddObject("NoughtObj", mRightPos, mTopHeight, Layer::UI);
     TopRight.mNought->SetVisible(false);
     TopRight.mCross = AddObject("CrossObj", mRightPos, mTopHeight, Layer::UI);
     TopRight.mCross->SetVisible(false);
 
-    BoardPiece MidLeft;
+   
     MidLeft.mPiece = AddObject("BoardPieceObj", mLeftPos, mMidHeight, Layer::Game);
     MidLeft.mNought = AddObject("NoughtObj", mLeftPos, mMidHeight, Layer::UI);
     MidLeft.mNought->SetVisible(false);
     MidLeft.mCross = AddObject("CrossObj", mLeftPos, mMidHeight, Layer::UI);
     MidLeft.mCross->SetVisible(false);
 
-    BoardPiece MidCentre;
+   
     MidCentre.mPiece = AddObject("BoardPieceObj", mMiddlePos, mMidHeight, Layer::Game);
     MidCentre.mNought = AddObject("NoughtObj", mMiddlePos, mMidHeight, Layer::UI);
     MidCentre.mNought->SetVisible(false);
     MidCentre.mCross = AddObject("CrossObj", mMiddlePos, mMidHeight, Layer::UI);
     MidCentre.mCross->SetVisible(false);
 
-    BoardPiece MidRight;
+   
     MidRight.mPiece = AddObject("BoardPieceObj", mRightPos, mMidHeight, Layer::Game);
     MidRight.mNought = AddObject("NoughtObj", mRightPos, mMidHeight, Layer::UI);
     MidRight.mNought->SetVisible(false);
     MidRight.mCross = AddObject("CrossObj", mRightPos, mMidHeight, Layer::UI);
     MidRight.mCross->SetVisible(false);
 
-    BoardPiece BottomLeft;
+    
     BottomLeft.mPiece = AddObject("BoardPieceObj", mLeftPos, mBottomHeight, Layer::Game);
     BottomLeft.mNought = AddObject("NoughtObj", mLeftPos, mBottomHeight, Layer::UI);
     BottomLeft.mNought->SetVisible(false);
     BottomLeft.mCross = AddObject("CrossObj", mLeftPos, mBottomHeight, Layer::UI);
     BottomLeft.mCross->SetVisible(false);
 
-    BoardPiece BottomCentre;
+    
     BottomCentre.mPiece = AddObject("BoardPieceObj", mMiddlePos, mBottomHeight, Layer::Game);
     BottomCentre.mNought = AddObject("NoughtObj", mMiddlePos, mBottomHeight, Layer::UI);
     BottomCentre.mNought->SetVisible(false);
     BottomCentre.mCross = AddObject("CrossObj", mMiddlePos, mBottomHeight, Layer::UI);
     BottomCentre.mCross->SetVisible(false);
 
-    BoardPiece BottomRight;
+   
     BottomRight.mPiece = AddObject("BoardPieceObj", mRightPos, mBottomHeight, Layer::Game);
     BottomRight.mNought = AddObject("NoughtObj", mRightPos, mBottomHeight, Layer::UI);
     BottomRight.mNought->SetVisible(false);
     BottomRight.mCross = AddObject("CrossObj", mRightPos, mBottomHeight, Layer::UI);
     BottomRight.mCross->SetVisible(false);
+
 
     pBoardPieces.push_back(TopLeft);
     pBoardPieces.push_back(TopCentre);
@@ -93,6 +83,25 @@ void NoughtsAndCrossesScene::SetUpBoardPieces()
     pBoardPieces.push_back(BottomLeft);
     pBoardPieces.push_back(BottomCentre);
     pBoardPieces.push_back(BottomRight);
+   
+}
+
+void NoughtsAndCrossesScene::Load()
+{
+    mPlayerTurn = true;
+    SetUpUI();
+    SetUpBoardPieces();
+}
+
+void NoughtsAndCrossesScene::SetUpBoardPieces()
+{
+    for (auto& piece : pBoardPieces)
+    {
+        piece.bFilledCross = false;
+        piece.bFilledNought = false;
+        piece.mCross->SetVisible(false);
+        piece.mNought->SetVisible(false);
+    }
 }
 
 void NoughtsAndCrossesScene::SetUpUI()
@@ -176,6 +185,23 @@ void NoughtsAndCrossesScene::Update(double dTime, Act act, std::pair<int, int> m
 {
     if (act == Act::MouseUpdate)
     {
+        if (pLeaveButton->InBounds(mousePos.first, mousePos.second))
+        {
+            pLeaveButton->Tint(Lime);
+        }
+        else
+        {
+            pLeaveButton->Untint();
+        }
+        if (pRematchButton->InBounds(mousePos.first, mousePos.second))
+        {
+            pRematchButton->Tint(Lime);
+        }
+        else
+        {
+            pRematchButton->Untint();
+        }
+
         for (auto& piece : pBoardPieces)
         {
             if (piece.mPiece->InBounds(mousePos.first, mousePos.second) && (piece.bFilledCross == false && piece.bFilledNought == false))
@@ -199,6 +225,26 @@ void NoughtsAndCrossesScene::Update(double dTime, Act act, std::pair<int, int> m
 
     else if (act == Act::Click)
     {
+        if (pLeaveButton->InBounds(mousePos.first, mousePos.second))
+        {
+            mgr->LoadScene(Scenes::MainMenu);
+            pLeaveButton->Untint();
+        }
 
+        if (pRematchButton->InBounds(mousePos.first, mousePos.second))
+        {
+
+        }
+
+        for (auto& piece : pBoardPieces)
+        {
+            // If you click an 'Empty' board piece then fill it.
+            if (piece.mPiece->InBounds(mousePos.first, mousePos.second) && (piece.bFilledNought == false && piece.bFilledCross == false))
+            {
+                piece.mPiece->Untint();
+                DrawSymbol(piece);
+                ChangeTurn();
+            }
+        }
     }
 }

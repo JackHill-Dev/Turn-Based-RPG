@@ -77,6 +77,7 @@ void MainMenuScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 		{
 			mgr->LoadScene(Scenes::NoughtsAndCrosses);
 			mgr->PlaySFX(confirm_SFX, 0, 1);
+			pStartButton->Untint();
 		}
 
 		else if (pHostGameButton->InBounds(mouse.first, mouse.second) && pHostGameButton->IsVisible() == true)
