@@ -97,8 +97,7 @@ void NoughtsAndCrossesScene::SetUpBoardPieces()
 {
     for (auto& piece : pBoardPieces)
     {
-        piece.bFilledCross = false;
-        piece.bFilledNought = false;
+        piece.bFilled = false;
         piece.mCross->SetVisible(false);
         piece.mNought->SetVisible(false);
     }
@@ -144,28 +143,78 @@ void NoughtsAndCrossesScene::SetUpUI()
     mPlayer2.mWinTally.SetTextScale(150, 80);
     mPlayer2.mWinTally.pos = { 1130, 290 };
 
-    mSceneText.push_back(&mBoard.mTurnText);
-    mSceneText.push_back(&mPlayer1.mPlayerId);
-    mSceneText.push_back(&mPlayer1.mWinTally);
-    mSceneText.push_back(&mPlayer2.mPlayerId);
-    mSceneText.push_back(&mPlayer2.mWinTally);
+    mSceneText.push_back(&mBoard.mTurnText);    // 0
+    mSceneText.push_back(&mPlayer1.mPlayerId);  // 1
+    mSceneText.push_back(&mPlayer1.mWinTally);  // 2
+    mSceneText.push_back(&mPlayer2.mPlayerId);  // 3
+    mSceneText.push_back(&mPlayer2.mWinTally);  // 4
+}
+
+void NoughtsAndCrossesScene::ResolveGame()
+{
+    if (std::all_of(pBoardPieces.begin(), pBoardPieces.end(), [](BoardPiece piece) {
+        return piece.bFilled == true;
+        }))
+    {
+        mSceneText[0]->text = "IT'S A DRAW! Rematch?";
+    }
+    else if (mPlayerTurn == true)
+    {
+        mgr->GetPlayer()->winTally += 1;
+        mSceneText[0]->text = "WINNER Player O! Rematch?";
+        mSceneText[2]->text = "Wins: " + std::to_string(mgr->GetPlayer()->winTally);
+    }
+    else
+    {
+        mgr->GetPlayer()->loseTally += 1;
+        mSceneText[0]->text = "WINNER Player X! Rematch?";
+        mSceneText[4]->text = "Wins: " + std::to_string(mgr->GetPlayer()->loseTally);
+    }
+
+    for (auto& piece : pBoardPieces)
+    {
+        piece.bFilled = true;
+    }
+
+    pRematchButton->SetVisible(true);
+}
+
+void NoughtsAndCrossesScene::ResetGame()
+{
+    for (auto& piece : pBoardPieces)
+    {
+        piece.bFilled = false;
+        piece.mCross->SetVisible(false);
+        piece.mNought->SetVisible(false);
+    }
+    pRematchButton->SetVisible(false);
 }
 
 void NoughtsAndCrossesScene::ChangeTurn()
 {
     mPlayerTurn = !mPlayerTurn;
+
+    if (mPlayerTurn == true)
+    {
+        mSceneText[0]->text = "Current Turn: Player O";
+    }
+    else
+    {
+        mSceneText[0]->text = "Current Turn: Player X";
+    }
+
 }
 
 void NoughtsAndCrossesScene::DrawSymbol(BoardPiece& selectedPiece)
 {
     if (mPlayerTurn == true)
     {
-        selectedPiece.bFilledNought = true;
+        selectedPiece.bFilled = true;
         selectedPiece.mNought->SetVisible(true);
     }
     else
     {
-        selectedPiece.bFilledCross = true;
+        selectedPiece.bFilled = true;
         selectedPiece.mCross->SetVisible(true);
     }
 }
@@ -176,7 +225,97 @@ void NoughtsAndCrossesScene::AssignSymbol()
 
 bool NoughtsAndCrossesScene::hasWon()
 {
-    return false;
+
+    // Nought win conditions
+         // Horizontal
+         if (pBoardPieces[0].mNought->IsVisible() && pBoardPieces[1].mNought->IsVisible() && pBoardPieces[2].mNought->IsVisible())
+         {
+             return true;
+         }
+         else if (pBoardPieces[3].mNought->IsVisible() && pBoardPieces[4].mNought->IsVisible() && pBoardPieces[5].mNought->IsVisible())
+         {
+             return true;
+         }
+         else if (pBoardPieces[6].mNought->IsVisible() && pBoardPieces[7].mNought->IsVisible() && pBoardPieces[8].mNought->IsVisible())
+         {
+             return true;
+         }
+
+         // Vertical
+         else if (pBoardPieces[0].mNought->IsVisible() && pBoardPieces[3].mNought->IsVisible() && pBoardPieces[6].mNought->IsVisible())
+         {
+             return true;
+         }
+         else if (pBoardPieces[1].mNought->IsVisible() && pBoardPieces[4].mNought->IsVisible() && pBoardPieces[7].mNought->IsVisible())
+         {
+             return true;
+         }
+         else if (pBoardPieces[2].mNought->IsVisible() && pBoardPieces[5].mNought->IsVisible() && pBoardPieces[8].mNought->IsVisible())
+         {
+             return true;
+         }
+
+         // Diagonal
+         else if (pBoardPieces[0].mNought->IsVisible() && pBoardPieces[4].mNought->IsVisible() && pBoardPieces[8].mNought->IsVisible())
+         {
+             return true;
+         }
+         else if (pBoardPieces[2].mNought->IsVisible() && pBoardPieces[4].mNought->IsVisible() && pBoardPieces[6].mNought->IsVisible())
+         {
+             return true;
+         }
+
+     // Cross win conditions
+        // Horizontal
+         if (pBoardPieces[0].mCross->IsVisible() && pBoardPieces[1].mCross->IsVisible() && pBoardPieces[2].mCross->IsVisible())
+         {
+             return true;
+         }
+         else if (pBoardPieces[3].mCross->IsVisible() && pBoardPieces[4].mCross->IsVisible() && pBoardPieces[5].mCross->IsVisible())
+         {
+             return true;
+         }
+         else if (pBoardPieces[6].mCross->IsVisible() && pBoardPieces[7].mCross->IsVisible() && pBoardPieces[8].mCross->IsVisible())
+         {
+             return true;
+         }
+
+         // Vertical
+         else if (pBoardPieces[0].mCross->IsVisible() && pBoardPieces[3].mCross->IsVisible() && pBoardPieces[6].mCross->IsVisible())
+         {
+             return true;
+         }
+         else if (pBoardPieces[1].mCross->IsVisible() && pBoardPieces[4].mCross->IsVisible() && pBoardPieces[7].mCross->IsVisible())
+         {
+             return true;
+         }
+         else if (pBoardPieces[2].mCross->IsVisible() && pBoardPieces[5].mCross->IsVisible() && pBoardPieces[8].mCross->IsVisible())
+         {
+             return true;
+         }
+
+         // Diagonal
+         else if (pBoardPieces[0].mCross->IsVisible() && pBoardPieces[4].mCross->IsVisible() && pBoardPieces[8].mCross->IsVisible())
+         {
+             return true;
+         }
+         else if (pBoardPieces[2].mCross->IsVisible() && pBoardPieces[4].mCross->IsVisible() && pBoardPieces[6].mCross->IsVisible())
+         {
+             return true;
+         }
+
+    // Draw Condition
+         else if (std::all_of(pBoardPieces.begin(), pBoardPieces.end(), [](BoardPiece piece) {
+             return piece.bFilled == true;
+             }))
+         {
+             return true;
+         }
+
+         else
+         {
+             return false;
+         }
 }
 
 
@@ -204,11 +343,11 @@ void NoughtsAndCrossesScene::Update(double dTime, Act act, std::pair<int, int> m
 
         for (auto& piece : pBoardPieces)
         {
-            if (piece.mPiece->InBounds(mousePos.first, mousePos.second) && (piece.bFilledCross == false && piece.bFilledNought == false))
+            if (piece.mPiece->InBounds(mousePos.first, mousePos.second) && (!piece.bFilled))
             {
                 piece.mPiece->Tint(Lime);
             }
-            else if(piece.mPiece->InBounds(mousePos.first, mousePos.second) && (piece.bFilledCross == true || piece.bFilledNought == true))
+            else if(piece.mPiece->InBounds(mousePos.first, mousePos.second) && (piece.bFilled))
             {
                 piece.mPiece->Tint(Gray);
                 piece.mCross->Tint(Gray);
@@ -228,22 +367,33 @@ void NoughtsAndCrossesScene::Update(double dTime, Act act, std::pair<int, int> m
         if (pLeaveButton->InBounds(mousePos.first, mousePos.second))
         {
             mgr->LoadScene(Scenes::MainMenu);
+            mgr->GetPlayer()->loseTally = 0;
+            mgr->GetPlayer()->winTally = 0;
             pLeaveButton->Untint();
         }
 
         if (pRematchButton->InBounds(mousePos.first, mousePos.second))
         {
-
+            ResetGame();
+            ChangeTurn();
         }
 
         for (auto& piece : pBoardPieces)
         {
             // If you click an 'Empty' board piece then fill it.
-            if (piece.mPiece->InBounds(mousePos.first, mousePos.second) && (piece.bFilledNought == false && piece.bFilledCross == false))
+            if (piece.mPiece->InBounds(mousePos.first, mousePos.second) && (!piece.bFilled))
             {
                 piece.mPiece->Untint();
                 DrawSymbol(piece);
-                ChangeTurn();
+                if (hasWon() == true)
+                {
+                    ResolveGame();
+                   
+                }
+                else
+                {
+                    ChangeTurn();
+                }
             }
         }
     }

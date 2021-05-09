@@ -14,8 +14,7 @@ struct BoardPiece
 	RenderObject* mPiece = nullptr;
 	RenderObject* mNought = nullptr;
 	RenderObject* mCross = nullptr;
-	bool bFilledNought = false;
-	bool bFilledCross = false;
+	bool bFilled = false;
 };
 
 struct ScoreBoard
@@ -83,6 +82,8 @@ public:
 	void Load();
 	void SetUpBoardPieces();
 	void SetUpUI();
+	void ResolveGame();
+	void ResetGame();
 	void Update(double dTime, Act act, std::pair<int, int> mousePos) override;
 
 	// Will check board piece vector after symbol has been drawn 
