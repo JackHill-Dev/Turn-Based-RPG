@@ -147,8 +147,18 @@ void NoughtsAndCrossesScene::ChangeTurn()
     mPlayerTurn = !mPlayerTurn;
 }
 
-void NoughtsAndCrossesScene::DrawSymbol()
+void NoughtsAndCrossesScene::DrawSymbol(BoardPiece& selectedPiece)
 {
+    if (mPlayerTurn == true)
+    {
+        selectedPiece.bFilledNought = true;
+        selectedPiece.mNought->SetVisible(true);
+    }
+    else
+    {
+        selectedPiece.bFilledCross = true;
+        selectedPiece.mCross->SetVisible(true);
+    }
 }
 
 void NoughtsAndCrossesScene::AssignSymbol()
@@ -166,7 +176,25 @@ void NoughtsAndCrossesScene::Update(double dTime, Act act, std::pair<int, int> m
 {
     if (act == Act::MouseUpdate)
     {
-
+        for (auto& piece : pBoardPieces)
+        {
+            if (piece.mPiece->InBounds(mousePos.first, mousePos.second) && (piece.bFilledCross == false && piece.bFilledNought == false))
+            {
+                piece.mPiece->Tint(Lime);
+            }
+            else if(piece.mPiece->InBounds(mousePos.first, mousePos.second) && (piece.bFilledCross == true || piece.bFilledNought == true))
+            {
+                piece.mPiece->Tint(Gray);
+                piece.mCross->Tint(Gray);
+                piece.mNought->Tint(Gray);
+            }
+            else
+            {
+                piece.mPiece->Untint();
+                piece.mCross->Untint();
+                piece.mNought->Untint();
+            }
+        }
     }
 
     else if (act == Act::Click)
