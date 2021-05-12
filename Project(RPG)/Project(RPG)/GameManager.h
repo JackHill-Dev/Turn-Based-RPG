@@ -1,4 +1,11 @@
 #pragma once
+#include <winsock2.h>
+#include <windows.h>
+#include <ws2tcpip.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <SDL.h>
+#include <SDL_image.h>
 #include <SDL.h>
 #include <SDL_mixer.h>
 #include <fstream>;
@@ -10,6 +17,9 @@
 #include "Interface.h"
 #include "Player.h"
 #include "json.hpp"
+
+#define DEFAULT_BUFLEN 512
+#define DEFAULT_PORT "27015"
 
 class GameManager
 {
@@ -29,7 +39,6 @@ private:
 	std::map<std::string, RenderObject*> objects; // This is where the RenderObject types are stored 
 	std::map<std::string, SpriteSheet*> sheets; // This is where the spritesheets are stored
 
-	std::map<std::string, Item*> mItems;
 	std::vector<Scene*> scenes;
 	Scene* currentScene;
 
@@ -38,7 +47,7 @@ private:
 	SDL_Texture* LoadTexture(std::string path); //Moved it here for now
 	void LoadScene();
 	bool SetUp();
-	bool CreateWindow();
+	bool Create_Window();
 	
 public:
 
@@ -46,7 +55,7 @@ public:
 	~GameManager();
 	
 	bool Init();
-	void Run();
+	void Run(bool isHost, SOCKET usedSocket); // if true, the user is a host
 	void Quit();	
 
 };
