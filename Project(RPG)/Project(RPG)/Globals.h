@@ -17,13 +17,13 @@ enum Layer
 	Effects = 4
 };
 
-enum class Act 
+enum Act
 { 
-	Blank,
-	Click,
-	RClick,
-	MouseUp,
-	MouseUpdate
+	Blank = 0,
+	Click = 1,
+	RClick = 2,
+	MouseUp = 3,
+	MouseUpdate = 4,
 };
 
 enum Scenes
