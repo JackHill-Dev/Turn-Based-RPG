@@ -4,7 +4,6 @@
 
 NoughtsAndCrossesScene::NoughtsAndCrossesScene(Interface* mObjMgr) : Scene(mObjMgr)
 {
-
     pGameBackground = AddObject("ChalkBoardObj", 640, 360, Layer::Background);
     pLeaveButton = AddObject("LeaveGameButtonObj", 145, 650, Layer::UI);
     pRematchButton = AddObject("RematchButtonObj", 1130, 650, Layer::UI);
@@ -84,6 +83,9 @@ NoughtsAndCrossesScene::NoughtsAndCrossesScene(Interface* mObjMgr) : Scene(mObjM
     pBoardPieces.push_back(BottomCentre);
     pBoardPieces.push_back(BottomRight);
    
+    mPlayerTurn = true;
+    SetUpUI();
+    SetUpBoardPieces();
 }
 
 void NoughtsAndCrossesScene::Load()
@@ -366,10 +368,14 @@ void NoughtsAndCrossesScene::Update(double dTime, Act act, std::pair<int, int> m
     {
         if (pLeaveButton->InBounds(mousePos.first, mousePos.second))
         {
+            /*
             mgr->LoadScene(Scenes::MainMenu);
             mgr->GetPlayer()->loseTally = 0;
             mgr->GetPlayer()->winTally = 0;
             pLeaveButton->Untint();
+            */
+
+            mgr->Quit();
         }
 
         if (pRematchButton->InBounds(mousePos.first, mousePos.second))
