@@ -1,12 +1,67 @@
 #include "GameManager.h"
 
 using Json = nlohmann::json;
-void GameManager::Run()
+/* Receive until the peer shuts down the connection
+do {
+
+	iResult = recv(ClientSocket, recvbuf, recvbuflen, 0);
+	if (iResult > 0) {
+		printf("Bytes received: %d\n", iResult);
+
+		// Echo the buffer back to the sender
+		iSendResult = send(ClientSocket, recvbuf, iResult, 0);
+		if (iSendResult == SOCKET_ERROR) {
+			printf("send failed with error: %d\n", WSAGetLastError());
+			closesocket(ClientSocket);
+			WSACleanup();
+		}
+		printf("Bytes sent: %d\n", iSendResult);
+	}
+	else if (iResult == 0)
+		printf("Connection closing...\n");
+	else {
+		printf("recv failed with error: %d\n", WSAGetLastError());
+		closesocket(ClientSocket);
+		WSACleanup();
+	}
+	
+	// shutdown the connection since we're done
+	iResult = shutdown(ClientSocket, SD_SEND);
+		if (iResult == SOCKET_ERROR) {
+		printf("shutdown failed with error: %d\n", WSAGetLastError());
+		closesocket(ClientSocket);
+		WSACleanup();
+
+	}
+} while (iResult > 0); */
+/*  // Receive until the peer closes the connection
+    do {
+
+        iResult = recv(ConnectSocket, recvbuf, recvbuflen, 0);
+        if (iResult > 0)
+            printf("Bytes received: %d\n", iResult);
+        else if (iResult == 0)
+            printf("Connection closed\n");
+        else
+            printf("recv failed with error: %d\n", WSAGetLastError());
+
+    } while (iResult > 0);
+
+    // cleanup*/
+// Host flag determines whether game is sending or receiving, usedSocket is the relevant socket to the host or client
+// Host needs to send the data from it's interaction and then wait to receive, client needs to do the opposite
+void GameManager::Run(bool isHost, SOCKET usedSocket)
 {
 	//scale texture later
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, 0);
 	Act act;
 
+	// Socket prep code
+	bool hostFlag = isHost;
+	const char* sendbuf = nullptr;
+    char recvbuf[DEFAULT_BUFLEN];
+    int iResult;
+    int recvbuflen = DEFAULT_BUFLEN;
 	mInterface.SetMasterVolume(-1, 16, 16);
 	float overlayOpacity = 0;
 
@@ -26,7 +81,6 @@ void GameManager::Run()
 		srand(delta);
 		if (mCScene != lastSceneIndex)
 		{
-
 				lastSceneIndex = mCScene;
 				LoadScene();
 		}
@@ -36,7 +90,7 @@ void GameManager::Run()
 				int x, y;
 				act = Act::Blank;
 
-				if (SDL_PollEvent(&ev) && overlayOpacity <= 0)
+				if (SDL_PollEvent(&ev))
 					switch (ev.type)
 					{
 
@@ -69,10 +123,45 @@ void GameManager::Run()
 
 				SDL_SetRenderTarget(mRnd, texture);
 				SDL_SetRenderDrawColor(mRnd, 0x00, 0x00, 0x00, 0x00);
-
+				int temp = act;
+				char test = static_cast<char>(temp);
+				char* balls = &test;
+				std::pair<int, int> coords = std::make_pair(x, y);
 				SDL_SetRenderTarget(mRnd, NULL);
-				scenes[mCScene]->SceneUpdate(delta, act, std::make_pair(x, y));
-				scenes[mCScene]->Draw(mRnd);
+				if (isHost == true)
+				{
+					send(usedSocket,(char*)&temp, sizeof(int), 0);
+					send(usedSocket, (char*)&x, sizeof(x), 0);
+					send(usedSocket, (char*)&y, sizeof(y), 0);
+					if (act == Act::Click)
+					{
+						isHost = !isHost;
+					}
+					scenes[mCScene]->SceneUpdate(delta, act, std::make_pair(x, y));
+					scenes[mCScene]->Draw(mRnd);
+				}
+				else
+				{
+					int n = 0;
+					
+					int info = recv(usedSocket, (char*)&n, sizeof(int), 0);
+					int action = n;
+					Act recvAct = static_cast<Act>(n);
+
+					int xInfo = recv(usedSocket, (char*)&n, sizeof(x), 0);
+					int xVal = n;
+					int yInfo = recv(usedSocket, (char*)&n, sizeof(y), 0);
+					int yVal = n;
+
+					if (recvAct == Act::Click)
+					{
+						std::cout << recvAct;
+						isHost = !isHost;
+					}
+					scenes[mCScene]->SceneUpdate(delta, recvAct, std::make_pair(xVal, yVal));
+					scenes[mCScene]->Draw(mRnd);
+				}
+
 
 				int w, h;
 
@@ -120,7 +209,7 @@ void GameManager::LoadScene()
 
 
 }
-bool GameManager::CreateWindow()
+bool GameManager::Create_Window()
 {
 	SDL_CreateWindowAndRenderer(1920, 1080, 0, &mWnd, &mRnd);
 	SDL_SetWindowResizable(mWnd,SDL_TRUE);
@@ -135,9 +224,6 @@ GameManager::~GameManager()
 	for (auto& sheet : sheets)
 		sheet.second = nullptr;
 
-	for (auto& item : mItems)
-		item.second = nullptr;
-
 	for (auto& i : definedSheets)
 		delete i.second;
 	for (auto& i : definedObjects)
@@ -151,7 +237,7 @@ GameManager::~GameManager()
 }
 bool GameManager::Init()
 {
-	CreateWindow();
+	Create_Window();
 	mInterface.StoreWindow(mWnd);
 	SetUp();
 	
@@ -162,7 +248,7 @@ bool GameManager::Init()
 	scenes.push_back(mNoughtsAndCrossesSceneInstance); // 1
 
 	currentScene->Clear(mRnd);
-	mInterface.LoadScene(Scenes::MainMenu);
+	mInterface.LoadScene(Scenes::NoughtsAndCrosses);
 
 	return true;
 }
