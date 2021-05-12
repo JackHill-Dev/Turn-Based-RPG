@@ -6,7 +6,7 @@
 #include "Player.h"
 #include "json.hpp"
 #include <fstream>
-#include "item.h"
+
 class Interface
 {
 private:
@@ -15,7 +15,6 @@ private:
 	Scenes* currentScene;										// A pointer to the currentsceneIndex
 	Scenes prevScene;			
 	std::map<std::string, RenderObject*>* objects;			// A pointer to the renderobjects
-	std::map<std::string, Item*>* items;			// A pointer to the renderobjects
 	SDL_Window* mWnd = nullptr;
 	Player* pPlayer;
 public:
