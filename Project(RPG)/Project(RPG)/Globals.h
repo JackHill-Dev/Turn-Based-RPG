@@ -17,7 +17,7 @@ enum Layer
 	Effects = 4
 };
 
-enum Act
+enum class Act : int
 { 
 	Blank = 0,
 	Click = 1,

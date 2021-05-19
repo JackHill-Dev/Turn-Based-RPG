@@ -17,6 +17,8 @@
 #include "Interface.h"
 #include "Player.h"
 #include "json.hpp"
+#include <thread>
+#include <mutex>
 
 #define DEFAULT_BUFLEN 512
 #define DEFAULT_PORT "27015"
@@ -29,7 +31,8 @@ private:
 	MainMenuScene* mMainMenuSceneInstance;
 	NoughtsAndCrossesScene* mNoughtsAndCrossesSceneInstance;
 
-	bool bRunning= true;
+	bool bRunning = true;
+	std::mutex mut;
 	Scenes mCScene = Scenes::MainMenu;
 	SDL_Window* mWnd;
 	SDL_Renderer* mRnd;
@@ -48,13 +51,16 @@ private:
 	void LoadScene();
 	bool SetUp();
 	bool Create_Window();
+	void SendData(int* x, int *y, Act *act, bool *isSender, SOCKET* usedSocket, std::mutex* mut);
+	void ReceiveData(int *x, int *y, Act *act, bool *isSender, SOCKET* usedSocket, std::mutex* mut);
+
 	
 public:
 
 	GameManager() {}
 	~GameManager();
 	
-	bool Init();
+	bool Init(bool isSender);
 	void Run(bool isHost, SOCKET usedSocket); // if true, the user is a host
 	void Quit();	
 

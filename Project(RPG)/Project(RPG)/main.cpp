@@ -88,7 +88,7 @@ void RunClient()
     struct addrinfo* result = NULL,
         * ptr = NULL,
         hints;
-    const char* sendbuf = "this is a test";
+    const char* sendbuf = "";
     char recvbuf[DEFAULT_BUFLEN];
     int iResult;
     int recvbuflen = DEFAULT_BUFLEN;
@@ -162,14 +162,13 @@ int main()
     {
         isHost = true;
         RunHost();
-        manager.Init();
+        manager.Init(isHost);
         manager.Run(isHost, ClientSocket);
     }
     else if (std::tolower(networkRole) == 'n')
     {
-        bool test = isHost;
         RunClient();
-        manager.Init();
+        manager.Init(isHost);
         manager.Run(isHost, ConnectSocket);
     }
     else

@@ -1,53 +1,22 @@
 #include "GameManager.h"
 
 using Json = nlohmann::json;
-/* Receive until the peer shuts down the connection
-do {
 
-	iResult = recv(ClientSocket, recvbuf, recvbuflen, 0);
-	if (iResult > 0) {
-		printf("Bytes received: %d\n", iResult);
-
-		// Echo the buffer back to the sender
-		iSendResult = send(ClientSocket, recvbuf, iResult, 0);
-		if (iSendResult == SOCKET_ERROR) {
-			printf("send failed with error: %d\n", WSAGetLastError());
-			closesocket(ClientSocket);
-			WSACleanup();
-		}
-		printf("Bytes sent: %d\n", iSendResult);
+int Deserialize(std::string &serialString)
+{
+	int i = 0;
+	while (i < serialString.length() && serialString[i] != '/')
+	{
+		++i;
 	}
-	else if (iResult == 0)
-		printf("Connection closing...\n");
-	else {
-		printf("recv failed with error: %d\n", WSAGetLastError());
-		closesocket(ClientSocket);
-		WSACleanup();
+	if (i < serialString.length())
+	{
+		std::string toRemove = serialString.substr(0, i);
+		i = std::stoi(serialString.substr(0, i));
+		serialString.erase(0, toRemove.length() + 1);
 	}
-	
-	// shutdown the connection since we're done
-	iResult = shutdown(ClientSocket, SD_SEND);
-		if (iResult == SOCKET_ERROR) {
-		printf("shutdown failed with error: %d\n", WSAGetLastError());
-		closesocket(ClientSocket);
-		WSACleanup();
-
-	}
-} while (iResult > 0); */
-/*  // Receive until the peer closes the connection
-    do {
-
-        iResult = recv(ConnectSocket, recvbuf, recvbuflen, 0);
-        if (iResult > 0)
-            printf("Bytes received: %d\n", iResult);
-        else if (iResult == 0)
-            printf("Connection closed\n");
-        else
-            printf("recv failed with error: %d\n", WSAGetLastError());
-
-    } while (iResult > 0);
-
-    // cleanup*/
+	return i;
+}
 // Host flag determines whether game is sending or receiving, usedSocket is the relevant socket to the host or client
 // Host needs to send the data from it's interaction and then wait to receive, client needs to do the opposite
 void GameManager::Run(bool isHost, SOCKET usedSocket)
@@ -55,9 +24,11 @@ void GameManager::Run(bool isHost, SOCKET usedSocket)
 	//scale texture later
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, 0);
 	Act act;
-
-	// Socket prep code
+	int x, y;
 	bool hostFlag = isHost;
+	std::thread sendThread(&GameManager::SendData, this, &x, &y, &act, &hostFlag, &usedSocket, &mut);
+	std::thread receiveThread(&GameManager::ReceiveData, this, &x, &y, &act, &hostFlag, &usedSocket, &mut);
+
 	const char* sendbuf = nullptr;
     char recvbuf[DEFAULT_BUFLEN];
     int iResult;
@@ -87,7 +58,7 @@ void GameManager::Run(bool isHost, SOCKET usedSocket)
 			if (delta > 1000 / 60.0 ) // 60 fps cap
 			{
 				b = a;
-				int x, y;
+				//mut.lock();
 				act = Act::Blank;
 
 				if (SDL_PollEvent(&ev))
@@ -123,45 +94,14 @@ void GameManager::Run(bool isHost, SOCKET usedSocket)
 
 				SDL_SetRenderTarget(mRnd, texture);
 				SDL_SetRenderDrawColor(mRnd, 0x00, 0x00, 0x00, 0x00);
-				int temp = act;
-				char test = static_cast<char>(temp);
-				char* balls = &test;
-				std::pair<int, int> coords = std::make_pair(x, y);
 				SDL_SetRenderTarget(mRnd, NULL);
-				if (isHost == true)
+				if (hostFlag == true)
 				{
-					send(usedSocket,(char*)&temp, sizeof(int), 0);
-					send(usedSocket, (char*)&x, sizeof(x), 0);
-					send(usedSocket, (char*)&y, sizeof(y), 0);
-					if (act == Act::Click)
-					{
-						isHost = !isHost;
-					}
 					scenes[mCScene]->SceneUpdate(delta, act, std::make_pair(x, y));
-					scenes[mCScene]->Draw(mRnd);
 				}
-				else
-				{
-					int n = 0;
 					
-					int info = recv(usedSocket, (char*)&n, sizeof(int), 0);
-					int action = n;
-					Act recvAct = static_cast<Act>(n);
-
-					int xInfo = recv(usedSocket, (char*)&n, sizeof(x), 0);
-					int xVal = n;
-					int yInfo = recv(usedSocket, (char*)&n, sizeof(y), 0);
-					int yVal = n;
-
-					if (recvAct == Act::Click)
-					{
-						std::cout << recvAct;
-						isHost = !isHost;
-					}
-					scenes[mCScene]->SceneUpdate(delta, recvAct, std::make_pair(xVal, yVal));
+				//mut.unlock();
 					scenes[mCScene]->Draw(mRnd);
-				}
-
 
 				int w, h;
 
@@ -216,6 +156,57 @@ bool GameManager::Create_Window()
 	SDL_ShowWindow(mWnd);
 	return true;
 }
+void GameManager::SendData(int *x, int *y, Act *act, bool *isSender, SOCKET *usedSocket, std::mutex* mut)
+{
+	char buffer[DEFAULT_BUFLEN];
+
+	while (bRunning)
+	{
+		if (*isSender == true)
+		{
+			int temp = static_cast<int>(*act);
+
+			if (static_cast<Act>(temp) == Act::Click)
+			{
+				mut->lock();
+
+				std::string stringy = std::to_string(temp) + '/' + std::to_string(*x) + '/' + std::to_string(*y) + '/';
+				strcpy_s(buffer, stringy.c_str());
+				std::cout << send(*usedSocket, buffer, DEFAULT_BUFLEN, 0);
+				*isSender = !*isSender;
+
+				mut->unlock();
+			}
+		}
+	}
+}
+void GameManager::ReceiveData(int *x, int *y, Act *act, bool *isSender, SOCKET *usedSocket, std::mutex* mut)
+{
+	char buffer[DEFAULT_BUFLEN];
+
+	while (bRunning)
+	{
+		//mut->lock();
+
+			int info = recv(*usedSocket, buffer, DEFAULT_BUFLEN, 0);
+			std::string receivedData(buffer);
+			*act = static_cast<Act>(Deserialize(receivedData));
+			*x = Deserialize(receivedData);
+			*y = Deserialize(receivedData);
+
+			if (*act == Act::Click)
+			{
+				std::cout << "Received Click Action:" << (int)*act << std::endl;
+				std::cout << "Click received!" << std::endl;
+				std::cout << std::boolalpha << "hostFlag before: " << *isSender << std::endl;
+				*isSender = !*isSender;
+				std::cout << std::boolalpha << "hostFlag after: " << *isSender << std::endl;
+				scenes[mCScene]->SceneUpdate(0, *act, std::make_pair(*x, *y));
+			}
+
+		//mut->unlock();
+	}
+}
 GameManager::~GameManager()
 {
 	for (auto& obj : objects)
@@ -235,7 +226,7 @@ GameManager::~GameManager()
 	currentScene = nullptr;
 
 }
-bool GameManager::Init()
+bool GameManager::Init(bool isSender)
 {
 	Create_Window();
 	mInterface.StoreWindow(mWnd);
@@ -244,7 +235,7 @@ bool GameManager::Init()
 	mMainMenuSceneInstance = new MainMenuScene(&mInterface);
 	scenes.push_back(mMainMenuSceneInstance); // 0
 
-	mNoughtsAndCrossesSceneInstance = new NoughtsAndCrossesScene(&mInterface);
+	mNoughtsAndCrossesSceneInstance = new NoughtsAndCrossesScene(&mInterface, isSender);
 	scenes.push_back(mNoughtsAndCrossesSceneInstance); // 1
 
 	currentScene->Clear(mRnd);
