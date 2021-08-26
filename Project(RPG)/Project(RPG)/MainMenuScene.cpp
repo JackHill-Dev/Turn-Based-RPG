@@ -82,12 +82,11 @@ void MainMenuScene::Update(double dTime, Act act, std::pair<int, int> mouse)
 
 		else if (pHostGameButton->InBounds(mouse.first, mouse.second) && pHostGameButton->IsVisible() == true)
 		{
-
+			
 		}
 
 		else if (pJoinGameButton->InBounds(mouse.first, mouse.second) && pJoinGameButton->IsVisible() == true)
 		{
-
 		}
 
 		else if (pQuitButton->InBounds(mouse.first, mouse.second) && pQuitButton->IsVisible() == true)
