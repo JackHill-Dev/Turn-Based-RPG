@@ -4,12 +4,14 @@
 #include <ws2tcpip.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <fstream>
+#include <istream>
+#include <thread>
+#include <mutex>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL.h>
 #include <SDL_mixer.h>
-#include <fstream>;
-#include <istream>
 #include "Globals.h"
 #include "Scene.h"
 #include "MainMenuScene.h"
@@ -17,9 +19,9 @@
 #include "Interface.h"
 #include "Player.h"
 #include "json.hpp"
-#include <thread>
-#include <mutex>
 
+
+#pragma comment (lib, "Ws2_32.lib")
 #define DEFAULT_BUFLEN 512
 #define DEFAULT_PORT "27015"
 
@@ -52,6 +54,7 @@ private:
 	bool SetUp();
 	bool Create_Window();
 	void SendData(int* x, int *y, Act *act, bool *isSender, SOCKET* usedSocket, std::mutex* mut);
+	void SendOrReceiveData(int* x, int* y, Act* act, bool* isSender, SOCKET* usedSocket, std::mutex* mut, SDL_Event* ev);
 	void ReceiveData(int *x, int *y, Act *act, bool *isSender, SOCKET* usedSocket, std::mutex* mut);
 
 	

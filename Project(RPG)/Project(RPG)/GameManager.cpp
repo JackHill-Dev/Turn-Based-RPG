@@ -23,11 +23,14 @@ void GameManager::Run(bool isHost, SOCKET usedSocket)
 {
 	//scale texture later
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, 0);
+	SDL_Event ev;
 	Act act;
 	int x, y;
 	bool hostFlag = isHost;
-	std::thread sendThread(&GameManager::SendData, this, &x, &y, &act, &hostFlag, &usedSocket, &mut);
-	std::thread receiveThread(&GameManager::ReceiveData, this, &x, &y, &act, &hostFlag, &usedSocket, &mut);
+	bRunning = true;
+	//std::thread sendThread(&GameManager::SendData, this, &x, &y, &act, &hostFlag, &usedSocket, &mut);
+	//std::thread receiveThread(&GameManager::ReceiveData, this, &x, &y, &act, &hostFlag, &usedSocket, &mut);
+	std::thread sendReceiveThread(&GameManager::SendOrReceiveData, this, &x, &y, &act, &hostFlag, &usedSocket, &mut, &ev);
 
 	const char* sendbuf = nullptr;
     char recvbuf[DEFAULT_BUFLEN];
@@ -37,7 +40,7 @@ void GameManager::Run(bool isHost, SOCKET usedSocket)
 	float overlayOpacity = 0;
 
 	SDL_Texture* texture = SDL_CreateTexture(mRnd, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 1920, 1080);
-	SDL_Event ev;
+
 	unsigned int a = SDL_GetTicks();
 	unsigned int b = SDL_GetTicks();
 	double delta = 0;
@@ -58,7 +61,7 @@ void GameManager::Run(bool isHost, SOCKET usedSocket)
 			if (delta > 1000 / 60.0 ) // 60 fps cap
 			{
 				b = a;
-				//mut.lock();
+
 				act = Act::Blank;
 
 				if (SDL_PollEvent(&ev))
@@ -95,12 +98,15 @@ void GameManager::Run(bool isHost, SOCKET usedSocket)
 				SDL_SetRenderTarget(mRnd, texture);
 				SDL_SetRenderDrawColor(mRnd, 0x00, 0x00, 0x00, 0x00);
 				SDL_SetRenderTarget(mRnd, NULL);
+
 				if (hostFlag == true)
 				{
-					scenes[mCScene]->SceneUpdate(delta, act, std::make_pair(x, y));
+					mut.lock();
+					scenes[mCScene]->SceneUpdate(0, act, std::make_pair(x, y));	
+					mut.unlock();
+					//Sleep(400);
 				}
-					
-				//mut.unlock();
+				
 					scenes[mCScene]->Draw(mRnd);
 
 				int w, h;
@@ -115,11 +121,16 @@ void GameManager::Run(bool isHost, SOCKET usedSocket)
 			}
 	}
 	
+	sendReceiveThread.join();
+	//sendThread.join();
+	//receiveThread.join();
 	Mix_CloseAudio(); // Shuts down and cleans up the whole mixer API. Ensures all music and sfx are disposed of. Mix_Quit doesn't necessarily handle everything. - EH
 	SDL_DestroyRenderer(mRnd);
 	SDL_DestroyWindow(mWnd);
 	//TTF_CloseFont(font);
 	SDL_Quit();
+
+	std::cout << "Somebody quit the game or disconnected!" << std::endl;
 }
 void GameManager::Quit()
 {
@@ -172,10 +183,141 @@ void GameManager::SendData(int *x, int *y, Act *act, bool *isSender, SOCKET *use
 
 				std::string stringy = std::to_string(temp) + '/' + std::to_string(*x) + '/' + std::to_string(*y) + '/';
 				strcpy_s(buffer, stringy.c_str());
-				std::cout << send(*usedSocket, buffer, DEFAULT_BUFLEN, 0);
-				*isSender = !*isSender;
-
+				send(*usedSocket, buffer, DEFAULT_BUFLEN, 0);
+				*isSender = false;
+				std::cout << "Sender" << std::endl;
 				mut->unlock();
+			}
+		}
+	}
+}
+void GameManager::SendOrReceiveData(int* x, int* y, Act* act, bool* isSender, SOCKET* usedSocket, std::mutex* mut, SDL_Event* ev)
+{
+	char buffer[DEFAULT_BUFLEN];
+	fd_set readFds = { 0 };
+	fd_set writeFds = { 0 };
+	TIMEVAL tv = { 0 };
+	tv.tv_sec = 15;
+	DWORD dwTimeoutVal = 500;
+	int iSelectReturnStatus = -1;
+
+	while (bRunning)
+	{
+		
+		if (*isSender == true)
+		{
+			FD_ZERO(&writeFds);
+			FD_SET(*usedSocket, &writeFds);
+
+			iSelectReturnStatus = select(*usedSocket + 1, NULL, &writeFds, NULL, &tv);
+
+			if (iSelectReturnStatus == SOCKET_ERROR)
+			{
+				std::cout << "Cannot write to socket! Select failed with SOCKET_ERROR..." << std::endl;
+			}
+
+			// Can write to socket, send will work!
+			else if (FD_ISSET(*usedSocket, &writeFds))
+			{
+				setsockopt(*usedSocket, SOL_SOCKET, SO_SNDTIMEO, (const char*)&dwTimeoutVal, sizeof(dwTimeoutVal));
+
+
+				int temp = static_cast<int>(*act);
+
+				if (static_cast<Act>(temp) == Act::Click)
+				{
+					mut->lock();
+					std::string stringy = std::to_string(temp) + '/' + std::to_string(*x) + '/' + std::to_string(*y) + '/';
+					strcpy_s(buffer, stringy.c_str());
+					std::cout << buffer << std::endl;
+					int sendInfo = send(*usedSocket, buffer, DEFAULT_BUFLEN, 0);
+
+					// Data transmitted normally
+					if (sendInfo > 0)
+					{						
+						*isSender = false;
+						mut->unlock();
+						Sleep(400);
+					}
+
+					// Graceful disconnect on client side
+					else if (sendInfo == 0)
+					{
+						std::cout << "Client disconnected! (Gracefully)..." << std::endl;
+						bRunning = false;
+					}
+
+					// Disgraceful disconnection or something has gone wrong with the client!
+					else
+					{
+						std::cout << "No data received, disgraceful disconnection on client side with error: " << WSAGetLastError() << std::endl;
+						bRunning = false;
+					}
+				}		 
+			}
+			else
+			{
+				std::cout << "Client idled for too long! Select timed out on send..." << std::endl;
+				bRunning = false;
+			}
+		}
+		else
+		{
+			FD_ZERO(&readFds);
+			FD_SET(*usedSocket, &readFds);
+			iSelectReturnStatus = select(*usedSocket + 1, &readFds, NULL, NULL, &tv);
+
+			if (iSelectReturnStatus == SOCKET_ERROR)
+			{
+				std::cout << "Cannot read from socket! Select failed with SOCKET_ERROR..." << std::endl;
+			}
+
+			// Can read from socket, receive will work!
+			else if(FD_ISSET(*usedSocket, &readFds))
+			{
+				setsockopt(*usedSocket, SOL_SOCKET, SO_RCVTIMEO, (const char*)&dwTimeoutVal, sizeof(dwTimeoutVal));
+				
+				int info = recv(*usedSocket, buffer, DEFAULT_BUFLEN, 0);
+				std::cout << "received..." << buffer << std::endl;
+				// Received data normally
+				if (info > 0)
+				{
+					
+					std::string receivedData(buffer);
+					*act = static_cast<Act>(Deserialize(receivedData));
+					*x = Deserialize(receivedData);
+					*y = Deserialize(receivedData);
+
+					if (*act == Act::Click)
+					{
+						mut->lock();
+						std::cout << std::boolalpha << "hostFlag before: " << *isSender << std::endl;
+						scenes[mCScene]->SceneUpdate(0, Act::Click, std::make_pair(*x, *y));
+						*isSender = true;
+						std::cout << std::boolalpha << "hostFlag after: " << *isSender << std::endl;
+						mut->unlock();
+						Sleep(400);
+					}
+				}
+
+				// Graceful disconnection
+				else if (info == 0)
+				{
+					std::cout << "Sender has disconnected (gracefully)..." << std::endl;
+					bRunning = false;
+				}
+
+				// Disgraceful disconnection or something has gone wrong
+				else
+				{
+					std::cout << "No data received, disgraceful disconnection on server side with error: " << WSAGetLastError() << std::endl;
+					bRunning = false;
+				}
+			}
+			else
+			{
+				std::cout << "Server idled for too long! Select timed out on receive..." << std::endl;
+				bRunning = false;
 			}
 		}
 	}
@@ -186,9 +328,10 @@ void GameManager::ReceiveData(int *x, int *y, Act *act, bool *isSender, SOCKET *
 
 	while (bRunning)
 	{
-		//mut->lock();
-
+		if (*isSender == false)
+		{			
 			int info = recv(*usedSocket, buffer, DEFAULT_BUFLEN, 0);
+			mut->lock();
 			std::string receivedData(buffer);
 			*act = static_cast<Act>(Deserialize(receivedData));
 			*x = Deserialize(receivedData);
@@ -196,15 +339,15 @@ void GameManager::ReceiveData(int *x, int *y, Act *act, bool *isSender, SOCKET *
 
 			if (*act == Act::Click)
 			{
-				std::cout << "Received Click Action:" << (int)*act << std::endl;
 				std::cout << "Click received!" << std::endl;
 				std::cout << std::boolalpha << "hostFlag before: " << *isSender << std::endl;
-				*isSender = !*isSender;
-				std::cout << std::boolalpha << "hostFlag after: " << *isSender << std::endl;
 				scenes[mCScene]->SceneUpdate(0, *act, std::make_pair(*x, *y));
+				*isSender = true;
+				std::cout << "Receiving" << std::endl;
+				std::cout << std::boolalpha << "hostFlag after: " << *isSender << std::endl;			
 			}
-
-		//mut->unlock();
+			mut->unlock();
+		}
 	}
 }
 GameManager::~GameManager()
@@ -232,6 +375,7 @@ bool GameManager::Init(bool isSender)
 	mInterface.StoreWindow(mWnd);
 	SetUp();
 	
+	scenes.clear();
 	mMainMenuSceneInstance = new MainMenuScene(&mInterface);
 	scenes.push_back(mMainMenuSceneInstance); // 0
 
