@@ -2,8 +2,9 @@
 
 
 
-NoughtsAndCrossesScene::NoughtsAndCrossesScene(Interface* mObjMgr) : Scene(mObjMgr)
+NoughtsAndCrossesScene::NoughtsAndCrossesScene(Interface* mObjMgr, bool isSender) : Scene(mObjMgr)
 {
+    mPlayerTurn = isSender;
     pGameBackground = AddObject("ChalkBoardObj", 640, 360, Layer::Background);
     pLeaveButton = AddObject("LeaveGameButtonObj", 145, 650, Layer::UI);
     pRematchButton = AddObject("RematchButtonObj", 1130, 650, Layer::UI);
@@ -154,25 +155,25 @@ void NoughtsAndCrossesScene::SetUpUI()
 
 void NoughtsAndCrossesScene::ResolveGame()
 {
-    if (std::all_of(pBoardPieces.begin(), pBoardPieces.end(), [](BoardPiece piece) {
-        return piece.bFilled == true;
-        }))
-    {
-        mSceneText[0]->text = "IT'S A DRAW! Rematch?";
-    }
-    else if (mPlayerTurn == true)
+  
+    if (mPlayerTurn == true && mgr->GetPlayer()->isDraw == false)
     {
         mgr->GetPlayer()->winTally += 1;
         mSceneText[0]->text = "WINNER Player O! Rematch?";
         mSceneText[2]->text = "Wins: " + std::to_string(mgr->GetPlayer()->winTally);
     }
-    else
+    else if (mPlayerTurn == false && mgr->GetPlayer()->isDraw == false)
     {
         mgr->GetPlayer()->loseTally += 1;
         mSceneText[0]->text = "WINNER Player X! Rematch?";
         mSceneText[4]->text = "Wins: " + std::to_string(mgr->GetPlayer()->loseTally);
     }
-
+    else if (std::all_of(pBoardPieces.begin(), pBoardPieces.end(), [](BoardPiece piece) {
+        return piece.bFilled == true;
+        }))
+    {
+        mSceneText[0]->text = "IT'S A DRAW! Rematch?";
+    }
     for (auto& piece : pBoardPieces)
     {
         piece.bFilled = true;
@@ -183,6 +184,8 @@ void NoughtsAndCrossesScene::ResolveGame()
 
 void NoughtsAndCrossesScene::ResetGame()
 {
+    mgr->GetPlayer()->isDraw = false;
+
     for (auto& piece : pBoardPieces)
     {
         piece.bFilled = false;
@@ -190,6 +193,15 @@ void NoughtsAndCrossesScene::ResetGame()
         piece.mNought->SetVisible(false);
     }
     pRematchButton->SetVisible(false);
+
+    if (mPlayerTurn == true)
+    {
+        mSceneText[0]->text = "Current Turn: Player O";
+    }
+    else
+    {
+        mSceneText[0]->text = "Current Turn: Player X";
+    }
 }
 
 void NoughtsAndCrossesScene::ChangeTurn()
@@ -204,7 +216,6 @@ void NoughtsAndCrossesScene::ChangeTurn()
     {
         mSceneText[0]->text = "Current Turn: Player X";
     }
-
 }
 
 void NoughtsAndCrossesScene::DrawSymbol(BoardPiece& selectedPiece)
@@ -311,6 +322,7 @@ bool NoughtsAndCrossesScene::hasWon()
              return piece.bFilled == true;
              }))
          {
+             mgr->GetPlayer()->isDraw = true;
              return true;
          }
 
@@ -366,22 +378,14 @@ void NoughtsAndCrossesScene::Update(double dTime, Act act, std::pair<int, int> m
 
     else if (act == Act::Click)
     {
-        if (pLeaveButton->InBounds(mousePos.first, mousePos.second))
+        if (pLeaveButton->InBounds(mousePos.first, mousePos.second) && (pLeaveButton->IsVisible() == true))
         {
-            /*
-            mgr->LoadScene(Scenes::MainMenu);
-            mgr->GetPlayer()->loseTally = 0;
-            mgr->GetPlayer()->winTally = 0;
-            pLeaveButton->Untint();
-            */
-
             mgr->Quit();
         }
 
-        if (pRematchButton->InBounds(mousePos.first, mousePos.second))
+        else if (pRematchButton->InBounds(mousePos.first, mousePos.second) && (pRematchButton->IsVisible() == true))
         {
             ResetGame();
-            ChangeTurn();
         }
 
         for (auto& piece : pBoardPieces)
@@ -391,14 +395,16 @@ void NoughtsAndCrossesScene::Update(double dTime, Act act, std::pair<int, int> m
             {
                 piece.mPiece->Untint();
                 DrawSymbol(piece);
+                std::cout << "symbol drawn" << std::endl;
                 if (hasWon() == true)
                 {
-                    ResolveGame();
-                   
+                    ResolveGame();  
+                    std::cout << "game resolved" << std::endl;
                 }
                 else
                 {
                     ChangeTurn();
+                    std::cout << "turn changed" << std::endl;
                 }
             }
         }

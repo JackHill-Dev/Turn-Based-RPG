@@ -11,6 +11,7 @@ public:
 
 	bool isNought = false;
 	bool isCrosses = false;
+	bool isDraw = false;
 	int winTally = 0;
 	int loseTally = 0;
 

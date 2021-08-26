@@ -68,7 +68,7 @@ protected:
 
 public:
 
-	NoughtsAndCrossesScene(Interface* mObjMgr);
+	NoughtsAndCrossesScene(Interface* mObjMgr, bool isSender);
 
 	// Handles assigning the turn to players, this should decide who can place tokens and interact with the game.
 	// Perhaps add a check to the update loop which then ignores the other conditions for performance purposes.
