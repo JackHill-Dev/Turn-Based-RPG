@@ -7,10 +7,9 @@
 *.userosscache
 *.sln.docstates
 *.log
-Assets/
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
-
+Assets/
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
